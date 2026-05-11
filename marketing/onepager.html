@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinder — Your yield, still glowing.</title>
+<meta name="description" content="Auto-compound your sFLR staking rewards on Flare Network. One deposit. Passive yield. No lock-ups.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#080808;--white:#F5F2ED;--orange:#FF6B23;--orange2:#FF8C4A;--orange3:#FFB347;--dim:#2A2520;
+  --ink:#F5F2ED;--ink2:#9E968C;--ink3:#5A524A;
+  --mono:'JetBrains Mono',monospace;--display:'Fraunces',serif;--body:'Space Grotesk',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--black);color:var(--ink);overflow-x:hidden;line-height:1.5}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--orange);color:#fff}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 2.5rem;
+  background:rgba(8,8,8,0.85);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.nav-brand{font-family:var(--display);font-size:24px;letter-spacing:0.05em;color:var(--white)}
+.nav-brand span{color:var(--orange)}
+.nav-cta{
+  font-family:var(--mono);font-weight:600;font-size:13px;letter-spacing:0.08em;
+  padding:10px 24px;border-radius:2px;
+  background:var(--orange);color:#fff;
+  transition:all 0.15s;
+}
+.nav-cta:hover{background:var(--orange2);transform:translateY(-1px)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:8rem 0 5rem;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 60% at 70% 50%, rgba(232,84,26,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 10% 80%, rgba(232,84,26,0.06) 0%, transparent 60%);
+}
+.hero-grid{
+  position:absolute;inset:0;opacity:0.04;
+  background-image:linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+                   linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+  background-size:60px 60px;
+}
+.container{max-width:1100px;margin:0 auto;padding:0 2.5rem;position:relative}
+.hero-label{
+  font-family:var(--mono);font-size:12px;letter-spacing:0.25em;
+  color:var(--orange);text-transform:uppercase;
+  display:flex;align-items:center;gap:10px;margin-bottom:1.5rem;
+}
+.live-pulse{
+  width:8px;height:8px;border-radius:50%;background:var(--orange);
+  animation:pulse 2s ease infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.hero-h{
+  font-family:var(--display);
+  font-size:clamp(72px,12vw,160px);
+  line-height:0.88;letter-spacing:0.02em;
+  color:var(--white);margin-bottom:1.5rem;
+}
+.hero-h .accent{color:var(--orange);display:block}
+.hero-sub{
+  font-size:clamp(16px,2vw,20px);color:var(--ink2);font-weight:300;
+  max-width:520px;line-height:1.7;margin-bottom:3rem;
+}
+.hero-sub strong{color:var(--white);font-weight:500}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:4rem}
+.btn-main{
+  font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:0.08em;
+  padding:16px 36px;border-radius:2px;
+  background:var(--orange);color:#fff;
+  transition:all 0.18s;display:inline-flex;align-items:center;gap:10px;
+}
+.btn-main:hover{background:var(--orange2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,84,26,0.35)}
+.btn-secondary{
+  font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:0.08em;
+  padding:16px 36px;border-radius:2px;
+  background:transparent;color:var(--ink2);
+  border:1px solid rgba(255,255,255,0.12);
+  transition:all 0.18s;
+}
+.btn-secondary:hover{color:var(--white);border-color:rgba(255,255,255,0.3)}
+.hero-stats{
+  display:flex;gap:0;
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding-top:2rem;flex-wrap:wrap;
+}
+.stat{padding:0 2.5rem 0 0;margin-right:2.5rem;border-right:1px solid rgba(255,255,255,0.08)}
+.stat:last-child{border:none}
+.stat-v{font-family:var(--display);font-size:42px;color:var(--white);letter-spacing:0.02em}
+.stat-v.orange{color:var(--orange)}
+.stat-l{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:0.15em;text-transform:uppercase;margin-top:2px}
+
+/* ── HOW IT WORKS ── */
+.section{padding:6rem 0;border-top:1px solid rgba(255,255,255,0.06)}
+.section-label{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.25em;
+  color:var(--orange);text-transform:uppercase;margin-bottom:1rem;
+}
+.section-h{
+  font-family:var(--display);font-size:clamp(48px,6vw,80px);
+  letter-spacing:0.03em;color:var(--white);margin-bottom:1rem;line-height:0.95;
+}
+.section-sub{font-size:16px;color:var(--ink2);font-weight:300;max-width:480px;line-height:1.7;margin-bottom:3rem}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06)}
+@media(max-width:700px){.steps{grid-template-columns:1fr 1fr}}
+.step{background:var(--black);padding:2rem 1.75rem;transition:background 0.2s}
+.step:hover{background:var(--dim)}
+.step-n{font-family:var(--display);font-size:64px;color:rgba(255,255,255,0.06);line-height:1;margin-bottom:1rem}
+.step-icon{font-size:28px;margin-bottom:1rem}
+.step-title{font-family:var(--mono);font-size:14px;font-weight:600;letter-spacing:0.05em;color:var(--white);margin-bottom:0.5rem;text-transform:uppercase}
+.step-desc{font-size:13px;color:var(--ink2);line-height:1.65}
+
+/* ── NUMBERS ── */
+.numbers-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06)}
+@media(max-width:600px){.numbers-grid{grid-template-columns:1fr}}
+.number-cell{background:var(--black);padding:2.5rem;transition:background 0.2s}
+.number-cell:hover{background:var(--dim)}
+.number-cell.featured{background:var(--dim)}
+.nc-label{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;color:var(--ink3);text-transform:uppercase;margin-bottom:0.75rem}
+.nc-value{font-family:var(--display);font-size:52px;color:var(--white);letter-spacing:0.02em;line-height:1}
+.nc-value.orange{color:var(--orange)}
+.nc-sub{font-size:13px;color:var(--ink2);margin-top:0.5rem}
+
+/* ── HONEST BOX ── */
+.honest{
+  background:var(--dim);border:1px solid rgba(255,255,255,0.08);
+  border-left:3px solid var(--orange);
+  padding:2.5rem;margin:3rem 0;
+}
+.honest-title{font-family:var(--mono);font-size:12px;letter-spacing:0.2em;color:var(--orange);text-transform:uppercase;margin-bottom:1.5rem}
+.honest-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:600px){.honest-grid{grid-template-columns:1fr}}
+.honest-item{font-size:14px;color:var(--ink2);line-height:1.6;display:flex;gap:10px;align-items:flex-start}
+.honest-item::before{content:"—";color:var(--orange);flex-shrink:0;font-family:var(--mono)}
+.honest-item strong{color:var(--white);font-weight:500}
+
+/* ── TOKEN ── */
+.token-bars{display:flex;flex-direction:column;gap:12px;margin-top:2rem}
+.bar-row{display:flex;align-items:center;gap:16px}
+.bar-label{font-family:var(--mono);font-size:12px;color:var(--ink2);width:130px;flex-shrink:0;letter-spacing:0.03em}
+.bar-track{flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:1px;overflow:hidden}
+.bar-fill{height:100%;border-radius:1px;transition:width 1.5s cubic-bezier(.25,.46,.45,.94)}
+.bar-pct{font-family:var(--mono);font-size:12px;color:var(--ink3);width:36px;text-align:right;flex-shrink:0}
+
+/* ── CTA ── */
+.cta-section{
+  padding:8rem 0;text-align:center;position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:600px;height:400px;
+  background:radial-gradient(ellipse, rgba(232,84,26,0.1) 0%, transparent 70%);
+  pointer-events:none;
+}
+.cta-h{font-family:var(--display);font-style:italic;font-size:clamp(48px,7vw,84px);line-height:0.9;letter-spacing:-0.5px;margin-bottom:1.5rem}
+.cta-h .line2{color:var(--orange)}
+.cta-sub{font-size:16px;color:var(--ink2);font-weight:300;max-width:440px;margin:0 auto 3rem;line-height:1.7}
+.cta-warning{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+  color:var(--ink3);margin-top:2rem;
+}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding:2rem 0;
+}
+.foot-inner{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+  font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:0.06em;
+}
+.foot-brand{font-family:var(--display);font-size:18px;color:var(--ink3);letter-spacing:0.05em}
+.foot-brand span{color:var(--orange)}
+.foot-links{display:flex;gap:2rem}
+.foot-links a{color:var(--ink3);transition:color 0.15s}.foot-links a:hover{color:var(--white)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal.d1{transition-delay:0.1s}.reveal.d2{transition-delay:0.2s}.reveal.d3{transition-delay:0.3s}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.25rem}
+  .container{padding:0 1.25rem}
+  .hero{padding:7rem 0 4rem}
+  .section{padding:4rem 0}
+  .stat{padding:0 1.5rem 0 0;margin-right:1.5rem}
+  .stat-v{font-size:32px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">CINDER<span>.FINANCE</span></div>
+  <a href="index.html" class="nav-cta">OPEN APP →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="hero-label"><span class="live-pulse"></span>Live on Flare Network</div>
+    <h1 class="hero-h">
+      YOUR FLR,
+      <span class="accent">WORKING.</span>
+    </h1>
+    <p class="hero-sub">
+      Cinder catches the heat that stays in Flare Network staking and compounds it back — automatically, every hour, forever. <strong>Stake once. Glow forever.</strong>
+    </p>
+    <div class="hero-actions">
+      <a href="index.html" class="btn-main">Start earning →</a>
+      <a href="about.html" class="btn-secondary">Read the risks first</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-v orange">~8.2%</div>
+        <div class="stat-l">Net APY</div>
+      </div>
+      <div class="stat">
+        <div class="stat-v">$50K</div>
+        <div class="stat-l">TVL cap (pre-audit)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-v">0.1%</div>
+        <div class="stat-l">Exit fee only</div>
+      </div>
+      <div class="stat">
+        <div class="stat-v">0</div>
+        <div class="stat-l">Lock-up period</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="container">
+    <div class="section-label reveal">How it works</div>
+    <h2 class="section-h reveal d1">SIMPLE<br>BY DESIGN.</h2>
+    <p class="section-sub reveal d2">Four steps. The last three happen automatically.</p>
+    <div class="steps reveal d2">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div class="step-icon">💧</div>
+        <div class="step-title">Deposit</div>
+        <div class="step-desc">Send sFLR to the vault. Or use the FLR Zap — Cinder stakes your FLR via Sceptre and deposits in one transaction.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div class="step-icon">📈</div>
+        <div class="step-title">Yield accrues</div>
+        <div class="step-desc">sFLR earns Flare staking rewards automatically. Your vault share grows in value every hour without any action from you.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div class="step-icon">🔄</div>
+        <div class="step-title">Auto-compound</div>
+        <div class="step-desc">Gelato Network triggers a harvest roughly every hour. 90% of yield stays in the vault — compounding your returns automatically.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div class="step-icon">💸</div>
+        <div class="step-title">Withdraw</div>
+        <div class="step-desc">Burn your cFLR shares for sFLR plus all accumulated yield at any time. 0.1% exit fee. No waiting, no queue, no permission needed.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE NUMBERS -->
+<section class="section">
+  <div class="container">
+    <div class="section-label reveal">The numbers</div>
+    <h2 class="section-h reveal d1">NOTHING<br>HIDDEN.</h2>
+    <div class="numbers-grid reveal d2">
+      <div class="number-cell featured">
+        <div class="nc-label">Net vault APY</div>
+        <div class="nc-value orange">~8.2%</div>
+        <div class="nc-sub">Sceptre sFLR staking minus 10% performance fee. Rate fluctuates with Flare network activity.</div>
+      </div>
+      <div class="number-cell">
+        <div class="nc-label">Performance fee</div>
+        <div class="nc-value">10%</div>
+        <div class="nc-sub">Of yield only — not your principal. Goes to the protocol treasury, governed by EMBER holders.</div>
+      </div>
+      <div class="number-cell">
+        <div class="nc-label">Withdrawal fee</div>
+        <div class="nc-value">0.1%</div>
+        <div class="nc-sub">One-time on exit. Stays in the vault — benefits remaining depositors, not the protocol.</div>
+      </div>
+      <div class="number-cell featured">
+        <div class="nc-label">TVL cap</div>
+        <div class="nc-value">$50,000</div>
+        <div class="nc-sub">Hard limit until the Code4rena audit completes. Raised by governance vote after clean audit.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMBER TOKEN -->
+<section class="section">
+  <div class="container">
+    <div class="section-label reveal">EMBER token</div>
+    <h2 class="section-h reveal d1">EARN WHILE<br>YOU EARN.</h2>
+    <p class="section-sub reveal d2">Depositors earn EMBER governance tokens on top of vault yield. Stake your cFLR shares to start accumulating.</p>
+    <div class="token-bars reveal d2">
+      <div class="bar-row">
+        <div class="bar-label">Mining rewards</div>
+        <div class="bar-track"><div class="bar-fill" style="width:45%;background:var(--orange)"></div></div>
+        <div class="bar-pct">45%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Treasury (DAO)</div>
+        <div class="bar-track"><div class="bar-fill" style="width:25%;background:#4A90D9"></div></div>
+        <div class="bar-pct">25%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Public sale</div>
+        <div class="bar-track"><div class="bar-fill" style="width:15%;background:#F59E0B"></div></div>
+        <div class="bar-pct">15%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Founder vest</div>
+        <div class="bar-track"><div class="bar-fill" style="width:10%;background:#8B5CF6"></div></div>
+        <div class="bar-pct">10%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Community</div>
+        <div class="bar-track"><div class="bar-fill" style="width:5%;background:#3DA85F"></div></div>
+        <div class="bar-pct">5%</div>
+      </div>
+    </div>
+    <div style="margin-top:1.5rem;font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:0.08em">
+      1,000,000,000 EMBER · Fixed supply · No inflation · No admin mint
+    </div>
+  </div>
+</section>
+
+<!-- HONEST SECTION -->
+<section class="section">
+  <div class="container">
+    <div class="section-label reveal">Before you deposit</div>
+    <h2 class="section-h reveal d1">READ THIS<br>FIRST.</h2>
+    <div class="honest reveal d2">
+      <div class="honest-title">What you should know</div>
+      <div class="honest-grid">
+        <div class="honest-item"><strong>Unaudited.</strong> A Code4rena audit contest is planned. The $50K cap limits your maximum exposure until it's complete.</div>
+        <div class="honest-item"><strong>Solo project.</strong> One developer built this. No team, no investors. Contracts run autonomously — but active development depends on one person.</div>
+        <div class="honest-item"><strong>FLR is volatile.</strong> If FLR price falls, your deposit's USD value falls with it even if you're earning yield. You're holding FLR-denominated assets.</div>
+        <div class="honest-item"><strong>Smart contract risk.</strong> Bugs could result in loss of funds. The TVL cap is there to limit this. Only deposit what you can afford to lose.</div>
+        <div class="honest-item"><strong>Protocol dependency.</strong> The sFLR vault depends on Sceptre working correctly. If Sceptre has issues, Cinder is affected.</div>
+        <div class="honest-item"><strong>Early governance.</strong> EMBER is new and thinly distributed. The founder controls early governance — this decentralizes as EMBER distributes through mining.</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1rem">
+      <a href="about.html" style="font-family:var(--mono);font-size:12px;color:var(--ink2);letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,0.15);padding-bottom:2px;transition:color 0.15s" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--ink2)'">Full risk disclosure and about page →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-h reveal">
+      YOUR SFLR<br>
+      <span class="line2">SHOULD COMPOUND.</span>
+    </h2>
+    <p class="cta-sub reveal d1">
+      A cinder holds heat long after the fire. Your staking yield works the same way — it keeps glowing, keeps compounding, with no effort from you.
+    </p>
+    <div class="reveal d2">
+      <a href="index.html" class="btn-main" style="font-size:16px;padding:20px 48px;display:inline-flex">
+        Open the app →
+      </a>
+    </div>
+    <div class="cta-warning reveal d3">
+      UNAUDITED · $50K TVL CAP · SOLO PROJECT · NOT FINANCIAL ADVICE
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-inner">
+      <div class="foot-brand">CINDER<span>.FINANCE</span></div>
+      <div class="foot-links">
+        <a href="https://flare.network" target="_blank">Flare Network</a>
+        <a href="https://sceptre.fi" target="_blank">Sceptre</a>
+        <a href="https://flarescan.com" target="_blank">Flarescan</a>
+        <a href="https://github.com/cinderfinance" target="_blank">GitHub</a>
+      </div>
+      <span>© 2026 Cinder · Built on Flare Network · cinder.finance</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Bar animation on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
