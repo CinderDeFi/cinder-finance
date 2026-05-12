@@ -1576,6 +1576,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 <div id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.13.0/dist/index.umd.js" onerror="console.warn('WalletConnect CDN failed')"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
@@ -2488,60 +2489,64 @@ async function connectInjected() {
 
 // ── WalletConnect v2 ───────────────────────────────────────────────────
 async function connectWalletConnect() {
-  setWmStatus('Loading WalletConnect…', true);
+  setWmStatus('Opening WalletConnect…', true);
   try {
-    // Load WalletConnect EthereumProvider v2 dynamically
-    if (!window.EthereumProvider) {
-      const cdns = [
-        'https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.17.0/dist/index.umd.js',
-        'https://unpkg.com/@walletconnect/ethereum-provider@2.17.0/dist/index.umd.js',
-      ];
-      for (const cdn of cdns) {
-        try { await loadScript(cdn); if (window.EthereumProvider) break; }
-        catch(e) { console.warn('WC CDN failed:', cdn); }
-      }
-    }
+    // WalletConnect UMD bundle loaded at page start as a script tag
+    // The global it exposes depends on version — check all known names
+    const WCProvider =
+      window.WalletConnectEthereumProvider?.default ||
+      window.WalletConnectEthereumProvider ||
+      window.EthereumProvider?.default ||
+      window.EthereumProvider;
 
-    const WCProvider = window.EthereumProvider;
-    if (!WCProvider) {
-      setWmStatus('WalletConnect unavailable. Use MetaMask or Bifrost instead.');
+    if (!WCProvider || !WCProvider.init) {
+      // Last resort — try dynamic import from esm.sh
+      try {
+        const mod = await import('https://esm.sh/@walletconnect/ethereum-provider@2.13.0');
+        const EP = mod.EthereumProvider || mod.default;
+        if (EP?.init) {
+          await _initWalletConnect(EP);
+          return;
+        }
+      } catch(e) { console.warn('WC esm.sh failed:', e); }
+      setWmStatus('WalletConnect unavailable. Use MetaMask or Bifrost.');
       return;
     }
 
-    setWmStatus('Opening QR code…', true);
-    wcProvider = await WCProvider.init({
-      projectId: WALLETCONNECT_PROJECT_ID,
-      chains: [14],
-      optionalChains: [114],
-      showQrModal: true,
-      metadata: {
-        name: 'Cinder',
-        description: 'Auto-compound sFLR and stXRP yield on Flare Network',
-        url: 'https://cinder.finance',
-        icons: ['https://cinder.finance/favicon.png'],
-      },
-      rpcMap: {
-        14:  'https://flare-api.flare.network/ext/C/rpc',
-        114: 'https://coston2-api.flare.network/ext/C/rpc',
-      },
-    });
-
-    await wcProvider.connect();
-    provider = new ethers.BrowserProvider(wcProvider);
-    await _onWalletConnected('WalletConnect');
-
-    wcProvider.on('disconnect', () => { toast('WalletConnect disconnected', 'warn'); location.reload(); });
-    wcProvider.on('chainChanged', () => location.reload());
-    wcProvider.on('accountsChanged', () => location.reload());
+    await _initWalletConnect(WCProvider);
 
   } catch(e) {
-    if (e.message?.includes('User rejected') || e.message?.includes('rejected') || e.code === 4001) {
+    if (e.message?.includes('rejected') || e.code === 4001) {
       setWmStatus('Connection cancelled.');
     } else {
-      setWmStatus('WalletConnect failed. Try MetaMask or Bifrost instead.');
+      setWmStatus('Failed. Use MetaMask or Bifrost instead.');
       console.error('WalletConnect error:', e);
     }
   }
+}
+
+async function _initWalletConnect(WCProvider) {
+  wcProvider = await WCProvider.init({
+    projectId: WALLETCONNECT_PROJECT_ID,
+    optionalChains: [14, 114],
+    showQrModal: true,
+    metadata: {
+      name: 'Cinder',
+      description: 'Auto-compound sFLR and stXRP yield on Flare Network',
+      url: 'https://cinder.finance',
+      icons: ['https://cinder.finance/favicon.png'],
+    },
+    rpcMap: {
+      14:  'https://flare-api.flare.network/ext/C/rpc',
+      114: 'https://coston2-api.flare.network/ext/C/rpc',
+    },
+  });
+  await wcProvider.connect();
+  provider = new ethers.BrowserProvider(wcProvider);
+  await _onWalletConnected('WalletConnect');
+  wcProvider.on('disconnect',      () => { toast('WalletConnect disconnected','warn'); location.reload(); });
+  wcProvider.on('chainChanged',    () => location.reload());
+  wcProvider.on('accountsChanged', () => location.reload());
 }
 
 // ── Shared post-connect logic ──────────────────────────────────────────
