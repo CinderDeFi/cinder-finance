@@ -26,8 +26,7 @@
 # Netlify gives you free HTTPS automatically via Let's Encrypt
 
 [build]
-  # No build step needed — pure static HTML
-  publish = "."
+  publish = "flareflow-launch-final/frontend"
 
 # ── Security headers ────────────────────────────────────────────────────
 # These protect users and fix the CORS/postMessage errors you saw locally.

@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+
 :root{
   --bg:#07080A;--bg2:#0B0D10;--surface:#111318;--card:#161A20;--card2:#1C2028;
   --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.03);--border3:rgba(255,107,35,0.35);
@@ -279,11 +280,9 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 }
 .hc-vault-btn:hover{border-color:rgba(255,255,255,0.2);color:var(--ink)}
 .hc-vault-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
-</head>
-<body>
-<noscript><style>.reveal{opacity:1!important;transform:none!important}
+
+/* ── Additional styles ── */
+.reveal{opacity:1!important;transform:none!important}
 /* ── Wallet selection modal ── */
 .wallet-modal-backdrop{
   position:fixed;inset:0;background:rgba(0,0,0,0.75);
@@ -461,7 +460,12 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
   .mobile-nav { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
   footer      { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
 }
-</style></noscript>
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
+</head>
+<body>
+<noscript></noscript>
 <canvas id="canvas-bg"></canvas>
 
 <nav>
