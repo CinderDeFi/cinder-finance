@@ -1633,5 +1633,92 @@ function faq(btn) {
   }
 }
 </script>
+<script>
+/* ═══ LIVE sFLR APY — fetches from Flare chain ═══ */
+(function() {
+  var SFLR = "0x12e605bc104e93B45e1aD99F9e555f659051c2BB";
+  var RPC   = "https://flare-api.flare.network/ext/C/rpc";
+  
+  // Sceptre's published exchange rates — used as rolling baseline
+  // Updated monthly from sceptre.fi/post/monthly-recap-*
+  var BASELINE_RATE = 1.809501;  // March 30 2026
+  var BASELINE_DATE = new Date('2026-03-30');
+
+  function rpcCall(method, params) {
+    return fetch(RPC, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: method, params: params })
+    }).then(function(r) { return r.json(); });
+  }
+
+  function encodeSflrCall() {
+    // getPooledFlrByShares(1e18) — keccak256("getPooledFlrByShares(uint256)") = 0x7a28fb88
+    var sig  = '0x7a28fb88';
+    var arg  = '0000000000000000000000000000000000000000000000000de0b6b3a7640000'; // 1e18
+    return sig + arg;
+  }
+
+  function updateApyDisplays(apy, apyStr) {
+    var ids = ['apyDisplay', 'sflrApy', 'heroApy', 'h-apy-sflr'];
+    ids.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = apyStr;
+    });
+    // Also update any element with data-apy="sflr"
+    document.querySelectorAll('[data-apy="sflr"]').forEach(function(el) {
+      el.textContent = apyStr;
+    });
+    // Update calculator default if it exists
+    if (typeof updateCV === 'function') {
+      window._liveApy = apy / 100;
+      updateCV();
+    }
+  }
+
+  function fetchLiveApy() {
+    rpcCall('eth_call', [{ to: SFLR, data: encodeSflrCall() }, 'latest'])
+      .then(function(res) {
+        if (!res.result) return;
+        // Parse hex result as uint256
+        var hex = res.result.replace('0x', '');
+        var rate = parseInt(hex, 16) / 1e18;
+        if (!rate || rate < 1) return;
+
+        // Calculate APY using Sceptre's rolling window formula
+        var now = new Date();
+        var daysSince = (now - BASELINE_DATE) / 86400000;
+        if (daysSince < 1) return;
+        
+        var growth = rate / BASELINE_RATE;
+        var apy = (Math.pow(growth, 365 / daysSince) - 1) * 100;
+        
+        // Sanity check — Sceptre APY has been 8-15% historically
+        if (apy < 5 || apy > 25) return;
+        
+        var apyStr = apy.toFixed(1) + '%';
+        updateApyDisplays(apy, apyStr);
+        
+        // Store for other scripts
+        window._sflrApy = apy;
+        window._sflrRate = rate;
+        
+        console.log('[Cinder] Live sFLR APY: ' + apyStr + ' (rate: ' + rate.toFixed(6) + ')');
+      })
+      .catch(function() {
+        // Silently fail — hardcoded fallback remains
+      });
+  }
+
+  // Run on load, retry once after 3s if needed
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fetchLiveApy);
+  } else {
+    fetchLiveApy();
+  }
+  setTimeout(fetchLiveApy, 3000);
+})();
+/* ═══ END LIVE APY ═══ */
+</script>
 </body>
 </html>
