@@ -346,6 +346,140 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
   .mobile-nav { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
   footer      { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
 }
+
+/* ═══════════════════════════════════════════════════
+   CINDER MOBILE — nav, hamburger, buttons, layout
+   ═══════════════════════════════════════════════════ */
+
+/* Ham button hidden by default, shown on mobile */
+.ham-btn {
+  display: none;
+  flex-direction: column; justify-content: center; gap: 5px;
+  width: 40px; height: 40px; min-width: 40px;
+  cursor: pointer; background: none; border: none; padding: 6px;
+  flex-shrink: 0; -webkit-tap-highlight-color: transparent;
+}
+.ham-btn span {
+  display: block; height: 2px; background: #EEE9E1;
+  border-radius: 2px; transition: all 0.25s ease;
+}
+.ham-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ham-btn.open span:nth-child(2) { opacity: 0; }
+.ham-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile nav overlay */
+.mobile-nav {
+  display: none; position: fixed;
+  top: 56px; left: 0; right: 0; z-index: 199;
+  background: rgba(7,8,10,0.98); backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-direction: column; padding: 0.25rem 0 1rem;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  display: block; padding: 15px 1.5rem; font-size: 16px;
+  color: rgba(238,233,225,0.75); text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav a:active { color: #EEE9E1; background: rgba(255,255,255,0.03); }
+.mobile-nav .mn-cta, .mobile-nav .mn-launch {
+  margin: 0.75rem 1.5rem 0 !important;
+  display: block !important; text-align: center !important;
+  padding: 14px !important;
+  background: linear-gradient(135deg,#FF6B23,#FFB347) !important;
+  border-radius: 12px !important; color: #fff !important;
+  font-weight: 600 !important; border-bottom: none !important;
+}
+
+@media (max-width: 768px) {
+  /* ── Nav ── */
+  nav { padding: 0 1rem !important; height: 56px !important; }
+  .nav-links { display: none !important; }
+  .ham-btn { display: flex !important; }
+  .nav-cta { display: none !important; }
+  #netPill, .wallet-pill, .pill-badge { display: none !important; }
+  #connectBtn {
+    font-size: 12px !important; padding: 8px 12px !important;
+    min-height: 36px !important;
+  }
+
+  /* ── Hero H1 ── */
+  .hero-h1 {
+    font-size: clamp(24px, 7.5vw, 40px) !important;
+    letter-spacing: -0.3px !important;
+    line-height: 1.08 !important;
+    word-break: break-word !important;
+  }
+  .hero-sub { font-size: 15px !important; line-height: 1.6 !important; }
+
+  /* ── All CTA buttons ── */
+  .btn-xl {
+    min-height: 52px !important; font-size: 16px !important;
+    padding: 15px 24px !important; border-radius: 12px !important;
+    width: 100% !important; justify-content: center !important;
+    display: flex !important; align-items: center !important;
+  }
+  .hero-ctas, .cta-btns {
+    flex-direction: column !important; gap: 10px !important;
+    width: 100% !important;
+  }
+  .btn-launch {
+    min-height: 48px !important; font-size: 15px !important;
+  }
+  .main-btn {
+    min-height: 52px !important; font-size: 15px !important;
+    padding: 15px !important; border-radius: 11px !important;
+  }
+
+  /* ── Calculator ── */
+  .calc-body { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+  .out-val { font-size: 30px !important; }
+  .out-card { padding: 1.25rem !important; }
+  #calc-chart-wrap { height: 180px !important; }
+
+  /* ── Cards & vault pills ── */
+  .vault-pill { padding: 14px 16px !important; }
+  .vc { padding: 16px !important; gap: 12px !important; }
+  .feat-card { padding: 1.25rem !important; }
+  .flow-step { padding: 1.25rem !important; }
+
+  /* ── Footer ── */
+  footer { padding: 2rem 0 !important; }
+  .footer-inner {
+    flex-direction: column !important; gap: 1.25rem !important;
+    text-align: center !important;
+  }
+  .footer-links {
+    flex-wrap: wrap !important; justify-content: center !important;
+    gap: 0.5rem 1.25rem !important;
+  }
+  .footer-links a {
+    min-height: 40px !important; display: inline-flex !important;
+    align-items: center !important; padding: 4px 8px !important;
+  }
+
+  /* ── General ── */
+  .container { padding: 0 1rem !important; }
+  .stats-grid { grid-template-columns: 1fr 1fr !important; }
+  .flow-grid, .feat-grid { grid-template-columns: 1fr !important; }
+  section { padding: 3rem 0 !important; }
+  .hero-stats { gap: 1.25rem !important; flex-wrap: wrap !important; }
+}
+
+/* ── Touch devices ── */
+@media (hover: none) {
+  .btn-xl:hover, .main-btn:hover, .btn-launch:hover,
+  .vc:hover, .vault-pill:hover, .wallet-option:hover { transform: none !important; }
+}
+
+/* ── Safe area insets ── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-nav { padding-bottom: calc(0.75rem + env(safe-area-inset-bottom)); }
+  footer { padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important; }
+}
+
 </style>
 </head>
 <body>
