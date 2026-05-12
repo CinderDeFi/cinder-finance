@@ -1236,6 +1236,31 @@ html, body { max-width: 100%; overflow-x: hidden; }
 }
 @media(hover:none){}
 @supports(padding-bottom:env(safe-area-inset-bottom)){.mobile-nav{padding-bottom:env(safe-area-inset-bottom)};footer{padding-bottom:calc(2rem + env(safe-area-inset-bottom))!important}}
+
+/* ── Hero CTA buttons ── */
+.btn-xl{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 28px;border-radius:12px;font-size:15px;font-weight:600;
+  cursor:pointer;transition:all 0.2s;font-family:var(--body,"Space Grotesk",sans-serif);
+  border:none;text-decoration:none;min-height:48px;
+}
+.btn-xl.primary{
+  background:linear-gradient(135deg,#FF6B23,#FFB347);
+  color:#fff;box-shadow:0 4px 20px rgba(255,107,35,0.3);
+}
+.btn-xl.primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,107,35,0.45)}
+.btn-xl.outline,.btn-xl.secondary{
+  background:transparent;color:#EEE9E1;
+  border:1.5px solid rgba(255,255,255,0.15);
+}
+.btn-xl.outline:hover,.btn-xl.secondary:hover{
+  border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.05);
+}
+@media(max-width:768px){
+  .btn-xl{width:100%!important;justify-content:center!important;min-height:52px!important;font-size:16px!important}
+  .hero-ctas{flex-direction:column!important;gap:10px!important}
+}
+@media(hover:none){.btn-xl:hover{transform:none!important}}
 </style>
 </head>
 <body>
@@ -1869,6 +1894,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         <a href="https://firelight.finance" target="_blank">Firelight</a>
         <a href="https://flarescan.com" target="_blank">Flarescan</a>
         <a href="https://dev.flare.network" target="_blank">Docs</a>
+        <a href="https://x.com/CinderDeFi" target="_blank">X / @CinderDeFi</a>
       </div>
       <span>⚠ Unaudited — not financial advice</span>
     </div>
