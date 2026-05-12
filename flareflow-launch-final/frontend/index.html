@@ -2490,28 +2490,35 @@ async function connectInjected() {
 async function connectWalletConnect() {
   setWmStatus('Loading WalletConnect…', true);
   try {
-    // Load WalletConnect EthereumProvider dynamically — only when needed
+    // Load WalletConnect EthereumProvider v2 dynamically
     if (!window.EthereumProvider) {
-      await loadScript('https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.11.0/dist/index.umd.js');
+      const cdns = [
+        'https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.17.0/dist/index.umd.js',
+        'https://unpkg.com/@walletconnect/ethereum-provider@2.17.0/dist/index.umd.js',
+      ];
+      for (const cdn of cdns) {
+        try { await loadScript(cdn); if (window.EthereumProvider) break; }
+        catch(e) { console.warn('WC CDN failed:', cdn); }
+      }
     }
 
-    const WCProvider = window.EthereumProvider || window['@walletconnect/ethereum-provider']?.EthereumProvider;
+    const WCProvider = window.EthereumProvider;
     if (!WCProvider) {
-      setWmStatus('WalletConnect failed to load. Check your connection.');
+      setWmStatus('WalletConnect unavailable. Use MetaMask or Bifrost instead.');
       return;
     }
 
     setWmStatus('Opening QR code…', true);
     wcProvider = await WCProvider.init({
       projectId: WALLETCONNECT_PROJECT_ID,
-      chains: [14], // Flare mainnet
-      optionalChains: [114], // Coston2 testnet
+      chains: [14],
+      optionalChains: [114],
       showQrModal: true,
       metadata: {
         name: 'Cinder',
         description: 'Auto-compound sFLR and stXRP yield on Flare Network',
-        url: window.location.origin,
-        icons: [window.location.origin + '/favicon.png'],
+        url: 'https://cinder.finance',
+        icons: ['https://cinder.finance/favicon.png'],
       },
       rpcMap: {
         14:  'https://flare-api.flare.network/ext/C/rpc',
@@ -2523,20 +2530,16 @@ async function connectWalletConnect() {
     provider = new ethers.BrowserProvider(wcProvider);
     await _onWalletConnected('WalletConnect');
 
-    // WalletConnect events
-    wcProvider.on('disconnect', () => {
-      toast('WalletConnect disconnected', 'warn');
-      location.reload();
-    });
+    wcProvider.on('disconnect', () => { toast('WalletConnect disconnected', 'warn'); location.reload(); });
     wcProvider.on('chainChanged', () => location.reload());
     wcProvider.on('accountsChanged', () => location.reload());
 
   } catch(e) {
-    if (e.message?.includes('User rejected') || e.code === 4001) {
-      setWmStatus('Connection rejected.');
+    if (e.message?.includes('User rejected') || e.message?.includes('rejected') || e.code === 4001) {
+      setWmStatus('Connection cancelled.');
     } else {
-      setWmStatus('WalletConnect failed. Try MetaMask instead.');
-      console.error('WalletConnect:', e);
+      setWmStatus('WalletConnect failed. Try MetaMask or Bifrost instead.');
+      console.error('WalletConnect error:', e);
     }
   }
 }
