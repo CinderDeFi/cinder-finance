@@ -1329,6 +1329,159 @@ html, body { max-width: 100%; overflow-x: hidden; }
     width: auto !important;
   }
 }
+
+/* ═══ CINDER COMPREHENSIVE MOBILE FIX ═══ */
+
+/* Hero text — prevent cramping on small phones */
+@media (max-width: 480px) {
+  .hero-h1, h1.hero-h1, .hero-h {
+    font-size: clamp(26px, 8vw, 38px) !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.5px !important;
+    word-break: break-word !important;
+  }
+  .hero-sub, .hero-p {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+}
+
+/* Buttons — comfortable thumb tap targets */
+@media (max-width: 768px) {
+  /* Primary CTA buttons */
+  .btn-xl, .btn-xl.primary, .btn-xl.outline, .btn-xl.secondary {
+    min-height: 54px !important;
+    padding: 16px 24px !important;
+    font-size: 16px !important;
+    border-radius: 14px !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .hero-ctas, .cta-btns, .hero-actions {
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+  /* Nav buttons */
+  #connectBtn {
+    min-height: 40px !important;
+    padding: 9px 16px !important;
+    font-size: 13px !important;
+    width: auto !important;
+  }
+  /* Deposit/action buttons */
+  .main-btn, .deposit-btn, .withdraw-btn {
+    min-height: 54px !important;
+    font-size: 16px !important;
+    border-radius: 14px !important;
+  }
+  /* Launch app links */
+  .btn-launch, a.btn-launch {
+    min-height: 48px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    padding: 12px 22px !important;
+  }
+  /* Vault pills */
+  .vault-pill {
+    padding: 14px 16px !important;
+  }
+}
+
+/* Nav cleanup on mobile */
+@media (max-width: 768px) {
+  /* Hide desktop nav links */
+  .nav-links, .nav-links-wrap {
+    display: none !important;
+  }
+  /* Hide extra nav-right items except connectBtn + hamBtn */
+  .nav-right > a:not(#connectBtn),
+  .nav-right > span,
+  .pill-badge,
+  .wallet-pill,
+  .nav-cta {
+    display: none !important;
+  }
+  /* Show hamburger */
+  .ham-btn, #hamBtn {
+    display: flex !important;
+  }
+  /* Nav height */
+  nav {
+    height: 58px !important;
+    padding: 0 1rem !important;
+  }
+}
+
+/* Touch — remove hover transforms */
+@media (hover: none) {
+  .btn-xl:hover, .btn-xl.primary:hover,
+  .main-btn:hover, .vault-pill:hover,
+  .btn-primary:hover, .btn-launch:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Safe area support */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  footer {
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important;
+  }
+  .mobile-nav {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
+  }
+}
+/* ═══ END CINDER COMPREHENSIVE MOBILE FIX ═══ */
+
+
+/* ═══ CINDER POLISH — FAQ + TINY PHONE PADDING ═══ */
+
+/* FAQ — smooth accordion, no clipping, close-others behaviour */
+.faq-a, .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), padding 0.35s ease;
+}
+.faq-a.open, .faq-answer.open {
+  max-height: 1200px !important;   /* tall enough for any answer */
+}
+.faq-q { cursor: pointer; user-select: none; }
+
+/* Tiny phones — extra breathing room */
+@media (max-width: 390px) {
+  .container, .wrap, .wrap-wide {
+    padding-left: 0.875rem !important;
+    padding-right: 0.875rem !important;
+  }
+  .faq-q { padding-left: 1rem !important; padding-right: 1rem !important; font-size: 14px !important; }
+  .faq-a, .faq-answer { padding-left: 1rem !important; padding-right: 1rem !important; }
+  .hero-h1, h1.hero-h1, .hero-h {
+    font-size: clamp(24px, 7.5vw, 34px) !important;
+    letter-spacing: -0.5px !important;
+  }
+  .hero-tag { font-size: 10px !important; }
+  .vault-pill { padding: 12px 12px !important; gap: 8px !important; }
+  .vc-name { font-size: 13px !important; }
+  .vc-meta { font-size: 11px !important; }
+  .stat-val { font-size: 28px !important; }
+  .stats-grid { gap: 0.75rem !important; }
+  .feat-card, .flow-step { padding: 1rem !important; }
+  section { padding: 2.5rem 0 !important; }
+  .section-h2 { font-size: clamp(24px, 7vw, 32px) !important; }
+  .btn-xl {
+    font-size: 15px !important;
+    padding: 14px 20px !important;
+    min-height: 52px !important;
+  }
+  .footer-links a { font-size: 12px !important; }
+}
+/* ═══ END CINDER POLISH ═══ */
+
 </style>
 </head>
 <body>
@@ -3428,9 +3581,25 @@ function updateCalcChart(dep,months,grossApy){
 }
 
 // ── FAQ ───────────────────────────────────────────────────────────────────
-function toggleFaq(btn){
-  const isOpen=btn.classList.contains('open');
-  document.querySelectorAll('.faq-q').forEach(q=>{q.classList.remove('open')});
+
+/* better FAQ toggle — closes others, smooth */
+function toggleFaq(btn) {
+  var item = btn.parentElement;
+  var answer = btn.nextElementSibling;
+  var isOpen = btn.classList.contains('open');
+  /* close all */
+  document.querySelectorAll('.faq-q').forEach(function(q) {
+    q.classList.remove('open');
+    var a = q.nextElementSibling;
+    if (a) { a.classList.remove('open'); }
+  });
+  /* open clicked one if it was closed */
+  if (!isOpen) {
+    btn.classList.add('open');
+    if (answer) { answer.classList.add('open'); }
+  }
+}
+);
   document.querySelectorAll('.faq-a').forEach(a=>{a.classList.remove('open')});
   if(!isOpen){
     btn.classList.add('open');
