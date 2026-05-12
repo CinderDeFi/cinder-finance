@@ -1576,6 +1576,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 <div id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@walletconnect/modal@2.7.0/dist/index.umd.js" onerror="console.warn('WC Modal CDN failed')"></script>
 <script src="https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.13.0/dist/index.umd.js" onerror="console.warn('WalletConnect CDN failed')"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -2491,8 +2492,13 @@ async function connectInjected() {
 async function connectWalletConnect() {
   setWmStatus('Opening WalletConnect…', true);
   try {
-    // WalletConnect UMD bundle loaded at page start as a script tag
-    // The global it exposes depends on version — check all known names
+    // Log what globals are available for debugging
+    console.log('WC globals:', {
+      WalletConnectEthereumProvider: !!window.WalletConnectEthereumProvider,
+      EthereumProvider: !!window.EthereumProvider,
+      WalletConnectModal: !!window.WalletConnectModal,
+    });
+
     const WCProvider =
       window.WalletConnectEthereumProvider?.default ||
       window.WalletConnectEthereumProvider ||
@@ -2500,14 +2506,12 @@ async function connectWalletConnect() {
       window.EthereumProvider;
 
     if (!WCProvider || !WCProvider.init) {
-      // Last resort — try dynamic import from esm.sh
+      // Fallback — try esm.sh dynamic import
       try {
+        console.log('WC: trying esm.sh fallback...');
         const mod = await import('https://esm.sh/@walletconnect/ethereum-provider@2.13.0');
         const EP = mod.EthereumProvider || mod.default;
-        if (EP?.init) {
-          await _initWalletConnect(EP);
-          return;
-        }
+        if (EP?.init) { await _initWalletConnect(EP); return; }
       } catch(e) { console.warn('WC esm.sh failed:', e); }
       setWmStatus('WalletConnect unavailable. Use MetaMask or Bifrost.');
       return;
@@ -2526,6 +2530,7 @@ async function connectWalletConnect() {
 }
 
 async function _initWalletConnect(WCProvider) {
+  console.log('WC: initialising provider...');
   wcProvider = await WCProvider.init({
     projectId: WALLETCONNECT_PROJECT_ID,
     optionalChains: [14, 114],
@@ -2541,7 +2546,10 @@ async function _initWalletConnect(WCProvider) {
       114: 'https://coston2-api.flare.network/ext/C/rpc',
     },
   });
+  console.log('WC: provider initialised, connecting...');
+  setWmStatus('Scan QR code in your wallet app…', false);
   await wcProvider.connect();
+  console.log('WC: connected!');
   provider = new ethers.BrowserProvider(wcProvider);
   await _onWalletConnected('WalletConnect');
   wcProvider.on('disconnect',      () => { toast('WalletConnect disconnected','warn'); location.reload(); });
