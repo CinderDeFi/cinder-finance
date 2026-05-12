@@ -480,6 +480,85 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
   footer { padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important; }
 }
 
+
+/* ── Wallet selection modal ── */
+.wallet-modal-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(8px);z-index:500;
+  display:none;align-items:center;justify-content:center;padding:1rem;
+}
+.wallet-modal-backdrop.open{display:flex}
+.wallet-modal{
+  background:#1C1814;border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;width:100%;max-width:400px;
+  overflow:hidden;animation:wModalIn 0.25s cubic-bezier(.34,1.56,.64,1) both;
+  box-shadow:0 24px 64px rgba(0,0,0,0.6);
+}
+@keyframes wModalIn{from{opacity:0;transform:translateY(20px) scale(0.97)}to{opacity:1;transform:none}}
+.wm-head{
+  padding:1.25rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.wm-title{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-0.3px}
+.wm-close{
+  background:transparent;border:none;color:rgba(255,255,255,0.4);
+  font-size:20px;cursor:pointer;line-height:1;padding:0;
+  transition:color 0.15s;
+}
+.wm-close:hover{color:#fff}
+.wm-body{padding:1rem}
+.wm-desc{font-size:13px;color:var(--ink2);margin-bottom:1.25rem;line-height:1.6;padding:0 0.25rem}
+.wallet-option{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 16px;border-radius:12px;
+  border:1.5px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.02);
+  cursor:pointer;transition:all 0.15s;margin-bottom:10px;
+}
+.wallet-option:hover{border-color:var(--accent);background:rgba(212,80,12,0.06);transform:translateY(-1px)}
+.wallet-option:last-child{margin-bottom:0}
+.wo-icon{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:24px;
+  background:rgba(255,255,255,0.05);
+}
+.wo-info{flex:1}
+.wo-name{font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:-0.3px;margin-bottom:2px}
+.wo-desc{font-size:11px;color:var(--ink3);font-family:var(--mono)}
+.wo-badge{
+  font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:5px;
+  flex-shrink:0;
+}
+.wo-badge.recommended{background:rgba(61,168,95,0.15);color:var(--green)}
+.wo-badge.popular{background:rgba(212,80,12,0.12);color:var(--accent2)}
+.wo-badge.mobile{background:rgba(74,144,217,0.12);color:#4A90D9}
+.wm-divider{
+  font-family:var(--mono);font-size:10px;color:var(--ink3);
+  text-transform:uppercase;letter-spacing:0.12em;
+  text-align:center;margin:14px 0;
+  display:flex;align-items:center;gap:10px;
+}
+.wm-divider::before,.wm-divider::after{
+  content:'';flex:1;height:1px;background:rgba(255,255,255,0.06);
+}
+.wm-foot{
+  padding:0.875rem 1.5rem;border-top:1px solid rgba(255,255,255,0.05);
+  font-size:11px;color:var(--ink3);text-align:center;font-family:var(--mono);
+}
+.wm-spinner{
+  width:20px;height:20px;border:2px solid rgba(255,255,255,0.1);
+  border-top-color:var(--accent);border-radius:50%;
+  animation:spin 0.7s linear infinite;display:inline-block;
+  vertical-align:middle;margin-right:8px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE OPTIMISATION — comprehensive responsive fixes
+   Breakpoints: 640px (tablet), 480px (large phone), 360px (small phone)
+   ════════════════════════════════════════════════════════════ */
+
+
 </style>
 </head>
 <body>
@@ -1289,35 +1368,6 @@ function calcApr(){
 calcApr();
 
 // ── Wallet ────────────────────────────────────────────────────────────
-async function connectWallet(){
-  if(!window.ethereum){toast('Install MetaMask to connect','warn');return;}
-  try{
-    await window.ethereum.request({method:'eth_requestAccounts'});
-    provider=new ethers.BrowserProvider(window.ethereum);
-    signer=await provider.getSigner();
-    userAddr=await signer.getAddress();
-    const net=await provider.getNetwork();
-    chainId=Number(net.chainId);
-    const short=userAddr.slice(0,6)+'…'+userAddr.slice(-4);
-    document.getElementById('connectBtn').textContent=short;
-    document.getElementById('connectBtn').disabled=true;
-    document.getElementById('walletPill').textContent=chainId===14?'Flare Mainnet':chainId===114?'Coston2':'Chain '+chainId;
-    document.getElementById('walletPill').style.display='inline-block';
-    const a=ADDRS[chainId];
-    if(a&&a.flow!=='0x0000000000000000000000000000000000000000'){
-      flowC=new ethers.Contract(a.flow,EMBER_ABI,signer);
-      miningC=new ethers.Contract(a.mining,MINING_ABI,signer);
-      govC=new ethers.Contract(a.governor,GOV_ABI,signer);
-      vaultC=new ethers.Contract(a.vault,VAULT_ABI,signer);
-      await Promise.all([loadFlow(),loadMining(),loadVault()]);
-    } else {
-      showDemoState();
-    }
-    toast('Connected to '+(chainId===14?'Flare Mainnet':chainId===114?'Coston2 Testnet':'Chain '+chainId),'ok');
-    window.ethereum.on('chainChanged',()=>location.reload());
-    window.ethereum.on('accountsChanged',()=>location.reload());
-  }catch(e){toast('Connection failed','err');}
-}
 
 async function loadFlow(){
   if(!flowC||!userAddr)return;
@@ -1523,6 +1573,263 @@ function toast(msg,type=''){
   el.textContent=(icons[type]||'')+msg;
   el.style.borderColor=type==='ok'?'rgba(61,168,95,0.35)':type==='err'?'rgba(224,82,82,0.35)':type==='warn'?'rgba(245,158,11,0.35)':'rgba(255,255,255,0.07)';
   el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),3500);
+}
+
+// ── Wallet connection (Bifrost, MetaMask, WalletConnect) ─────────────
+const WALLETCONNECT_PROJECT_ID = '535e786d16f68721634e38398db088a6';
+let wcProvider=null;
+function openWalletModal() {
+  // Detect injected wallets and show them
+  detectInjectedWallets();
+  document.getElementById('walletModal').classList.add('open');
+  document.getElementById('wmStatus').textContent =
+    'By connecting you agree to interact with unaudited contracts · $50K TVL cap';
+}
+function closeWalletModal() {
+  document.getElementById('walletModal').classList.remove('open');
+}
+function detectInjectedWallets() {
+  // Only show Bifrost and MetaMask — no generic "Detected" fallback
+  // Bifrost is already shown as first option; MetaMask is shown second
+  // No need to detect other wallets
+}
+function setWmStatus(msg, loading = false) {
+  const el = document.getElementById('wmStatus');
+  if (el) el.innerHTML = loading
+    ? `<span class="wm-spinner"></span>${msg}`
+    : msg;
+}
+async function connectBifrost() {
+  // Bifrost injects window.bifrost AND window.ethereum
+  // Prefer window.bifrost if available for explicit identification
+  const bfProvider = window.bifrost || window.ethereum;
+
+  if (!bfProvider) {
+    setWmStatus('Bifrost not detected. <a href="https://bifrostwallet.com" target="_blank" style="color:var(--accent2)">Download Bifrost →</a>');
+    return;
+  }
+  if (!window.bifrost && !window.ethereum?.isBifrost) {
+    // Not Bifrost — suggest download
+    setWmStatus('Bifrost not found. <a href="https://bifrostwallet.com" target="_blank" style="color:var(--accent2)">Get Bifrost wallet →</a>');
+    return;
+  }
+
+  setWmStatus('Connecting to Bifrost…', true);
+  try {
+    await bfProvider.request({ method: 'eth_requestAccounts' });
+    provider = new ethers.BrowserProvider(bfProvider);
+    await _onWalletConnected('Bifrost');
+  } catch(e) {
+    setWmStatus('Bifrost connection cancelled.');
+    console.error('Bifrost:', e);
+  }
+}
+async function connectMetaMask() {
+  if (!window.ethereum) {
+    setWmStatus('MetaMask not detected. <a href="https://metamask.io" target="_blank" style="color:var(--accent2)">Install MetaMask →</a>');
+    return;
+  }
+  setWmStatus('Opening MetaMask…', true);
+  try {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    provider = new ethers.BrowserProvider(window.ethereum);
+    await _onWalletConnected('MetaMask');
+  } catch(e) {
+    if (e.code === 4001) setWmStatus('Connection rejected by user.');
+    else setWmStatus('MetaMask connection failed.');
+    console.error('MetaMask:', e);
+  }
+}
+async function connectWalletConnect() {
+  setWmStatus('Opening WalletConnect…', true);
+  try {
+    // Log what globals are available for debugging
+    console.log('WC globals:', {
+      WalletConnectEthereumProvider: !!window.WalletConnectEthereumProvider,
+      EthereumProvider: !!window.EthereumProvider,
+      WalletConnectModal: !!window.WalletConnectModal,
+    });
+
+    const WCProvider =
+      window.WalletConnectEthereumProvider?.default ||
+      window.WalletConnectEthereumProvider ||
+      window.EthereumProvider?.default ||
+      window.EthereumProvider;
+
+    if (!WCProvider || !WCProvider.init) {
+      // Fallback — try esm.sh dynamic import
+      try {
+        console.log('WC: trying esm.sh fallback...');
+        const mod = await import('https://esm.sh/@walletconnect/ethereum-provider@2.13.0');
+        const EP = mod.EthereumProvider || mod.default;
+        if (EP?.init) { await _initWalletConnect(EP); return; }
+      } catch(e) { console.warn('WC esm.sh failed:', e); }
+      setWmStatus('WalletConnect unavailable. Use MetaMask or Bifrost.');
+      return;
+    }
+
+    await _initWalletConnect(WCProvider);
+
+  } catch(e) {
+    if (e.message?.includes('rejected') || e.code === 4001) {
+      setWmStatus('Connection cancelled.');
+    } else {
+      setWmStatus('Failed. Use MetaMask or Bifrost instead.');
+      console.error('WalletConnect error:', e);
+    }
+  }
+}
+async function connectInjected() {
+  if (!window.ethereum) { setWmStatus('No browser wallet detected.'); return; }
+  setWmStatus('Connecting…', true);
+  try {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    provider = new ethers.BrowserProvider(window.ethereum);
+    await _onWalletConnected(document.getElementById('woInjectedName')?.textContent || 'Browser Wallet');
+  } catch(e) {
+    setWmStatus('Connection failed or rejected.');
+    console.error('Injected:', e);
+  }
+}
+async function _initWalletConnect(WCProvider) {
+  closeWalletModal(); // close wallet selection modal so QR renders on top
+  console.log('WC: initialising provider...');
+  wcProvider = await WCProvider.init({
+    projectId: WALLETCONNECT_PROJECT_ID,
+    optionalChains: [14, 114],
+    showQrModal: true,
+    metadata: {
+      name: 'Cinder',
+      description: 'Auto-compound sFLR and stXRP yield on Flare Network',
+      url: 'https://cinder.finance',
+      icons: ['https://cinder.finance/favicon.png'],
+    },
+    rpcMap: {
+      14:  'https://flare-api.flare.network/ext/C/rpc',
+      114: 'https://coston2-api.flare.network/ext/C/rpc',
+    },
+  });
+  console.log('WC: provider initialised, connecting...');
+  await wcProvider.connect();
+  console.log('WC: connected!');
+  provider = new ethers.BrowserProvider(wcProvider);
+  await _onWalletConnected('WalletConnect');
+  wcProvider.on('disconnect',      () => { toast('WalletConnect disconnected','warn'); location.reload(); });
+  wcProvider.on('chainChanged',    () => location.reload());
+  wcProvider.on('accountsChanged', () => location.reload());
+}
+async function _onWalletConnected(walletName) {
+  signer   = await provider.getSigner();
+  userAddr = await signer.getAddress();
+  const net = await provider.getNetwork();
+  chainId = Number(net.chainId);
+
+  // Prompt to switch to Flare Mainnet if on wrong chain
+  if (chainId !== 14 && chainId !== 114) {
+    setWmStatus('Wrong network. Switching to Flare Mainnet…', true);
+    try {
+      await provider.send('wallet_switchEthereumChain', [{ chainId: '0xe' }]); // 0xe = 14
+      const net2 = await provider.getNetwork();
+      chainId = Number(net2.chainId);
+    } catch(switchErr) {
+      // Chain not added — add it
+      if (switchErr.code === 4902) {
+        try {
+          await provider.send('wallet_addEthereumChain', [{
+            chainId:            '0xe',
+            chainName:          'Flare Mainnet',
+            nativeCurrency:     { name: 'FLR', symbol: 'FLR', decimals: 18 },
+            rpcUrls:            ['https://flare-api.flare.network/ext/C/rpc'],
+            blockExplorerUrls:  ['https://flarescan.com'],
+          }]);
+          chainId = 14;
+        } catch(addErr) {
+          setWmStatus('Please switch to Flare Mainnet manually.');
+          return;
+        }
+      } else {
+        setWmStatus('Please switch to Flare Mainnet in your wallet.');
+        return;
+      }
+    }
+  }
+
+  const cfg = CONTRACTS[chainId];
+  if (!cfg) { setWmStatus('Unsupported network: chainId ' + chainId); return; }
+
+  const netName = chainId === 14 ? 'Flare Mainnet' : chainId === 114 ? 'Coston2 Testnet' : `Chain ${chainId}`;
+
+  // Update UI
+  const short = userAddr.slice(0,6) + '…' + userAddr.slice(-4);
+  const connectBtn = document.getElementById('connectBtn');
+  connectBtn.textContent = short;
+  connectBtn.disabled = false;
+  connectBtn.onclick = showAccountMenu;
+  connectBtn.style.background = 'var(--surface)';
+  connectBtn.style.border = '1px solid var(--border)';
+  connectBtn.style.color = 'var(--ink)';
+  document.getElementById('netPill').textContent = netName;
+  document.getElementById('netPill').classList.add('active');
+
+  // Try to update infoNetwork if it exists
+  const infoNet = document.getElementById('infoNetwork');
+  if (infoNet) infoNet.textContent = netName;
+
+  // Init contracts
+  const v = cfg.vaults[activeVaultIdx];
+  if (v && v.vault !== '0x0000000000000000000000000000000000000000') {
+    vaultContract = new ethers.Contract(v.vault, VAULT_ABI, signer);
+    assetContract = new ethers.Contract(v.asset, ERC20_ABI, signer);
+  }
+  heroSelectVault(activeVaultIdx);
+  if (cfg.zap && cfg.zap !== '0x0000000000000000000000000000000000000000') {
+    zapContract = new ethers.Contract(cfg.zap, ZAP_ABI, signer);
+  }
+  const lpVaultCfg = cfg.vaults.find(v => v.isLP && v.lpZap && v.lpZap !== '0x0000000000000000000000000000000000000000');
+  if (lpVaultCfg) {
+    lpZapContract = new ethers.Contract(lpVaultCfg.lpZap, LP_ZAP_ABI, signer);
+  }
+
+  // Handle legacy stxrp contract ref
+  if (cfg.stxrp && cfg.stxrp !== '0x0000000000000000000000000000000000000000') {
+    stxrp = new ethers.Contract(cfg.stxrp, ERC20_ABI, signer);
+  }
+
+  // Try to update infoContract if exists
+  const infoContract = document.getElementById('infoContract');
+  if (infoContract && v) infoContract.textContent = v.vault.slice(0,10)+'…'+v.vault.slice(-6);
+
+  showConnectedForms();
+  await loadAppData();
+
+  // Set up change listeners for injected wallets
+  const ethProvider = provider.provider || window.ethereum;
+  if (ethProvider?.on) {
+    ethProvider.on('chainChanged', () => location.reload());
+    ethProvider.on('accountsChanged', () => location.reload());
+  }
+
+  pollBlock();
+  closeWalletModal();
+  toast(`Connected via ${walletName} · ${short}`, 'ok');
+}
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = () => reject(new Error('Failed to load: ' + src));
+    document.head.appendChild(s);
+  });
+}
+function showAccountMenu() {
+  // Simple disconnect option via toast with action
+  const short = userAddr ? userAddr.slice(0,6)+'…'+userAddr.slice(-4) : '';
+  toast(`Connected: ${short} — refresh page to disconnect`, 'ok');
+}
+function connectWallet() {
+  openWalletModal();
 }
 </script>
 
