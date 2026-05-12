@@ -1,14 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  <!-- SEO & Social -->
+  <meta name="description" content="EMBER is the governance token of Cinder Finance. 1B fixed supply. Earn by depositing, vote to shape the protocol.">
+  <link rel="canonical" href="https://cinder.finance/governance">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cinder.finance/governance">
+  <meta property="og:title" content="Cinder — EMBER Governance">
+  <meta property="og:description" content="EMBER is the governance token of Cinder Finance. 1B fixed supply. Earn by depositing, vote to shape the protocol.">
+  <meta property="og:image" content="https://cinder.finance/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Cinder Finance">
+  
+  <!-- Twitter/X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CinderDeFi">
+  <meta name="twitter:creator" content="@CinderDeFi">
+  <meta name="twitter:title" content="Cinder — EMBER Governance">
+  <meta name="twitter:description" content="EMBER is the governance token of Cinder Finance. 1B fixed supply. Earn by depositing, vote to shape the protocol.">
+  <meta name="twitter:image" content="https://cinder.finance/og-image.svg">
+  
+  <!-- Schema.org -->
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cinder Finance",
+  "url": "https://cinder.finance",
+  "description": "Auto-compounding yield aggregator for sFLR and stXRP on Flare Network.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "category": "DeFi yield aggregation"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Cinder Finance"
+  },
+  "sameAs": ["https://x.com/CinderDeFi", "https://github.com/tapout976/cinder-finance"]
+}</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-74%20-90%20148%20148%22%3E%0A%3Crect%20x%3D%22-74%22%20y%3D%22-90%22%20width%3D%22148%22%20height%3D%22148%22%20rx%3D%2234%22%20fill%3D%22%230D0804%22/%3E%0A%3Cpath%20d%3D%22M-32%2052C-50%2028-45%204-33-18C-27-4-30%2013-25%2027C-36%2016-38%2035-32%2052Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M-27%2032C-35%2016-31%200-23-7C-20%202-21%2013-18%2023C-25%2014-27%2023-27%2032Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%22-27%22%20cy%3D%22-20%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3Cpath%20d%3D%22M0%2054C-20%2031-18%204%200-50C18%204%2020%2031%200%2054Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M0%2027C-8%2011-7-2%200-21C7-2%208%2011%200%2027Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%220%22%20cy%3D%22-52%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3Cpath%20d%3D%22M32%2052C50%2028%2045%204%2033-18C27-4%2030%2013%2025%2027C36%2016%2038%2035%2032%2052Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M27%2032C35%2016%2031%200%2023-7C20%202%2021%2013%2018%2023C25%2014%2027%2023%2027%2032Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%2227%22%20cy%3D%22-20%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3C/svg%3E">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cinder — EMBER Governance</title>
-<meta property="og:url" content="https://cinder.finance/governance">
-<meta property="og:description" content="EMBER governance, tokenomics, and liquidity mining for Cinder Finance on Flare Network.">
-<meta name="description" content="EMBER governance token, tokenomics, treasury, and liquidity mining for Cinder Finance.">
-<meta property="og:title" content="Cinder — EMBER Governance">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>/* ── Standard nav Connect Wallet button ── */
@@ -782,6 +820,33 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
   <a href="/app">Launch App</a>
   <a href="/about">About</a>
   <a href="/">Home</a>
+</div>
+
+<!-- MINING COUNTDOWN BANNER -->
+<div id="miningBanner" style="background:linear-gradient(135deg,rgba(255,107,35,0.08),rgba(255,179,71,0.06));border-bottom:1px solid rgba(255,107,35,0.15);padding:.875rem 0">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <div style="width:8px;height:8px;border-radius:50%;background:#FF6B23;animation:pulse 2s infinite"></div>
+      <span style="font-size:13px;font-weight:500;color:var(--ink2)">EMBER mining launches with mainnet deploy</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem">
+      <div style="text-align:center">
+        <div id="cdDays" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:22px;color:#FF8C4A;line-height:1">--</div>
+        <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)">Days</div>
+      </div>
+      <div style="font-size:18px;color:var(--border2)">:</div>
+      <div style="text-align:center">
+        <div id="cdHours" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:22px;color:#FF8C4A;line-height:1">--</div>
+        <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)">Hours</div>
+      </div>
+      <div style="font-size:18px;color:var(--border2)">:</div>
+      <div style="text-align:center">
+        <div id="cdMins" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:22px;color:#FF8C4A;line-height:1">--</div>
+        <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)">Mins</div>
+      </div>
+    </div>
+    <a href="https://x.com/CinderDeFi" target="_blank" style="font-size:12px;color:var(--accent2);font-weight:500;white-space:nowrap">Follow @CinderDeFi for launch →</a>
+  </div>
 </div>
 
 <div class="page-hero">
@@ -2047,6 +2112,32 @@ function showAccountMenu() {
 function connectWallet() {
   openWalletModal();
 }
+
+/* Mining countdown — target: Q3 2026 launch estimate */
+(function() {
+  var target = new Date('2026-09-01T00:00:00Z').getTime();
+  function tick() {
+    var now = Date.now();
+    var diff = target - now;
+    if (diff <= 0) {
+      var el = document.getElementById('miningBanner');
+      if (el) el.innerHTML = '<div class="wrap" style="text-align:center;padding:.5rem 0"><span style="color:#4ABA6F;font-weight:500">🔥 EMBER mining is live — deposit to start earning</span></div>';
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var pad = function(n){ return n < 10 ? '0'+n : n; };
+    var days = document.getElementById('cdDays');
+    var hours = document.getElementById('cdHours');
+    var mins = document.getElementById('cdMins');
+    if (days) days.textContent = d;
+    if (hours) hours.textContent = pad(h);
+    if (mins) mins.textContent = pad(m);
+  }
+  tick();
+  setInterval(tick, 30000);
+})();
 </script>
 
 <!-- WALLET SELECTION MODAL -->

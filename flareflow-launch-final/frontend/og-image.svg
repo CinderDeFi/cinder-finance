@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#07080A"/>
+      <stop offset="100%" stop-color="#120804"/>
+    </linearGradient>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,700&amp;family=Space+Grotesk:wght@400;500&amp;display=swap");
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Subtle grid lines -->
+  <line x1="0" y1="315" x2="1200" y2="315" stroke="#161210" stroke-width="1"/>
+  <line x1="600" y1="0" x2="600" y2="630" stroke="#161210" stroke-width="1"/>
+  
+  <!-- Ember glow -->
+  <ellipse cx="200" cy="380" rx="180" ry="80" fill="#FF4500" opacity="0.06"/>
+  <ellipse cx="200" cy="360" rx="100" ry="50" fill="#FF6B23" opacity="0.08"/>
+
+  <!-- CINDER FLAME MARK — large -->
+  <g transform="translate(200, 270)">
+    <rect x="-90" y="-110" width="180" height="180" rx="42" fill="#0D0804"/>
+    <rect x="-90" y="-110" width="180" height="180" rx="42" fill="none" stroke="#2A1508" stroke-width="2"/>
+    <!-- base pool -->
+    <ellipse cx="0" cy="62" rx="60" ry="12" fill="#FF3D00" opacity="0.22"/>
+    <!-- left flame -->
+    <path d="M-38 62C-58 36-52 4-40-22C-32-4-36 16-30 34C-44 20-46 42-38 62Z" fill="#B83000"/>
+    <path d="M-36 52C-50 28-46 4-35-12C-29 1-31 18-26 34C-37 20-39 38-36 52Z" fill="#FF4500"/>
+    <path d="M-33 40C-42 20-38 0-28-8C-25 3-26 17-22 30C-30 18-33 28-33 40Z" fill="#FF6B23"/>
+    <path d="M-29 24C-36 10-32-2-24-8C-21 3-22 14-19 22C-24 14-27 19-29 24Z" fill="#FF8C4A"/>
+    <circle cx="-33" cy="-24" r="6" fill="#FF6B23" opacity="0.4"/>
+    <circle cx="-33" cy="-24" r="4" fill="#FFB347"/>
+    <circle cx="-33" cy="-24" r="2" fill="#FFE8A0"/>
+    <!-- center flame -->
+    <path d="M0 66C-24 38-22 4 0-62C22 4 24 38 0 66Z" fill="#B83000"/>
+    <path d="M0 52C-17 28-15 0 0-46C15 0 17 28 0 52Z" fill="#FF4500"/>
+    <path d="M0 36C-10 16-9-2 0-28C9-2 10 16 0 36Z" fill="#FF6B23"/>
+    <path d="M0 18C-5 6-4-2 0-12C4-2 5 6 0 18Z" fill="#FF8C4A"/>
+    <circle cx="0" cy="-64" r="7" fill="#FF6B23" opacity="0.35"/>
+    <circle cx="0" cy="-64" r="5" fill="#FFB347"/>
+    <circle cx="0" cy="-64" r="2.5" fill="#FFF0C0"/>
+    <!-- right flame -->
+    <path d="M38 62C58 36 52 4 40-22C32-4 36 16 30 34C44 20 46 42 38 62Z" fill="#B83000"/>
+    <path d="M36 52C50 28 46 4 35-12C29 1 31 18 26 34C37 20 39 38 36 52Z" fill="#FF4500"/>
+    <path d="M33 40C42 20 38 0 28-8C25 3 26 17 22 30C30 18 33 28 33 40Z" fill="#FF6B23"/>
+    <path d="M29 24C36 10 32-2 24-8C21 3 22 14 19 22C24 14 27 19 29 24Z" fill="#FF8C4A"/>
+    <circle cx="33" cy="-24" r="6" fill="#FF6B23" opacity="0.4"/>
+    <circle cx="33" cy="-24" r="4" fill="#FFB347"/>
+    <circle cx="33" cy="-24" r="2" fill="#FFE8A0"/>
+    <!-- sparks -->
+    <circle cx="-66" cy="8" r="3" fill="#FF6B23" opacity="0.35"/>
+    <circle cx="70" cy="2" r="2.5" fill="#FF8C4A" opacity="0.3"/>
+    <circle cx="-52" cy="-38" r="2.5" fill="#FFB347" opacity="0.3"/>
+    <circle cx="56" cy="-34" r="2" fill="#FFB347" opacity="0.28"/>
+    <circle cx="0" cy="-80" r="2" fill="#FFE8A0" opacity="0.25"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="340" y="248" font-family="Georgia, serif" font-style="italic" font-weight="700" font-size="96" fill="#EEE9E1" letter-spacing="-2">Cinder</text>
+  
+  <!-- Tagline -->
+  <text x="342" y="300" font-family="'Space Grotesk', Arial, sans-serif" font-weight="400" font-size="22" fill="#6B6762" letter-spacing="0.02em">Auto-compounding yield on Flare Network</text>
+
+  <!-- Divider -->
+  <line x1="340" y1="330" x2="860" y2="330" stroke="#1C1814" stroke-width="1"/>
+
+  <!-- Stats row -->
+  <text x="340" y="390" font-family="Georgia, serif" font-style="italic" font-weight="700" font-size="42" fill="#4ABA6F">9.1%</text>
+  <text x="340" y="414" font-family="'Space Grotesk', Arial, sans-serif" font-size="13" font-weight="500" fill="#4A4642" letter-spacing="0.1em">SFLR APY</text>
+
+  <text x="520" y="390" font-family="Georgia, serif" font-style="italic" font-weight="700" font-size="42" fill="#FF8C4A">8.4%</text>
+  <text x="520" y="414" font-family="'Space Grotesk', Arial, sans-serif" font-size="13" font-weight="500" fill="#4A4642" letter-spacing="0.1em">STXRP APY</text>
+
+  <text x="700" y="390" font-family="Georgia, serif" font-style="italic" font-weight="700" font-size="42" fill="#EEE9E1">0.1%</text>
+  <text x="700" y="414" font-family="'Space Grotesk', Arial, sans-serif" font-size="13" font-weight="500" fill="#4A4642" letter-spacing="0.1em">EXIT FEE ONLY</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="570" width="1200" height="60" fill="#0D0804"/>
+  <text x="340" y="602" font-family="'Space Grotesk', Arial, sans-serif" font-size="14" font-weight="500" fill="#3A3632" letter-spacing="0.08em">cinder.finance  ·  @CinderDeFi  ·  Built on Flare Network</text>
+  
+  <!-- Live badge -->
+  <rect x="1040" y="582" width="120" height="28" rx="14" fill="#0D1F10"/>
+  <rect x="1040" y="582" width="120" height="28" rx="14" fill="none" stroke="#2A5530" stroke-width="1"/>
+  <circle cx="1059" cy="596" r="4" fill="#4ABA6F"/>
+  <text x="1070" y="601" font-family="'Space Grotesk', Arial, sans-serif" font-size="12" font-weight="500" fill="#4ABA6F" letter-spacing="0.06em">LIVE</text>
+</svg>

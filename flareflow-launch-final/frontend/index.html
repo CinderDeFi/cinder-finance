@@ -1,15 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  <!-- SEO & Social -->
+  <meta name="description" content="Auto-compounding sFLR and stXRP staking yield on Flare Network. Deposit once, earn forever. No lock-ups. 9.1% APY.">
+  <link rel="canonical" href="https://cinder.finance/">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cinder.finance/">
+  <meta property="og:title" content="Cinder — Your yield, still glowing.">
+  <meta property="og:description" content="Auto-compounding sFLR and stXRP staking yield on Flare Network. Deposit once, earn forever. No lock-ups. 9.1% APY.">
+  <meta property="og:image" content="https://cinder.finance/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Cinder Finance">
+  
+  <!-- Twitter/X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CinderDeFi">
+  <meta name="twitter:creator" content="@CinderDeFi">
+  <meta name="twitter:title" content="Cinder — Your yield, still glowing.">
+  <meta name="twitter:description" content="Auto-compounding sFLR and stXRP staking yield on Flare Network. Deposit once, earn forever. No lock-ups. 9.1% APY.">
+  <meta name="twitter:image" content="https://cinder.finance/og-image.svg">
+  
+  <!-- Schema.org -->
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cinder Finance",
+  "url": "https://cinder.finance",
+  "description": "Auto-compounding yield aggregator for sFLR and stXRP on Flare Network.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "category": "DeFi yield aggregation"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Cinder Finance"
+  },
+  "sameAs": ["https://x.com/CinderDeFi", "https://github.com/tapout976/cinder-finance"]
+}</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-74%20-90%20148%20148%22%3E%0A%3Crect%20x%3D%22-74%22%20y%3D%22-90%22%20width%3D%22148%22%20height%3D%22148%22%20rx%3D%2234%22%20fill%3D%22%230D0804%22/%3E%0A%3Cpath%20d%3D%22M-32%2052C-50%2028-45%204-33-18C-27-4-30%2013-25%2027C-36%2016-38%2035-32%2052Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M-27%2032C-35%2016-31%200-23-7C-20%202-21%2013-18%2023C-25%2014-27%2023-27%2032Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%22-27%22%20cy%3D%22-20%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3Cpath%20d%3D%22M0%2054C-20%2031-18%204%200-50C18%204%2020%2031%200%2054Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M0%2027C-8%2011-7-2%200-21C7-2%208%2011%200%2027Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%220%22%20cy%3D%22-52%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3Cpath%20d%3D%22M32%2052C50%2028%2045%204%2033-18C27-4%2030%2013%2025%2027C36%2016%2038%2035%2032%2052Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M27%2032C35%2016%2031%200%2023-7C20%202%2021%2013%2018%2023C25%2014%2027%2023%2027%2032Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%2227%22%20cy%3D%22-20%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3C/svg%3E">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#07080A">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Cinder — Your yield, still glowing.</title>
-<meta name="description" content="Cinder auto-compounds sFLR and stXRP staking yield on Flare Network. cinder.finance">
-<meta property="og:title" content="Cinder — Your yield, still glowing.">
-<meta property="og:url" content="https://cinder.finance">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -922,6 +961,62 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
   </div>
 </section>
 
+
+<!-- COMPOUND VISUALIZER SECTION -->
+<section id="compound" style="padding:4rem 0;border-bottom:1px solid var(--border)">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:2rem">
+      <div class="eyebrow" style="margin-bottom:.75rem">Compound effect</div>
+      <h2 class="section-h2">Why auto-compounding <em style="color:var(--accent);font-style:italic">matters.</em></h2>
+      <p style="color:var(--ink2);font-size:15px;max-width:480px;margin:.75rem auto 0">
+        Manual claiming loses you yield daily. Cinder compounds every hour.
+      </p>
+    </div>
+
+    <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;max-width:680px;margin:0 auto">
+      <!-- Slider controls -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem">
+        <div>
+          <label style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:.5rem">Deposit amount</label>
+          <div style="display:flex;align-items:center;gap:8px">
+            <input type="range" id="cvDeposit" min="100" max="100000" value="10000" step="100"
+              style="flex:1;accent-color:#FF6B23" oninput="updateCV()">
+            <span id="cvDepositVal" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:18px;color:var(--ink);min-width:80px;text-align:right">$10,000</span>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:.5rem">Time period</label>
+          <div style="display:flex;align-items:center;gap:8px">
+            <input type="range" id="cvYears" min="1" max="5" value="3" step="1"
+              style="flex:1;accent-color:#FF6B23" oninput="updateCV()">
+            <span id="cvYearsVal" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:18px;color:var(--ink);min-width:60px;text-align:right">3 yrs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results comparison -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem;text-align:center">
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:.5rem">Manual claiming</div>
+          <div id="cvManual" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:28px;color:var(--ink2)">$12,763</div>
+          <div style="font-size:11px;color:var(--ink3);margin-top:.25rem">~9.1% simple APY</div>
+        </div>
+        <div style="background:rgba(255,107,35,0.06);border:1px solid rgba(255,107,35,0.2);border-radius:14px;padding:1.25rem;text-align:center">
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2);margin-bottom:.5rem">With Cinder</div>
+          <div id="cvCompound" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:28px;color:#FF8C4A">$13,224</div>
+          <div style="font-size:11px;color:var(--accent2);margin-top:.25rem">Hourly compounding</div>
+        </div>
+      </div>
+
+      <!-- Extra earned -->
+      <div style="text-align:center;padding:1rem;background:rgba(74,186,111,0.06);border:1px solid rgba(74,186,111,0.15);border-radius:12px">
+        <span style="font-size:13px;color:var(--ink2)">Extra earned with Cinder: </span>
+        <span id="cvExtra" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:20px;color:#4ABA6F">+$461</span>
+        <span style="font-size:12px;color:var(--ink3);margin-left:.5rem">just from compounding frequency</span>
+      </div>
+    </div>
+  </div>
+</section>
 <section id="cta" style="padding:4rem 0;position:relative;z-index:1">
   <div class="container">
     <div class="reveal" style="
@@ -1060,6 +1155,25 @@ function toggleFaq(btn) {
     draw();
   }catch(e){console.warn('Particles:',e)}
 })();
+
+/* Compound visualizer */
+function updateCV() {
+  var deposit = parseInt(document.getElementById('cvDeposit').value);
+  var years = parseInt(document.getElementById('cvYears').value);
+  var apy = 0.091;
+  var n = 8760; // hourly compounds per year
+
+  var manual = deposit * (1 + apy * years);
+  var compound = deposit * Math.pow(1 + apy/n, n * years);
+  var extra = compound - manual;
+
+  document.getElementById('cvDepositVal').textContent = '$' + deposit.toLocaleString();
+  document.getElementById('cvYearsVal').textContent = years + (years === 1 ? ' yr' : ' yrs');
+  document.getElementById('cvManual').textContent = '$' + Math.round(manual).toLocaleString();
+  document.getElementById('cvCompound').textContent = '$' + Math.round(compound).toLocaleString();
+  document.getElementById('cvExtra').textContent = '+$' + Math.round(extra).toLocaleString();
+}
+
 </script>
 </body>
 </html>

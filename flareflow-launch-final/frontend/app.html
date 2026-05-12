@@ -1,6 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  <!-- SEO & Social -->
+  <meta name="description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
+  <link rel="canonical" href="https://cinder.finance/app">
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cinder.finance/app">
+  <meta property="og:title" content="Cinder App — Deposit & Earn">
+  <meta property="og:description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
+  <meta property="og:image" content="https://cinder.finance/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Cinder Finance">
+  
+  <!-- Twitter/X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CinderDeFi">
+  <meta name="twitter:creator" content="@CinderDeFi">
+  <meta name="twitter:title" content="Cinder App — Deposit & Earn">
+  <meta name="twitter:description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
+  <meta name="twitter:image" content="https://cinder.finance/og-image.svg">
+  
+  <!-- Schema.org -->
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cinder Finance",
+  "url": "https://cinder.finance",
+  "description": "Auto-compounding yield aggregator for sFLR and stXRP on Flare Network.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "category": "DeFi yield aggregation"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Cinder Finance"
+  },
+  "sameAs": ["https://x.com/CinderDeFi", "https://github.com/tapout976/cinder-finance"]
+}</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-74%20-90%20148%20148%22%3E%0A%3Crect%20x%3D%22-74%22%20y%3D%22-90%22%20width%3D%22148%22%20height%3D%22148%22%20rx%3D%2234%22%20fill%3D%22%230D0804%22/%3E%0A%3Cpath%20d%3D%22M-32%2052C-50%2028-45%204-33-18C-27-4-30%2013-25%2027C-36%2016-38%2035-32%2052Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M-27%2032C-35%2016-31%200-23-7C-20%202-21%2013-18%2023C-25%2014-27%2023-27%2032Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%22-27%22%20cy%3D%22-20%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3Cpath%20d%3D%22M0%2054C-20%2031-18%204%200-50C18%204%2020%2031%200%2054Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M0%2027C-8%2011-7-2%200-21C7-2%208%2011%200%2027Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%220%22%20cy%3D%22-52%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3Cpath%20d%3D%22M32%2052C50%2028%2045%204%2033-18C27-4%2030%2013%2025%2027C36%2016%2038%2035%2032%2052Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M27%2032C35%2016%2031%200%2023-7C20%202%2021%2013%2018%2023C25%2014%2027%2023%2027%2032Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%2227%22%20cy%3D%22-20%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3C/svg%3E">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -8,10 +50,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Cinder App — Deposit & Earn</title>
-<meta property="og:title" content="Cinder — Your yield, still glowing.">
-<meta property="og:description" content="Auto-compound sFLR and stXRP staking yield on Flare Network. cinder.finance">
-<meta property="og:type" content="website">
-<meta name="description" content="Cinder auto-compounds sFLR and stXRP staking yield on Flare Network. Your yield, still glowing. cinder.finance">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>/* ── Standard nav Connect Wallet button ── */
@@ -2015,7 +2053,24 @@ html, body { max-width: 100%; overflow-x: hidden; }
       <!-- Right info panel -->
       <div style="display:flex;flex-direction:column;gap:14px">
         <div class="app-card">
-          <div class="ac-head"><span class="ac-title">Vault stats</span></div>
+          <div class="ac-head"><span class="ac-title">
+<!-- LIVE HARVEST FEED -->
+<div id="harvestFeed" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.25rem;margin:1.5rem 0">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+    <div style="display:flex;align-items:center;gap:.625rem">
+      <div style="width:7px;height:7px;border-radius:50%;background:#4ABA6F"></div>
+      <span style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);font-weight:500">Live harvests</span>
+    </div>
+    <a href="https://flarescan.com" target="_blank" style="font-size:11px;color:var(--ink3);text-decoration:none">Flarescan ↗</a>
+  </div>
+  <div id="harvestList" style="display:flex;flex-direction:column;gap:.5rem">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:.625rem .75rem;background:var(--card);border-radius:10px;font-size:13px">
+      <span style="color:var(--ink2)">⏳ Waiting for first harvest after deploy...</span>
+      <span style="color:var(--ink3);font-size:11px">Pending</span>
+    </div>
+  </div>
+</div>
+Vault stats</span></div>
           <div class="ac-body">
             <div class="frow"><span class="fl">TVL</span><span class="fv" id="infoTvl">—</span></div>
             <div class="frow"><span class="fl">Net APY</span><span class="fv g" id="infoNetApy">8.4%</span></div>
@@ -3749,6 +3804,42 @@ document.addEventListener('click',function(e){
   var b=document.getElementById('hamBtn');
   if(n&&n.classList.contains('open')&&!n.contains(e.target)&&b&&!b.contains(e.target))closeMobileNav();
 });
+
+/* Live harvest feed — polls Flarescan after contract deploy */
+(function() {
+  var VAULT = null; // set after deploy: "0x..."
+  if (!VAULT) return; // no-op until contracts deployed
+  
+  function timeAgo(ts) {
+    var diff = Math.floor((Date.now() - ts * 1000) / 1000);
+    if (diff < 60) return diff + 's ago';
+    if (diff < 3600) return Math.floor(diff/60) + 'm ago';
+    if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
+    return Math.floor(diff/86400) + 'd ago';
+  }
+  
+  function loadHarvests() {
+    var url = 'https://flarescan.com/api?module=account&action=txlist&address=' + VAULT + '&sort=desc&limit=5';
+    fetch(url).then(function(r){ return r.json(); }).then(function(d) {
+      if (!d.result || !d.result.length) return;
+      var harvests = d.result.filter(function(tx){ return tx.input && tx.input.startsWith('0x4641257d'); }); // harvest() sig
+      if (!harvests.length) return;
+      var list = document.getElementById('harvestList');
+      if (!list) return;
+      list.innerHTML = harvests.slice(0,5).map(function(tx) {
+        return '<div style="display:flex;justify-content:space-between;align-items:center;padding:.625rem .75rem;background:var(--card);border-radius:10px;font-size:13px">' +
+          '<span style="color:var(--ink2)">🔥 Harvest triggered</span>' +
+          '<div style="display:flex;align-items:center;gap:.75rem">' +
+          '<a href="https://flarescan.com/tx/' + tx.hash + '" target="_blank" style="font-size:11px;color:var(--accent2);font-family:var(--mono)">' + tx.hash.slice(0,8) + '...</a>' +
+          '<span style="color:var(--ink3);font-size:11px">' + timeAgo(tx.timeStamp) + '</span>' +
+          '</div></div>';
+      }).join('');
+    }).catch(function(){});
+  }
+  
+  loadHarvests();
+  setInterval(loadHarvests, 60000);
+})();
 </script>
 </body>
 </html>
