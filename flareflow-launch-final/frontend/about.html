@@ -360,6 +360,7 @@ footer {
 
 /* ── SCROLL REVEAL ── */
 .r { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.r.visible { opacity: 1; transform: none; }
 .r.v { opacity: 1; transform: none; }
 .r.d1 { transition-delay: 0.08s; }
 .r.d2 { transition-delay: 0.16s; }
@@ -1077,11 +1078,14 @@ document.addEventListener('click',function(e){
     var obs=new IntersectionObserver(function(entries){
       entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')});
     },{threshold:0.05});
-    document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
-  }catch(e){document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('visible')})}
+    document.querySelectorAll('.reveal, .r').forEach(function(el){obs.observe(el)});
+  }catch(e){document.querySelectorAll('.reveal, .r').forEach(function(el){el.classList.add('visible')})}
 })();
 
-// ── Wallet ────────────────────────────────────────────────────────────────
+// Safety net: show all .r elements after 600ms regardless
+setTimeout(function(){
+  document.querySelectorAll('.r').forEach(function(el){ el.classList.add('visible'); });
+}, 600);
 const WALLETCONNECT_PROJECT_ID = '535e786d16f68721634e38398db088a6';
 var wcProvider=null, provider=null, signer=null, userAddr=null;
 const FLARE_CHAIN_CONFIG={chainId:14,name:'Flare Mainnet',currency:'FLR',rpcUrl:'https://flare-api.flare.network/ext/C/rpc'};
