@@ -697,6 +697,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 /* ── Container: tighter padding on mobile ── */
 @media (max-width: 640px) {
+  .ham-btn { display: flex; }
+  .show-desktop { display: none !important; }
+  #connectBtn { font-size: 12px; padding: 8px 12px; }
+  .nav-links { display: none !important; }
   .container { padding: 0 1rem; }
 }
 
@@ -952,7 +956,50 @@ html, body { max-width: 100%; overflow-x: hidden; }
 </style>
 </head>
 <body>
-<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}
+/* ── Hamburger / mobile nav (app page) ── */
+.ham-btn{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px;flex-shrink:0;
+}
+.ham-btn span{display:block;height:2px;background:var(--ink);border-radius:2px;transition:all 0.25s}
+.ham-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham-btn.open span:nth-child(2){opacity:0}
+.ham-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-nav{
+  display:none;position:fixed;top:60px;left:0;right:0;z-index:99;
+  background:rgba(7,8,10,0.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:1rem 2rem 1.5rem;flex-direction:column;gap:0;
+}
+.mobile-nav.open{display:flex}
+.mobile-nav a{
+  display:block;padding:13px 0;font-size:16px;color:var(--ink2);
+  border-bottom:1px solid var(--border);transition:color 0.15s;
+}
+.mobile-nav a:last-child{border-bottom:none}
+.mobile-nav a:hover,.mobile-nav a:active{color:var(--ink)}
+.mobile-nav .mn-home{
+  margin-top:1rem;display:block;text-align:center;
+  padding:14px;background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;color:var(--ink2);font-weight:500;font-size:15px;
+  border-bottom:1px solid var(--border) !important;
+}
+
+/* ── Calculator mobile ── */
+@media (max-width: 640px) {
+  .calc-body { grid-template-columns: 1fr; gap: 1.5rem; }
+  .out-val { font-size: 32px; }
+  .out-card { padding: 1.25rem; }
+  .slider-label { font-size: 12px; }
+  input[type="range"] { height: 6px; }
+  #calc-chart-wrap { height: 180px; min-height: 150px; }
+  .calc-inputs { padding: 0; }
+  .out-row { flex-direction: column; gap: 0.75rem; }
+}
+
+.footer-links a{padding:5px 2px;min-height:36px;display:inline-flex;align-items:center}
+</style></noscript>
 
 <canvas id="canvas-bg"></canvas>
 
@@ -1937,6 +1984,30 @@ function showNotDeployed(idx) {
 }
 let heroApproved=false, appApproved=false;
 let calcChart;
+
+// ── Mobile nav ───────────────────────────────────────────────────────────
+function toggleMobileNav(){
+  const btn=document.getElementById('hamBtn');
+  const nav=document.getElementById('mobileNav');
+  if(!btn||!nav)return;
+  btn.classList.toggle('open');
+  nav.classList.toggle('open');
+  document.body.style.overflow=nav.classList.contains('open')?'hidden':'';
+}
+function closeMobileNav(){
+  const btn=document.getElementById('hamBtn');
+  const nav=document.getElementById('mobileNav');
+  if(btn)btn.classList.remove('open');
+  if(nav)nav.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click',function(e){
+  const nav=document.getElementById('mobileNav');
+  const btn=document.getElementById('hamBtn');
+  if(nav&&nav.classList.contains('open')&&!nav.contains(e.target)&&btn&&!btn.contains(e.target)){
+    closeMobileNav();
+  }
+});
 
 // ── Cinder Ember Particle Background (wrapped to prevent crash) ──────────
 (function initCanvas(){ try {

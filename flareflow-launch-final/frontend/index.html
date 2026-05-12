@@ -104,8 +104,8 @@ section{position:relative;z-index:1;padding:5rem 0}
 .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-index:1}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
-.footer-links{display:flex;gap:1.5rem;font-size:13px;color:var(--ink3)}
-.footer-links a:hover{color:var(--ink2)}
+.footer-links{display:flex;gap:1rem;flex-wrap:wrap;font-size:13px;color:var(--ink3)}
+.footer-links a{padding:4px 2px;min-height:36px;display:inline-flex;align-items:center}.footer-links a:hover{color:var(--ink2)}
 .footer-note{font-size:12px;color:var(--ink4);font-family:var(--mono)}
 .footer-mobile-nav{display:none;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:13px;color:var(--ink2);margin-bottom:0.5rem}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
@@ -118,9 +118,10 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 @media(max-width:640px){
   nav{padding:0 1rem;height:56px}.nav-links{display:none}
   .container{padding:0 1rem}
-  .hero-h1{font-size:clamp(34px,10vw,56px);letter-spacing:-2px}
+  .hero-h1{font-size:clamp(28px,8.5vw,50px);letter-spacing:-1px;line-height:1.0}
   .hero-sub{font-size:15px}.hero-ctas{flex-direction:column}
-  .btn-xl{width:100%;justify-content:center}
+  .btn-xl{width:100%;justify-content:center;min-height:48px}
+  .btn-launch{width:auto}
   .hero-stats{gap:1.5rem;flex-wrap:wrap}
   .section-h2{font-size:clamp(28px,8vw,48px)}
   .cta-h2{font-size:clamp(32px,9vw,52px)}
@@ -129,8 +130,47 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
   .footer-mobile-nav{display:flex !important}
   .vc:hover{transform:none}
 }
+@media(max-width:380px){
+  .hero-h1{font-size:clamp(26px,7.5vw,40px);letter-spacing:-0.5px}
+  .hero-sub{font-size:14px}
+}
 @media(hover:none){.btn-xl:hover,.btn-launch:hover{transform:none}}
 @supports(padding-bottom:env(safe-area-inset-bottom)){footer{padding-bottom:calc(2rem + env(safe-area-inset-bottom))}}
+
+/* ── Hamburger / mobile nav ── */
+.ham-btn{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px;
+}
+.ham-btn span{display:block;height:2px;background:var(--ink);border-radius:2px;transition:all 0.25s}
+.ham-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham-btn.open span:nth-child(2){opacity:0}
+.ham-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-nav{
+  display:none;position:fixed;top:60px;left:0;right:0;z-index:99;
+  background:rgba(7,8,10,0.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:1rem 2rem 1.5rem;
+  flex-direction:column;gap:0;
+}
+.mobile-nav.open{display:flex}
+.mobile-nav a{
+  display:block;padding:13px 0;font-size:16px;color:var(--ink2);
+  border-bottom:1px solid var(--border);transition:color 0.15s;
+}
+.mobile-nav a:last-child{border-bottom:none}
+.mobile-nav a:hover,.mobile-nav a:active{color:var(--ink)}
+.mobile-nav .mn-launch{
+  margin-top:1rem;display:block;text-align:center;
+  padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent3));
+  border-radius:12px;color:#fff;font-weight:600;font-size:15px;
+  border-bottom:none !important;
+}
+@media(max-width:640px){
+  .ham-btn{display:flex}
+  .nav-links{display:none !important}
+  nav > div:last-child .btn-launch{display:none}
+}
 </style>
 </head>
 <body>
@@ -146,10 +186,22 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
     <a href="/governance">Governance</a>
     <a href="/about">About</a>
   </div>
-  <div>
+  <div style="display:flex;align-items:center;gap:10px">
     <a href="/app"><button class="btn-launch">Launch App →</button></a>
+    <button class="ham-btn" id="hamBtn" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+<!-- Mobile nav overlay -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#how" onclick="closeMobileNav()">How it works</a>
+  <a href="#features" onclick="closeMobileNav()">Features</a>
+  <a href="#faq" onclick="closeMobileNav()">FAQ</a>
+  <a href="/governance">Governance</a>
+  <a href="/about">About</a>
+  <a href="/app" class="mn-launch">Launch App →</a>
+</div>
 
 <section id="hero">
   <div class="container">
@@ -299,6 +351,27 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
     document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
   }catch(e){document.querySelectorAll(".reveal").forEach(el=>el.classList.add("visible"))}
 })();
+
+function toggleMobileNav(){
+  const btn=document.getElementById('hamBtn');
+  const nav=document.getElementById('mobileNav');
+  btn.classList.toggle('open');
+  nav.classList.toggle('open');
+  document.body.style.overflow=nav.classList.contains('open')?'hidden':'';
+}
+function closeMobileNav(){
+  document.getElementById('hamBtn').classList.remove('open');
+  document.getElementById('mobileNav').classList.remove('open');
+  document.body.style.overflow='';
+}
+// Close mobile nav when clicking outside
+document.addEventListener('click',function(e){
+  const nav=document.getElementById('mobileNav');
+  const btn=document.getElementById('hamBtn');
+  if(nav && nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)){
+    closeMobileNav();
+  }
+});
 
 function toggleFaq(btn){
   const a=btn.nextElementSibling;
