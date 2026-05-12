@@ -1634,5 +1634,12 @@ function faq(btn) {
 }
 </script>
 
+<script>
+setTimeout(function() {
+  document.querySelectorAll('.r,.reveal,[class*="reveal"]').forEach(function(el) {
+    el.style.opacity='1';el.style.transform='none';el.classList.add('visible');
+  });
+}, 600);
+</script>
 </body>
 </html>

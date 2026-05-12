@@ -1912,9 +1912,9 @@ html, body { max-width: 100%; overflow-x: hidden; }
           <div class="slider-group">
             <div class="slider-label">
               <span class="sl-name">Gross APY assumption</span>
-              <span class="sl-val" id="slApyVal">9.3%</span>
+              <span class="sl-val" id="slApyVal">12%</span>
             </div>
-            <input type="range" id="slApy" min="2" max="20" step="0.1" value="9.3" oninput="updateCalc()">
+            <input type="range" id="slApy" min="2" max="20" step="0.1" value="12" oninput="updateCalc()">
             <div class="range-ends"><span>2%</span><span>20%</span></div>
           </div>
         </div>
@@ -1923,7 +1923,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
             <div class="out-label">Your net yield</div>
             <div class="out-val g" id="oNetYield">$840</div>
             <div class="out-sub">After 10% performance fee</div>
-            <div class="fee-pill" id="oNetPct">~9% net APY</div>
+            <div class="fee-pill" id="oNetPct">~10.8% net APY</div>
           </div>
           <div class="out-card">
             <div class="out-label">Ending balance</div>
@@ -2216,7 +2216,7 @@ Vault stats</span></div>
           How is the ~9% APY calculated?
           <span class="faq-arrow">+</span>
         </button>
-        <div class="faq-a">sFLR vault: ~12% net APY (live from chain) (Sceptre sFLR staking minus 10% performance fee). stXRP vault: ~~9% net APY (Firelight stXRP staking minus 10% performance fee). Both rates fluctuate based on Flare network staking rewards. On top of vault yield, staking your cFLR or cXRP shares in CinderMining earns additional EMBER rewards.</div>
+        <div class="faq-a">sFLR vault: ~12% net APY (live from chain) (Sceptre sFLR staking minus 10% performance fee). stXRP vault: ~~10.8% net APY (Firelight stXRP staking minus 10% performance fee). Both rates fluctuate based on Flare network staking rewards. On top of vault yield, staking your cFLR or cXRP shares in CinderMining earns additional EMBER rewards.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
@@ -3698,7 +3698,7 @@ function appSetMaxShares(){const m=document.getElementById('appSharesLbl').textC
 function updateCalc(){
   const dep=parseFloat(document.getElementById('slDep').value)||10000;
   const months=parseInt(document.getElementById('slMonths').value)||12;
-  const grossApy=parseFloat(document.getElementById('slApy').value)||9.3;
+  const grossApy=parseFloat(document.getElementById('slApy').value)||12;
   const netApy=grossApy*0.9;
   const years=months/12;
   const grossYield=dep*((Math.pow(1+grossApy/100,years))-1);
