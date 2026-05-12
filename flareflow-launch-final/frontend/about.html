@@ -531,6 +531,27 @@ footer {
 
 
 
+
+/* ── Nav right — consistent across all pages ── */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+@media (max-width: 768px) {
+  .nav-right { gap: 8px; }
+  .nav-right .pill-badge,
+  .nav-right .wallet-pill,
+  .nav-right .nav-cta,
+  .nav-right > a:not(.ham-btn) { display: none !important; }
+  #connectBtn {
+    font-size: 13px !important;
+    padding: 9px 16px !important;
+    min-height: 40px !important;
+    width: auto !important;
+  }
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@walletconnect/modal@2.7.0/dist/index.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.13.0/dist/index.umd.js"></script>
@@ -548,8 +569,7 @@ footer {
     <a href="/governance">Governance</a>
     <a href="/about" class="active">About</a>
   </div>
-  <div class="nav-right" style="display:flex;align-items:center;gap:8px">
-    <a href="/app" class="nav-cta">Launch App</a>
+  <div class="nav-right">
     <button class="btn btn-primary" id="connectBtn" onclick="openWalletModal()">Connect Wallet</button>
     <button class="ham-btn" id="hamBtn" onclick="toggleMobileNav()" aria-label="Menu">
       <span></span><span></span><span></span>
