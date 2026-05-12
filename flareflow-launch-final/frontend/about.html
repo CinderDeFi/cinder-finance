@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
+
 :root{
   --bg:#07080A;--bg2:#0B0D10;
   --surface:#111318;--card:#161A20;--card2:#1C2028;
@@ -380,224 +381,7 @@ footer {
 @media(max-width:640px){.ham-btn{display:flex}.nav-links{display:none !important}}
 
 .footer-links a{padding:5px 2px;min-height:36px;display:inline-flex;align-items:center}
-
-/* ═══════════════════════════════════════════════════
-   MOBILE — comprehensive responsive rules
-   ═══════════════════════════════════════════════════ */
-
-/* ── Nav: hide links, show hamburger on mobile ── */
-@media (max-width: 640px) {
-  nav { padding: 0 1rem; height: 56px; }
-  .nav-links { display: none !important; }
-  .ham-btn { display: flex !important; }
-  .nav-cta { display: none; }           /* about.html CTA link in nav */
-  .nav-right { gap: 6px; }
-  #connectBtn { font-size: 12px; padding: 7px 12px; }
-  #netPill, .wallet-pill, .pill-badge { display: none; }
-}
-
-/* ── Hero H1: prevent overflow on small phones ── */
-@media (max-width: 640px) {
-  .hero-h1, h1.hero-h1 {
-    font-size: clamp(26px, 8vw, 44px) !important;
-    letter-spacing: -0.5px !important;
-    line-height: 1.05 !important;
-  }
-}
-@media (max-width: 380px) {
-  .hero-h1, h1.hero-h1 {
-    font-size: clamp(24px, 7vw, 36px) !important;
-    letter-spacing: 0 !important;
-  }
-}
-
-/* ── CTA / action buttons: full-width, thumb-friendly ── */
-@media (max-width: 640px) {
-  .btn-xl {
-    width: 100% !important;
-    justify-content: center !important;
-    min-height: 52px !important;
-    font-size: 16px !important;
-    padding: 15px 20px !important;
-    border-radius: 12px !important;
-  }
-  .hero-ctas { flex-direction: column; gap: 10px; }
-  .cta-btns  { flex-direction: column; align-items: stretch; gap: 10px; }
-  .btn-launch {
-    min-height: 48px;
-    font-size: 15px;
-    width: 100%;
-  }
-  .main-btn {
-    min-height: 52px !important;
-    font-size: 15px !important;
-  }
-}
-
-/* ── General layout on mobile ── */
-@media (max-width: 640px) {
-  .container { padding: 0 1rem; }
-  section { padding: 3rem 0; }
-  .section-h2 { font-size: clamp(26px, 7vw, 40px); letter-spacing: -1px; }
-  .hero-sub   { font-size: 15px; }
-  .hero-stats { gap: 1.25rem; flex-wrap: wrap; }
-  .h-stat-v   { font-size: 24px; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-  .flow-grid  { grid-template-columns: 1fr; }
-  .feat-grid  { grid-template-columns: 1fr; }
-  footer { padding: 1.5rem 0; }
-  .footer-inner { flex-direction: column; text-align: center; gap: 1rem; }
-  .footer-links { justify-content: center; flex-wrap: wrap; }
-  .footer-mobile-nav { display: flex !important; }
-}
-
-/* ── Touch: no hover effects on touch devices ── */
-@media (hover: none) {
-  .btn-xl:hover, .btn-launch:hover, .main-btn:hover,
-  .vc:hover, .vault-pill:hover, .wallet-option:hover { transform: none !important; }
-}
-
-/* ── Safe area (notch support) ── */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .mobile-nav { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
-  footer      { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
-}
-
-/* ═══════════════════════════════════════════════════
-   CINDER MOBILE — nav, hamburger, buttons, layout
-   ═══════════════════════════════════════════════════ */
-
-/* Ham button hidden by default, shown on mobile */
-.ham-btn {
-  display: none;
-  flex-direction: column; justify-content: center; gap: 5px;
-  width: 40px; height: 40px; min-width: 40px;
-  cursor: pointer; background: none; border: none; padding: 6px;
-  flex-shrink: 0; -webkit-tap-highlight-color: transparent;
-}
-.ham-btn span {
-  display: block; height: 2px; background: #EEE9E1;
-  border-radius: 2px; transition: all 0.25s ease;
-}
-.ham-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.ham-btn.open span:nth-child(2) { opacity: 0; }
-.ham-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-/* Mobile nav overlay */
-.mobile-nav {
-  display: none; position: fixed;
-  top: 56px; left: 0; right: 0; z-index: 199;
-  background: rgba(7,8,10,0.98); backdrop-filter: blur(24px);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  flex-direction: column; padding: 0.25rem 0 1rem;
-}
-.mobile-nav.open { display: flex; }
-.mobile-nav a {
-  display: block; padding: 15px 1.5rem; font-size: 16px;
-  color: rgba(238,233,225,0.75); text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.mobile-nav a:last-child { border-bottom: none; }
-.mobile-nav a:active { color: #EEE9E1; background: rgba(255,255,255,0.03); }
-.mobile-nav .mn-cta, .mobile-nav .mn-launch {
-  margin: 0.75rem 1.5rem 0 !important;
-  display: block !important; text-align: center !important;
-  padding: 14px !important;
-  background: linear-gradient(135deg,#FF6B23,#FFB347) !important;
-  border-radius: 12px !important; color: #fff !important;
-  font-weight: 600 !important; border-bottom: none !important;
-}
-
-@media (max-width: 768px) {
-  /* ── Nav ── */
-  nav { padding: 0 1rem !important; height: 56px !important; }
-  .nav-links { display: none !important; }
-  .ham-btn { display: flex !important; }
-  .nav-cta { display: none !important; }
-  #netPill, .wallet-pill, .pill-badge { display: none !important; }
-  #connectBtn {
-    font-size: 12px !important; padding: 8px 12px !important;
-    min-height: 36px !important;
-  }
-
-  /* ── Hero H1 ── */
-  .hero-h1 {
-    font-size: clamp(24px, 7.5vw, 40px) !important;
-    letter-spacing: -0.3px !important;
-    line-height: 1.08 !important;
-    word-break: break-word !important;
-  }
-  .hero-sub { font-size: 15px !important; line-height: 1.6 !important; }
-
-  /* ── All CTA buttons ── */
-  .btn-xl {
-    min-height: 52px !important; font-size: 16px !important;
-    padding: 15px 24px !important; border-radius: 12px !important;
-    width: 100% !important; justify-content: center !important;
-    display: flex !important; align-items: center !important;
-  }
-  .hero-ctas, .cta-btns {
-    flex-direction: column !important; gap: 10px !important;
-    width: 100% !important;
-  }
-  .btn-launch {
-    min-height: 48px !important; font-size: 15px !important;
-  }
-  .main-btn {
-    min-height: 52px !important; font-size: 15px !important;
-    padding: 15px !important; border-radius: 11px !important;
-  }
-
-  /* ── Calculator ── */
-  .calc-body { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
-  .out-val { font-size: 30px !important; }
-  .out-card { padding: 1.25rem !important; }
-  #calc-chart-wrap { height: 180px !important; }
-
-  /* ── Cards & vault pills ── */
-  .vault-pill { padding: 14px 16px !important; }
-  .vc { padding: 16px !important; gap: 12px !important; }
-  .feat-card { padding: 1.25rem !important; }
-  .flow-step { padding: 1.25rem !important; }
-
-  /* ── Footer ── */
-  footer { padding: 2rem 0 !important; }
-  .footer-inner {
-    flex-direction: column !important; gap: 1.25rem !important;
-    text-align: center !important;
-  }
-  .footer-links {
-    flex-wrap: wrap !important; justify-content: center !important;
-    gap: 0.5rem 1.25rem !important;
-  }
-  .footer-links a {
-    min-height: 40px !important; display: inline-flex !important;
-    align-items: center !important; padding: 4px 8px !important;
-  }
-
-  /* ── General ── */
-  .container { padding: 0 1rem !important; }
-  .stats-grid { grid-template-columns: 1fr 1fr !important; }
-  .flow-grid, .feat-grid { grid-template-columns: 1fr !important; }
-  section { padding: 3rem 0 !important; }
-  .hero-stats { gap: 1.25rem !important; flex-wrap: wrap !important; }
-}
-
-/* ── Touch devices ── */
-@media (hover: none) {
-  .btn-xl:hover, .main-btn:hover, .btn-launch:hover,
-  .vc:hover, .vault-pill:hover, .wallet-option:hover { transform: none !important; }
-}
-
-/* ── Safe area insets ── */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .mobile-nav { padding-bottom: calc(0.75rem + env(safe-area-inset-bottom)); }
-  footer { padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important; }
-}
-
-
-/* CINDER MOBILE PATCH */
+/* ── Mobile ── */
 .ham-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;cursor:pointer;background:none;border:none;padding:6px;flex-shrink:0;-webkit-tap-highlight-color:transparent}
 .ham-btn span{display:block;height:2px;background:#EEE9E1;border-radius:2px;transition:all .25s}
 .ham-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -608,34 +392,21 @@ footer {
 .mobile-nav a{display:block;padding:15px 1.5rem;font-size:16px;color:rgba(238,233,225,.8);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.04)}
 .mobile-nav a:last-child{border-bottom:none}
 .mobile-nav a:active{background:rgba(255,255,255,.04)}
-.mn-cta,.mn-launch{margin:.75rem 1.5rem 0!important;display:block!important;text-align:center!important;padding:14px!important;background:linear-gradient(135deg,#FF6B23,#FFB347)!important;border-radius:12px!important;color:#fff!important;font-weight:600!important;border-bottom:none!important}
+.mn-launch{margin:.75rem 1.5rem 0!important;display:block!important;text-align:center!important;padding:14px!important;background:linear-gradient(135deg,#FF6B23,#FFB347)!important;border-radius:12px!important;color:#fff!important;font-weight:600!important;border-bottom:none!important}
 @media(max-width:768px){
   nav{padding:0 1rem!important;height:56px!important}
-  .nav-links,.nav-links-wrap{display:none!important}
+  .nav-links{display:none!important}
   .nav-cta{display:none!important}
   .ham-btn{display:flex!important}
-  #netPill,.wallet-pill,.pill-badge{display:none!important}
-  #connectBtn{font-size:12px!important;padding:8px 12px!important;min-height:36px!important}
-  .hero-h1,h1.hero-h1{font-size:clamp(22px,7vw,38px)!important;letter-spacing:-.3px!important;line-height:1.08!important;word-break:break-word!important}
-  .hero-sub{font-size:15px!important}
-  .btn-xl{min-height:52px!important;font-size:16px!important;padding:15px 24px!important;width:100%!important;justify-content:center!important;display:flex!important;align-items:center!important;border-radius:12px!important}
-  .hero-ctas,.cta-btns{flex-direction:column!important;gap:10px!important}
-  .main-btn{min-height:52px!important;font-size:15px!important}
-  .btn-launch{min-height:48px!important;font-size:15px!important}
+  .hero-h1{font-size:clamp(24px,7.5vw,40px)!important;letter-spacing:-.3px!important;line-height:1.08!important;word-break:break-word!important}
+  .btn-xl,a.btn-xl{min-height:52px!important;font-size:16px!important;padding:15px 24px!important;width:100%!important;justify-content:center!important;display:flex!important;align-items:center!important}
   .container{padding:0 1rem!important}
-  .stats-grid{grid-template-columns:1fr 1fr!important}
-  .flow-grid,.feat-grid{grid-template-columns:1fr!important}
-  .calc-body{grid-template-columns:1fr!important}
-  .out-val{font-size:30px!important}
-  .vault-pill{padding:14px 16px!important}
-  .vc{padding:16px!important}
-  .feat-card,.flow-step{padding:1.25rem!important}
   footer{padding:2rem 0!important}
   .footer-inner{flex-direction:column!important;text-align:center!important;gap:1.25rem!important}
   .footer-links{flex-wrap:wrap!important;justify-content:center!important;gap:.5rem 1.25rem!important}
   .footer-links a{min-height:40px!important;display:inline-flex!important;align-items:center!important}
 }
-@media(hover:none){.btn-xl:hover,.main-btn:hover,.btn-launch:hover,.vc:hover,.vault-pill:hover{transform:none!important}}
+@media(hover:none){.btn-xl:hover{transform:none!important}}
 @supports(padding-bottom:env(safe-area-inset-bottom)){.mobile-nav{padding-bottom:env(safe-area-inset-bottom)};footer{padding-bottom:calc(2rem + env(safe-area-inset-bottom))!important}}
 
 /* ── Wallet selection modal ── */
@@ -715,6 +486,7 @@ footer {
    Breakpoints: 640px (tablet), 480px (large phone), 360px (small phone)
    ════════════════════════════════════════════════════════════ */
 
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@walletconnect/modal@2.7.0/dist/index.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.13.0/dist/index.umd.js"></script>
@@ -725,30 +497,26 @@ footer {
 <nav>
   <a href="/" class="logo"><span class="logo-mark">C</span>Cinder</a>
   <div class="nav-links">
-    <a href="/">App</a>
+    <a href="/">Home</a>
+    <a href="/app">App</a>
     <a href="/governance">Governance</a>
     <a href="/about" class="active">About</a>
   </div>
-  <a href="/" class="nav-cta">Open App</a>
-  <button class="ham-btn" id="hamBtn" onclick="toggleMobileNav()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div style="display:flex;align-items:center;gap:8px">
+    <a href="/app" class="nav-cta">Launch App</a>
+    <button onclick="openWalletModal()" style="padding:8px 16px;border-radius:10px;border:none;background:linear-gradient(135deg,#FF6B23,#FFB347);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap">Connect Wallet</button>
+    <button class="ham-btn" id="hamBtn" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 <div class="mobile-nav" id="mobileNav">
-  <a href="/" onclick="closeMobileNav()">Home</a>
-  <a href="/app">Launch App</a>
-  <a href="/governance">Governance</a>
-  <a href="/about" onclick="closeMobileNav()">About</a>
-  <a href="/app" class="mn-launch" style="margin-top:1rem;display:block;text-align:center;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent3));border-radius:12px;color:#fff;font-weight:600;font-family:var(--body);border-bottom:none">Launch App →</a>
-</div>
-<div class="mobile-nav" id="mobileNav">
-  <a href="/" onclick="closeMobileNav()">Home</a>
+  <a href="/" onclick="closeMobileNav()">← Home</a>
   <a href="/app" onclick="closeMobileNav()">Launch App</a>
   <a href="/governance" onclick="closeMobileNav()">Governance</a>
   <a href="/about" onclick="closeMobileNav()">About</a>
   <a href="/app" class="mn-launch">Launch App →</a>
 </div>
-
 <!-- HERO -->
 <div class="hero">
   <div class="hero-noise"></div>
@@ -1221,105 +989,9 @@ footer {
   </div>
 </footer>
 
-<script>
-// Scroll reveal
-const obs = new IntersectionObserver(
-  es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); }),
-  { threshold: 0.08 }
-);
-document.querySelectorAll('.r').forEach(el => obs.observe(el));
 
-// FAQ accordion
-function faq(btn) {
-  const isOpen = btn.classList.contains('open');
-  document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
-  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
-  if (!isOpen) {
-    btn.classList.add('open');
-    btn.nextElementSibling.classList.add('open');
-  }
-}
 
-function toggleMobileNav(){
-  const btn=document.getElementById('hamBtn'),nav=document.getElementById('mobileNav');
-  if(!btn||!nav)return;
-  btn.classList.toggle('open');nav.classList.toggle('open');
-  document.body.style.overflow=nav.classList.contains('open')?'hidden':'';
-}
-function closeMobileNav(){
-  const btn=document.getElementById('hamBtn'),nav=document.getElementById('mobileNav');
-  if(btn)btn.classList.remove('open');if(nav)nav.classList.remove('open');
-  document.body.style.overflow='';
-}
-document.addEventListener('click',function(e){
-  const nav=document.getElementById('mobileNav'),btn=document.getElementById('hamBtn');
-  if(nav&&nav.classList.contains('open')&&!nav.contains(e.target)&&btn&&!btn.contains(e.target))closeMobileNav();
-});
-</script>
 
-<script>
-/* CINDER HAMBURGER PATCH */
-(function(){
-  var nav=document.querySelector('nav');
-  if(!nav)return;
-  
-  // Inject hamburger button into nav if not already there
-  if(!document.getElementById('hamBtn')){
-    var btn=document.createElement('button');
-    btn.id='hamBtn';btn.className='ham-btn';btn.setAttribute('aria-label','Menu');
-    btn.innerHTML='<span></span><span></span><span></span>';
-    btn.onclick=function(){toggleMobileNav()};
-    nav.appendChild(btn);
-  }
-
-  // Inject mobile nav overlay if not already there  
-  if(!document.getElementById('mobileNav')){
-    var mn=document.createElement('div');
-    mn.className='mobile-nav';mn.id='mobileNav';
-    var links=[
-      ['/','← Home'],
-      ['/app','Launch App'],
-      ['/governance','Governance'],
-      ['/about','About']
-    ];
-    // Add page-specific links
-    var path=window.location.pathname;
-    if(path.indexOf('app')>-1){
-      links=[['#how','How it works'],['#calc','Calculator'],['#app','Deposit'],['/governance','Governance'],['/about','About'],['/','← Home']];
-    } else if(path.indexOf('governance')>-1){
-      links=[['#tokenomics','Tokenomics'],['#governance','Governance'],['#mining','Mining'],['/app','Launch App'],['/about','About'],['/','← Home']];
-    } else if(path.indexOf('about')>-1){
-      links=[['/','← Home'],['/app','Launch App'],['/governance','Governance']];
-    }
-    mn.innerHTML=links.map(function(l,i){
-      var cls=i===links.length-1?' class="mn-cta"':'';
-      return '<a href="'+l[0]+'"'+cls+' onclick="closeMobileNav()">'+l[1]+'</a>';
-    }).join('');
-    nav.parentNode.insertBefore(mn,nav.nextSibling);
-  }
-})();
-
-function toggleMobileNav(){
-  var btn=document.getElementById('hamBtn');
-  var nav=document.getElementById('mobileNav');
-  if(!btn||!nav)return;
-  btn.classList.toggle('open');
-  nav.classList.toggle('open');
-  document.body.style.overflow=nav.classList.contains('open')?'hidden':'';
-}
-function closeMobileNav(){
-  var b=document.getElementById('hamBtn');
-  var n=document.getElementById('mobileNav');
-  if(b)b.classList.remove('open');
-  if(n)n.classList.remove('open');
-  document.body.style.overflow='';
-}
-document.addEventListener('click',function(e){
-  var n=document.getElementById('mobileNav');
-  var b=document.getElementById('hamBtn');
-  if(n&&n.classList.contains('open')&&!n.contains(e.target)&&b&&!b.contains(e.target))closeMobileNav();
-});
-</script>
 
 <!-- WALLET SELECTION MODAL -->
 <div class="wallet-modal-backdrop" id="walletModal" onclick="if(event.target===this)closeWalletModal()">
@@ -1379,9 +1051,40 @@ document.addEventListener('click',function(e){
   </div>
 </div>
 
+
 <script>
+
+// ── Mobile nav ────────────────────────────────────────────────────────────
+function toggleMobileNav(){
+  var btn=document.getElementById('hamBtn'),nav=document.getElementById('mobileNav');
+  if(!btn||!nav)return;
+  btn.classList.toggle('open');nav.classList.toggle('open');
+  document.body.style.overflow=nav.classList.contains('open')?'hidden':'';
+}
+function closeMobileNav(){
+  var btn=document.getElementById('hamBtn'),nav=document.getElementById('mobileNav');
+  if(btn)btn.classList.remove('open');if(nav)nav.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click',function(e){
+  var nav=document.getElementById('mobileNav'),btn=document.getElementById('hamBtn');
+  if(nav&&nav.classList.contains('open')&&!nav.contains(e.target)&&btn&&!btn.contains(e.target))closeMobileNav();
+});
+
+// ── Scroll reveal ─────────────────────────────────────────────────────────
+(function(){
+  try{
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible')});
+    },{threshold:0.05});
+    document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+  }catch(e){document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('visible')})}
+})();
+
+// ── Wallet ────────────────────────────────────────────────────────────────
 const WALLETCONNECT_PROJECT_ID = '535e786d16f68721634e38398db088a6';
-let wcProvider=null;
+var wcProvider=null, provider=null, signer=null, userAddr=null;
+const FLARE_CHAIN_CONFIG={chainId:14,name:'Flare Mainnet',currency:'FLR',rpcUrl:'https://flare-api.flare.network/ext/C/rpc'};
 function openWalletModal() {
   // Detect injected wallets and show them
   detectInjectedWallets();
@@ -1476,18 +1179,6 @@ async function connectWalletConnect() {
       setWmStatus('Failed. Use MetaMask or Bifrost instead.');
       console.error('WalletConnect error:', e);
     }
-  }
-}
-async function connectInjected() {
-  if (!window.ethereum) { setWmStatus('No browser wallet detected.'); return; }
-  setWmStatus('Connecting…', true);
-  try {
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-    provider = new ethers.BrowserProvider(window.ethereum);
-    await _onWalletConnected(document.getElementById('woInjectedName')?.textContent || 'Browser Wallet');
-  } catch(e) {
-    setWmStatus('Connection failed or rejected.');
-    console.error('Injected:', e);
   }
 }
 async function _initWalletConnect(WCProvider) {
@@ -1627,7 +1318,7 @@ function detectInjectedWallets() {
   // Bifrost is already shown as first option; MetaMask is shown second
   // No need to detect other wallets
 }
-function connectWallet(){ openWalletModal(); }
+
 </script>
 </body>
 </html>
