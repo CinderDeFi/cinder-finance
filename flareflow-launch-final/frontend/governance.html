@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinder — EMBER Governance</title>
+<meta property="og:url" content="https://cinder.finance/governance">
+<meta property="og:title" content="Cinder — EMBER Governance">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07080A;--bg2:#0B0D10;
+  --surface:#111318;--card:#161A20;--card2:#1C2028;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.03);--border3:rgba(255,107,35,0.35);
+  --ink:#EEE9E1;--ink2:#8C8880;--ink3:#52504C;--ink4:#302E2B;
+  --accent:#FF6B23;--accent2:#FF8C4A;--accent3:#FFB347;
+  --accentbg:rgba(255,107,35,0.08);--glow:rgba(255,107,35,0.15);
+  --green:#4ABA6F;--greenbg:rgba(74,186,111,0.1);
+  --blue:#5BA3E8;--bluebg:rgba(91,163,232,0.1);
+  --amber:#F5A623;--amberbg:rgba(245,166,35,0.1);
+  --purple:#9B6DFF;--purplebg:rgba(155,109,255,0.1);
+  --red:#FF5252;--redbg:rgba(255,82,82,0.1);
+  --mono:'JetBrains Mono',monospace;
+  --display:'Fraunces',serif;
+  --body:'Space Grotesk',sans-serif;
+  --r:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);overflow-x:hidden;line-height:1.6}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:var(--body)}
+::selection{background:linear-gradient(135deg,var(--accent),var(--accent3));color:#fff}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--ink3);border-radius:2px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,0.2);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;vertical-align:middle}
+nav{position:sticky;top:0;z-index:200;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(9,8,6,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-0.3px;font-style:italic;display:flex;align-items:center;gap:9px}
+.logo-mark{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--accent3));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;box-shadow:0 0 10px rgba(255,107,35,0.3);color:#fff;font-family:var(--mono);flex-shrink:0}
+.nav-links{display:flex;gap:1.75rem;font-size:13px;color:var(--ink2)}
+.nav-links a{transition:color 0.15s}.nav-links a:hover{color:var(--ink)}.nav-links a.here{color:var(--accent2)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.wallet-pill{font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid var(--border3);color:var(--accent2);background:rgba(212,80,12,0.06);display:none}
+.btn{font-family:var(--display);font-weight:600;font-size:13px;padding:8px 18px;border-radius:var(--rs);transition:all 0.15s;display:inline-flex;align-items:center;gap:6px;border:none}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent3));color:#fff}.btn-primary:hover{background:linear-gradient(135deg,var(--accent2),var(--accent3));transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--ink2);border:1px solid var(--border)}.btn-ghost:hover{color:var(--ink);border-color:rgba(255,255,255,0.14)}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{filter:brightness(1.1)}
+.btn-surface{background:var(--surface);color:var(--ink);border:1px solid var(--border)}.btn-surface:hover{border-color:var(--border3);color:var(--accent2)}
+.btn:disabled{opacity:0.38;cursor:default;transform:none!important;filter:none!important}
+.btn-sm{font-size:12px;padding:6px 13px}.btn-lg{font-size:15px;padding:13px 28px;border-radius:11px}.btn-block{width:100%;justify-content:center}
+.wrap{max-width:1060px;margin:0 auto;padding:0 2rem}
+.page-hero{padding:5rem 0 3.5rem;border-bottom:1px solid var(--border)}
+.eyebrow{font-family:var(--mono);font-size:11px;color:var(--accent2);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:blink 2.5s ease infinite}
+.hero-h{font-family:var(--display);font-size:clamp(42px,6vw,68px);font-weight:800;letter-spacing:-3.5px;line-height:0.93;margin-bottom:1.25rem}
+.hero-h em{font-style:normal;color:var(--accent)}
+.hero-sub{font-size:16px;color:var(--ink2);font-weight:300;line-height:1.72;max-width:560px;margin-bottom:2rem}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid var(--border);color:var(--ink2);letter-spacing:0.04em}
+.chip.g{border-color:rgba(61,168,95,0.4);color:var(--green);background:var(--greenbg)}
+.chip.o{border-color:rgba(212,80,12,0.4);color:var(--accent2);background:rgba(212,80,12,0.06)}
+.chip.b{border-color:rgba(74,144,217,0.4);color:var(--blue);background:var(--bluebg)}
+.section{padding:4.5rem 0;border-bottom:1px solid var(--border)}
+.sep{font-family:var(--mono);font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:0.75rem}
+.sh2{font-family:var(--display);font-size:clamp(26px,3.5vw,40px);font-weight:800;letter-spacing:-1.5px;line-height:1;margin-bottom:0.5rem}
+.sm{font-size:14px;color:var(--ink2);font-weight:300;max-width:540px;line-height:1.7;margin-bottom:2.5rem}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:3rem}
+@media(max-width:680px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+.sc{background:var(--surface);padding:1.5rem 1.25rem;transition:background 0.18s}.sc:hover{background:var(--card)}
+.sc-l{font-size:10px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:7px}
+.sc-v{font-family:var(--display);font-size:26px;font-weight:800;letter-spacing:-1px;line-height:1}
+.sc-v.g{color:var(--green)}.sc-v.o{color:var(--accent2)}.sc-v.b{color:var(--blue)}.sc-v.p{color:var(--purple)}
+.sc-s{font-size:11px;color:var(--ink3);margin-top:5px}
+.alloc-wrap{display:grid;grid-template-columns:280px 1fr;gap:3rem;align-items:center;margin-bottom:3rem}
+@media(max-width:700px){.alloc-wrap{grid-template-columns:1fr}}
+.donut-outer{position:relative;width:260px;height:260px;margin:0 auto}
+#donutCanvas{display:block}
+.donut-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
+.dl-val{font-family:var(--display);font-size:26px;font-weight:800;letter-spacing:-1px;line-height:1}
+.dl-sub{font-size:11px;color:var(--ink3);font-family:var(--mono);margin-top:3px}
+.leg{display:flex;flex-direction:column;gap:8px}
+.leg-row{display:flex;align-items:center;gap:11px;padding:10px 14px;border-radius:var(--rs);background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:border-color 0.15s}
+.leg-row:hover{border-color:var(--border3)}
+.leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.leg-name{flex:1;font-size:13px;font-weight:500}
+.leg-pct{font-family:var(--mono);font-size:12px;font-weight:500}
+.leg-amt{font-family:var(--mono);font-size:11px;color:var(--ink3)}
+.vest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:3rem}
+@media(max-width:720px){.vest-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.vest-grid{grid-template-columns:1fr}}
+.vest-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;transition:border-color 0.18s,background 0.18s}
+.vest-card:hover{border-color:var(--border3);background:var(--card)}
+.vc-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:0.75rem}
+.vc-title{font-family:var(--display);font-size:14px;font-weight:700;margin-bottom:2px}
+.vc-amt{font-family:var(--mono);font-size:12px;color:var(--accent2);margin-bottom:10px}
+.vc-desc{font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:12px}
+.prog-wrap{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.prog-bar{height:100%;border-radius:3px}
+.prog-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--ink3);font-family:var(--mono);margin-top:5px}
+.two-charts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:3rem}
+@media(max-width:680px){.two-charts{grid-template-columns:1fr}}
+.chart-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem}
+.chart-box-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem}
+.chart-canvas-wrap{height:180px;position:relative}
+.treasury-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:2rem}
+@media(max-width:680px){.treasury-grid{grid-template-columns:1fr 1fr}}
+.tcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem 1.5rem;transition:background 0.15s}
+.tcard:hover{background:var(--card)}
+.tcard-l{font-size:10px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:6px}
+.tcard-v{font-family:var(--display);font-size:22px;font-weight:800;letter-spacing:-0.5px}
+.tcard-s{font-size:11px;color:var(--ink3);margin-top:3px}
+.activity-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:2rem}
+.ab-head{padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.ab-title{font-family:var(--display);font-size:14px;font-weight:700}
+.act-row{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:10px 12px;padding:1rem 1.5rem;border-bottom:1px solid var(--border2);transition:background 0.15s}
+.act-row:last-child{border:none}.act-row:hover{background:var(--card)}
+@media(max-width:560px){.act-row{grid-template-columns:auto 1fr}.act-amt{grid-column:2;font-size:11px}.act-date{display:none}}
+.act-badge{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0}
+.ab-exe{background:var(--greenbg);color:var(--green)}.ab-pend{background:var(--amberbg);color:var(--amber)}
+.act-desc{flex:1;font-size:13px}.act-amt{font-family:var(--mono);font-size:12px;color:var(--accent2);white-space:nowrap}
+.act-date{font-family:var(--mono);font-size:11px;color:var(--ink3);white-space:nowrap}
+.gov-params{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:2.5rem}
+@media(max-width:680px){.gov-params{grid-template-columns:repeat(2,1fr)}}
+.gp{background:var(--surface);padding:1.25rem;transition:background 0.15s}.gp:hover{background:var(--card)}
+.gp-l{font-size:10px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:7px}
+.gp-v{font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-0.5px}
+.gp-s{font-size:11px;color:var(--ink3);margin-top:4px}
+.process-steps{display:flex;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:2.5rem}
+@media(max-width:680px){.process-steps{flex-direction:column}}
+.ps{flex:1;background:var(--surface);padding:1.25rem 1rem;border-top:2px solid transparent;transition:background 0.15s,border-color 0.15s}
+.ps:hover{background:var(--card);border-top-color:var(--accent)}
+.ps-n{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-bottom:7px}
+.ps-t{font-family:var(--display);font-size:13px;font-weight:700;margin-bottom:3px}
+.ps-d{font-size:11px;color:var(--accent2);font-family:var(--mono);margin-bottom:5px}
+.ps-s{font-size:11px;color:var(--ink2);line-height:1.5}
+.proposals-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:2rem}
+.pb-head{padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem}
+.pb-title{font-family:var(--display);font-size:15px;font-weight:700}
+.prop-item{padding:1rem 1.5rem;border-bottom:1px solid var(--border2);display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:0.75rem;transition:background 0.15s;cursor:pointer}
+.prop-item:last-child{border:none}.prop-item:hover{background:var(--card)}
+@media(max-width:560px){.prop-item{grid-template-columns:auto 1fr}.prop-item .vbw{display:none}}
+.ps-badge{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:5px;white-space:nowrap}
+.ps-active{background:var(--greenbg);color:var(--green)}.ps-pending{background:var(--amberbg);color:var(--amber)}
+.ps-passed{background:var(--bluebg);color:var(--blue)}.ps-defeated{background:rgba(255,255,255,0.04);color:var(--ink3)}
+.ps-queued{background:var(--purplebg);color:var(--purple)}.ps-executed{background:var(--greenbg);color:var(--green)}
+.prop-title{font-size:13px;font-weight:500;line-height:1.4}.prop-id{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:2px}
+.vbw{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.vbw-bar{height:4px;width:80px;background:var(--border);border-radius:2px;overflow:hidden}
+.vbw-fill{height:100%;border-radius:2px;background:var(--green)}
+.vbw-lbl{font-family:var(--mono);font-size:10px;color:var(--ink3)}
+.delegate-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin-bottom:2rem}
+.del-inner{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1.5rem}
+.del-title{font-family:var(--display);font-size:15px;font-weight:700;margin-bottom:5px}
+.del-desc{font-size:13px;color:var(--ink2);max-width:420px;line-height:1.6}
+.del-controls{display:flex;flex-direction:column;gap:8px;min-width:260px}
+.del-row{display:flex;gap:8px}
+.del-input{flex:1;padding:9px 13px;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);color:var(--ink);font-family:var(--mono);font-size:12px;outline:none;transition:border-color 0.15s}
+.del-input:focus{border-color:var(--border3)}
+.del-status{font-size:11px;font-family:var(--mono);color:var(--ink3);padding:8px 12px;background:var(--card);border-radius:var(--rs);border:1px solid var(--border2)}
+.flow-pos{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin-bottom:2rem}
+.fp-head{font-family:var(--display);font-size:14px;font-weight:700;margin-bottom:1.25rem;display:flex;justify-content:space-between;align-items:center}
+.fp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:var(--rs);overflow:hidden}
+.fp-cell{background:var(--card2);padding:1rem}
+.fp-l{font-size:10px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:5px}
+.fp-v{font-family:var(--display);font-size:18px;font-weight:800;letter-spacing:-0.5px}
+.epoch-tl{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:2rem}
+@media(max-width:600px){.epoch-tl{grid-template-columns:repeat(2,1fr)}}
+.ep{background:var(--surface);padding:1.25rem;transition:background 0.15s}.ep:hover{background:var(--card)}
+.ep.now{border-top:2px solid var(--green)}
+.ep-yr{font-family:var(--mono);font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px}
+.ep-amt{font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-0.5px}
+.ep-rate{font-size:11px;color:var(--ink3);font-family:var(--mono);margin-top:3px}
+.ep-badge{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:4px;margin-top:6px}
+.ep-badge.active{background:var(--greenbg);color:var(--green)}.ep-badge.soon{background:rgba(255,255,255,0.04);color:var(--ink3)}
+.mining-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:2rem}
+.mb-head{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem}
+.mb-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+@media(max-width:600px){.mb-stats{grid-template-columns:repeat(2,1fr)}}
+.mbs{background:var(--card2);padding:1.25rem}
+.mbs-l{font-size:10px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:6px}
+.mbs-v{font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-0.5px}
+.mbs-v.g{color:var(--green)}.mbs-v.o{color:var(--accent2)}
+.mbs-s{font-size:11px;color:var(--ink3);margin-top:3px}
+.mb-actions{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--border)}
+@media(max-width:600px){.mb-actions{grid-template-columns:1fr}}
+.mb-col{padding:1.5rem;border-right:1px solid var(--border)}.mb-col:last-child{border-right:none}
+.mb-col-label{font-size:11px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:10px}
+.mb-inrow{display:flex;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);overflow:hidden;margin-bottom:10px;transition:border-color 0.15s}
+.mb-inrow:focus-within{border-color:var(--border3)}
+.mb-inrow input{flex:1;padding:10px 13px;background:transparent;border:none;outline:none;font-family:var(--display);font-size:18px;font-weight:700;color:var(--ink)}
+.mb-inrow input::placeholder{color:var(--ink3)}
+.mb-tok{padding:0 13px;font-family:var(--mono);font-size:11px;color:var(--ink2);border-left:1px solid var(--border);height:100%;display:flex;align-items:center;background:var(--card2);white-space:nowrap}
+.mb-claim{padding:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.apr-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem;margin-bottom:2rem}
+.apr-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem}
+.apr-inputs{display:flex;gap:1rem;flex-wrap:wrap}
+.apr-input-group{display:flex;flex-direction:column;gap:4px}
+.apr-input-label{font-size:10px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.09em}
+.apr-input{width:100px;padding:7px 11px;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);color:var(--ink);font-family:var(--mono);font-size:13px;outline:none;transition:border-color 0.15s}
+.apr-input:focus{border-color:var(--border3)}
+.apr-results{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:var(--rs);overflow:hidden}
+.apr-cell{background:var(--card2);padding:1rem;text-align:center}
+.apr-cell-l{font-size:10px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:5px}
+.apr-cell-v{font-family:var(--display);font-size:22px;font-weight:800;letter-spacing:-0.5px}
+.faq-list{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.faq-q{width:100%;text-align:left;padding:1.1rem 1.5rem;font-family:var(--display);font-size:14px;font-weight:600;color:var(--ink);background:var(--surface);display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.15s;border:none}
+.faq-q:hover{background:var(--card)}
+.faq-arr{color:var(--ink3);transition:transform 0.22s;font-size:18px;font-weight:300;flex-shrink:0}
+.faq-q.open .faq-arr{transform:rotate(45deg);color:var(--accent)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s;padding:0 1.5rem;font-size:13px;color:var(--ink2);line-height:1.72;background:var(--surface)}
+.faq-a.open{max-height:400px;padding:0 1.5rem 1.25rem}
+.faq-a strong{color:var(--ink);font-weight:500}
+footer{border-top:1px solid var(--border);padding:2rem 0}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:12px;color:var(--ink3);font-family:var(--mono)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{color:var(--ink3);transition:color 0.15s}.footer-links a:hover{color:var(--accent2)}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.72);backdrop-filter:blur(6px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-backdrop.open{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:18px;width:100%;max-width:480px;animation:fadeUp 0.25s ease both;box-shadow:0 24px 64px rgba(0,0,0,0.5)}
+.modal-head{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.modal-title{font-family:var(--display);font-size:16px;font-weight:700;line-height:1.3}
+.modal-close{background:transparent;color:var(--ink3);font-size:20px;line-height:1;padding:0;transition:color 0.15s;border:none;cursor:pointer;flex-shrink:0}
+.modal-close:hover{color:var(--ink)}
+.modal-body{padding:1.5rem;display:flex;flex-direction:column;gap:1.25rem}
+.modal-foot{padding:1.25rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
+.vote-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.vs-cell{background:var(--surface);border-radius:var(--rs);padding:10px;text-align:center;border:1px solid var(--border)}
+.vs-v{font-family:var(--display);font-size:15px;font-weight:700}.vs-l{font-size:10px;color:var(--ink3);font-family:var(--mono);margin-top:2px}
+.vote-opts{display:flex;flex-direction:column;gap:8px}
+.vote-opt{padding:12px 16px;border-radius:var(--rs);border:1.5px solid var(--border);background:var(--surface);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all 0.15s;font-size:14px;font-weight:500;color:var(--ink)}
+.vote-opt:hover{border-color:var(--border3)}
+.vote-opt.sel-for{border-color:var(--green);background:var(--greenbg)}
+.vote-opt.sel-against{border-color:var(--red);background:var(--redbg)}
+.vote-opt.sel-abstain{border-color:var(--amber);background:var(--amberbg)}
+.vote-reason{width:100%;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);color:var(--ink);resize:none;outline:none;font-size:13px;line-height:1.5;transition:border-color 0.15s}
+.vote-reason:focus{border-color:var(--border3)}
+.modal-wide{max-width:560px}
+.form-grp{display:flex;flex-direction:column;gap:6px}
+.form-lbl{font-size:12px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em}
+.form-in{width:100%;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);color:var(--ink);outline:none;font-size:14px;transition:border-color 0.15s}
+.form-in:focus{border-color:var(--border3)}
+.form-ta{resize:vertical;min-height:80px;line-height:1.5;font-size:13px}
+.form-hint{font-size:11px;color:var(--ink3)}
+.warn-box{background:var(--amberbg);border:1px solid rgba(245,158,11,0.3);border-radius:var(--rs);padding:10px 14px;font-size:12px;color:var(--amber)}
+#toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:12px 18px;font-size:13px;color:var(--ink);box-shadow:0 8px 32px rgba(0,0,0,0.4);transform:translateY(60px);opacity:0;transition:all 0.32s cubic-bezier(.34,1.56,.64,1);z-index:1000;max-width:300px}
+#toast.show{transform:translateY(0);opacity:1}
+.r{opacity:0;transform:translateY(18px);transition:opacity 0.55s ease,transform 0.55s ease}
+.r.v{opacity:1;transform:none}
+.r.d1{transition-delay:0.08s}.r.d2{transition-delay:0.16s}.r.d3{transition-delay:0.24s}
+
+/* ── Hamburger / mobile nav ── */
+.ham-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px;flex-shrink:0}
+.ham-btn span{display:block;height:2px;background:var(--ink);border-radius:2px;transition:all 0.25s}
+.ham-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham-btn.open span:nth-child(2){opacity:0}
+.ham-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-nav{display:none;position:fixed;top:60px;left:0;right:0;z-index:99;background:rgba(7,8,10,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:1rem 2rem 1.5rem;flex-direction:column;gap:0}
+.mobile-nav.open{display:flex}
+.mobile-nav a{display:block;padding:13px 0;font-size:16px;color:var(--ink2);border-bottom:1px solid var(--border);transition:color 0.15s}
+.mobile-nav a:last-child{border-bottom:none}
+.mobile-nav a:hover,.mobile-nav a:active{color:var(--ink)}
+.mobile-nav .mn-launch{margin-top:1rem;display:block;text-align:center;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent3));border-radius:12px;color:#fff;font-weight:600;font-size:15px;border-bottom:none !important}
+@media(max-width:640px){.ham-btn{display:flex}.nav-links{display:none !important}}
+
+/* ═══════════════════════════════════════════════════
+   MOBILE — comprehensive responsive rules
+   ═══════════════════════════════════════════════════ */
+
+/* ── Nav: hide links, show hamburger on mobile ── */
+@media (max-width: 640px) {
+  nav { padding: 0 1rem; height: 56px; }
+  .nav-links { display: none !important; }
+  .ham-btn { display: flex !important; }
+  .nav-cta { display: none; }           /* about.html CTA link in nav */
+  .nav-right { gap: 6px; }
+  #connectBtn { font-size: 12px; padding: 7px 12px; }
+  #netPill, .wallet-pill, .pill-badge { display: none; }
+}
+
+/* ── Hero H1: prevent overflow on small phones ── */
+@media (max-width: 640px) {
+  .hero-h1, h1.hero-h1 {
+    font-size: clamp(26px, 8vw, 44px) !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1.05 !important;
+  }
+}
+@media (max-width: 380px) {
+  .hero-h1, h1.hero-h1 {
+    font-size: clamp(24px, 7vw, 36px) !important;
+    letter-spacing: 0 !important;
+  }
+}
+
+/* ── CTA / action buttons: full-width, thumb-friendly ── */
+@media (max-width: 640px) {
+  .btn-xl {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 52px !important;
+    font-size: 16px !important;
+    padding: 15px 20px !important;
+    border-radius: 12px !important;
+  }
+  .hero-ctas { flex-direction: column; gap: 10px; }
+  .cta-btns  { flex-direction: column; align-items: stretch; gap: 10px; }
+  .btn-launch {
+    min-height: 48px;
+    font-size: 15px;
+    width: 100%;
+  }
+  .main-btn {
+    min-height: 52px !important;
+    font-size: 15px !important;
+  }
+}
+
+/* ── General layout on mobile ── */
+@media (max-width: 640px) {
+  .container { padding: 0 1rem; }
+  section { padding: 3rem 0; }
+  .section-h2 { font-size: clamp(26px, 7vw, 40px); letter-spacing: -1px; }
+  .hero-sub   { font-size: 15px; }
+  .hero-stats { gap: 1.25rem; flex-wrap: wrap; }
+  .h-stat-v   { font-size: 24px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .flow-grid  { grid-template-columns: 1fr; }
+  .feat-grid  { grid-template-columns: 1fr; }
+  footer { padding: 1.5rem 0; }
+  .footer-inner { flex-direction: column; text-align: center; gap: 1rem; }
+  .footer-links { justify-content: center; flex-wrap: wrap; }
+  .footer-mobile-nav { display: flex !important; }
+}
+
+/* ── Touch: no hover effects on touch devices ── */
+@media (hover: none) {
+  .btn-xl:hover, .btn-launch:hover, .main-btn:hover,
+  .vc:hover, .vault-pill:hover, .wallet-option:hover { transform: none !important; }
+}
+
+/* ── Safe area (notch support) ── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-nav { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
+  footer      { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
+}
+
+/* ═══════════════════════════════════════════════════
+   CINDER MOBILE — nav, hamburger, buttons, layout
+   ═══════════════════════════════════════════════════ */
+
+/* Ham button hidden by default, shown on mobile */
+.ham-btn {
+  display: none;
+  flex-direction: column; justify-content: center; gap: 5px;
+  width: 40px; height: 40px; min-width: 40px;
+  cursor: pointer; background: none; border: none; padding: 6px;
+  flex-shrink: 0; -webkit-tap-highlight-color: transparent;
+}
+.ham-btn span {
+  display: block; height: 2px; background: #EEE9E1;
+  border-radius: 2px; transition: all 0.25s ease;
+}
+.ham-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ham-btn.open span:nth-child(2) { opacity: 0; }
+.ham-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile nav overlay */
+.mobile-nav {
+  display: none; position: fixed;
+  top: 56px; left: 0; right: 0; z-index: 199;
+  background: rgba(7,8,10,0.98); backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-direction: column; padding: 0.25rem 0 1rem;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  display: block; padding: 15px 1.5rem; font-size: 16px;
+  color: rgba(238,233,225,0.75); text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav a:active { color: #EEE9E1; background: rgba(255,255,255,0.03); }
+.mobile-nav .mn-cta, .mobile-nav .mn-launch {
+  margin: 0.75rem 1.5rem 0 !important;
+  display: block !important; text-align: center !important;
+  padding: 14px !important;
+  background: linear-gradient(135deg,#FF6B23,#FFB347) !important;
+  border-radius: 12px !important; color: #fff !important;
+  font-weight: 600 !important; border-bottom: none !important;
+}
+
+@media (max-width: 768px) {
+  /* ── Nav ── */
+  nav { padding: 0 1rem !important; height: 56px !important; }
+  .nav-links { display: none !important; }
+  .ham-btn { display: flex !important; }
+  .nav-cta { display: none !important; }
+  #netPill, .wallet-pill, .pill-badge { display: none !important; }
+  #connectBtn {
+    font-size: 12px !important; padding: 8px 12px !important;
+    min-height: 36px !important;
+  }
+
+  /* ── Hero H1 ── */
+  .hero-h1 {
+    font-size: clamp(24px, 7.5vw, 40px) !important;
+    letter-spacing: -0.3px !important;
+    line-height: 1.08 !important;
+    word-break: break-word !important;
+  }
+  .hero-sub { font-size: 15px !important; line-height: 1.6 !important; }
+
+  /* ── All CTA buttons ── */
+  .btn-xl {
+    min-height: 52px !important; font-size: 16px !important;
+    padding: 15px 24px !important; border-radius: 12px !important;
+    width: 100% !important; justify-content: center !important;
+    display: flex !important; align-items: center !important;
+  }
+  .hero-ctas, .cta-btns {
+    flex-direction: column !important; gap: 10px !important;
+    width: 100% !important;
+  }
+  .btn-launch {
+    min-height: 48px !important; font-size: 15px !important;
+  }
+  .main-btn {
+    min-height: 52px !important; font-size: 15px !important;
+    padding: 15px !important; border-radius: 11px !important;
+  }
+
+  /* ── Calculator ── */
+  .calc-body { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+  .out-val { font-size: 30px !important; }
+  .out-card { padding: 1.25rem !important; }
+  #calc-chart-wrap { height: 180px !important; }
+
+  /* ── Cards & vault pills ── */
+  .vault-pill { padding: 14px 16px !important; }
+  .vc { padding: 16px !important; gap: 12px !important; }
+  .feat-card { padding: 1.25rem !important; }
+  .flow-step { padding: 1.25rem !important; }
+
+  /* ── Footer ── */
+  footer { padding: 2rem 0 !important; }
+  .footer-inner {
+    flex-direction: column !important; gap: 1.25rem !important;
+    text-align: center !important;
+  }
+  .footer-links {
+    flex-wrap: wrap !important; justify-content: center !important;
+    gap: 0.5rem 1.25rem !important;
+  }
+  .footer-links a {
+    min-height: 40px !important; display: inline-flex !important;
+    align-items: center !important; padding: 4px 8px !important;
+  }
+
+  /* ── General ── */
+  .container { padding: 0 1rem !important; }
+  .stats-grid { grid-template-columns: 1fr 1fr !important; }
+  .flow-grid, .feat-grid { grid-template-columns: 1fr !important; }
+  section { padding: 3rem 0 !important; }
+  .hero-stats { gap: 1.25rem !important; flex-wrap: wrap !important; }
+}
+
+/* ── Touch devices ── */
+@media (hover: none) {
+  .btn-xl:hover, .main-btn:hover, .btn-launch:hover,
+  .vc:hover, .vault-pill:hover, .wallet-option:hover { transform: none !important; }
+}
+
+/* ── Safe area insets ── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-nav { padding-bottom: calc(0.75rem + env(safe-area-inset-bottom)); }
+  footer { padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important; }
+}
+
+
+/* ── Wallet selection modal ── */
+.wallet-modal-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(8px);z-index:500;
+  display:none;align-items:center;justify-content:center;padding:1rem;
+}
+.wallet-modal-backdrop.open{display:flex}
+.wallet-modal{
+  background:#1C1814;border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;width:100%;max-width:400px;
+  overflow:hidden;animation:wModalIn 0.25s cubic-bezier(.34,1.56,.64,1) both;
+  box-shadow:0 24px 64px rgba(0,0,0,0.6);
+}
+@keyframes wModalIn{from{opacity:0;transform:translateY(20px) scale(0.97)}to{opacity:1;transform:none}}
+.wm-head{
+  padding:1.25rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.wm-title{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-0.3px}
+.wm-close{
+  background:transparent;border:none;color:rgba(255,255,255,0.4);
+  font-size:20px;cursor:pointer;line-height:1;padding:0;
+  transition:color 0.15s;
+}
+.wm-close:hover{color:#fff}
+.wm-body{padding:1rem}
+.wm-desc{font-size:13px;color:var(--ink2);margin-bottom:1.25rem;line-height:1.6;padding:0 0.25rem}
+.wallet-option{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 16px;border-radius:12px;
+  border:1.5px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.02);
+  cursor:pointer;transition:all 0.15s;margin-bottom:10px;
+}
+.wallet-option:hover{border-color:var(--accent);background:rgba(212,80,12,0.06);transform:translateY(-1px)}
+.wallet-option:last-child{margin-bottom:0}
+.wo-icon{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:24px;
+  background:rgba(255,255,255,0.05);
+}
+.wo-info{flex:1}
+.wo-name{font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:-0.3px;margin-bottom:2px}
+.wo-desc{font-size:11px;color:var(--ink3);font-family:var(--mono)}
+.wo-badge{
+  font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:5px;
+  flex-shrink:0;
+}
+.wo-badge.recommended{background:rgba(61,168,95,0.15);color:var(--green)}
+.wo-badge.popular{background:rgba(212,80,12,0.12);color:var(--accent2)}
+.wo-badge.mobile{background:rgba(74,144,217,0.12);color:#4A90D9}
+.wm-divider{
+  font-family:var(--mono);font-size:10px;color:var(--ink3);
+  text-transform:uppercase;letter-spacing:0.12em;
+  text-align:center;margin:14px 0;
+  display:flex;align-items:center;gap:10px;
+}
+.wm-divider::before,.wm-divider::after{
+  content:'';flex:1;height:1px;background:rgba(255,255,255,0.06);
+}
+.wm-foot{
+  padding:0.875rem 1.5rem;border-top:1px solid rgba(255,255,255,0.05);
+  font-size:11px;color:var(--ink3);text-align:center;font-family:var(--mono);
+}
+.wm-spinner{
+  width:20px;height:20px;border:2px solid rgba(255,255,255,0.1);
+  border-top-color:var(--accent);border-radius:50%;
+  animation:spin 0.7s linear infinite;display:inline-block;
+  vertical-align:middle;margin-right:8px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE OPTIMISATION — comprehensive responsive fixes
+   Breakpoints: 640px (tablet), 480px (large phone), 360px (small phone)
+   ════════════════════════════════════════════════════════════ */
+
+
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><span class="logo-mark">C</span>Cinder</a>
+  <div class="nav-links">
+    <a href="/">App</a>
+    <a href="#tokenomics">Tokenomics</a>
+    <a href="#treasury">Treasury</a>
+    <a href="#governance">Governance</a>
+    <a href="#mining" class="here">Mining</a>
+    <a href="/about">About</a>
+  </div>
+  <div class="nav-right">
+    <span class="wallet-pill" id="walletPill"></span>
+    <button class="btn btn-primary btn-sm" id="connectBtn" onclick="openWalletModal()">Connect Wallet</button>
+  
+    <button class="ham-btn" id="hamBtn" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="/" onclick="closeMobileNav()">Home</a>
+  <a href="/app" onclick="closeMobileNav()">Launch App</a>
+  <a href="/governance" onclick="closeMobileNav()">Governance</a>
+  <a href="/about" onclick="closeMobileNav()">About</a>
+  <a href="/app" class="mn-launch">Launch App →</a>
+</div>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="live-dot"></span>Governance · Tokenomics · Mining</div>
+    <h1 class="hero-h">Own the<br><em>protocol.</em></h1>
+    <p class="hero-sub">EMBER is the governance and value-accrual token of Cinder. Earn it by depositing stXRP, vote with it to shape the protocol, and watch its treasury grow from every yield event.</p>
+    <div class="hero-chips">
+      <span class="chip g">1B Fixed Supply</span>
+      <span class="chip o">10% Fee → Treasury</span>
+      <span class="chip b">4-Year Mining</span>
+      <span class="chip">No Inflation Ever</span>
+      <span class="chip">5-Day Voting</span>
+    </div>
+  </div>
+</div>
+
+<!-- TOKENOMICS -->
+<section class="section" id="tokenomics">
+<div class="wrap">
+  <div class="sep r">Token overview</div>
+  <h2 class="sh2 r d1">1,000,000,000 EMBER</h2>
+  <p class="sm r d2">Fixed supply. Minted once at deployment. No admin key, no inflation, no exceptions. Distribution is hardcoded and verifiable on-chain.</p>
+  <div class="stat-grid r">
+    <div class="sc"><div class="sc-l">Total Supply</div><div class="sc-v">1B</div><div class="sc-s">Fixed forever · no inflation</div></div>
+    <div class="sc"><div class="sc-l">Circulating at TGE</div><div class="sc-v o">~20%</div><div class="sc-s">Sale + community airdrop</div></div>
+    <div class="sc"><div class="sc-l">Mining Rewards</div><div class="sc-v g">450M</div><div class="sc-s">Paid out over 4 years</div></div>
+    <div class="sc"><div class="sc-l">Quorum to Pass</div><div class="sc-v b">4%</div><div class="sc-s">40M EMBER must vote For</div></div>
+  </div>
+  <div class="alloc-wrap r">
+    <div class="donut-outer">
+      <canvas id="donutCanvas" width="260" height="260"></canvas>
+      <div class="donut-label"><div class="dl-val" id="donutVal">1B</div><div class="dl-sub" id="donutSub">EMBER total</div></div>
+    </div>
+    <div class="leg" id="allocLegend"></div>
+  </div>
+  <div class="sep r">Vesting schedules</div>
+  <h2 class="sh2 r d1">No early dumps — provable on-chain.</h2>
+  <p class="sm r d2">Every allocation is locked in a smart contract. The founder cannot sell before tokens vest. All schedules are publicly verifiable on Flarescan.</p>
+  <div class="vest-grid r">
+    <div class="vest-card">
+      <div class="vc-icon" style="background:var(--greenbg)">⛏️</div>
+      <div class="vc-title">Liquidity Mining</div>
+      <div class="vc-amt">450M EMBER · 45%</div>
+      <div class="vc-desc">Distributed to cXRP stakers over 4 years via CinderMining.sol. Front-loaded: Year 1 pays 180M (40% of total) to reward early risk-takers most.</div>
+      <div class="prog-wrap"><div class="prog-bar" style="width:0%;background:var(--green)" id="miningProg"></div></div>
+      <div class="prog-lbl"><span id="miningProgLbl">0M distributed</span><span>450M total</span></div>
+    </div>
+    <div class="vest-card">
+      <div class="vc-icon" style="background:var(--bluebg)">🏛️</div>
+      <div class="vc-title">Treasury</div>
+      <div class="vc-amt">250M EMBER · 25%</div>
+      <div class="vc-desc">Governed entirely by EMBER holders. No team access without a passing vote. Used for grants, audits, liquidity provision, and buybacks.</div>
+      <div class="prog-wrap"><div class="prog-bar" style="width:100%;background:var(--blue)"></div></div>
+      <div class="prog-lbl"><span>Timelock controlled</span><span>250M locked</span></div>
+    </div>
+    <div class="vest-card">
+      <div class="vc-icon" style="background:var(--purplebg)">👥</div>
+      <div class="vc-title">Founder</div>
+      <div class="vc-amt">100M EMBER · 10%</div>
+      <div class="vc-desc">2-year linear vest, no cliff — earns tokens daily from day 1. Solo founder: 10% is still meaningful if this works. Locked in CinderFounderVest.sol.</div>
+      <div class="prog-wrap"><div class="prog-bar" style="width:0%;background:var(--purple)" id="teamProg"></div></div>
+      <div class="prog-lbl"><span id="teamProgLbl">0% vested</span><span>24mo · no cliff</span></div>
+    </div>
+    <div class="vest-card">
+      <div class="vc-icon" style="background:var(--amberbg)">🌐</div>
+      <div class="vc-title">Public Sale</div>
+      <div class="vc-amt">150M EMBER · 15%</div>
+      <div class="vc-desc">Funds the security audit, infrastructure, and initial DEX liquidity. 6-month linear vesting post-TGE to prevent dump-at-listing.</div>
+      <div class="prog-wrap"><div class="prog-bar" style="width:0%;background:var(--amber)"></div></div>
+      <div class="prog-lbl"><span>6-month linear</span><span>Post-TGE</span></div>
+    </div>
+    <div class="vest-card">
+      <div class="vc-icon" style="background:var(--accentbg)">🎁</div>
+      <div class="vc-title">Community Airdrop</div>
+      <div class="vc-amt">50M EMBER · 5%</div>
+      <div class="vc-desc">Snapshot-based for early Cinder users, Firelight depositors, and XRP community. Claim-style — unclaimed returns to treasury after 90 days.</div>
+      <div class="prog-wrap"><div class="prog-bar" style="width:0%;background:var(--accent)"></div></div>
+      <div class="prog-lbl"><span>90-day claim window</span><span>Post-launch</span></div>
+    </div>
+  </div>
+  <div class="sep r">Charts</div>
+  <div class="two-charts r">
+    <div class="chart-box">
+      <div class="chart-box-head">
+        <div><div style="font-size:10px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Annual Mining Emission</div><div style="font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-0.5px">450M EMBER over 4 yrs</div></div>
+        <div style="font-size:11px;color:var(--ink3);font-family:var(--mono);text-align:right">Front-loaded<br>to reward early LPs</div>
+      </div>
+      <div class="chart-canvas-wrap"><canvas id="emissionChart"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-box-head">
+        <div><div style="font-size:10px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Cumulative Supply Unlock</div><div style="font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-0.5px">100% by Month 48</div></div>
+        <div style="font-size:11px;color:var(--ink3);font-family:var(--mono);text-align:right">All allocations<br>combined</div>
+      </div>
+      <div class="chart-canvas-wrap"><canvas id="supplyChart"></canvas></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- TREASURY -->
+<section class="section" id="treasury">
+<div class="wrap">
+  <div class="sep r">Protocol treasury</div>
+  <h2 class="sh2 r d1">Every fee goes to governance.</h2>
+  <p class="sm r d2">10% of all stXRP yield + 0.1% of every withdrawal flows to the treasury. EMBER holders vote on how it's deployed. No team access without a vote passing.</p>
+  <div class="treasury-grid r">
+    <div class="tcard"><div class="tcard-l">Treasury Balance</div><div class="tcard-v" id="treasBal">—</div><div class="tcard-s">stXRP accumulated</div></div>
+    <div class="tcard"><div class="tcard-l">Lifetime Fees</div><div class="tcard-v" id="treasLife">—</div><div class="tcard-s">All-time protocol revenue</div></div>
+    <div class="tcard"><div class="tcard-l">EMBER in Treasury</div><div class="tcard-v">250M</div><div class="tcard-s">Timelock governed</div></div>
+    <div class="tcard"><div class="tcard-l">Last Harvest</div><div class="tcard-v" id="treasHarvest">—</div><div class="tcard-s">stXRP yield collected</div></div>
+    <div class="tcard"><div class="tcard-l">Pending Yield</div><div class="tcard-v" id="treasPending">—</div><div class="tcard-s">Unharvested in vault</div></div>
+    <div class="tcard"><div class="tcard-l">Annualised Revenue</div><div class="tcard-v" id="treasAnnual">~$90K</div><div class="tcard-s">At $10M TVL, 9.3% gross APY</div></div>
+  </div>
+  <div class="activity-box r">
+    <div class="ab-head"><span class="ab-title">Treasury activity</span><span style="font-size:11px;font-family:var(--mono);color:var(--ink3)">All spending requires a passing governance vote</span></div>
+    <div class="act-row">
+      <span class="act-badge ab-pend">Pending vote</span>
+      <div class="act-desc">FIP-4: Add EMBER/FLR liquidity on Sparkdex DEX — initial market making</div>
+      <span class="act-amt">100,000 EMBER</span>
+      <span class="act-date">Active</span>
+    </div>
+    <div class="act-row">
+      <span class="act-badge ab-pend">In queue</span>
+      <div class="act-desc">FIP-3: Allocate 50,000 stXRP → Certik / Code4rena security audit</div>
+      <span class="act-amt">50,000 stXRP</span>
+      <span class="act-date">Q3 2026</span>
+    </div>
+    <div class="act-row">
+      <span class="act-badge ab-pend">Active vote</span>
+      <div class="act-desc">FIP-2: Raise governance quorum from 4% to 10% once EMBER distributes</div>
+      <span class="act-amt">Param change</span>
+      <span class="act-date">Active</span>
+    </div>
+    <div class="act-row">
+      <span class="act-badge ab-pend">Active vote</span>
+      <div class="act-desc">FIP-1: Reduce performance fee from 10% to 8% — lower barrier for large depositors</div>
+      <span class="act-amt">Param change</span>
+      <span class="act-date">Active</span>
+    </div>
+    <div class="act-row">
+      <span class="act-badge ab-exe">Executed</span>
+      <div class="act-desc">FIP-0: Keeper bot infrastructure — 12-month hosting and monitoring</div>
+      <span class="act-amt">5,000 stXRP</span>
+      <span class="act-date">Launch</span>
+    </div>
+    <div style="padding:1rem 1.5rem;font-size:11px;color:var(--ink3);font-family:var(--mono)">
+      All transactions executed on-chain after a passing vote · Verifiable on Flarescan
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- GOVERNANCE -->
+<section class="section" id="governance">
+<div class="wrap">
+  <div class="sep r">On-chain governance</div>
+  <h2 class="sh2 r d1">Every parameter,<br>community controlled.</h2>
+  <p class="sm r d2">EMBER holders vote on every protocol decision. Votes are cast on-chain, binding, and automatically executed after a mandatory 2-day timelock. There is no multisig — the timelock IS the treasury. This is a solo-founder project and governance is how users protect themselves.</p>
+  <div class="gov-params r">
+    <div class="gp"><div class="gp-l">Voting Delay</div><div class="gp-v">2 days</div><div class="gp-s">Review before voting opens</div></div>
+    <div class="gp"><div class="gp-l">Voting Period</div><div class="gp-v">5 days</div><div class="gp-s">Window to cast votes</div></div>
+    <div class="gp"><div class="gp-l">Timelock</div><div class="gp-v">2 days</div><div class="gp-s">Delay before execution</div></div>
+    <div class="gp"><div class="gp-l">Proposal Threshold</div><div class="gp-v">1M EMBER</div><div class="gp-s">Min to create proposal</div></div>
+    <div class="gp"><div class="gp-l">Quorum</div><div class="gp-v">4%→10%</div><div class="gp-s">FIP-0 will raise to 10% post-distribution</div></div>
+    <div class="gp"><div class="gp-l">Vote Types</div><div class="gp-v">3</div><div class="gp-s">For · Against · Abstain</div></div>
+    <div class="gp"><div class="gp-l">Snapshot</div><div class="gp-v">At creation</div><div class="gp-s">No last-min token buys</div></div>
+    <div class="gp"><div class="gp-l">Your Voting Power</div><div class="gp-v" id="govVotePower">—</div><div class="gp-s" id="govVoteSub">Connect wallet</div></div>
+  </div>
+  <div class="sep r d1">The 5-step process</div>
+  <div class="process-steps r">
+    <div class="ps"><div class="ps-n">STEP 01</div><div class="ps-t">Propose</div><div class="ps-d">Need 1M EMBER</div><div class="ps-s">Submit targets, calldata and description. Voting power snapshotted at creation block.</div></div>
+    <div class="ps"><div class="ps-n">STEP 02</div><div class="ps-t">Delay</div><div class="ps-d">2 days</div><div class="ps-s">Community reviews. Time to read, discuss, and form a position before voting.</div></div>
+    <div class="ps"><div class="ps-n">STEP 03</div><div class="ps-t">Vote</div><div class="ps-d">5 days</div><div class="ps-s">Cast For / Against / Abstain. 4% quorum required. Simple majority wins.</div></div>
+    <div class="ps"><div class="ps-n">STEP 04</div><div class="ps-t">Timelock</div><div class="ps-d">2 days</div><div class="ps-s">Passed proposals queue here. Users can exit if they disagree with the outcome.</div></div>
+    <div class="ps"><div class="ps-n">STEP 05</div><div class="ps-t">Execute</div><div class="ps-d">Permissionless</div><div class="ps-s">Anyone can execute after timelock. The change is applied on-chain automatically.</div></div>
+  </div>
+
+  <!-- HOW TO VOTE WALKTHROUGH -->
+  <div class="sep r d1">How to vote</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:2.5rem" class="r">
+    <div style="padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem">
+      <span style="font-family:var(--display);font-size:15px;font-weight:700">Your first vote — step by step</span>
+      <button class="btn btn-primary btn-sm" onclick="openHowToVote()" id="howToVoteBtn">Start walkthrough →</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)">
+      <div style="background:var(--card2);padding:1.25rem">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Step 1</div>
+        <div style="font-family:var(--display);font-size:14px;font-weight:700;margin-bottom:6px;color:var(--green)">Get EMBER</div>
+        <div style="font-size:12px;color:var(--ink2);line-height:1.6">Deposit stXRP → stake cXRP in CinderMining → earn EMBER over time. Or buy in the public sale.</div>
+      </div>
+      <div style="background:var(--card2);padding:1.25rem">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Step 2 — Critical</div>
+        <div style="font-family:var(--display);font-size:14px;font-weight:700;margin-bottom:6px;color:var(--accent2)">Self-delegate</div>
+        <div style="font-size:12px;color:var(--ink2);line-height:1.6">EMBER doesn't vote automatically. You must call <code style="font-family:var(--mono);background:var(--bg);padding:1px 5px;border-radius:3px;font-size:11px">delegate(yourAddress)</code> once to activate your votes. Use the delegation box below.</div>
+      </div>
+      <div style="background:var(--card2);padding:1.25rem">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Step 3</div>
+        <div style="font-family:var(--display);font-size:14px;font-weight:700;margin-bottom:6px">Find a proposal</div>
+        <div style="font-size:12px;color:var(--ink2);line-height:1.6">Wait for a proposal you care about. Voting opens 2 days after creation. Your vote weight is your EMBER balance at the block the proposal was created — not when you vote.</div>
+      </div>
+      <div style="background:var(--card2);padding:1.25rem">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Step 4</div>
+        <div style="font-family:var(--display);font-size:14px;font-weight:700;margin-bottom:6px">Cast your vote</div>
+        <div style="font-size:12px;color:var(--ink2);line-height:1.6">Click a proposal → choose For / Against / Abstain → optionally add a reason → sign the transaction. Costs a tiny amount of FLR for gas. Your vote is permanent and on-chain.</div>
+      </div>
+    </div>
+    <div style="padding:1rem 1.5rem;background:var(--surface);border-top:1px solid var(--border2);font-size:12px;color:var(--ink3);display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <span style="font-family:var(--mono)">⚠ The delegation step is the one people miss.</span>
+      <span>Without it your EMBER has zero voting weight even if you have millions of tokens.</span>
+      <button onclick="doSelfDelegate()" class="btn btn-surface btn-sm" style="margin-left:auto">Self-delegate now →</button>
+    </div>
+  </div>
+
+  <div class="proposals-box r">
+    <div class="pb-head">
+      <span class="pb-title">Proposals <span id="propCount" style="font-size:12px;font-family:var(--mono);color:var(--ink3);font-weight:400">4 total</span></span>
+      <button class="btn btn-primary btn-sm" onclick="openProposeModal()">+ New Proposal</button>
+    </div>
+    <div class="prop-item" onclick="openVoteModal(1,'FIP-1: Reduce performance fee from 10% to 8%','Active',68,22,10)">
+      <span class="ps-badge ps-active">Active</span>
+      <div><div class="prop-title">FIP-1: Reduce performance fee from 10% to 8%</div><div class="prop-id">0x4f3a…8b2c · Ends in 3 days 14h · 4,200,000 EMBER voted</div></div>
+      <div class="vbw"><div class="vbw-bar"><div class="vbw-fill" style="width:68%"></div></div><div class="vbw-lbl">68% For</div></div>
+      <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();openVoteModal(1,'FIP-1: Reduce performance fee from 10% to 8%','Active',68,22,10)">Vote</button>
+    </div>
+    <div class="prop-item" onclick="openVoteModal(2,'FIP-2: Add FBTC vault — 9% target APY','Pending',0,0,0)">
+      <span class="ps-badge ps-pending">Pending</span>
+      <div><div class="prop-title">FIP-2: Add FBTC vault — 9% target APY, 0.1% withdrawal fee</div><div class="prop-id">0x9c11…2f4e · Voting opens in 1 day 6h</div></div>
+      <div class="vbw"><div class="vbw-bar"><div class="vbw-fill" style="width:0%"></div></div><div class="vbw-lbl">Not open yet</div></div>
+      <button class="btn btn-surface btn-sm" disabled>Pending</button>
+    </div>
+    <div class="prop-item" onclick="openVoteModal(3,'FIP-3: Allocate 50K stXRP for Certik audit','Queued',89,8,3)">
+      <span class="ps-badge ps-queued">Queued</span>
+      <div><div class="prop-title">FIP-3: Allocate 50,000 stXRP treasury → Certik security audit</div><div class="prop-id">Passed 89% For · Executes in 1 day 9h · Timelock active</div></div>
+      <div class="vbw"><div class="vbw-bar"><div class="vbw-fill" style="width:89%"></div></div><div class="vbw-lbl">89% For</div></div>
+      <button class="btn btn-surface btn-sm" disabled>Timelock</button>
+    </div>
+    <div class="prop-item" onclick="openVoteModal(0,'FIP-0: Initialize CinderMining epoch 1 rate','Executed',94,4,2)">
+      <span class="ps-badge ps-executed">Executed</span>
+      <div><div class="prop-title">FIP-0: Initialize CinderMining v2 — 180M EMBER epoch 1, dual pool (sFLR 60% / stXRP 40%)</div><div class="prop-id">Executed at launch · Tx: 0xabcd…ef12 · 94% For</div></div>
+      <div class="vbw"><div class="vbw-bar"><div class="vbw-fill" style="width:94%"></div></div><div class="vbw-lbl">94% For</div></div>
+      <button class="btn btn-surface btn-sm" disabled>Done</button>
+    </div>
+    <div style="padding:0.9rem 1.5rem;border-top:1px solid var(--border2);font-size:11px;color:var(--ink3);font-family:var(--mono);display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.5rem">
+      <span>Connect wallet to vote · Need 1M EMBER to propose</span>
+      <span>Snapshot voting · On-chain execution · 2-day timelock</span>
+    </div>
+  </div>
+  <div class="sep r d1">Delegation</div>
+  <div class="delegate-box r">
+    <div class="del-inner">
+      <div>
+        <div class="del-title">Delegate your voting power</div>
+        <div class="del-desc">Don't want to vote on every proposal? Delegate your EMBER votes to a community member you trust — they vote on your behalf. You keep your tokens. Re-delegate or self-delegate any time, instantly.</div>
+      </div>
+      <div class="del-controls">
+        <div class="del-row">
+          <input type="text" class="del-input" id="delegateAddr" placeholder="0x... delegate address">
+          <button class="btn btn-primary btn-sm" onclick="doDelegate()">Delegate</button>
+        </div>
+        <button class="btn btn-surface btn-sm btn-block" onclick="doSelfDelegate()">Self-delegate (vote yourself)</button>
+        <div class="del-status" id="delStatus">Connect wallet to see your current delegate</div>
+      </div>
+    </div>
+  </div>
+  <div class="flow-pos r">
+    <div class="fp-head">
+      Your EMBER Position
+      <span style="font-size:11px;font-family:var(--mono);color:var(--ink3)" id="flowChip">Connect wallet</span>
+    </div>
+    <div class="fp-grid">
+      <div class="fp-cell"><div class="fp-l">EMBER Balance</div><div class="fp-v" id="userFlowBal">—</div></div>
+      <div class="fp-cell"><div class="fp-l">Voting Power</div><div class="fp-v" style="color:var(--accent2)" id="userVotePow">—</div></div>
+      <div class="fp-cell"><div class="fp-l">% of Supply</div><div class="fp-v" style="color:var(--green)" id="userFlowPct">—</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- MINING -->
+<section class="section" id="mining">
+<div class="wrap">
+  <div class="sep r">Liquidity mining</div>
+  <h2 class="sh2 r d1">Earn EMBER for depositing.</h2>
+  <p class="sm r d2">Stake your cFLR or cXRP vault shares in the CinderMining contract and earn EMBER every second — on top of your staking yield. Two income streams from one deposit, across two vaults.</p>
+  <div class="epoch-tl r">
+    <div class="ep now"><div class="ep-yr">Year 1 · Current</div><div class="ep-amt" style="color:var(--green)">180M</div><div class="ep-rate">493,151 EMBER/day</div><div class="ep-badge active">● Active</div></div>
+    <div class="ep"><div class="ep-yr">Year 2</div><div class="ep-amt">108M</div><div class="ep-rate">263,014 EMBER/day</div><div class="ep-badge soon">Upcoming</div></div>
+    <div class="ep"><div class="ep-yr">Year 3</div><div class="ep-amt">90M</div><div class="ep-rate">219,178 EMBER/day</div><div class="ep-badge soon">Upcoming</div></div>
+    <div class="ep"><div class="ep-yr">Year 4 · Final</div><div class="ep-amt">72M</div><div class="ep-rate">175,342 EMBER/day</div><div class="ep-badge soon">Upcoming</div></div>
+  </div>
+  <div class="mining-box r">
+    <div class="mb-head">
+      <div>
+        <div style="font-family:var(--display);font-size:15px;font-weight:700">CinderMining v2 — Epoch 1</div>
+        <div style="font-size:12px;color:var(--ink3);font-family:var(--mono);margin-top:2px">~312 days remaining in Year 1 · 2 pools</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-family:var(--mono);font-size:11px;color:var(--green);display:flex;align-items:center;gap:5px"><span class="live-dot"></span>Active</span>
+        <button class="btn btn-ghost btn-sm" onclick="refreshMining()">↻ Refresh</button>
+      </div>
+    </div>
+    <div class="mb-stats">
+      <div class="mbs"><div class="mbs-l">Your Staked cXRP</div><div class="mbs-v o" id="userStaked">—</div><div class="mbs-s" id="userStakedPct">Connect wallet</div></div>
+      <div class="mbs"><div class="mbs-l">Your Pending EMBER</div><div class="mbs-v g" id="userPending">—</div><div class="mbs-s" id="userPendingRate">Accruing per second</div></div>
+      <div class="mbs"><div class="mbs-l">Total Staked Globally</div><div class="mbs-v" id="totalStaked">—</div><div class="mbs-s">All users combined</div></div>
+      <div class="mbs"><div class="mbs-l">Emission Rate</div><div class="mbs-v">493K</div><div class="mbs-s">EMBER per day · Year 1</div></div>
+    </div>
+    <div class="mb-actions">
+      <div class="mb-col">
+        <div style="display:flex;gap:6px;margin-bottom:10px">
+          <button class="btn btn-primary btn-sm" id="poolTabsFLR" onclick="setMiningPool(0)">⬜ cFLR (sFLR)</button>
+          <button class="btn btn-surface btn-sm" id="poolTabstXRP" onclick="setMiningPool(1)">🟠 cXRP (stXRP)</button>
+        </div>
+        <div class="mb-col-label" id="miningPoolLabel">Stake cFLR to earn EMBER</div>
+        <div class="mb-inrow">
+          <input type="number" id="stakeIn" placeholder="0.0" min="0" step="any" oninput="updateStakePreview()">
+          <div class="mb-tok">cXRP</div>
+        </div>
+        <div style="font-size:11px;color:var(--ink3);font-family:var(--mono);margin-bottom:10px;min-height:16px" id="stakePreview"></div>
+        <button class="btn btn-green btn-block" id="stakeBtn" onclick="doStake()">Stake cXRP → Earn EMBER</button>
+      </div>
+      <div class="mb-col">
+        <div class="mb-col-label">Unstake (auto-claims rewards)</div>
+        <div class="mb-inrow">
+          <input type="number" id="unstakeIn" placeholder="0.0" min="0" step="any">
+          <div class="mb-tok">cXRP</div>
+        </div>
+        <div style="margin-bottom:10px;display:flex;gap:6px">
+          <button class="btn btn-ghost btn-sm" onclick="setMaxUnstake()">Use max</button>
+        </div>
+        <button class="btn btn-surface btn-block" id="unstakeBtn" onclick="doUnstake()">Unstake + Claim EMBER</button>
+      </div>
+    </div>
+    <div class="mb-claim">
+      <div>
+        <div style="font-size:11px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:3px">Claimable now</div>
+        <div style="font-family:var(--display);font-size:22px;font-weight:800;letter-spacing:-0.5px;color:var(--green)" id="claimableFlow">— EMBER</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-primary" id="claimBtn" onclick="doClaimFlow()">Claim EMBER Rewards</button>
+        <button class="btn btn-surface btn-sm" onclick="doExit()">Exit (unstake all + claim)</button>
+      </div>
+    </div>
+  </div>
+  <div class="apr-box r">
+    <div class="apr-head">
+      <div>
+        <div style="font-size:10px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Mining APR Estimator (per pool)</div>
+        <div style="font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-0.5px" id="aprDisplay">Calculating…</div>
+      </div>
+      <div class="apr-inputs">
+        <div class="apr-input-group">
+          <div class="apr-input-label">EMBER price (USD)</div>
+          <input type="number" class="apr-input" id="flowPrice" value="0.10" min="0.001" step="0.01" oninput="calcApr()">
+        </div>
+        <div class="apr-input-group">
+          <div class="apr-input-label">stXRP price (USD)</div>
+          <input type="number" class="apr-input" id="stxrpPrice" value="2.34" min="0.01" step="0.01" oninput="calcApr()">
+        </div>
+        <div class="apr-input-group">
+          <div class="apr-input-label">Total staked (cXRP)</div>
+          <input type="number" class="apr-input" style="width:120px" id="stakedTotal" value="1000000" min="1" step="10000" oninput="calcApr()">
+        </div>
+      </div>
+    </div>
+    <div class="apr-results">
+      <div class="apr-cell"><div class="apr-cell-l">Mining APR</div><div class="apr-cell-v" style="color:var(--green)" id="aprMining">—</div></div>
+      <div class="apr-cell"><div class="apr-cell-l">Vault yield APY</div><div class="apr-cell-v" style="color:var(--blue)">8.4%</div></div>
+      <div class="apr-cell"><div class="apr-cell-l">Combined APY</div><div class="apr-cell-v" style="color:var(--accent2)" id="aprCombined">—</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+<div class="wrap">
+  <div class="sep r">FAQ</div>
+  <h2 class="sh2 r d1">All your EMBER questions.</h2>
+  <div class="faq-list r d1">
+    <div><button class="faq-q" onclick="toggleFaq(this)">How do I earn EMBER? <span class="faq-arr">+</span></button><div class="faq-a"><strong>Three ways:</strong> (1) Liquidity mining — stake your cXRP in CinderMining.sol and earn EMBER every second, proportional to your share of total staked cXRP. (2) Public sale — participate when announced through official channels. (3) Community airdrop — if you used Cinder or Firelight early, you may qualify. There is no private sale or VC allocation. The founder holds 10% with a 2-year linear vest (no cliff — earns daily).</div></div>
+    <div><button class="faq-q" onclick="toggleFaq(this)">What gives EMBER value? <span class="faq-arr">+</span></button><div class="faq-a">EMBER governance controls the treasury, which accumulates <strong>10% of all stXRP yield + 0.1% of every withdrawal</strong>. As Cinder TVL grows, so does treasury income. EMBER holders vote on how that value is deployed: buybacks, stXRP distributions, liquidity seeding, or grants. At $10M TVL and 9.3% gross APY, the treasury earns roughly $90,000/year in stXRP — and that compounds as TVL grows.</div></div>
+    <div><button class="faq-q" onclick="toggleFaq(this)">Do I need to lock EMBER to vote? <span class="faq-arr">+</span></button><div class="faq-a">No lock-up required. Your voting power is your EMBER balance (or whoever you've delegated to). You do need to <strong>self-delegate first</strong> — this activates checkpointing. Once delegated, your votes are live for any proposal created after that block. You can transfer, sell, or re-delegate at any time with no penalty or waiting period.</div></div>
+    <div><button class="faq-q" onclick="toggleFaq(this)">What protects against a governance attack? <span class="faq-arr">+</span></button><div class="faq-a">Three layers: <strong>(1) Quorum</strong> — 40M EMBER (4% of supply) must vote For; a small minority can't quietly pass changes. <strong>(2) Timelock</strong> — 2-day mandatory delay after passing; depositors can exit if they disagree. <strong>(3) Guardian veto</strong> — a multisig guardian can cancel malicious proposals but has no other power (no execution, no funds access). Critically, vault withdrawals can never be blocked by governance — depositors always get their stXRP back.</div></div>
+    <div><button class="faq-q" onclick="toggleFaq(this)">How is the mining APR calculated? <span class="faq-arr">+</span></button><div class="faq-a">CinderMining v2 emits EMBER every second across two pools: cFLR (60% of emission) and cXRP (40%). Each pool splits its allocation pro-rata across all staked shares in that pool. If you hold 10% of staked cXRP during Year 1, you earn 10% × 108M (60% of 180M) = 10.8M EMBER over the year. APR = (your annual EMBER × EMBER price) ÷ (your staked cXRP × stXRP price). The APR estimator above lets you model different scenarios. APR naturally decreases as more people stake (your share shrinks) and increases as EMBER price rises.</div></div>
+    <div><button class="faq-q" onclick="toggleFaq(this)">Can the team change the tokenomics or mint more EMBER? <span class="faq-arr">+</span></button><div class="faq-a">No. Total supply is fixed at deployment — there is <strong>no admin mint function</strong>. The allocation is hardcoded in the constructor and cannot be modified. Founder vesting runs autonomously in CinderFounderVest.sol. The only mutable parameters (fee rates, quorum threshold, voting periods) can be changed solely by a passing EMBER governance vote, which requires 4% quorum and a 2-day timelock.</div></div>
+    <div><button class="faq-q" onclick="toggleFaq(this)">When does EMBER launch? Where can I buy it? <span class="faq-arr">+</span></button><div class="faq-a">EMBER deploys on Flare Mainnet at protocol launch, targeting Q3 2026 — pending Firelight Phase 2 and a completed security audit. The contract address will be published simultaneously on this site, Flarescan, Discord, and X. <strong>There are no pre-sale contracts and no EMBER token exists yet.</strong> Do not buy anything claiming to be EMBER before official launch announcement — it would be a scam.</div></div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <a href="/" class="nav-logo" style="font-size:14px;gap:8px"><span class="logo-mark" style="width:24px;height:24px;font-size:11px">C</span>Cinder © 2026</a>
+      <div class="footer-links">
+        <a href="https://flare.network" target="_blank">Flare Network</a>
+        <a href="https://firelight.finance" target="_blank">Firelight</a>
+        <a href="https://flarescan.com" target="_blank">Flarescan</a>
+        <a href="https://dev.flare.network" target="_blank">Developer Docs</a>
+      </div>
+      <span>⚠ Unaudited · Not financial advice</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- HOW TO VOTE MODAL -->
+<div class="modal-backdrop" id="howToVoteModal" onclick="if(event.target===this)closeModal('howToVoteModal')">
+  <div class="modal modal-wide">
+    <div class="modal-head">
+      <div class="modal-title">How to vote — complete guide</div>
+      <button class="modal-close" onclick="closeModal('howToVoteModal')">✕</button>
+    </div>
+    <div class="modal-body" id="howToVoteBody">
+      <!-- Steps injected by JS -->
+    </div>
+    <div class="modal-foot" style="justify-content:space-between">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--ink3)" id="howToVoteStep">Step 1 of 4</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost" id="howToVotePrev" onclick="howToVoteNav(-1)" disabled>← Back</button>
+        <button class="btn btn-primary" id="howToVoteNext" onclick="howToVoteNav(1)">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VOTE MODAL -->
+<div class="modal-backdrop" id="voteModal" onclick="if(event.target===this)closeModal('voteModal')">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="vmTitle">Proposal</div>
+      <button class="modal-close" onclick="closeModal('voteModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="vote-stats-row">
+        <div class="vs-cell"><div class="vs-v" id="vmFor" style="color:var(--green)">—</div><div class="vs-l">For</div></div>
+        <div class="vs-cell"><div class="vs-v" id="vmAgainst" style="color:var(--red)">—</div><div class="vs-l">Against</div></div>
+        <div class="vs-cell"><div class="vs-v" id="vmAbstain" style="color:var(--ink3)">—</div><div class="vs-l">Abstain</div></div>
+      </div>
+      <div style="font-size:12px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.09em">Cast your vote</div>
+      <div class="vote-opts">
+        <div class="vote-opt" onclick="selectVote(this,'for')" id="voptFor"><span>✅</span>Vote For</div>
+        <div class="vote-opt" onclick="selectVote(this,'against')" id="voptAgainst"><span>❌</span>Vote Against</div>
+        <div class="vote-opt" onclick="selectVote(this,'abstain')" id="voptAbstain"><span>🤐</span>Abstain</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:6px">Reason (optional — shown on-chain)</div>
+        <textarea class="vote-reason" id="voteReason" rows="2" placeholder="Share your reasoning with the community…"></textarea>
+      </div>
+      <div style="font-size:12px;color:var(--ink3);font-family:var(--mono)" id="vmVotePow">Your voting power: — EMBER</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('voteModal')">Cancel</button>
+      <button class="btn btn-primary" id="castVoteBtn" onclick="submitVote()">Cast Vote</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROPOSE MODAL -->
+<div class="modal-backdrop" id="proposeModal" onclick="if(event.target===this)closeModal('proposeModal')">
+  <div class="modal modal-wide">
+    <div class="modal-head">
+      <div class="modal-title">New Governance Proposal</div>
+      <button class="modal-close" onclick="closeModal('proposeModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="warn-box">⚠ You need at least 1,000,000 EMBER (self-delegated) to create a proposal. Proposals are binding and execute on-chain after passing quorum + timelock.</div>
+      <div class="form-grp">
+        <div class="form-lbl">Proposal title</div>
+        <input type="text" class="form-in" id="propTitle" placeholder="FIP-X: Short description of the change">
+      </div>
+      <div class="form-grp">
+        <div class="form-lbl">Full description (Markdown supported)</div>
+        <textarea class="form-in form-ta" id="propDesc" placeholder="Describe the motivation, what changes, and why this benefits the protocol and token holders."></textarea>
+      </div>
+      <div class="form-grp">
+        <div class="form-lbl">Target contract address</div>
+        <input type="text" class="form-in" id="propTarget" placeholder="0x... contract to call if proposal passes">
+        <div class="form-hint">e.g. CinderVault address to change fee parameters</div>
+      </div>
+      <div class="form-grp">
+        <div class="form-lbl">Function signature</div>
+        <input type="text" class="form-in" id="propSig" placeholder="setPerformanceFee(uint256)">
+        <div class="form-hint">The function to call. Leave empty for raw calldata only.</div>
+      </div>
+      <div class="form-grp">
+        <div class="form-lbl">ABI-encoded calldata</div>
+        <input type="text" class="form-in" id="propCalldata" placeholder="0x... (hex-encoded arguments)">
+        <div class="form-hint">e.g. to set fee to 8%: abi.encode(800) → 0x0000…0320</div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('proposeModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="submitProposal()">Submit Proposal On-Chain</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+</script>
+<script>
+function toggleMobileNav(){
+  const btn=document.getElementById('hamBtn'),nav=document.getElementById('mobileNav');
+  if(!btn||!nav)return;
+  btn.classList.toggle('open');nav.classList.toggle('open');
+  document.body.style.overflow=nav.classList.contains('open')?'hidden':'';
+}
+function closeMobileNav(){
+  const btn=document.getElementById('hamBtn'),nav=document.getElementById('mobileNav');
+  if(btn)btn.classList.remove('open');if(nav)nav.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click',function(e){
+  const nav=document.getElementById('mobileNav'),btn=document.getElementById('hamBtn');
+  if(nav&&nav.classList.contains('open')&&!nav.contains(e.target)&&btn&&!btn.contains(e.target))closeMobileNav();
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@walletconnect/modal@2.7.0/dist/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.13.0/dist/index.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
+<script>
+
+// ── How to vote walkthrough ────────────────────────────────────────────
+const HOW_TO_VOTE_STEPS = [
+  {
+    title: '① Get EMBER tokens',
+    icon: '🪙',
+    color: 'var(--green)',
+    content: `
+      <p style="font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:1rem">
+        Before you can vote, you need EMBER tokens. There are three ways to get them:
+      </p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem">
+          <div style="font-family:var(--display);font-size:13px;font-weight:700;margin-bottom:4px;color:var(--green)">Liquidity mining (recommended)</div>
+          <div style="font-size:12px;color:var(--ink2);line-height:1.6">Deposit stXRP into the vault → receive cXRP shares → stake those shares in CinderMining → earn EMBER every second. This is the main distribution mechanism. The more you stake and the earlier you do it, the more EMBER you accumulate.</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem">
+          <div style="font-family:var(--display);font-size:13px;font-weight:700;margin-bottom:4px;color:var(--accent2)">Public sale</div>
+          <div style="font-size:12px;color:var(--ink2);line-height:1.6">150M EMBER available via the CinderSale contract at 10 EMBER per FLR (~$0.001/EMBER at $0.01/FLR). 6-month linear vest after the sale ends. Min buy: 1,000 FLR ($10). Max: 50,000 FLR ($500). Funds the security audit.</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem">
+          <div style="font-family:var(--display);font-size:13px;font-weight:700;margin-bottom:4px">Community airdrop</div>
+          <div style="font-size:12px;color:var(--ink2);line-height:1.6">50M EMBER distributed to early Cinder users and Firelight depositors. Snapshot-based — check if you qualify via the claim interface.</div>
+        </div>
+      </div>`,
+  },
+  {
+    title: '② Self-delegate — the step everyone misses',
+    icon: '🔑',
+    color: 'var(--accent2)',
+    content: `
+      <div style="background:var(--amberbg);border:1px solid rgba(245,158,11,0.3);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;font-size:13px;color:var(--amber)">
+        ⚠ <strong>This is the critical step.</strong> Without it, your EMBER has zero voting power even if you hold millions of tokens.
+      </div>
+      <p style="font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:1rem">
+        EMBER uses <strong style="color:var(--ink)">checkpointed delegation</strong> — the same system as Compound and Uniswap. Voting power doesn't activate automatically when you receive tokens. You must call <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:12px">delegate(yourAddress)</code> once to register your votes on-chain.
+      </p>
+      <p style="font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:1rem">
+        <strong style="color:var(--ink)">Why does this exist?</strong> Checkpointing records your voting power at each block. When a proposal is created, the Governor snapshots voting power at that exact block. This prevents someone from buying tokens, voting, then selling — they'd have had zero power at snapshot time.
+      </p>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem">
+        <div style="font-size:13px;font-weight:500;margin-bottom:10px">Do it right now:</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button onclick="doSelfDelegate();closeModal('howToVoteModal')" class="btn btn-primary">Self-delegate with connected wallet</button>
+          <div style="font-size:12px;color:var(--ink3);display:flex;align-items:center">or use the delegation box below after closing this</div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--ink3);font-family:var(--mono)">You can also delegate to someone else — they vote on your behalf, you keep your tokens.</div>
+      </div>`,
+  },
+  {
+    title: '③ Reading a proposal',
+    icon: '📋',
+    color: 'var(--blue)',
+    content: `
+      <p style="font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:1rem">
+        Each proposal has four phases. Understanding them prevents surprises:
+      </p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:1rem">
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:5px;background:var(--amberbg);color:var(--amber);white-space:nowrap;flex-shrink:0;margin-top:2px">PENDING</span>
+          <div style="font-size:13px;color:var(--ink2)">Created but voting hasn't opened yet. 2-day delay so the community can read it first. <strong style="color:var(--ink)">Your vote weight is locked at the creation block</strong> — buying EMBER now won't help.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:5px;background:var(--greenbg);color:var(--green);white-space:nowrap;flex-shrink:0;margin-top:2px">ACTIVE</span>
+          <div style="font-size:13px;color:var(--ink2)">Voting is open. 5-day window. Cast your vote now. Needs 40M EMBER voting For to reach quorum, and For must outnumber Against.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:5px;background:var(--purplebg);color:var(--purple);white-space:nowrap;flex-shrink:0;margin-top:2px">QUEUED</span>
+          <div style="font-size:13px;color:var(--ink2)">Voting passed. The proposal is in the 2-day timelock. This is your exit window — if you disagree with the outcome, you have 2 days to withdraw funds before execution.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:5px;background:var(--greenbg);color:var(--green);white-space:nowrap;flex-shrink:0;margin-top:2px">EXECUTED</span>
+          <div style="font-size:13px;color:var(--ink2)">Done. The change is live on-chain. The vote literally called the target contract — it's not a suggestion, it's automatic code execution.</div>
+        </div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;font-size:12px;color:var(--ink2)">
+        <strong style="color:var(--ink)">What's in the calldata?</strong> Every proposal includes a target contract address, a function signature, and ABI-encoded arguments. For example, a fee change proposal contains <code style="font-family:var(--mono);background:var(--bg);padding:1px 5px;border-radius:3px">setPerformanceFee(800)</code> — if it passes, that function is called automatically.
+      </div>`,
+  },
+  {
+    title: '④ Casting your vote',
+    icon: '🗳️',
+    color: 'var(--green)',
+    content: `
+      <p style="font-size:14px;color:var(--ink2);line-height:1.75;margin-bottom:1rem">
+        When a proposal is Active, click it to open the vote modal. Here's what happens:
+      </p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1rem">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--greenbg);border:1px solid rgba(61,168,95,0.3);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">1</div>
+          <div style="font-size:13px;color:var(--ink2);padding-top:4px"><strong style="color:var(--ink)">Choose your position</strong> — For, Against, or Abstain. Abstain counts toward quorum but doesn't affect the For/Against ratio.</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--greenbg);border:1px solid rgba(61,168,95,0.3);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">2</div>
+          <div style="font-size:13px;color:var(--ink2);padding-top:4px"><strong style="color:var(--ink)">Add a reason (optional)</strong> — your reasoning gets stored on-chain via <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--border);padding:1px 5px;border-radius:3px;font-size:11px">castVoteWithReason()</code>. It's visible to everyone. Many voters explain their position — it helps the community understand the vote distribution.</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--greenbg);border:1px solid rgba(61,168,95,0.3);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">3</div>
+          <div style="font-size:13px;color:var(--ink2);padding-top:4px"><strong style="color:var(--ink)">Sign the transaction</strong> — MetaMask pops up. The transaction calls <code style="font-family:var(--mono);background:var(--surface);border:1px solid var(--border);padding:1px 5px;border-radius:3px;font-size:11px">castVote(proposalId, 1)</code> on the CinderGovernor contract. Gas cost is minimal — a fraction of a FLR.</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--greenbg);border:1px solid rgba(61,168,95,0.3);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">4</div>
+          <div style="font-size:13px;color:var(--ink2);padding-top:4px"><strong style="color:var(--ink)">Done</strong> — your vote is permanent and cannot be changed. The vote bars update in real time. You can vote on as many proposals as you like; each one is a separate transaction.</div>
+        </div>
+      </div>
+      <div style="background:var(--greenbg);border:1px solid rgba(61,168,95,0.3);border-radius:10px;padding:1rem 1.25rem;font-size:13px;color:var(--green)">
+        Ready to vote? Close this and click any Active proposal below.
+      </div>`,
+  },
+];
+
+let howToVoteCurrentStep = 0;
+
+function openHowToVote() {
+  howToVoteCurrentStep = 0;
+  renderHowToVoteStep();
+  openModal('howToVoteModal');
+}
+
+function renderHowToVoteStep() {
+  const step = HOW_TO_VOTE_STEPS[howToVoteCurrentStep];
+  const total = HOW_TO_VOTE_STEPS.length;
+  document.getElementById('howToVoteBody').innerHTML = `
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:1.25rem">
+      <div style="font-size:32px">${step.icon}</div>
+      <div style="font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-0.5px;color:${step.color}">${step.title}</div>
+    </div>
+    ${step.content}
+    <div style="display:flex;gap:6px;margin-top:1.25rem">
+      ${HOW_TO_VOTE_STEPS.map((_,i) => `<div style="height:3px;flex:1;border-radius:2px;background:${i <= howToVoteCurrentStep ? step.color : 'var(--border)'};transition:background 0.3s"></div>`).join('')}
+    </div>
+  `;
+  document.getElementById('howToVoteStep').textContent = `Step ${howToVoteCurrentStep + 1} of ${total}`;
+  document.getElementById('howToVotePrev').disabled = howToVoteCurrentStep === 0;
+  const nextBtn = document.getElementById('howToVoteNext');
+  if (howToVoteCurrentStep === total - 1) {
+    nextBtn.textContent = 'Got it ✓';
+    nextBtn.onclick = () => closeModal('howToVoteModal');
+  } else {
+    nextBtn.textContent = 'Next →';
+    nextBtn.onclick = () => howToVoteNav(1);
+  }
+}
+
+function howToVoteNav(dir) {
+  howToVoteCurrentStep = Math.max(0, Math.min(HOW_TO_VOTE_STEPS.length - 1, howToVoteCurrentStep + dir));
+  renderHowToVoteStep();
+}
+
+// ── Contract addresses — update after deploying ───────────────────────
+const ADDRS={
+  14: {flow:"0x0000000000000000000000000000000000000000",mining:"0x0000000000000000000000000000000000000000",governor:"0x0000000000000000000000000000000000000000",vault:"0x0000000000000000000000000000000000000000"},
+  114:{flow:"0x0000000000000000000000000000000000000000",mining:"0x0000000000000000000000000000000000000000",governor:"0x0000000000000000000000000000000000000000",vault:"0x0000000000000000000000000000000000000000"},
+};
+const EMBER_ABI=["function balanceOf(address) view returns (uint256)","function delegates(address) view returns (address)","function delegate(address) external","function getCurrentVotes(address) view returns (uint256)","function totalSupply() view returns (uint256)"];
+const MINING_ABI=["function stake(uint256) external","function withdraw(uint256) external","function claimReward() external","function exit() external","function earned(address) view returns (uint256)","function stakedBalance(address) view returns (uint256)","function totalStaked() view returns (uint256)","function rewardRate() view returns (uint256)","function getUserMiningInfo(address) view returns (uint256,uint256,uint256,uint256,uint256,uint256)"];
+const GOV_ABI=["function castVote(uint256,uint8) external returns (uint256)","function castVoteWithReason(uint256,uint8,string) external returns (uint256)","function propose(address[],uint256[],string[],bytes[],string) external returns (uint256)"];
+const VAULT_ABI=["function getVaultStats() view returns (uint256,uint256,uint256,uint256,uint256,uint256,uint256)"];
+let provider,signer,userAddr,chainId,flowC,miningC,govC,vaultC;
+let selectedVote=null,activeProposalId=null;
+
+// ── Scroll reveal ─────────────────────────────────────────────────────
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')}),{threshold:0.07});
+document.querySelectorAll('.r').forEach(el=>obs.observe(el));
+
+// ── Donut ─────────────────────────────────────────────────────────────
+const ALLOC=[
+  {label:'Mining Rewards',pct:45,amt:'450M',color:'#3DA85F'},
+  {label:'Treasury',      pct:25,amt:'250M',color:'#4A90D9'},
+  {label:'Public Sale',   pct:15,amt:'150M',color:'#F59E0B'},
+  {label:'Founder (vest)',pct:10,amt:'100M',color:'#8B5CF6'},
+  {label:'Community',     pct:5, amt:'50M', color:'#D4500C'},
+];
+(function(){
+  const canvas=document.getElementById('donutCanvas');
+  const ctx=canvas.getContext('2d');
+  const cx=130,cy=130,R=114,r=75;
+  let slices=[],a=-Math.PI/2;
+  ALLOC.forEach(al=>{const sw=2*Math.PI*(al.pct/100);slices.push({...al,s:a,e:a+sw});a+=sw;});
+  function draw(hov=-1){
+    ctx.clearRect(0,0,260,260);
+    slices.forEach((s,i)=>{
+      const sc=i===hov?1.05:1;
+      ctx.save();ctx.translate(cx,cy);ctx.scale(sc,sc);ctx.translate(-cx,-cy);
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,R,s.s,s.e);ctx.closePath();
+      ctx.fillStyle=s.color;ctx.globalAlpha=i===hov?1:0.82;ctx.fill();
+      ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);ctx.fillStyle='#090806';ctx.globalAlpha=1;ctx.fill();
+      ctx.restore();
+    });
+  }
+  function setLbl(i=-1){
+    if(i<0){document.getElementById('donutVal').textContent='1B';document.getElementById('donutVal').style.color='';document.getElementById('donutSub').textContent='EMBER total';}
+    else{document.getElementById('donutVal').textContent=slices[i].pct+'%';document.getElementById('donutVal').style.color=slices[i].color;document.getElementById('donutSub').textContent=slices[i].label+' · '+slices[i].amt;}
+  }
+  canvas.addEventListener('mousemove',e=>{
+    const rect=canvas.getBoundingClientRect();const sx=260/rect.width,sy=260/rect.height;
+    const x=(e.clientX-rect.left)*sx-cx,y=(e.clientY-rect.top)*sy-cy;
+    const dist=Math.sqrt(x*x+y*y);if(dist<r||dist>R){draw();setLbl();return;}
+    const norm=((Math.atan2(y,x)+Math.PI/2)+2*Math.PI)%(2*Math.PI);
+    let hov=-1;
+    slices.forEach((s,i)=>{const a0=((s.s+Math.PI/2)+2*Math.PI)%(2*Math.PI),a1=((s.e+Math.PI/2)+2*Math.PI)%(2*Math.PI);if(a0<a1?norm>=a0&&norm<=a1:norm>=a0||norm<=a1)hov=i;});
+    draw(hov);setLbl(hov);
+  });
+  canvas.addEventListener('mouseleave',()=>{draw();setLbl();});
+  draw();
+  document.getElementById('allocLegend').innerHTML=ALLOC.map(al=>`
+    <div class="leg-row"
+      onmouseenter="document.getElementById('donutVal').textContent='${al.pct}%';document.getElementById('donutVal').style.color='${al.color}';document.getElementById('donutSub').textContent='${al.label} · ${al.amt}'"
+      onmouseleave="document.getElementById('donutVal').textContent='1B';document.getElementById('donutVal').style.color='';document.getElementById('donutSub').textContent='EMBER total'">
+      <div class="leg-dot" style="background:${al.color}"></div>
+      <span class="leg-name">${al.label}</span>
+      <span class="leg-pct" style="color:${al.color}">${al.pct}%</span>
+      <span class="leg-amt">${al.amt}</span>
+    </div>`).join('');
+})();
+
+// ── Emission chart ─────────────────────────────────────────────────────
+(function(){
+  const ctx=document.getElementById('emissionChart').getContext('2d');
+  new Chart(ctx,{type:'bar',data:{labels:['Year 1','Year 2','Year 3','Year 4'],datasets:[{data:[180,108,90,72],backgroundColor:['rgba(255,107,35,0.75)','rgba(255,107,35,0.5)','rgba(255,107,35,0.32)','rgba(255,107,35,0.18)'],borderColor:'#D4500C',borderWidth:1,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw}M EMBER`}}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#5C524C',font:{family:'JetBrains Mono',size:10}}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#5C524C',font:{family:'JetBrains Mono',size:10},callback:v=>v+'M'}}}}});
+})();
+
+// ── Supply unlock chart ────────────────────────────────────────────────
+(function(){
+  const ctx=document.getElementById('supplyChart').getContext('2d');
+  const months=Array.from({length:49},(_,i)=>i);
+  const pcts=months.map(m=>{
+    let p=0;
+    p+=Math.min(m/6,1)*15; // sale 6mo linear
+    p+=5; // community at TGE
+    // mining front-loaded
+    if(m<=12)p+=(m/12)*20.25;
+    else if(m<=24)p+=20.25+((m-12)/12)*10.8;
+    else if(m<=36)p+=31.05+((m-24)/12)*9;
+    else p+=40.05+((m-36)/12)*7.2;
+    // team: 6mo cliff then linear
+    if(m>=0){p+=Math.min(m/24,1)*10;}
+    p+=25; // treasury (timelock governed)
+    return Math.min(p,100);
+  });
+  new Chart(ctx,{type:'line',data:{labels:months.map(m=>m===0?'TGE':m%12===0?`Yr${m/12}`:m===6?'6mo':''),datasets:[{data:pcts,borderColor:'#4A90D9',backgroundColor:'rgba(74,144,217,0.07)',tension:0.4,pointRadius:0,borderWidth:2,fill:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw.toFixed(1)}% unlocked`}}},scales:{x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#5C524C',font:{family:'JetBrains Mono',size:10},maxTicksLimit:7}},y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#5C524C',font:{family:'JetBrains Mono',size:10},callback:v=>v+'%'},min:0,max:100}}}});
+})();
+
+// ── APR calculator ────────────────────────────────────────────────────
+function calcApr(){
+  const fp=parseFloat(document.getElementById('flowPrice').value)||0.1;
+  const sp=parseFloat(document.getElementById('stxrpPrice').value)||2.34;
+  const st=parseFloat(document.getElementById('stakedTotal').value)||1000000;
+  const annFlow=180000000*fp;
+  const annStaked=st*sp;
+  const miningApr=annStaked>0?(annFlow/annStaked)*100:0;
+  const combined=miningApr+8.4;
+  document.getElementById('aprMining').textContent=miningApr.toFixed(1)+'%';
+  document.getElementById('aprCombined').textContent=combined.toFixed(1)+'%';
+  document.getElementById('aprDisplay').textContent=miningApr.toFixed(1)+'% mining APR (sFLR pool, active pool shown)';
+}
+calcApr();
+
+// ── Wallet ────────────────────────────────────────────────────────────
+
+async function loadFlow(){
+  if(!flowC||!userAddr)return;
+  try{
+    const[bal,votes,del,total]=await Promise.all([flowC.balanceOf(userAddr),flowC.getCurrentVotes(userAddr),flowC.delegates(userAddr),flowC.totalSupply()]);
+    const b=parseFloat(ethers.formatEther(bal));
+    const v=parseFloat(ethers.formatEther(votes));
+    const t=parseFloat(ethers.formatEther(total));
+    const pct=t>0?(b/t*100).toFixed(4):'0';
+    document.getElementById('userFlowBal').textContent=fmtN(b)+' EMBER';
+    document.getElementById('userVotePow').textContent=fmtN(v)+' EMBER';
+    document.getElementById('userFlowPct').textContent=pct+'%';
+    document.getElementById('govVotePower').textContent=fmtN(v);
+    document.getElementById('govVoteSub').textContent='Your governance weight';
+    document.getElementById('flowChip').textContent=fmtN(b)+' EMBER';
+    document.getElementById('vmVotePow').textContent='Your voting power: '+fmtN(v)+' EMBER';
+    const delStr=del===userAddr?'Self-delegated ✓ — voting power active':del===ethers.ZeroAddress?'Not delegated — self-delegate to activate votes':'Delegating to: '+del.slice(0,10)+'…'+del.slice(-4);
+    document.getElementById('delStatus').textContent=delStr;
+  }catch(e){console.error(e);}
+}
+
+async function loadMining(){
+  if(!miningC||!userAddr)return;
+  try{
+    const info=await miningC.getUserMiningInfo(userAddr);
+    const staked=parseFloat(ethers.formatEther(info[0]));
+    const pending=parseFloat(ethers.formatEther(info[1]));
+    const total=parseFloat(ethers.formatEther(info[2]));
+    const rate=parseFloat(ethers.formatEther(info[3]));
+    document.getElementById('userStaked').textContent=staked.toFixed(4)+' cXRP';
+    document.getElementById('userPending').textContent=pending.toFixed(4)+' EMBER';
+    document.getElementById('totalStaked').textContent=fmtN(total)+' cXRP';
+    document.getElementById('claimableFlow').textContent=pending.toFixed(4)+' EMBER';
+    document.getElementById('stakedTotal').value=Math.round(total);
+    if(total>0)document.getElementById('userStakedPct').textContent=((staked/total)*100).toFixed(3)+'% of total';
+    const perSec=total>0?rate*staked/total:0;
+    document.getElementById('userPendingRate').textContent=perSec.toFixed(6)+' EMBER/sec';
+    calcApr();
+  }catch(e){console.error(e);}
+}
+
+async function loadVault(){
+  if(!vaultC)return;
+  try{
+    const s=await vaultC.getVaultStats();
+    const tvl=parseFloat(ethers.formatEther(s[0]));
+    const pending=parseFloat(ethers.formatEther(s[3]));
+    const lifetime=parseFloat(ethers.formatEther(s[4]));
+    const lastH=Number(s[6]);
+    document.getElementById('treasBal').textContent=fmtN(tvl*0.10)+' stXRP';
+    document.getElementById('treasLife').textContent=fmtN(lifetime)+' stXRP';
+    document.getElementById('treasPending').textContent=pending.toFixed(4)+' stXRP';
+    document.getElementById('treasHarvest').textContent=lastH?new Date(lastH*1000).toLocaleTimeString():'Never';
+    document.getElementById('treasAnnual').textContent='$'+Math.round(tvl*2.34*0.093*0.10).toLocaleString();
+  }catch(e){console.error(e);}
+}
+
+function showDemoState(){
+  document.getElementById('delStatus').textContent='Contracts not deployed — showing demo mode';
+  document.getElementById('flowChip').textContent='Deploy contracts to load';
+}
+
+// ── Mining actions ─────────────────────────────────────────────────────
+// ── Mining pool switcher ──────────────────────────────────────────
+let activeMiningPool = 0; // 0 = cFLR, 1 = cXRP
+const POOL_META = [
+  {id:0, label:'cFLR', asset:'sFLR',  alloc:'60%'},
+  {id:1, label:'cXRP', asset:'stXRP', alloc:'40%'},
+];
+function setMiningPool(idx) {
+  activeMiningPool = idx;
+  const meta = POOL_META[idx];
+  document.getElementById('poolTabsFLR').className  = idx===0 ? 'btn btn-primary btn-sm' : 'btn btn-surface btn-sm';
+  document.getElementById('poolTabstXRP').className = idx===1 ? 'btn btn-primary btn-sm' : 'btn btn-surface btn-sm';
+  document.getElementById('miningPoolLabel').textContent = `Stake ${meta.label} to earn EMBER (${meta.alloc} of emission)`;
+  document.querySelectorAll('.mb-tok').forEach(t => t.textContent = meta.label);
+  document.getElementById('stakeIn').value = '';
+  document.getElementById('unstakeIn').value = '';
+  document.getElementById('stakePreview').textContent = '';
+  refreshMining();
+}
+
+function updateStakePreview(){
+  const v=parseFloat(document.getElementById('stakeIn').value)||0;
+  if(v<=0){document.getElementById('stakePreview').textContent='';return;}
+  const tot=parseFloat(document.getElementById('stakedTotal').value)||1000000;
+  const daily=(v/(tot+v))*438356;
+  document.getElementById('stakePreview').textContent='≈ '+Math.round(daily).toLocaleString()+' EMBER/day at current emission';
+}
+function setMaxUnstake(){
+  const v=document.getElementById('userStaked').textContent.replace(' cXRP','').trim();
+  const n=parseFloat(v);
+  if(!isNaN(n))document.getElementById('unstakeIn').value=n;
+}
+async function doStake(){
+  const v=document.getElementById('stakeIn').value;
+  if(!miningC||!v||parseFloat(v)<=0){toast('Connect wallet & enter amount','warn');return;}
+  try{setBtnL('stakeBtn',true);const tx=await miningC.stake(ethers.parseEther(v));await tx.wait();toast('Staked '+parseFloat(v).toFixed(4)+' cXRP!','ok');document.getElementById('stakeIn').value='';await loadMining();}
+  catch(e){toast('Stake failed: '+(e.reason||e.message),'err');}
+  finally{setBtnL('stakeBtn',false,'Stake cXRP → Earn EMBER');}
+}
+async function doUnstake(){
+  const v=document.getElementById('unstakeIn').value;
+  if(!miningC||!v||parseFloat(v)<=0){toast('Connect wallet & enter amount','warn');return;}
+  try{setBtnL('unstakeBtn',true);const tx=await miningC.withdraw(ethers.parseEther(v));await tx.wait();toast('Unstaked & claimed EMBER!','ok');document.getElementById('unstakeIn').value='';await loadMining();}
+  catch(e){toast('Unstake failed','err');}
+  finally{setBtnL('unstakeBtn',false,'Unstake + Claim EMBER');}
+}
+async function doClaimFlow(){
+  if(!miningC){toast('Connect wallet first','warn');return;}
+  try{setBtnL('claimBtn',true);const tx=await miningC.claimReward();await tx.wait();toast('EMBER claimed!','ok');await loadMining();}
+  catch(e){toast('Claim failed','err');}
+  finally{setBtnL('claimBtn',false,'Claim EMBER Rewards');}
+}
+async function doExit(){
+  if(!miningC){toast('Connect wallet first','warn');return;}
+  try{const tx=await miningC.exit();await tx.wait();toast('Fully exited — all cXRP and EMBER claimed!','ok');await loadMining();}
+  catch(e){toast('Exit failed','err');}
+}
+async function refreshMining(){await Promise.all([loadMining(),loadFlow()]);}
+
+// ── Governance actions ─────────────────────────────────────────────────
+async function doDelegate(){
+  const addr=document.getElementById('delegateAddr').value.trim();
+  if(!flowC||!addr){toast('Connect wallet & enter address','warn');return;}
+  try{const tx=await flowC.delegate(addr);await tx.wait();toast('Delegated to '+addr.slice(0,10)+'…','ok');await loadFlow();}
+  catch(e){toast('Delegation failed','err');}
+}
+async function doSelfDelegate(){
+  if(!flowC||!userAddr){toast('Connect wallet first','warn');return;}
+  try{const tx=await flowC.delegate(userAddr);await tx.wait();toast('Self-delegated! Voting power active.','ok');await loadFlow();}
+  catch(e){toast('Failed','err');}
+}
+
+// ── Modals ─────────────────────────────────────────────────────────────
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+function openVoteModal(id,title,status,forPct,againstPct,abstainPct){
+  activeProposalId=id;selectedVote=null;
+  document.getElementById('vmTitle').textContent=title;
+  document.getElementById('vmFor').textContent=forPct+'%';
+  document.getElementById('vmAgainst').textContent=againstPct+'%';
+  document.getElementById('vmAbstain').textContent=abstainPct+'%';
+  document.getElementById('voteReason').value='';
+  ['voptFor','voptAgainst','voptAbstain'].forEach(i=>document.getElementById(i).className='vote-opt');
+  openModal('voteModal');
+}
+
+function selectVote(el,type){
+  ['voptFor','voptAgainst','voptAbstain'].forEach(i=>document.getElementById(i).className='vote-opt');
+  el.className='vote-opt sel-'+type;
+  selectedVote=type;
+}
+
+async function submitVote(){
+  if(!selectedVote){toast('Select a vote option','warn');return;}
+  if(!govC){toast('Connect wallet first','warn');return;}
+  const support=selectedVote==='for'?1:selectedVote==='against'?0:2;
+  const reason=document.getElementById('voteReason').value.trim();
+  try{
+    setBtnL('castVoteBtn',true);
+    const tx=reason?await govC.castVoteWithReason(activeProposalId,support,reason):await govC.castVote(activeProposalId,support);
+    await tx.wait();
+    closeModal('voteModal');
+    toast(selectedVote==='for'?'Voted FOR ✓':selectedVote==='against'?'Voted AGAINST':'Abstained','ok');
+  }catch(e){toast('Vote failed: '+(e.reason||e.message),'err');}
+  finally{setBtnL('castVoteBtn',false,'Cast Vote');}
+}
+
+function openProposeModal(){if(!userAddr){toast('Connect wallet first','warn');return;}openModal('proposeModal');}
+
+async function submitProposal(){
+  if(!govC){toast('Connect wallet first','warn');return;}
+  const title=document.getElementById('propTitle').value.trim();
+  const desc=document.getElementById('propDesc').value.trim();
+  const target=document.getElementById('propTarget').value.trim();
+  const sig=document.getElementById('propSig').value.trim();
+  const calldata=document.getElementById('propCalldata').value.trim()||'0x';
+  if(!title||!desc||!target){toast('Fill in title, description, and target','warn');return;}
+  try{
+    const tx=await govC.propose([target],[0],[sig],[calldata],'# '+title+'\n\n'+desc);
+    await tx.wait();
+    closeModal('proposeModal');
+    toast('Proposal submitted! Voting opens in 2 days.','ok');
+  }catch(e){toast('Proposal failed: '+(e.reason||e.message),'err');}
+}
+
+// ── FAQ ───────────────────────────────────────────────────────────────
+function toggleFaq(btn){
+  const isOpen=btn.classList.contains('open');
+  document.querySelectorAll('.faq-q').forEach(q=>q.classList.remove('open'));
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  if(!isOpen){btn.classList.add('open');btn.nextElementSibling.classList.add('open');}
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────
+function fmtN(n){if(n>=1e9)return(n/1e9).toFixed(2)+'B';if(n>=1e6)return(n/1e6).toFixed(2)+'M';if(n>=1e3)return(n/1e3).toFixed(2)+'K';return n.toFixed(2);}
+function setBtnL(id,loading,orig){const b=document.getElementById(id);if(!b)return;if(loading){b.dataset.orig=b.textContent;b.innerHTML='<span class="spinner"></span> Working…';b.disabled=true;}else{b.innerHTML=orig||b.dataset.orig||'Submit';b.disabled=false;}}
+function toast(msg,type=''){
+  const el=document.getElementById('toast');
+  const icons={ok:'✓  ',err:'✗  ',warn:'⚠  '};
+  el.textContent=(icons[type]||'')+msg;
+  el.style.borderColor=type==='ok'?'rgba(61,168,95,0.35)':type==='err'?'rgba(224,82,82,0.35)':type==='warn'?'rgba(245,158,11,0.35)':'rgba(255,255,255,0.07)';
+  el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),3500);
+}
+
+// ── Wallet connection (Bifrost, MetaMask, WalletConnect) ─────────────
+const WALLETCONNECT_PROJECT_ID = '535e786d16f68721634e38398db088a6';
+let wcProvider=null;
+function openWalletModal() {
+  // Detect injected wallets and show them
+  detectInjectedWallets();
+  document.getElementById('walletModal').classList.add('open');
+  document.getElementById('wmStatus').textContent =
+    'By connecting you agree to interact with unaudited contracts · $50K TVL cap';
+}
+function closeWalletModal() {
+  document.getElementById('walletModal').classList.remove('open');
+}
+function detectInjectedWallets() {
+  // Only show Bifrost and MetaMask — no generic "Detected" fallback
+  // Bifrost is already shown as first option; MetaMask is shown second
+  // No need to detect other wallets
+}
+function setWmStatus(msg, loading = false) {
+  const el = document.getElementById('wmStatus');
+  if (el) el.innerHTML = loading
+    ? `<span class="wm-spinner"></span>${msg}`
+    : msg;
+}
+async function connectBifrost() {
+  // Bifrost injects window.bifrost AND window.ethereum
+  // Prefer window.bifrost if available for explicit identification
+  const bfProvider = window.bifrost || window.ethereum;
+
+  if (!bfProvider) {
+    setWmStatus('Bifrost not detected. <a href="https://bifrostwallet.com" target="_blank" style="color:var(--accent2)">Download Bifrost →</a>');
+    return;
+  }
+  if (!window.bifrost && !window.ethereum?.isBifrost) {
+    // Not Bifrost — suggest download
+    setWmStatus('Bifrost not found. <a href="https://bifrostwallet.com" target="_blank" style="color:var(--accent2)">Get Bifrost wallet →</a>');
+    return;
+  }
+
+  setWmStatus('Connecting to Bifrost…', true);
+  try {
+    await bfProvider.request({ method: 'eth_requestAccounts' });
+    provider = new ethers.BrowserProvider(bfProvider);
+    await _onWalletConnected('Bifrost');
+  } catch(e) {
+    setWmStatus('Bifrost connection cancelled.');
+    console.error('Bifrost:', e);
+  }
+}
+async function connectMetaMask() {
+  if (!window.ethereum) {
+    setWmStatus('MetaMask not detected. <a href="https://metamask.io" target="_blank" style="color:var(--accent2)">Install MetaMask →</a>');
+    return;
+  }
+  setWmStatus('Opening MetaMask…', true);
+  try {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    provider = new ethers.BrowserProvider(window.ethereum);
+    await _onWalletConnected('MetaMask');
+  } catch(e) {
+    if (e.code === 4001) setWmStatus('Connection rejected by user.');
+    else setWmStatus('MetaMask connection failed.');
+    console.error('MetaMask:', e);
+  }
+}
+async function connectWalletConnect() {
+  setWmStatus('Opening WalletConnect…', true);
+  try {
+    // Log what globals are available for debugging
+    console.log('WC globals:', {
+      WalletConnectEthereumProvider: !!window.WalletConnectEthereumProvider,
+      EthereumProvider: !!window.EthereumProvider,
+      WalletConnectModal: !!window.WalletConnectModal,
+    });
+
+    const WCProvider =
+      window.WalletConnectEthereumProvider?.default ||
+      window.WalletConnectEthereumProvider ||
+      window.EthereumProvider?.default ||
+      window.EthereumProvider;
+
+    if (!WCProvider || !WCProvider.init) {
+      // Fallback — try esm.sh dynamic import
+      try {
+        console.log('WC: trying esm.sh fallback...');
+        const mod = await import('https://esm.sh/@walletconnect/ethereum-provider@2.13.0');
+        const EP = mod.EthereumProvider || mod.default;
+        if (EP?.init) { await _initWalletConnect(EP); return; }
+      } catch(e) { console.warn('WC esm.sh failed:', e); }
+      setWmStatus('WalletConnect unavailable. Use MetaMask or Bifrost.');
+      return;
+    }
+
+    await _initWalletConnect(WCProvider);
+
+  } catch(e) {
+    if (e.message?.includes('rejected') || e.code === 4001) {
+      setWmStatus('Connection cancelled.');
+    } else {
+      setWmStatus('Failed. Use MetaMask or Bifrost instead.');
+      console.error('WalletConnect error:', e);
+    }
+  }
+}
+async function connectInjected() {
+  if (!window.ethereum) { setWmStatus('No browser wallet detected.'); return; }
+  setWmStatus('Connecting…', true);
+  try {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    provider = new ethers.BrowserProvider(window.ethereum);
+    await _onWalletConnected(document.getElementById('woInjectedName')?.textContent || 'Browser Wallet');
+  } catch(e) {
+    setWmStatus('Connection failed or rejected.');
+    console.error('Injected:', e);
+  }
+}
+async function _initWalletConnect(WCProvider) {
+  closeWalletModal(); // close wallet selection modal so QR renders on top
+  console.log('WC: initialising provider...');
+  wcProvider = await WCProvider.init({
+    projectId: WALLETCONNECT_PROJECT_ID,
+    optionalChains: [14, 114],
+    showQrModal: true,
+    metadata: {
+      name: 'Cinder',
+      description: 'Auto-compound sFLR and stXRP yield on Flare Network',
+      url: 'https://cinder.finance',
+      icons: ['https://cinder.finance/favicon.png'],
+    },
+    rpcMap: {
+      14:  'https://flare-api.flare.network/ext/C/rpc',
+      114: 'https://coston2-api.flare.network/ext/C/rpc',
+    },
+  });
+  console.log('WC: provider initialised, connecting...');
+  await wcProvider.connect();
+  console.log('WC: connected!');
+  provider = new ethers.BrowserProvider(wcProvider);
+  await _onWalletConnected('WalletConnect');
+  wcProvider.on('disconnect',      () => { toast('WalletConnect disconnected','warn'); location.reload(); });
+  wcProvider.on('chainChanged',    () => location.reload());
+  wcProvider.on('accountsChanged', () => location.reload());
+}
+async function _onWalletConnected(walletName) {
+  signer   = await provider.getSigner();
+  userAddr = await signer.getAddress();
+  const net = await provider.getNetwork();
+  chainId = Number(net.chainId);
+
+  // Prompt to switch to Flare Mainnet if on wrong chain
+  if (chainId !== 14 && chainId !== 114) {
+    setWmStatus('Wrong network. Switching to Flare Mainnet…', true);
+    try {
+      await provider.send('wallet_switchEthereumChain', [{ chainId: '0xe' }]); // 0xe = 14
+      const net2 = await provider.getNetwork();
+      chainId = Number(net2.chainId);
+    } catch(switchErr) {
+      // Chain not added — add it
+      if (switchErr.code === 4902) {
+        try {
+          await provider.send('wallet_addEthereumChain', [{
+            chainId:            '0xe',
+            chainName:          'Flare Mainnet',
+            nativeCurrency:     { name: 'FLR', symbol: 'FLR', decimals: 18 },
+            rpcUrls:            ['https://flare-api.flare.network/ext/C/rpc'],
+            blockExplorerUrls:  ['https://flarescan.com'],
+          }]);
+          chainId = 14;
+        } catch(addErr) {
+          setWmStatus('Please switch to Flare Mainnet manually.');
+          return;
+        }
+      } else {
+        setWmStatus('Please switch to Flare Mainnet in your wallet.');
+        return;
+      }
+    }
+  }
+
+  const cfg = CONTRACTS[chainId];
+  if (!cfg) { setWmStatus('Unsupported network: chainId ' + chainId); return; }
+
+  const netName = chainId === 14 ? 'Flare Mainnet' : chainId === 114 ? 'Coston2 Testnet' : `Chain ${chainId}`;
+
+  // Update UI
+  const short = userAddr.slice(0,6) + '…' + userAddr.slice(-4);
+  const connectBtn = document.getElementById('connectBtn');
+  connectBtn.textContent = short;
+  connectBtn.disabled = false;
+  connectBtn.onclick = showAccountMenu;
+  connectBtn.style.background = 'var(--surface)';
+  connectBtn.style.border = '1px solid var(--border)';
+  connectBtn.style.color = 'var(--ink)';
+  document.getElementById('netPill').textContent = netName;
+  document.getElementById('netPill').classList.add('active');
+
+  // Try to update infoNetwork if it exists
+  const infoNet = document.getElementById('infoNetwork');
+  if (infoNet) infoNet.textContent = netName;
+
+  // Init contracts
+  const v = cfg.vaults[activeVaultIdx];
+  if (v && v.vault !== '0x0000000000000000000000000000000000000000') {
+    vaultContract = new ethers.Contract(v.vault, VAULT_ABI, signer);
+    assetContract = new ethers.Contract(v.asset, ERC20_ABI, signer);
+  }
+  heroSelectVault(activeVaultIdx);
+  if (cfg.zap && cfg.zap !== '0x0000000000000000000000000000000000000000') {
+    zapContract = new ethers.Contract(cfg.zap, ZAP_ABI, signer);
+  }
+  const lpVaultCfg = cfg.vaults.find(v => v.isLP && v.lpZap && v.lpZap !== '0x0000000000000000000000000000000000000000');
+  if (lpVaultCfg) {
+    lpZapContract = new ethers.Contract(lpVaultCfg.lpZap, LP_ZAP_ABI, signer);
+  }
+
+  // Handle legacy stxrp contract ref
+  if (cfg.stxrp && cfg.stxrp !== '0x0000000000000000000000000000000000000000') {
+    stxrp = new ethers.Contract(cfg.stxrp, ERC20_ABI, signer);
+  }
+
+  // Try to update infoContract if exists
+  const infoContract = document.getElementById('infoContract');
+  if (infoContract && v) infoContract.textContent = v.vault.slice(0,10)+'…'+v.vault.slice(-6);
+
+  showConnectedForms();
+  await loadAppData();
+
+  // Set up change listeners for injected wallets
+  const ethProvider = provider.provider || window.ethereum;
+  if (ethProvider?.on) {
+    ethProvider.on('chainChanged', () => location.reload());
+    ethProvider.on('accountsChanged', () => location.reload());
+  }
+
+  pollBlock();
+  closeWalletModal();
+  toast(`Connected via ${walletName} · ${short}`, 'ok');
+}
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = () => reject(new Error('Failed to load: ' + src));
+    document.head.appendChild(s);
+  });
+}
+function showAccountMenu() {
+  // Simple disconnect option via toast with action
+  const short = userAddr ? userAddr.slice(0,6)+'…'+userAddr.slice(-4) : '';
+  toast(`Connected: ${short} — refresh page to disconnect`, 'ok');
+}
+function connectWallet() {
+  openWalletModal();
+}
+</script>
+
+<!-- WALLET SELECTION MODAL -->
+<div class="wallet-modal-backdrop" id="walletModal" onclick="if(event.target===this)closeWalletModal()">
+  <div class="wallet-modal">
+    <div class="wm-head">
+      <span class="wm-title">Connect wallet</span>
+      <button class="wm-close" onclick="closeWalletModal()">✕</button>
+    </div>
+    <div class="wm-body">
+      <p class="wm-desc">Choose how you want to connect. All wallets interact with Cinder contracts directly — we never hold your keys.</p>
+
+      <div class="wallet-option" id="woBifrost" onclick="connectBifrost()">
+        <div class="wo-icon">🔥</div>
+        <div class="wo-info">
+          <div class="wo-name">Bifrost Wallet</div>
+          <div class="wo-desc">Flare's native wallet · best Flare experience</div>
+        </div>
+        <span class="wo-badge recommended">Recommended</span>
+      </div>
+
+      <div class="wallet-option" id="woMetaMask" onclick="connectMetaMask()">
+        <div class="wo-icon">🦊</div>
+        <div class="wo-info">
+          <div class="wo-name">MetaMask</div>
+          <div class="wo-desc">Browser extension · desktop & mobile</div>
+        </div>
+        <span class="wo-badge popular">Popular</span>
+      </div>
+
+      <div class="wm-divider">or scan with any wallet</div>
+
+      <div class="wallet-option" id="woWalletConnect" onclick="connectWalletConnect()">
+        <div class="wo-icon">🔗</div>
+        <div class="wo-info">
+          <div class="wo-name">WalletConnect</div>
+          <div class="wo-desc">300+ wallets · scan QR code · mobile friendly</div>
+        </div>
+        <span class="wo-badge mobile">Mobile</span>
+      </div>
+    </div>
+    <div class="wm-foot" id="wmStatus">
+      By connecting you agree to interact with unaudited contracts · $50K TVL cap
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
