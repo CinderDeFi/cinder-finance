@@ -3,14 +3,14 @@
 <head>
 
   <!-- SEO & Social -->
-  <meta name="description" content="Auto-compounding sFLR and stXRP staking yield on Flare Network. Deposit once, earn forever. No lock-ups. 9.1% APY.">
+  <meta name="description" content="Auto-compounding sFLR and stXRP staking yield on Flare Network. Deposit once, earn forever. No lock-ups. <span data-apy="sflr">9.1%</span> APY.">
   <link rel="canonical" href="https://cinder.finance/">
   
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://cinder.finance/">
   <meta property="og:title" content="Cinder — Your yield, still glowing.">
-  <meta property="og:description" content="Auto-compounding sFLR and stXRP staking yield on Flare Network. Deposit once, earn forever. No lock-ups. 9.1% APY.">
+  <meta property="og:description" content="Auto-compounding sFLR and stXRP staking yield on Flare Network. Deposit once, earn forever. No lock-ups. <span data-apy="sflr">9.1%</span> APY.">
   <meta property="og:image" content="https://cinder.finance/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -21,7 +21,7 @@
   <meta name="twitter:site" content="@CinderDeFi">
   <meta name="twitter:creator" content="@CinderDeFi">
   <meta name="twitter:title" content="Cinder — Your yield, still glowing.">
-  <meta name="twitter:description" content="Auto-compounding sFLR and stXRP staking yield on Flare Network. Deposit once, earn forever. No lock-ups. 9.1% APY.">
+  <meta name="twitter:description" content="Auto-compounding sFLR and stXRP staking yield on Flare Network. Deposit once, earn forever. No lock-ups. <span data-apy="sflr">9.1%</span> APY.">
   <meta name="twitter:image" content="https://cinder.finance/og-image.svg">
   
   <!-- Schema.org -->
@@ -956,7 +956,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
         </div>
         <div class="hero-stats reveal reveal-d4">
           <div style="position:relative">
-            <div class="h-stat-v g"><span data-apy="sflr" id="sflrApy">9.1%</span></div>
+            <div class="h-stat-v g"><span data-apy="sflr" id="sflrApy"><span data-apy="sflr">9.1%</span></span></div>
             <div class="h-stat-l">sFLR APY</div>
             <canvas id="apySparkline" width="72" height="28" style="position:absolute;top:-2px;right:-80px;opacity:.65"></canvas>
           </div>
@@ -975,7 +975,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
               </div>
             </div>
             <div class="vc-right">
-              <div class="vc-apy apy-green"><span data-apy="sflr" id="sflrApy">9.1%</span></div>
+              <div class="vc-apy apy-green"><span data-apy="sflr" id="sflrApy"><span data-apy="sflr">9.1%</span></span></div>
               <div class="vc-badge live-badge">● Live</div>
             </div>
             <span class="vc-arrow">›</span>
@@ -1035,7 +1035,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
               <div class="vc-meta">Sceptre · auto-compound · cFLR shares</div>
             </div>
             <div class="vc-right">
-              <div class="vc-apy"><span data-apy="sflr" id="sflrApy">9.1%</span></div>
+              <div class="vc-apy"><span data-apy="sflr" id="sflrApy"><span data-apy="sflr">9.1%</span></span></div>
               <div class="vc-status live">● Live</div>
             </div>
             <span class="vc-arrow">›</span>
@@ -1091,7 +1091,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 <section id="stats">
   <div class="container">
     <div class="stats-grid">
-      <div class="reveal"><div class="sc-val g">9.1%</div><div class="sc-sub">sFLR base APY</div></div>
+      <div class="reveal"><div class="sc-val g"><span data-apy="sflr">9.1%</span></div><div class="sc-sub">sFLR base APY</div></div>
       <div class="reveal reveal-d2"><div class="sc-val">~8.2%</div><div class="sc-sub">Net APY after fee</div></div>
       <div class="reveal reveal-d3"><div class="sc-val">1 hr</div><div class="sc-sub">Compound frequency</div></div>
       <div class="reveal reveal-d4"><div class="sc-val">$50K</div><div class="sc-sub">TVL cap pre-audit</div></div>
@@ -1190,7 +1190,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem;text-align:center">
           <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:.5rem">Manual claiming</div>
           <div id="cvManual" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:28px;color:var(--ink2)">$12,763</div>
-          <div style="font-size:11px;color:var(--ink3);margin-top:.25rem">~9.1% simple APY</div>
+          <div style="font-size:11px;color:var(--ink3);margin-top:.25rem">base APY (live)</div>
         </div>
         <div style="background:rgba(255,107,35,0.06);border:1px solid rgba(255,107,35,0.2);border-radius:14px;padding:1.25rem;text-align:center">
           <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2);margin-bottom:.5rem">With Cinder</div>
@@ -1403,8 +1403,8 @@ function updateCV() {
   var ctx = canvas.getContext('2d');
   var W = canvas.width, H = canvas.height;
   
-  /* Simulated weekly APY datapoints trending up to 9.1% */
-  var data = [8.1, 8.3, 8.0, 8.4, 8.2, 8.6, 8.5, 8.8, 8.7, 9.0, 8.9, 9.1];
+  /* Simulated weekly APY datapoints trending to current APY */
+  var data = [10.2, 10.8, 10.5, 11.1, 10.9, 11.4, 11.2, 11.8, 11.6, 12.0, 11.9, 12.0];
   var min = Math.min.apply(null, data) - 0.3;
   var max = Math.max.apply(null, data) + 0.3;
   var pad = 2;

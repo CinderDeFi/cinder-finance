@@ -1694,7 +1694,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
         </div>
         <div class="hero-stats reveal reveal-d4">
           <div>
-            <div class="h-stat-v g" id="heroApy"><span data-apy="sflr" id="sflrApy">9.1%</span></div>
+            <div class="h-stat-v g" id="heroApy"><span data-apy="sflr" id="sflrApy"><span data-apy="sflr">9.1%</span></span></div>
             <div class="h-stat-l">Net APY</div>
           </div>
           <div>
@@ -1714,7 +1714,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
           <span class="hc-title">Quick deposit</span>
           <span class="apy-live" style="background:rgba(255,107,35,0.1);border:1px solid rgba(255,107,35,0.25);border-radius:20px;padding:3px 10px;display:inline-flex;align-items:center;gap:6px">
             <span class="tag-dot"></span>
-            <span id="heroApyLabel" style="font-family:var(--mono);font-size:11px;color:var(--accent2);letter-spacing:0.05em">9.1% APY</span>
+            <span id="heroApyLabel" style="font-family:var(--mono);font-size:11px;color:var(--accent2);letter-spacing:0.05em"><span data-apy="sflr">9.1%</span> APY</span>
           </span>
         </div>
         <!-- Vault toggle inside hero card -->
@@ -1727,7 +1727,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
             background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22 viewBox=%220 0 12 8%22><path d=%22M1 1l5 5 5-5%22 stroke=%22%23FF6B23%22 stroke-width=%221.5%22 fill=%22none%22 stroke-linecap=%22round%22/></svg>');
             background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;
           ">
-            <option value="0">🔷 sFLR Vault — 9.1% APY · Live now</option>
+            <option value="0">🔷 sFLR Vault — Live APY · Live now</option>
             <option value="1">🔶 stXRP Vault — 8.4% APY · Coming soon</option>
             <option value="2">🟡 EMBER/FLR LP — AMM + mining · Post-launch</option>
             <option value="3">🟣 sFLR/FLR LP — AMM + mining · Post-launch</option>
@@ -2007,9 +2007,9 @@ html, body { max-width: 100%; overflow-x: hidden; }
         <div class="vp-icon">🔷</div>
         <div>
           <div class="vp-name">sFLR Vault</div>
-          <div class="vp-meta">Sceptre · 9.1% APY · <span style="color:var(--green)">Live now</span></div>
+          <div class="vp-meta">Sceptre · Live APY · <span style="color:var(--green)">Live now</span></div>
         </div>
-        <div class="vp-apy">9.1%</div>
+        <div class="vp-apy"><span data-apy="sflr">9.1%</span></div>
       </div>
       <div class="vault-pill" id="vpstXRP" onclick="selectVault(1)">
         <div class="vp-icon">🔶</div>
@@ -2216,7 +2216,7 @@ Vault stats</span></div>
           How is the 8.4% APY calculated?
           <span class="faq-arrow">+</span>
         </button>
-        <div class="faq-a">sFLR vault: ~9.1% net APY (Sceptre sFLR staking minus 10% performance fee). stXRP vault: ~8.4% net APY (Firelight stXRP staking minus 10% performance fee). Both rates fluctuate based on Flare network staking rewards. On top of vault yield, staking your cFLR or cXRP shares in CinderMining earns additional EMBER rewards.</div>
+        <div class="faq-a">sFLR vault: ~12% net APY (live from chain) (Sceptre sFLR staking minus 10% performance fee). stXRP vault: ~8.4% net APY (Firelight stXRP staking minus 10% performance fee). Both rates fluctuate based on Flare network staking rewards. On top of vault yield, staking your cFLR or cXRP shares in CinderMining earns additional EMBER rewards.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">
@@ -2425,7 +2425,7 @@ let vaultContract, assetContract;
 
 // Vault metadata — mirrors CONTRACTS config
 const VAULT_META = [
-  { name:"sFLR",     shareSymbol:"cFLR",     assetSymbol:"sFLR",    apyPct:9.1, color:"#3DA85F", isLP:false },
+  { name:"sFLR",     shareSymbol:"cFLR",     assetSymbol:"sFLR",    apyPct:window._sflrApy||12, color:"#3DA85F", isLP:false },
   { name:"stXRP",    shareSymbol:"cXRP",     assetSymbol:"stXRP",   apyPct:8.4, color:"#4A90D9", isLP:false },
   { name:"EMBER/FLR", shareSymbol:"cEMBER-FLR",assetSymbol:"EMBER/FLR LP", apyPct:0, color:"#F59E0B", isLP:true, lpNote:"AMM fees + EMBER mining" },
   { name:"sFLR/FLR", shareSymbol:"csFLR-FLR",assetSymbol:"sFLR/FLR LP", apyPct:0, color:"#8B5CF6", isLP:true, lpNote:"AMM fees + EMBER mining" },
@@ -3006,7 +3006,7 @@ function buildLiveTicker() {
     { s:'BTC/USD',  v: fmt(btcPrice),  ...chg('BTC/USD')  },
     { s:'ETH/USD',  v: fmt(ethPrice),  ...chg('ETH/USD')  },
     { s:'SOL/USD',  v: fmt(solPrice),  ...chg('SOL/USD')  },
-    { s:'sFLR APY', v:'~9.1%',         txt:'stable', up:true },
+    { s:'sFLR APY', v:((window._sflrApy||12).toFixed(1)+'%'),         txt:'stable', up:true },
     ...(tickerTVL > 0 ? [{ s:'FF TVL', v: fmt(tickerTVL), txt:'live', up:true }] : []),
     { s:'FTSO',     v:'live ●',        txt:'Flare oracle', up:true },
   ];
@@ -3022,7 +3022,7 @@ function buildFallbackTicker() {
     {s:'sFLR/USD',v:'—',txt:'loading',up:true},
     {s:'BTC/USD',v:'—',txt:'loading',up:true},
     {s:'ETH/USD',v:'—',txt:'loading',up:true},
-    {s:'sFLR APY',v:'~9.1%',txt:'stable',up:true},
+    {s:'sFLR APY',v:((window._sflrApy||12).toFixed(1)+'%'),txt:'stable',up:true},
     {s:'FTSO',v:'connecting…',txt:'',up:true},
   ];
   renderTicker(items);
