@@ -1,0 +1,124 @@
+# ╔══════════════════════════════════════════════════════╗
+# ║         Cinder Finance — Netlify Deployment Config   ║
+# ╚══════════════════════════════════════════════════════╝
+#
+# HOW TO DEPLOY (30 seconds):
+# ─────────────────────────────
+# Option A — Drag and drop (easiest):
+#   1. Go to https://netlify.com and sign up (free)
+#   2. Drag your entire project folder onto the Netlify dashboard
+#   3. Done — live URL appears instantly
+#
+# Option B — Netlify CLI:
+#   1. npm install -g netlify-cli
+#   2. netlify login
+#   3. netlify deploy --prod
+#
+# Option C — GitHub (auto-deploys on every push):
+#   1. Push your files to a GitHub repo
+#   2. Connect repo in Netlify dashboard → "Add new site from Git"
+#   3. Every git push auto-deploys
+#
+# CUSTOM DOMAIN (optional):
+# ──────────────────────────
+# After deploy, go to: Site settings → Domain management → Add custom domain
+# Enter: cinder.finance
+# Netlify gives you free HTTPS automatically via Let's Encrypt
+
+[build]
+  # No build step needed — pure static HTML
+  publish = "."
+
+# ── Security headers ────────────────────────────────────────────────────
+# These protect users and fix the CORS/postMessage errors you saw locally.
+# They only apply when served from Netlify, not local file:// access.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Prevent clickjacking
+    X-Frame-Options = "DENY"
+
+    # Stop MIME sniffing
+    X-Content-Type-Options = "nosniff"
+
+    # Force HTTPS
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+    # XSS protection (legacy browsers)
+    X-XSS-Protection = "1; mode=block"
+
+    # Referrer policy — don't leak URL to third parties
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+    # Permissions policy — disable unused browser features
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+    # Content Security Policy
+    # Allows: our own scripts, ethers.js + WalletConnect from CDN,
+    #         Google Fonts, Flare RPC endpoints (multiple providers), FTSO oracle
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' 'unsafe-inline'
+        https://cdnjs.cloudflare.com
+        https://cdn.jsdelivr.net;
+      style-src 'self' 'unsafe-inline'
+        https://fonts.googleapis.com;
+      font-src 'self'
+        https://fonts.gstatic.com;
+      connect-src 'self'
+        https://*.flare.network
+        https://*.flare.rocks
+        https://*.flarescan.com
+        https://flare-api.flare.network
+        https://coston2-api.flare.network
+        https://flare.rpc.thirdweb.com
+        https://rpc.ankr.com
+        https://flare-bundler.etherspot.io
+        https://*.walletconnect.com
+        https://*.walletconnect.org
+        https://verify.walletconnect.com
+        https://verify.walletconnect.org
+        https://explorer-api.walletconnect.com
+        wss://*.walletconnect.com
+        wss://*.walletconnect.org;
+      img-src 'self' data: https:;
+      frame-src 'none';
+      object-src 'none';
+      base-uri 'self';
+    """
+
+# ── Routing ─────────────────────────────────────────────────────────────
+# Serve specific pages at clean URLs
+[[redirects]]
+  from = "/governance"
+  to   = "/governance.html"
+  status = 200
+
+[[redirects]]
+  from = "/about"
+  to   = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/app"
+  to   = "/index.html"
+  status = 200
+
+# Catch-all: anything not found → main page (not 404)
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+# ── Cache headers ────────────────────────────────────────────────────────
+# HTML: no cache (always fresh — you update these frequently)
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Fonts from Google: cache aggressively (they never change)
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
