@@ -283,7 +283,185 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
 </head>
 <body>
-<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}
+/* ── Wallet selection modal ── */
+.wallet-modal-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(8px);z-index:500;
+  display:none;align-items:center;justify-content:center;padding:1rem;
+}
+.wallet-modal-backdrop.open{display:flex}
+.wallet-modal{
+  background:#1C1814;border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;width:100%;max-width:400px;
+  overflow:hidden;animation:wModalIn 0.25s cubic-bezier(.34,1.56,.64,1) both;
+  box-shadow:0 24px 64px rgba(0,0,0,0.6);
+}
+@keyframes wModalIn{from{opacity:0;transform:translateY(20px) scale(0.97)}to{opacity:1;transform:none}}
+.wm-head{
+  padding:1.25rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.wm-title{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-0.3px}
+.wm-close{
+  background:transparent;border:none;color:rgba(255,255,255,0.4);
+  font-size:20px;cursor:pointer;line-height:1;padding:0;
+  transition:color 0.15s;
+}
+.wm-close:hover{color:#fff}
+.wm-body{padding:1rem}
+.wm-desc{font-size:13px;color:var(--ink2);margin-bottom:1.25rem;line-height:1.6;padding:0 0.25rem}
+.wallet-option{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 16px;border-radius:12px;
+  border:1.5px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.02);
+  cursor:pointer;transition:all 0.15s;margin-bottom:10px;
+}
+.wallet-option:hover{border-color:var(--accent);background:rgba(212,80,12,0.06);transform:translateY(-1px)}
+.wallet-option:last-child{margin-bottom:0}
+.wo-icon{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:24px;
+  background:rgba(255,255,255,0.05);
+}
+.wo-info{flex:1}
+.wo-name{font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:-0.3px;margin-bottom:2px}
+.wo-desc{font-size:11px;color:var(--ink3);font-family:var(--mono)}
+.wo-badge{
+  font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:5px;
+  flex-shrink:0;
+}
+.wo-badge.recommended{background:rgba(61,168,95,0.15);color:var(--green)}
+.wo-badge.popular{background:rgba(212,80,12,0.12);color:var(--accent2)}
+.wo-badge.mobile{background:rgba(74,144,217,0.12);color:#4A90D9}
+.wm-divider{
+  font-family:var(--mono);font-size:10px;color:var(--ink3);
+  text-transform:uppercase;letter-spacing:0.12em;
+  text-align:center;margin:14px 0;
+  display:flex;align-items:center;gap:10px;
+}
+.wm-divider::before,.wm-divider::after{
+  content:'';flex:1;height:1px;background:rgba(255,255,255,0.06);
+}
+.wm-foot{
+  padding:0.875rem 1.5rem;border-top:1px solid rgba(255,255,255,0.05);
+  font-size:11px;color:var(--ink3);text-align:center;font-family:var(--mono);
+}
+.wm-spinner{
+  width:20px;height:20px;border:2px solid rgba(255,255,255,0.1);
+  border-top-color:var(--accent);border-radius:50%;
+  animation:spin 0.7s linear infinite;display:inline-block;
+  vertical-align:middle;margin-right:8px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE OPTIMISATION — comprehensive responsive fixes
+   Breakpoints: 640px (tablet), 480px (large phone), 360px (small phone)
+   ════════════════════════════════════════════════════════════ */
+
+
+@media (max-width: 640px) {
+  .wallet-modal-backdrop { align-items: flex-end; padding: 0; }
+  .wallet-modal {
+    max-width: 100%; border-radius: 20px 20px 0 0;
+    animation: wModalSlideUp 0.3s cubic-bezier(.34,1.56,.64,1) both;
+    max-height: 90vh; overflow-y: auto;
+  }
+  @keyframes wModalSlideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+  .wallet-option { padding: 16px; margin-bottom: 8px; }
+  .wo-icon { width: 48px; height: 48px; font-size: 26px; }
+}
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .wallet-modal { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+/* ═══════════════════════════════════════════════════
+   MOBILE — comprehensive responsive rules
+   ═══════════════════════════════════════════════════ */
+
+/* ── Nav: hide links, show hamburger on mobile ── */
+@media (max-width: 640px) {
+  nav { padding: 0 1rem; height: 56px; }
+  .nav-links { display: none !important; }
+  .ham-btn { display: flex !important; }
+  .nav-cta { display: none; }           /* about.html CTA link in nav */
+  .nav-right { gap: 6px; }
+  #connectBtn { font-size: 12px; padding: 7px 12px; }
+  #netPill, .wallet-pill, .pill-badge { display: none; }
+}
+
+/* ── Hero H1: prevent overflow on small phones ── */
+@media (max-width: 640px) {
+  .hero-h1, h1.hero-h1 {
+    font-size: clamp(26px, 8vw, 44px) !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1.05 !important;
+  }
+}
+@media (max-width: 380px) {
+  .hero-h1, h1.hero-h1 {
+    font-size: clamp(24px, 7vw, 36px) !important;
+    letter-spacing: 0 !important;
+  }
+}
+
+/* ── CTA / action buttons: full-width, thumb-friendly ── */
+@media (max-width: 640px) {
+  .btn-xl {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 52px !important;
+    font-size: 16px !important;
+    padding: 15px 20px !important;
+    border-radius: 12px !important;
+  }
+  .hero-ctas { flex-direction: column; gap: 10px; }
+  .cta-btns  { flex-direction: column; align-items: stretch; gap: 10px; }
+  .btn-launch {
+    min-height: 48px;
+    font-size: 15px;
+    width: 100%;
+  }
+  .main-btn {
+    min-height: 52px !important;
+    font-size: 15px !important;
+  }
+}
+
+/* ── General layout on mobile ── */
+@media (max-width: 640px) {
+  .container { padding: 0 1rem; }
+  section { padding: 3rem 0; }
+  .section-h2 { font-size: clamp(26px, 7vw, 40px); letter-spacing: -1px; }
+  .hero-sub   { font-size: 15px; }
+  .hero-stats { gap: 1.25rem; flex-wrap: wrap; }
+  .h-stat-v   { font-size: 24px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .flow-grid  { grid-template-columns: 1fr; }
+  .feat-grid  { grid-template-columns: 1fr; }
+  footer { padding: 1.5rem 0; }
+  .footer-inner { flex-direction: column; text-align: center; gap: 1rem; }
+  .footer-links { justify-content: center; flex-wrap: wrap; }
+  .footer-mobile-nav { display: flex !important; }
+}
+
+/* ── Touch: no hover effects on touch devices ── */
+@media (hover: none) {
+  .btn-xl:hover, .btn-launch:hover, .main-btn:hover,
+  .vc:hover, .vault-pill:hover, .wallet-option:hover { transform: none !important; }
+}
+
+/* ── Safe area (notch support) ── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-nav { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
+  footer      { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
+}
+</style></noscript>
 <canvas id="canvas-bg"></canvas>
 
 <nav>
@@ -490,13 +668,28 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
   </div>
 </section>
 
-<section id="cta">
+<section id="cta" style="padding:4rem 0;position:relative;z-index:1">
   <div class="container">
-    <h2 class="cta-h2 reveal">Start glowing.</h2>
-    <p class="cta-sub reveal">Deposit sFLR. Earn passively. Withdraw anytime.</p>
-    <div class="cta-btns reveal">
-      <a href="/app"><button class="btn-xl primary">Launch App →</button></a>
-      <a href="/governance"><button class="btn-xl secondary">View Governance</button></a>
+    <div class="reveal" style="
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:3.5rem 2.5rem;
+      text-align:center;
+      max-width:560px;
+      margin:0 auto;
+      box-shadow:0 0 60px rgba(255,107,35,0.06);
+    ">
+      <h2 style="font-family:var(--display);font-style:italic;font-size:clamp(36px,6vw,56px);font-weight:700;letter-spacing:-2px;line-height:1;margin-bottom:1rem">
+        Ready to earn?
+      </h2>
+      <p style="color:var(--ink2);font-size:16px;line-height:1.65;margin-bottom:2rem;max-width:380px;margin-left:auto;margin-right:auto">
+        Join the FLR and XRP holders putting their liquid staking tokens to work on Flare.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:12px;max-width:280px;margin:0 auto">
+        <a href="/app"><button class="btn-xl primary" style="width:100%;justify-content:center;font-size:16px;padding:16px">Launch App →</button></a>
+        <a href="https://flare.network" target="_blank"><button class="btn-xl secondary" style="width:100%;justify-content:center">Learn about Flare</button></a>
+      </div>
     </div>
   </div>
 </section>
