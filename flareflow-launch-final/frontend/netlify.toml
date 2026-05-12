@@ -94,6 +94,11 @@
 # ── Routing ─────────────────────────────────────────────────────────────
 # Serve specific pages at clean URLs
 [[redirects]]
+  from = "/app"
+  to   = "/app.html"
+  status = 200
+
+[[redirects]]
   from = "/governance"
   to   = "/governance.html"
   status = 200
