@@ -61,12 +61,14 @@
         https://cdnjs.cloudflare.com
         https://cdn.jsdelivr.net
         https://unpkg.com
-        https://esm.sh;
+        https://esm.sh
+        https://plausible.io;
       style-src 'self' 'unsafe-inline'
         https://fonts.googleapis.com;
       font-src 'self'
         https://fonts.gstatic.com;
       connect-src 'self'
+        https://plausible.io
         https://*.flare.network
         https://*.flare.rocks
         https://*.flarescan.com
