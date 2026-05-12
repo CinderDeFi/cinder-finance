@@ -10,7 +10,26 @@
 <meta property="og:title" content="Cinder — EMBER Governance">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
+<style>/* ── Standard nav Connect Wallet button ── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--body,"Space Grotesk",sans-serif);font-weight:600;font-size:13px;
+  padding:9px 18px;border-radius:10px;border:none;cursor:pointer;
+  transition:all 0.18s;line-height:1;white-space:nowrap;
+}
+.btn-primary{
+  background:linear-gradient(135deg,#FF6B23,#FFB347);
+  color:#fff;
+  box-shadow:0 2px 10px rgba(255,107,35,0.3);
+}
+.btn-primary:hover{
+  background:linear-gradient(135deg,#FF8C4A,#FFB347);
+  transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(255,107,35,0.45);
+}
+.btn-primary:active{transform:translateY(0)}
+.btn:disabled{opacity:0.4;cursor:default;transform:none!important}
+
 :root{
   --bg:#07080A;--bg2:#0B0D10;
   --surface:#111318;--card:#161A20;--card2:#1C2028;
@@ -46,13 +65,13 @@ nav{position:sticky;top:0;z-index:200;height:62px;display:flex;align-items:cente
 .nav-links a{transition:color 0.15s}.nav-links a:hover{color:var(--ink)}.nav-links a.here{color:var(--accent2)}
 .nav-right{display:flex;align-items:center;gap:10px}
 .wallet-pill{font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid var(--border3);color:var(--accent2);background:rgba(212,80,12,0.06);display:none}
-.btn{font-family:var(--display);font-weight:600;font-size:13px;padding:8px 18px;border-radius:var(--rs);transition:all 0.15s;display:inline-flex;align-items:center;gap:6px;border:none}
-.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent3));color:#fff}.btn-primary:hover{background:linear-gradient(135deg,var(--accent2),var(--accent3));transform:translateY(-1px)}
-.btn-ghost{background:transparent;color:var(--ink2);border:1px solid var(--border)}.btn-ghost:hover{color:var(--ink);border-color:rgba(255,255,255,0.14)}
-.btn-green{background:var(--green);color:#fff}.btn-green:hover{filter:brightness(1.1)}
-.btn-surface{background:var(--surface);color:var(--ink);border:1px solid var(--border)}.btn-surface:hover{border-color:var(--border3);color:var(--accent2)}
-.btn:disabled{opacity:0.38;cursor:default;transform:none!important;filter:none!important}
-.btn-sm{font-size:12px;padding:6px 13px}.btn-lg{font-size:15px;padding:13px 28px;border-radius:11px}.btn-block{width:100%;justify-content:center}
+
+
+
+
+
+
+
 .wrap{max-width:1060px;margin:0 auto;padding:0 2rem}
 .page-hero{padding:5rem 0 3.5rem;border-bottom:1px solid var(--border)}
 .eyebrow{font-family:var(--mono);font-size:11px;color:var(--accent2);text-transform:uppercase;letter-spacing:0.16em;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
@@ -299,21 +318,10 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
 
 /* ── CTA / action buttons: full-width, thumb-friendly ── */
 @media (max-width: 640px) {
-  .btn-xl {
-    width: 100% !important;
-    justify-content: center !important;
-    min-height: 52px !important;
-    font-size: 16px !important;
-    padding: 15px 20px !important;
-    border-radius: 12px !important;
-  }
+  
   .hero-ctas { flex-direction: column; gap: 10px; }
   .cta-btns  { flex-direction: column; align-items: stretch; gap: 10px; }
-  .btn-launch {
-    min-height: 48px;
-    font-size: 15px;
-    width: 100%;
-  }
+  
   .main-btn {
     min-height: 52px !important;
     font-size: 15px !important;
@@ -339,8 +347,7 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
 
 /* ── Touch: no hover effects on touch devices ── */
 @media (hover: none) {
-  .btn-xl:hover, .btn-launch:hover, .main-btn:hover,
-  .vc:hover, .vault-pill:hover, .wallet-option:hover { transform: none !important; }
+  
 }
 
 /* ── Safe area (notch support) ── */
@@ -417,19 +424,12 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
   .hero-sub { font-size: 15px !important; line-height: 1.6 !important; }
 
   /* ── All CTA buttons ── */
-  .btn-xl {
-    min-height: 52px !important; font-size: 16px !important;
-    padding: 15px 24px !important; border-radius: 12px !important;
-    width: 100% !important; justify-content: center !important;
-    display: flex !important; align-items: center !important;
-  }
+  
   .hero-ctas, .cta-btns {
     flex-direction: column !important; gap: 10px !important;
     width: 100% !important;
   }
-  .btn-launch {
-    min-height: 48px !important; font-size: 15px !important;
-  }
+  
   .main-btn {
     min-height: 52px !important; font-size: 15px !important;
     padding: 15px !important; border-radius: 11px !important;
@@ -472,8 +472,7 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
 
 /* ── Touch devices ── */
 @media (hover: none) {
-  .btn-xl:hover, .main-btn:hover, .btn-launch:hover,
-  .vc:hover, .vault-pill:hover, .wallet-option:hover { transform: none !important; }
+  
 }
 
 /* ── Safe area insets ── */
@@ -576,7 +575,7 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
   </div>
   <div class="nav-right">
     <span class="wallet-pill" id="walletPill"></span>
-    <button class="btn btn-primary btn-sm" id="connectBtn" onclick="openWalletModal()">Connect Wallet</button>
+    <button class="btn btn-primary" id="connectBtn" onclick="openWalletModal()">Connect Wallet</button>
   
     <button class="ham-btn" id="hamBtn" onclick="toggleMobileNav()" aria-label="Menu">
       <span></span><span></span><span></span>

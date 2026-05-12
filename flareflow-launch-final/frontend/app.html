@@ -13,7 +13,26 @@
 <meta name="description" content="Cinder auto-compounds sFLR and stXRP staking yield on Flare Network. Your yield, still glowing. cinder.finance">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,600&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-<style>
+<style>/* ── Standard nav Connect Wallet button ── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--body,"Space Grotesk",sans-serif);font-weight:600;font-size:13px;
+  padding:9px 18px;border-radius:10px;border:none;cursor:pointer;
+  transition:all 0.18s;line-height:1;white-space:nowrap;
+}
+.btn-primary{
+  background:linear-gradient(135deg,#FF6B23,#FFB347);
+  color:#fff;
+  box-shadow:0 2px 10px rgba(255,107,35,0.3);
+}
+.btn-primary:hover{
+  background:linear-gradient(135deg,#FF8C4A,#FFB347);
+  transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(255,107,35,0.45);
+}
+.btn-primary:active{transform:translateY(0)}
+.btn:disabled{opacity:0.4;cursor:default;transform:none!important}
+
 :root{
   /* Cinder — dark coal with ember glow */
   --bg:#07080A;         /* near-black with cool undertone */
@@ -112,17 +131,13 @@ nav{
   letter-spacing:0.05em;
 }
 .pill-badge.active{border-color:var(--accent);color:var(--accent);background:var(--accentbg2)}
-.btn{
-  font-family:var(--display);font-weight:600;font-size:13px;
-  padding:9px 20px;border-radius:10px;border:none;
-  transition:all 0.15s;
-}
-.btn-primary{background:var(--accent);color:#fff}
-.btn-primary:hover{background:var(--accent2);transform:translateY(-1px)}
-.btn-primary:active{transform:translateY(0)}
-.btn-ghost{background:transparent;color:var(--ink2);border:1px solid var(--border)}
-.btn-ghost:hover{color:var(--ink);border-color:var(--border2)}
-.btn:disabled{opacity:0.4;cursor:default;transform:none!important}
+
+
+
+
+
+
+
 
 /* ── Page sections ── */
 section{position:relative;z-index:1}
@@ -170,25 +185,11 @@ section{position:relative;z-index:1}
   max-width:480px;margin-bottom:2.5rem;
 }
 .hero-ctas{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.btn-xl{
-  font-family:var(--display);font-weight:700;font-size:15px;
-  padding:14px 28px;border-radius:12px;border:none;
-  transition:all 0.2s;
-}
-.btn-xl.primary{
-  background:var(--accent);color:#fff;
-  box-shadow:0 0 0 0 rgba(212,80,12,0);
-}
-.btn-xl.primary:hover{
-  background:var(--accent2);
-  transform:translateY(-2px);
-  box-shadow:0 12px 32px rgba(212,80,12,0.3);
-}
-.btn-xl.outline{
-  background:transparent;color:var(--ink);
-  border:1px solid var(--border);
-}
-.btn-xl.outline:hover{border-color:var(--border3);color:var(--accent2)}
+
+
+
+
+
 .hero-stats{
   display:flex;gap:2.5rem;margin-top:3rem;
   padding-top:2rem;border-top:1px solid var(--border);
@@ -731,7 +732,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   }
   .hero-sub { font-size: 14px; margin-bottom: 1.5rem; }
   .hero-ctas { flex-direction: column; gap: 10px; }
-  .btn-xl { width: 100%; text-align: center; justify-content: center; padding: 14px 20px; }
+  
   .hero-stats { gap: 1.25rem; flex-wrap: wrap; }
   .hero-stats > div { min-width: 80px; }
   .h-stat-v { font-size: 22px; }
@@ -908,7 +909,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .cta-h2 { font-size: clamp(32px, 9vw, 52px); letter-spacing: -2px; }
   .cta-sub { font-size: 14px; }
   .cta-btns { flex-direction: column; align-items: center; gap: 10px; }
-  .cta-btns .btn-xl { width: 100%; justify-content: center; }
+  .cta-btns 
 }
 
 /* ── Footer ── */
@@ -940,8 +941,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
 @media (hover: none) {
   .vault-pill:hover { transform: none; border-color: var(--border); }
   .wallet-option:hover { transform: none; }
-  .btn-primary:hover { transform: none; }
-  .btn-xl:hover { transform: none; }
+  
+  
 }
 
 /* ── Safe area insets for devices with notches ── */
@@ -1022,19 +1023,12 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .hero-sub { font-size: 15px !important; line-height: 1.6 !important; }
 
   /* ── All CTA buttons ── */
-  .btn-xl {
-    min-height: 52px !important; font-size: 16px !important;
-    padding: 15px 24px !important; border-radius: 12px !important;
-    width: 100% !important; justify-content: center !important;
-    display: flex !important; align-items: center !important;
-  }
+  
   .hero-ctas, .cta-btns {
     flex-direction: column !important; gap: 10px !important;
     width: 100% !important;
   }
-  .btn-launch {
-    min-height: 48px !important; font-size: 15px !important;
-  }
+  
   .main-btn {
     min-height: 52px !important; font-size: 15px !important;
     padding: 15px !important; border-radius: 11px !important;
@@ -1077,8 +1071,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 /* ── Touch devices ── */
 @media (hover: none) {
-  .btn-xl:hover, .main-btn:hover, .btn-launch:hover,
-  .vc:hover, .vault-pill:hover, .wallet-option:hover { transform: none !important; }
+  
 }
 
 /* ── Safe area insets ── */
@@ -1164,21 +1157,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 /* ── CTA / action buttons: full-width, thumb-friendly ── */
 @media (max-width: 640px) {
-  .btn-xl {
-    width: 100% !important;
-    justify-content: center !important;
-    min-height: 52px !important;
-    font-size: 16px !important;
-    padding: 15px 20px !important;
-    border-radius: 12px !important;
-  }
+  
   .hero-ctas { flex-direction: column; gap: 10px; }
   .cta-btns  { flex-direction: column; align-items: stretch; gap: 10px; }
-  .btn-launch {
-    min-height: 48px;
-    font-size: 15px;
-    width: 100%;
-  }
+  
   .main-btn {
     min-height: 52px !important;
     font-size: 15px !important;
@@ -1204,8 +1186,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 /* ── Touch: no hover effects on touch devices ── */
 @media (hover: none) {
-  .btn-xl:hover, .btn-launch:hover, .main-btn:hover,
-  .vc:hover, .vault-pill:hover, .wallet-option:hover { transform: none !important; }
+  
 }
 
 /* ── Safe area (notch support) ── */
@@ -1236,10 +1217,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
   #connectBtn{font-size:12px!important;padding:8px 12px!important;min-height:36px!important}
   .hero-h1,h1.hero-h1{font-size:clamp(22px,7vw,38px)!important;letter-spacing:-.3px!important;line-height:1.08!important;word-break:break-word!important}
   .hero-sub{font-size:15px!important}
-  .btn-xl{min-height:52px!important;font-size:16px!important;padding:15px 24px!important;width:100%!important;justify-content:center!important;display:flex!important;align-items:center!important;border-radius:12px!important}
+  
   .hero-ctas,.cta-btns{flex-direction:column!important;gap:10px!important}
   .main-btn{min-height:52px!important;font-size:15px!important}
-  .btn-launch{min-height:48px!important;font-size:15px!important}
+  
   .container{padding:0 1rem!important}
   .stats-grid{grid-template-columns:1fr 1fr!important}
   .flow-grid,.feat-grid{grid-template-columns:1fr!important}
@@ -1253,7 +1234,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .footer-links{flex-wrap:wrap!important;justify-content:center!important;gap:.5rem 1.25rem!important}
   .footer-links a{min-height:40px!important;display:inline-flex!important;align-items:center!important}
 }
-@media(hover:none){.btn-xl:hover,.main-btn:hover,.btn-launch:hover,.vc:hover,.vault-pill:hover{transform:none!important}}
+@media(hover:none){}
 @supports(padding-bottom:env(safe-area-inset-bottom)){.mobile-nav{padding-bottom:env(safe-area-inset-bottom)};footer{padding-bottom:calc(2rem + env(safe-area-inset-bottom))!important}}
 </style>
 </head>

@@ -7,7 +7,26 @@
 <meta name="description" content="Cinder is a solo project. No team, no investors, no VC allocation. One person building auto-compounding XRP yield on Flare Network.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-<style>
+<style>/* ── Standard nav Connect Wallet button ── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--body,"Space Grotesk",sans-serif);font-weight:600;font-size:13px;
+  padding:9px 18px;border-radius:10px;border:none;cursor:pointer;
+  transition:all 0.18s;line-height:1;white-space:nowrap;
+}
+.btn-primary{
+  background:linear-gradient(135deg,#FF6B23,#FFB347);
+  color:#fff;
+  box-shadow:0 2px 10px rgba(255,107,35,0.3);
+}
+.btn-primary:hover{
+  background:linear-gradient(135deg,#FF8C4A,#FFB347);
+  transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(255,107,35,0.45);
+}
+.btn-primary:active{transform:translateY(0)}
+.btn:disabled{opacity:0.4;cursor:default;transform:none!important}
+
 
 :root{
   --bg:#07080A;--bg2:#0B0D10;
@@ -333,15 +352,11 @@ nav {
   max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7;
 }
 .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.btn-lg {
-  font-family: var(--display); font-weight: 700; font-size: 15px;
-  padding: 14px 30px; border-radius: 12px;
-  transition: all 0.18s; display: inline-flex; align-items: center; gap: 8px;
-}
-.btn-solid { background: var(--accent); color: #fff; }
-.btn-solid:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,80,12,0.3); }
-.btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--border); }
-.btn-outline:hover { border-color: rgba(255,255,255,0.2); background: var(--surface); }
+
+
+
+
+
 
 /* ── FOOTER ── */
 footer {
@@ -400,14 +415,14 @@ footer {
   .nav-cta{display:none!important}
   .ham-btn{display:flex!important}
   .hero-h1{font-size:clamp(24px,7.5vw,40px)!important;letter-spacing:-.3px!important;line-height:1.08!important;word-break:break-word!important}
-  .btn-xl,a.btn-xl{min-height:52px!important;font-size:16px!important;padding:15px 24px!important;width:100%!important;justify-content:center!important;display:flex!important;align-items:center!important}
+  
   .container{padding:0 1rem!important}
   footer{padding:2rem 0!important}
   .footer-inner{flex-direction:column!important;text-align:center!important;gap:1.25rem!important}
   .footer-links{flex-wrap:wrap!important;justify-content:center!important;gap:.5rem 1.25rem!important}
   .footer-links a{min-height:40px!important;display:inline-flex!important;align-items:center!important}
 }
-@media(hover:none){.btn-xl:hover{transform:none!important}}
+@media(hover:none){}
 @supports(padding-bottom:env(safe-area-inset-bottom)){.mobile-nav{padding-bottom:env(safe-area-inset-bottom)};footer{padding-bottom:calc(2rem + env(safe-area-inset-bottom))!important}}
 
 /* ── Wallet selection modal ── */
@@ -488,6 +503,33 @@ footer {
    ════════════════════════════════════════════════════════════ */
 
 
+
+/* ── Buttons ── */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@walletconnect/modal@2.7.0/dist/index.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.13.0/dist/index.umd.js"></script>
@@ -507,7 +549,7 @@ footer {
   </div>
   <div style="display:flex;align-items:center;gap:8px">
     <a href="/app" class="nav-cta">Launch App</a>
-    <button onclick="openWalletModal()" style="padding:8px 16px;border-radius:10px;border:none;background:linear-gradient(135deg,#FF6B23,#FFB347);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap">Connect Wallet</button>
+    <button class="btn btn-primary" id="connectBtn" onclick="openWalletModal()">Connect Wallet</button>
     <button class="ham-btn" id="hamBtn" onclick="toggleMobileNav()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
