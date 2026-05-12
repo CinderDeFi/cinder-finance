@@ -1020,8 +1020,18 @@ html, body { max-width: 100%; overflow-x: hidden; }
     <a href="/" style="font-size:13px;color:var(--ink3);padding:6px 12px;border:1px solid var(--border);border-radius:8px;font-family:var(--body);white-space:nowrap">&#8592; Home</a>
     <span class="pill-badge" id="netPill">Not connected</span>
     <button class="btn btn-primary" id="connectBtn" onclick="openWalletModal()">Connect Wallet</button>
-  </div>
+  
+    <button class="ham-btn" id="hamBtn" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button></div>
 </nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#how" onclick="closeMobileNav()">How it works</a>
+  <a href="#app" onclick="closeMobileNav()">Deposit</a>
+  <a href="/governance">Governance</a>
+  <a href="/about">About</a>
+  <a href="/" class="mn-home" style="margin-top:1rem;display:block;text-align:center;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;color:var(--ink2);font-family:var(--body)">&#8592; Back to Home</a>
+</div>
 
 <!-- TICKER -->
 <div class="ticker-wrap" style="position:relative;z-index:1;margin-top:64px">

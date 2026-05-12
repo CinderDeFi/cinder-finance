@@ -393,7 +393,17 @@ footer {
     <a href="/about" class="active">About</a>
   </div>
   <a href="/" class="nav-cta">Open App</a>
+  <button class="ham-btn" id="hamBtn" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="/" onclick="closeMobileNav()">Home</a>
+  <a href="/app">Launch App</a>
+  <a href="/governance">Governance</a>
+  <a href="/about" onclick="closeMobileNav()">About</a>
+  <a href="/app" class="mn-launch" style="margin-top:1rem;display:block;text-align:center;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent3));border-radius:12px;color:#fff;font-weight:600;font-family:var(--body);border-bottom:none">Launch App →</a>
+</div>
 <div class="mobile-nav" id="mobileNav">
   <a href="/" onclick="closeMobileNav()">Home</a>
   <a href="/app" onclick="closeMobileNav()">Launch App</a>

@@ -171,7 +171,116 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
   .nav-links{display:none !important}
   nav > div:last-child .btn-launch{display:none}
 }
+
+/* ── Hero card (embedded from app) ── */
+.tag-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green);
+  animation:blink 2s ease infinite;
+}
+.hero-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+  position:relative;
+}
+.hero-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2),transparent);
+}
+.hc-header{
+  padding:1.25rem 1.5rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.hc-title{font-family:var(--display);font-size:14px;font-weight:700;letter-spacing:-0.2px}
+.apy-live{
+  font-family:var(--mono);font-size:12px;
+  color:var(--green);
+  display:flex;align-items:center;gap:6px;
+}
+.hc-body{padding:1.5rem}
+.tabs-row{
+  display:flex;margin-bottom:1.25rem;
+  background:var(--surface);
+  border-radius:10px;padding:4px;gap:4px;
+}
+.vtab{
+  flex:1;padding:8px;text-align:center;
+  font-family:var(--display);font-size:13px;font-weight:600;
+  color:var(--ink3);background:transparent;border:none;
+  border-radius:7px;transition:all 0.15s;
+}
+.vtab.active{background:var(--card2);color:var(--ink)}
+.amount-in{
+  flex:1;padding:12px 14px;
+  background:transparent;border:none;outline:none;
+  font-family:var(--display);font-size:22px;font-weight:700;
+  color:var(--ink);letter-spacing:-0.5px;
+}
+.amount-in::placeholder{color:var(--ink3)}
+.token-tag{
+  padding:0 14px;
+  font-family:var(--mono);font-size:12px;color:var(--ink2);
+  border-left:1px solid var(--border);
+  height:100%;display:flex;align-items:center;
+  background:var(--card2);white-space:nowrap;
+}
+.preview-box{
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:10px;padding:12px 14px;
+  margin-bottom:1rem;
+  display:none;
+}
+.prow{
+  display:flex;justify-content:space-between;
+  font-size:12px;padding:4px 0;
+  border-bottom:1px solid var(--border2);
+}
+.prow:last-child{border:none}
+.prow .pl{color:var(--ink3)}
+.prow .pv{font-family:var(--mono);font-weight:500}
+.prow .pv.g{color:var(--green)}
+.prow .pv.o{color:var(--accent2)}
+.main-btn{
+  width:100%;padding:14px;
+  font-family:var(--display);font-weight:700;font-size:15px;
+  background:var(--accent);color:#fff;border:none;border-radius:10px;
+  transition:all 0.2s;letter-spacing:-0.2px;
+}
+.main-btn:hover{background:var(--accent2);transform:translateY(-1px)}
+.main-btn:active{transform:none}
+.main-btn:disabled{opacity:0.4;cursor:default;transform:none}
+.main-btn.step2{background:var(--surface);color:var(--ink);border:1px solid var(--border);margin-top:8px}
+.main-btn.step2:hover{border-color:var(--border3);color:var(--accent2)}
+.hc-foot{
+  padding:1rem 1.5rem;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;
+  font-size:11px;color:var(--ink3);font-family:var(--mono);
+}
+.hc-foot span{display:flex;align-items:center;gap:5px}
+.zap-mode-btn{
+  flex:1;font-family:var(--display);font-weight:600;font-size:12px;
+  padding:7px 14px;border-radius:8px;border:none;
+  background:transparent;color:var(--ink2);cursor:pointer;
+  transition:all 0.15s;
+}
+.zap-mode-btn:hover{color:var(--ink)}
+.zap-mode-btn.active{background:var(--card2);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,0.3)}
+.hc-vault-btn{
+  font-family:var(--display);font-weight:600;font-size:12px;
+  padding:5px 14px;border-radius:20px;border:1.5px solid var(--border);
+  background:transparent;color:var(--ink2);cursor:pointer;
+  transition:all 0.15s;
+}
+.hc-vault-btn:hover{border-color:rgba(255,255,255,0.2);color:var(--ink)}
+.hc-vault-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
 </head>
 <body>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
@@ -220,32 +329,99 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
           <div><div class="h-stat-v">0%</div><div class="h-stat-l">Lock-up</div></div>
         </div>
       </div>
-      <div class="vault-cards reveal reveal-d2">
-        <a href="/app"><div class="vc live">
-          <div class="vc-icon">🔷</div>
-          <div class="vc-info"><div class="vc-name">sFLR Vault</div><div class="vc-meta">Sceptre · auto-compound</div></div>
-          <div class="vc-right"><div class="vc-apy">9.1%</div><div class="vc-status live">● Live</div></div>
-          <span class="vc-arrow">›</span>
-        </div></a>
-        <a href="/app"><div class="vc">
-          <div class="vc-icon">🔶</div>
-          <div class="vc-info"><div class="vc-name">stXRP Vault</div><div class="vc-meta">Firelight · auto-compound</div></div>
-          <div class="vc-right"><div class="vc-apy" style="color:var(--amber)">8.4%</div><div class="vc-status soon">◦ Coming soon</div></div>
-          <span class="vc-arrow">›</span>
-        </div></a>
-        <a href="/app"><div class="vc">
-          <div class="vc-icon">🟡</div>
-          <div class="vc-info"><div class="vc-name">EMBER/FLR LP</div><div class="vc-meta">Sparkdex · AMM + mining</div></div>
-          <div class="vc-right"><div class="vc-apy" style="color:var(--amber)">LP</div><div class="vc-status soon">◦ Post-launch</div></div>
-          <span class="vc-arrow">›</span>
-        </div></a>
-        <a href="/app"><div class="vc">
-          <div class="vc-icon">🟣</div>
-          <div class="vc-info"><div class="vc-name">sFLR/FLR LP</div><div class="vc-meta">Sparkdex · AMM + mining</div></div>
-          <div class="vc-right"><div class="vc-apy" style="color:var(--purple)">LP</div><div class="vc-status soon">◦ Post-launch</div></div>
-          <span class="vc-arrow">›</span>
-        </div></a>
-      </div>
+      <div class="hero-card reveal reveal-d2">
+              <div class="hc-header">
+                <span class="hc-title">Quick deposit</span>
+                <span class="apy-live" style="background:rgba(255,107,35,0.1);border:1px solid rgba(255,107,35,0.25);border-radius:20px;padding:3px 10px;display:inline-flex;align-items:center;gap:6px">
+                  <span class="tag-dot"></span>
+                  <span id="heroApyLabel" style="font-family:var(--mono);font-size:11px;color:var(--accent2);letter-spacing:0.05em">9.1% APY</span>
+                </span>
+              </div>
+              <!-- Vault toggle inside hero card -->
+              <div style="display:flex;gap:6px;padding:0 0 4px;flex-wrap:wrap;width:100%">
+                <select id="heroVaultSelect" onchange="heroSelectVault(parseInt(this.value))" style="
+                  width:100%;padding:10px 12px;border-radius:10px;
+                  background:var(--surface);border:1.5px solid var(--border3);
+                  color:var(--ink);font-family:var(--body);font-size:14px;font-weight:500;
+                  cursor:pointer;outline:none;appearance:none;
+                  background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22 viewBox=%220 0 12 8%22><path d=%22M1 1l5 5 5-5%22 stroke=%22%23FF6B23%22 stroke-width=%221.5%22 fill=%22none%22 stroke-linecap=%22round%22/></svg>');
+                  background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;
+                ">
+                  <option value="0">🔷 sFLR Vault — 9.1% APY · Live now</option>
+                  <option value="1">🔶 stXRP Vault — 8.4% APY · Coming soon</option>
+                  <option value="2">🟡 EMBER/FLR LP — AMM + mining · Post-launch</option>
+                  <option value="3">🟣 sFLR/FLR LP — AMM + mining · Post-launch</option>
+                </select>
+              </div>
+              <div class="hc-body">
+                <div class="tabs-row">
+                  <button class="vtab active" onclick="heroTab('deposit',this)">Deposit</button>
+                  <button class="vtab" onclick="heroTab('withdraw',this)">Withdraw</button>
+                </div>
+                <div id="heroDepPanel">
+                  <div class="input-block">
+                    <div class="input-lbl">
+                      <span>Amount</span>
+                      <span class="bal-link" id="heroBalLbl" onclick="heroSetMax()">Balance: —</span>
+                    </div>
+                    <div class="input-row">
+                      <input type="number" class="amount-in" id="heroDepAmt" placeholder="0.0" min="0" step="any" inputmode="decimal" oninput="heroPreview()">
+                      <div class="token-tag" id="heroAssetTag">sFLR</div>
+                    </div>
+                  </div>
+                  <!-- IL warning for LP vaults — hidden for staking vaults -->
+                  <div id="heroILWarn" style="display:none;background:var(--amberbg);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:9px 13px;font-size:11px;color:var(--amber);font-family:var(--mono);margin-bottom:10px">
+                    ⚠ LP positions carry impermanent loss risk. If token prices diverge, you may receive less total value than deposited. Understand IL before depositing.
+                  </div>
+                  <div class="preview-box" id="heroPreview">
+                    <div class="prow"><span class="pl">You deposit</span><span class="pv" id="ppDep">—</span></div>
+                    <div class="prow"><span class="pl" id="ppSharesLabel">cFLR shares</span><span class="pv g" id="ppShares">—</span></div>
+                    <div class="prow"><span class="pl">Projected 1yr</span><span class="pv o" id="ppYield">—</span></div>
+                  </div>
+                  <!-- Zap mode toggle -->
+                  <div id="heroZapToggle" style="display:none;margin-bottom:10px">
+                    <div style="display:flex;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px">
+                      <button class="zap-mode-btn active" id="heroModeNormal" onclick="setHeroMode('normal')">Use sFLR</button>
+                      <button class="zap-mode-btn" id="heroModeZap" onclick="setHeroMode('zap')">⚡ Zap with FLR</button>
+                    </div>
+                  </div>
+                  <!-- Normal mode -->
+                  <div id="heroNormalMode">
+                    <button class="main-btn" id="heroApproveBtn" onclick="approveHero()">Approve sFLR</button>
+                    <button class="main-btn step2" id="heroDepBtn" style="display:none" onclick="depositHero()">Deposit & Earn →</button>
+                  </div>
+                  <!-- Zap mode -->
+                  <div id="heroZapMode" style="display:none">
+                    <div style="font-size:11px;color:var(--ink2);font-family:var(--mono);margin-bottom:8px;padding:8px 12px;background:var(--surface);border-radius:8px;border:1px solid var(--border)">
+                      ⚡ Send FLR directly — no sFLR needed. Cinder stakes it via Sceptre and deposits in one tx.
+                    </div>
+                    <button class="main-btn" id="heroZapBtn" onclick="zapHero()" style="background:linear-gradient(135deg,var(--accent),#FF8C00)">⚡ Zap FLR → cFLR</button>
+                  </div>
+                </div>
+                <div id="heroWdPanel" style="display:none">
+                  <div class="input-block">
+                    <div class="input-lbl">
+                      <span id="heroShareInputLabel">cFLR shares</span>
+                      <span class="bal-link" id="heroSharesLbl" onclick="heroSetMaxShares()">Shares: —</span>
+                    </div>
+                    <div class="input-row">
+                      <input type="number" class="amount-in" id="heroWdAmt" placeholder="0.0" min="0" step="any" inputmode="decimal" oninput="heroWdPreview()">
+                      <div class="token-tag" id="heroShareTag">cFLR</div>
+                    </div>
+                  </div>
+                  <div class="preview-box" id="heroWdPreview">
+                    <div class="prow"><span class="pl" id="ppWGrossLabel">Gross sFLR</span><span class="pv" id="ppWGross">—</span></div>
+                    <div class="prow"><span class="pl">0.1% fee</span><span class="pv o" id="ppWFee">—</span></div>
+                    <div class="prow"><span class="pl" id="ppWOutLabel">You receive sFLR</span><span class="pv g" id="ppWOut">—</span></div>
+                  </div>
+                  <button class="main-btn" id="heroWdBtn" onclick="withdrawHero()">Withdraw</button>
+                </div>
+              </div>
+              <div class="hc-foot">
+                <span>10% perf fee · 0.1% exit</span>
+                <span id="hcBlock">Block —</span>
+              </div>
+            </div>
     </div>
   </div>
 </section>
@@ -345,6 +521,28 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 </footer>
 
 <script>
+const CONTRACTS = {
+  14: {
+    zap: "0x0000000000000000000000000000000000000000", // CinderZap — update after deploy
+    vaults: [
+      { asset:"0x12e605bc104e93B45e1aD99F9e555f659051c2BB", vault:"0x0000000000000000000000000000000000000000", name:"sFLR",       label:"Sceptre sFLR",       apy:"9.1%",  live:true,  zapSupported:true,  isLP:false },
+      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"stXRP",      label:"Firelight stXRP",    apy:"8.4%",  live:false, zapSupported:false, isLP:false },
+      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"EMBER/FLR",   label:"Sparkdex EMBER/FLR",  apy:"var.",  live:false, zapSupported:true,  isLP:true, lpZap:"0x0000000000000000000000000000000000000000" },
+      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"sFLR/FLR",   label:"Sparkdex sFLR/FLR",  apy:"var.",  live:false, zapSupported:true,  isLP:true, lpZap:"0x0000000000000000000000000000000000000000" },
+    ]
+  },
+  114: {
+    zap: "0x0000000000000000000000000000000000000000", // testnet zap
+    vaults: [
+      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"sFLR",     label:"Mock sFLR (testnet)",      apy:"9.1%", live:true,  zapSupported:true,  isLP:false },
+      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"stXRP",    label:"Mock stXRP (testnet)",     apy:"8.4%", live:true,  zapSupported:false, isLP:false },
+      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"EMBER/FLR", label:"Mock EMBER/FLR LP (testnet)",apy:"var.", live:true,  zapSupported:true,  isLP:true, lpZap:"0x0000000000000000000000000000000000000000" },
+      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"sFLR/FLR", label:"Mock sFLR/FLR LP (testnet)",apy:"var.", live:true,  zapSupported:true,  isLP:true, lpZap:"0x0000000000000000000000000000000000000000" },
+    ]
+  },
+};
+
+
 (function(){
   try{
     const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")}),{threshold:0.05});
@@ -420,6 +618,1020 @@ function toggleFaq(btn){
     drawEmbers();
   }catch(e){console.warn("Particle error:",e)}
 })();
+
+// ── Hero card dependencies (from app.html) ───────────────────────────────
+
+
+const VAULT_META = [
+  { name:"sFLR",     shareSymbol:"cFLR",     assetSymbol:"sFLR",    apyPct:9.1, color:"#3DA85F", isLP:false },
+  { name:"stXRP",    shareSymbol:"cXRP",     assetSymbol:"stXRP",   apyPct:8.4, color:"#4A90D9", isLP:false },
+  { name:"EMBER/FLR", shareSymbol:"cEMBER-FLR",assetSymbol:"EMBER/FLR LP", apyPct:0, color:"#F59E0B", isLP:true, lpNote:"AMM fees + EMBER mining" },
+  { name:"sFLR/FLR", shareSymbol:"csFLR-FLR",assetSymbol:"sFLR/FLR LP", apyPct:0, color:"#8B5CF6", isLP:true, lpNote:"AMM fees + EMBER mining" },
+];
+
+const VAULT_ABI = [
+  "function deposit(uint256) external returns (uint256)",
+  "function withdraw(uint256) external returns (uint256)",
+  "function harvest() external returns (uint256,uint256)",
+  "function assetsToShares(uint256) view returns (uint256)",
+  "function sharesToAssets(uint256) view returns (uint256)",
+  "function getUserInfo(address) view returns (uint256,uint256,uint256,uint256,uint256,uint256)",
+  "function getVaultStats() view returns (uint256,uint256,uint256,uint256,uint256,uint256,uint256)",
+  "function balanceOf(address) view returns (uint256)",
+];
+const ZAP_ABI = [
+  "function zapIntosFLRVault(uint256 minShares) external payable returns (uint256 shares)",
+  "function zapIntoStXRPVault(uint256 minShares) external payable returns (uint256 shares)",
+  "function previewZapsFLR(uint256 flrAmount) view returns (uint256 estimatedShares, uint256 currentsFLRRate, uint256 vaultCapRemaining)",
+];
+const LP_ZAP_ABI = [
+  "function zapIntoFLOWFLRVault(uint256 minShares) external payable returns (uint256 shares)",
+  "function zapIntoSFLRFLRVault(uint256 minShares) external payable returns (uint256 shares)",
+  "function previewZapFLOWFLR(uint256 flrAmount) view returns (uint256 estimatedShares, uint256 flrForSwap, uint256 estimatedFLOW, uint256 vaultCapRemaining)",
+  "function previewZapSFLRFLR(uint256 flrAmount) view returns (uint256 estimatedShares, uint256 estimatedSFLR, uint256 vaultCapRemaining)",
+];
+const LP_VAULT_ABI = [
+  "function deposit(uint256 lpAmount) external returns (uint256 shares)",
+  "function withdraw(uint256 shares) external returns (uint256 lpOut)",
+  "function depositFor(address recipient, uint256 lpAmount) external returns (uint256 shares)",
+  "function totalAssets() view returns (uint256)",
+  "function pricePerShare() view returns (uint256)",
+  "function sharesToLP(uint256 shares) view returns (uint256)",
+  "function lpToShares(uint256 lpAmount) view returns (uint256)",
+  "function getUserInfo(address user) view returns (uint256 shares, uint256 lpValue, uint256 depositedLP, uint256 lpGained, uint256 sharePercent, uint256 depositTime)",
+  "function getVaultStats() view returns (uint256 tvl, uint256 totalShares, uint256 pricePerShare, uint256 totalDeposited, uint256 withdrawalFees, address token0, address token1)",
+  "function balanceOf(address) view returns (uint256)",
+  "function approve(address, uint256) returns (bool)",
+];
+const ERC20_ABI = [
+  "function balanceOf(address) view returns (uint256)",
+  "function allowance(address,address) view returns (uint256)",
+  "function approve(address,uint256) returns (bool)",
+  "function mint(address,uint256) external",
+];
+
+// ── State ─────────────────────────────────────────────────────────────────
+// ── Active vault index ────────────────────────────────────────────
+let provider,signer,userAddr,chainId;
+let activeVaultIdx = 0;   // 0 = sFLR, 1 = stXRP
+let zapContract;            // CinderZap (sFLR)
+let lpZapContract;          // CinderLPZap (LP vaults)
+let vaultContract, assetContract;
+
+// Vault metadata — mirrors CONTRACTS config
+const VAULT_META = [
+  { name:"sFLR",     shareSymbol:"cFLR",     assetSymbol:"sFLR",    apyPct:9.1, color:"#3DA85F", isLP:false },
+  { name:"stXRP",    shareSymbol:"cXRP",     assetSymbol:"stXRP",   apyPct:8.4, color:"#4A90D9", isLP:false },
+  { name:"EMBER/FLR", shareSymbol:"cEMBER-FLR",assetSymbol:"EMBER/FLR LP", apyPct:0, color:"#F59E0B", isLP:true, lpNote:"AMM fees + EMBER mining" },
+  { name:"sFLR/FLR", shareSymbol:"csFLR-FLR",assetSymbol:"sFLR/FLR LP", apyPct:0, color:"#8B5CF6", isLP:true, lpNote:"AMM fees + EMBER mining" },
+];
+
+
+
+// ── Zap mode state ────────────────────────────────────────────────────
+let heroZapMode = false;
+let appZapModeActive = false;
+
+function setHeroMode(mode) {
+  heroZapMode = mode === 'zap';
+  document.getElementById('heroModeNormal').classList.toggle('active', !heroZapMode);
+  document.getElementById('heroModeZap').classList.toggle('active', heroZapMode);
+  document.getElementById('heroNormalMode').style.display = heroZapMode ? 'none' : '';
+  document.getElementById('heroZapMode').style.display   = heroZapMode ? '' : 'none';
+  // Update input label and tag for zap mode
+  const assetLbl = document.querySelector('#heroDepPanel .input-lbl span:first-child');
+  if (assetLbl) assetLbl.textContent = heroZapMode ? 'FLR to zap' : 'Amount';
+  const assetTag = document.getElementById('heroAssetTag');
+  if (assetTag) assetTag.textContent = heroZapMode ? 'FLR' : VAULT_META[activeVaultIdx].assetSymbol;
+}
+
+function setAppMode(mode) {
+  appZapModeActive = mode === 'zap';
+  document.getElementById('appModeNormal').classList.toggle('active', !appZapModeActive);
+  document.getElementById('appModeZap').classList.toggle('active', appZapModeActive);
+  (document.getElementById('appNormalMode')||{style:{}}).style.display = appZapModeActive ? 'none' : '';
+  (document.getElementById('appZapMode')||{style:{}}).style.display   = appZapModeActive ? '' : 'none';
+  const appAssetTag = document.getElementById('appAssetTag');
+  if (appAssetTag) appAssetTag.textContent = appZapModeActive ? 'FLR' : VAULT_META[activeVaultIdx].assetSymbol;
+}
+
+// Show/hide zap toggle based on active vault and zap availability
+function updateZapVisibility() {
+  const cfg = CONTRACTS[chainId];
+  const meta = VAULT_META[activeVaultIdx];
+  const v = cfg && cfg.vaults[activeVaultIdx];
+
+  // For LP vaults: use lpZapContract; for staking vaults: use zapContract
+  const isLPVault = meta && meta.isLP;
+  const zapAvailable = v && v.zapSupported && (
+    isLPVault
+      ? (lpZapContract != null)
+      : (zapContract && cfg.zap !== '0x0000000000000000000000000000000000000000')
+  );
+
+  const heroToggle = document.getElementById('heroZapToggle');
+  const appToggle  = document.getElementById('appZapToggle');
+  if(heroToggle) heroToggle.style.display = zapAvailable ? '' : 'none';
+  if(appToggle)  appToggle.style.display  = zapAvailable ? '' : 'none';
+
+  // Update zap button labels and onclick handlers for LP vs staking
+  const heroZapBtn = document.getElementById('heroZapBtn');
+  const appZapBtn  = document.getElementById('appZapBtn');
+  if(heroZapBtn) {
+    heroZapBtn.textContent = isLPVault
+      ? `⚡ Zap FLR → ${meta.shareSymbol}`
+      : `⚡ Zap FLR → ${meta.shareSymbol}`;
+    heroZapBtn.onclick = isLPVault ? zapHeroLP : zapHero;
+  }
+  if(appZapBtn) {
+    appZapBtn.textContent = isLPVault
+      ? `⚡ Zap FLR → ${meta.shareSymbol}`
+      : `⚡ Zap FLR → ${meta.shareSymbol}`;
+    appZapBtn.onclick = isLPVault ? zapAppLP : zapApp;
+  }
+
+  // Update zap description for LP vaults
+  const zapDescs = document.querySelectorAll('.zap-desc');
+  zapDescs.forEach(el => {
+    el.textContent = isLPVault
+      ? `⚡ Send FLR directly — Cinder buys ${meta.name.split('/')[0]} and adds liquidity on Sparkdex in one tx.`
+      : `⚡ Send FLR directly — Cinder stakes via Sceptre and deposits in one transaction.`;
+  });
+
+  if(!zapAvailable) { setHeroMode('normal'); setAppMode('normal'); }
+}
+
+async function zapHero() {
+  if (!zapContract) { toast('Connect wallet first', 'warn'); return; }
+  const amtStr = document.getElementById('heroDepAmt').value;
+  const amt    = parseFloat(amtStr);
+  if (!amt || amt <= 0) { toast('Enter an amount', 'warn'); return; }
+  try {
+    setBtnTxt('heroZapBtn', '<span class="spinner"></span> Zapping…', true);
+    const flrWei = ethers.parseEther(amtStr);
+    // Preview to get minShares with 1% slippage tolerance
+    const preview = await zapContract.previewZapsFLR(flrWei);
+    const minShares = BigInt(preview.estimatedShares) * 99n / 100n;
+    const tx = await zapContract.zapIntosFLRVault(minShares, { value: flrWei });
+    await tx.wait();
+    toast('⚡ Zap complete! cFLR shares in your wallet.', 'ok');
+    document.getElementById('heroDepAmt').value = '';
+    await loadHeroData();
+  } catch(e) {
+    toast('Zap failed: ' + (e.reason || e.message || 'unknown error'), 'err');
+  } finally {
+    setBtnTxt('heroZapBtn', '⚡ Zap FLR → cFLR', false);
+  }
+}
+
+async function zapApp() {
+  if (!zapContract) { toast('Connect wallet first', 'warn'); return; }
+  const amtStr = document.getElementById('appDepAmt').value;
+  const amt    = parseFloat(amtStr);
+  if (!amt || amt <= 0) { toast('Enter an amount', 'warn'); return; }
+  try {
+    setBtnTxt('appZapBtn', '<span class="spinner"></span> Zapping…', true);
+    const flrWei = ethers.parseEther(amtStr);
+    const preview = await zapContract.previewZapsFLR(flrWei);
+    const minShares = BigInt(preview.estimatedShares) * 99n / 100n;
+    const tx = await zapContract.zapIntosFLRVault(minShares, { value: flrWei });
+    await tx.wait();
+    toast('⚡ Zap complete! cFLR shares in your wallet.', 'ok');
+    document.getElementById('appDepAmt').value = '';
+    await loadAppData();
+  } catch(e) {
+    toast('Zap failed: ' + (e.reason || e.message || 'unknown error'), 'err');
+  } finally {
+    setBtnTxt('appZapBtn', '⚡ Zap FLR → cFLR', false);
+  }
+}
+
+// ── Hero card vault selector ──────────────────────────────────────────
+function heroSelectVault(idx) {
+  activeVaultIdx = idx;  // keep in sync with main app
+  const meta = VAULT_META[idx];
+
+  // Update all hero toggle buttons
+  ['hvsFLR','hvstXRP','hvFLOWFLR','hvsFLRFLR'].forEach((id,i) => {
+    const el = document.getElementById(id);
+    if(el) el.classList.toggle('active', i === idx);
+  });
+  // Update main app vault pills
+  // Update both dropdowns
+  const vs = document.getElementById('vaultSelector');
+  if(vs) vs.value = idx;
+  const hvs = document.getElementById('heroVaultSelect');
+  if(hvs) hvs.value = idx;
+
+  // Update all dynamic labels in hero card
+  // LP vaults show different APY display
+  const apyLabel = document.getElementById('heroApyLabel');
+  if(apyLabel) {
+    if(meta.isLP) apyLabel.textContent = 'AMM fees + EMBER mining';
+    else apyLabel.textContent = meta.apyPct + '% APY';
+  }
+  // Show IL warning for LP vaults
+  const ilWarn = document.getElementById('heroILWarn');
+  if(ilWarn) ilWarn.style.display = meta.isLP ? '' : 'none';
+  document.getElementById('heroAssetTag').textContent = meta.assetSymbol;
+  document.getElementById('heroShareTag').textContent = meta.shareSymbol;
+  document.getElementById('ppSharesLabel').textContent = meta.shareSymbol + ' shares';
+  document.getElementById('heroShareInputLabel').textContent = meta.shareSymbol + ' shares';
+  document.getElementById('ppWGrossLabel').textContent = 'Gross ' + meta.assetSymbol;
+  document.getElementById('ppWOutLabel').textContent = 'You receive ' + meta.assetSymbol;
+  document.getElementById('heroApproveBtn').textContent = 'Approve ' + meta.assetSymbol;
+  document.getElementById('heroWdBtn').textContent = 'Withdraw ' + meta.assetSymbol;
+
+  // Clear any amounts
+  document.getElementById('heroDepAmt').value = '';
+  document.getElementById('heroWdAmt').value = '';
+  document.getElementById('heroPreview').style.display = 'none';
+  document.getElementById('heroWdPreview').style.display = 'none';
+  document.getElementById('heroDepBtn').style.display = 'none';
+  document.getElementById('heroApproveBtn').style.display = '';
+
+  // Re-init contracts if wallet connected
+  if (provider && chainId) {
+    const cfg = CONTRACTS[chainId];
+    if (cfg && cfg.vaults[idx]) {
+      const v = cfg.vaults[idx];
+      if (v.vault !== '0x0000000000000000000000000000000000000000') {
+        vaultContract = new ethers.Contract(v.vault, VAULT_ABI, signer);
+        assetContract = new ethers.Contract(v.asset, ERC20_ABI, signer);
+        loadHeroData();
+      }
+    }
+    updateZapVisibility();
+  }
+}
+
+function selectVault(idx) {
+  activeVaultIdx = idx;
+  const meta = VAULT_META[idx];
+
+  // Update pill UI
+  document.querySelectorAll('.vault-pill').forEach((p,i) => p.classList.toggle('active', i === idx));
+
+  // Update token tags and dynamic labels in main app
+  const appAssetTag = document.getElementById('appAssetTag');
+  if (appAssetTag) appAssetTag.textContent = meta.assetSymbol;
+  const appShareTag = document.getElementById('appShareTag');
+  if (appShareTag) appShareTag.textContent = meta.shareSymbol;
+  const appWdGrossLabel = document.getElementById('appWdGrossLabel');
+  if (appWdGrossLabel) appWdGrossLabel.textContent = 'Gross ' + meta.assetSymbol;
+  const appApproveBtn = document.getElementById('appApproveBtn');
+  if (appApproveBtn) appApproveBtn.textContent = 'Step 1 — Approve ' + meta.assetSymbol;
+  const appWdBtn = document.getElementById('appWdBtn');
+  if (appWdBtn) appWdBtn.textContent = 'Withdraw ' + meta.assetSymbol;
+  const appWdShareLabel = document.getElementById('appWdShareLabel');
+  if (appWdShareLabel) appWdShareLabel.textContent = meta.shareSymbol + ' shares to burn';
+  const infoNetApy = document.getElementById('infoNetApy');
+  if (infoNetApy) infoNetApy.textContent = meta.isLP ? 'AMM + EMBER' : (meta.apyPct ? '~' + meta.apyPct + '%' : '—');
+  const statApy = document.getElementById('statApy');
+  if (statApy) statApy.textContent = meta.isLP ? 'AMM + EMBER' : (meta.apyPct ? '~' + meta.apyPct + '%' : '—');
+
+  // Re-init vault contracts if wallet connected
+  if (provider && chainId) {
+    const cfg = CONTRACTS[chainId];
+    if (cfg && cfg.vaults[idx]) {
+      const v = cfg.vaults[idx];
+      if (v.vault !== '0x0000000000000000000000000000000000000000') {
+        vaultContract  = new ethers.Contract(v.vault, VAULT_ABI, signer);
+        assetContract  = new ethers.Contract(v.asset, ERC20_ABI, signer);
+        loadAppData();
+      } else {
+        showNotDeployed(idx);
+      }
+    }
+  }
+
+  // Sync hero card
+  heroSelectVault(idx);
+}
+
+function showNotDeployed(idx) {
+  const meta = VAULT_META[idx];
+  (document.getElementById('appDepForm')||{style:{}}).style.display = 'none';
+  (document.getElementById('appNotConn')||{style:{}}).style.display = 'flex';
+  document.getElementById('appNotConn').innerHTML = `
+    <div class="ni">⏳</div>
+    <h3>${meta.name} vault</h3>
+    <p>${idx === 1 ? 'stXRP vault launches when Firelight Phase 2 goes live (Q3 2026). The sFLR vault is live now.' : 'Deploy contracts and update CONTRACTS config.'}</p>
+  `;
+}
+let heroApproved=false, appApproved=false;
+let calcChart;
+
+// ── Mobile nav ───────────────────────────────────────────────────────────
+function toggleMobileNav(){
+  const btn=document.getElementById('hamBtn');
+  const nav=document.getElementById('mobileNav');
+  if(!btn||!nav)return;
+  btn.classList.toggle('open');
+  nav.classList.toggle('open');
+  document.body.style.overflow=nav.classList.contains('open')?'hidden':'';
+}
+function closeMobileNav(){
+  const btn=document.getElementById('hamBtn');
+  const nav=document.getElementById('mobileNav');
+  if(btn)btn.classList.remove('open');
+  if(nav)nav.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click',function(e){
+  const nav=document.getElementById('mobileNav');
+  const btn=document.getElementById('hamBtn');
+  if(nav&&nav.classList.contains('open')&&!nav.contains(e.target)&&btn&&!btn.contains(e.target)){
+    closeMobileNav();
+  }
+});
+
+// ── Cinder Ember Particle Background (wrapped to prevent crash) ──────────
+(function initCanvas(){ try {
+  const canvas = document.getElementById('canvas-bg');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, embers = [];
+
+  function resize(){ W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Ember {
+    constructor(){ this.reset(true); }
+    reset(init = false){
+      this.x   = Math.random() * W;
+      this.y   = init ? Math.random() * H : H + 12;
+      this.vx  = (Math.random() - 0.5) * 0.5;
+      this.vy  = -(Math.random() * 0.45 + 0.15); // drift upward
+      this.r   = Math.random() * 1.6 + 0.3;
+      this.maxLife = Math.random() * 220 + 80;
+      this.life    = this.maxLife;
+      this.t       = Math.random() * 200;
+      // Color bank: hot white core → orange body → amber → cooling red
+      const a = Math.random() * 0.45 + 0.12;
+      const palette = [
+        [255, 210, 130, a],      // hot white-yellow tip
+        [255, 140,  45, a],      // orange body
+        [255,  85,  20, a],      // deep orange
+        [220,  55,  10, a * 0.75], // cooling ember red
+      ];
+      const [r,g,b,al] = palette[Math.floor(Math.random() * palette.length)];
+      this.cr = r; this.cg = g; this.cb = b; this.ca = al;
+    }
+    draw(){
+      const fade = Math.min(1, this.life / 40) * (this.life / this.maxLife);
+      const alpha = this.ca * fade;
+      if(alpha < 0.01) return;
+      // Outer glow
+      const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * 4);
+      g.addColorStop(0,   `rgba(${this.cr},${this.cg},${this.cb},${alpha})`);
+      g.addColorStop(0.35,`rgba(${this.cr},${this.cg},${this.cb},${alpha * 0.35})`);
+      g.addColorStop(1,   `rgba(${this.cr},${this.cg},${this.cb},0)`);
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r * 4, 0, Math.PI * 2);
+      ctx.fillStyle = g;
+      ctx.fill();
+      // Bright core
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r * 0.6, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,235,200,${alpha * 0.9})`;
+      ctx.fill();
+    }
+    update(){
+      this.x  += this.vx + Math.sin(this.t * 0.018) * 0.2;
+      this.y  += this.vy;
+      this.vy *= 0.9992; // subtle drag
+      this.t++;
+      this.life--;
+      if(this.life <= 0 || this.y < -20) this.reset();
+    }
+  }
+
+  // Spawn embers
+  for(let i = 0; i < 65; i++) embers.push(new Ember());
+
+  function drawEmbers(){
+    ctx.clearRect(0, 0, W, H);
+    embers.forEach(e => { e.update(); e.draw(); });
+    requestAnimationFrame(drawEmbers);
+  }
+  drawEmbers();
+  } catch(e){ console.warn('Particle system error:', e); }
+})();
+
+
+// ── Live Ticker — FTSO v2 + Sparkdex pool prices ─────────────────────────
+//
+// PRICE SOURCES:
+//   FLR, XRP, BTC, ETH, SOL, ADA, DOGE → Flare FTSO v2 (on-chain oracle)
+//   EMBER/USD → derived from Sparkdex EMBER/FLR pool reserves × FLR price
+//   sFLR/USD → FLR price × sFLR exchange rate from Sceptre
+//   Cinder TVL → vault.totalAssets() × asset price
+//
+// FTSO CONTRACT REGISTRY (Flare Mainnet + Coston2):
+//   0xaD67FE66660Fb8dFE9d6b1b4240d8650e30F6019
+//   Call: getContractAddressByName("FastUpdater") → FastUpdater address
+//   Then: fetchCurrentFeeds([feedId,...]) → prices[]
+//
+// FEED IDs (bytes21, Flare FTSO v2 format):
+//   Each feed is: 0x01 + right-padded ASCII of "FLR/USD", "XRP/USD" etc.
+
+// ── FTSO v2 — Flare on-chain price feeds ─────────────────────────────────
+// Docs: https://dev.flare.network/ftso/feeds
+// ContractRegistry has the same address on all Flare networks
+const CONTRACT_REGISTRY = "0xaD67FE66660Fb8dFE9d6b1b4240d8650e30F6019";
+const SCEPTRE_POOL      = "0xb53Da25e918F9Df67f8dEDFeC83d7e81F3a0D0d";
+const SPARKDEX_FACTORY  = "0x6040BB9E4E12B7e8dc5BcEbbE5b76b9E86dBd35E";
+const WFLR_ADDR         = "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d";
+const SFLR_ADDR         = "0x12e605bc104e93B45e1aD99F9e555f659051c2BB";
+
+// ABIs
+const REGISTRY_ABI = [
+  "function getContractAddressByName(string calldata _name) external view returns (address)"
+];
+// FtsoV2 getFeedsById is payable (fee currently 0) — must use staticCall or send with value:0
+const FTSOV2_ABI = [
+  "function getFeedsById(bytes21[] calldata _feedIds) external payable returns (uint256[] memory _values, int8[] memory _decimals, uint64 _timestamp)"
+];
+const PAIR_ABI = [
+  "function getReserves() view returns (uint112,uint112,uint32)",
+  "function token0() view returns (address)",
+  "function totalSupply() view returns (uint256)"
+];
+const FACTORY_ABI_TICKER = [
+  "function getPair(address,address) view returns (address)"
+];
+const SCEPTRE_ABI = [
+  "function getPooledFlrByShares(uint256) view returns (uint256)"
+];
+
+
+let provider, signer, userAddr, chainId;
+let vaultContract, assetContract, zapContract, lpZapContract;
+let activeVaultIdx = 0;
+let heroApproved = false;
+let tickerPrices = {}, tickerSFLRRate = 1, tickerFlowPrice = 0, tickerTVL = 0;
+
+
+// ── Hero card functions ───────────────────────────────────────────────────
+function fmtN(n){
+  if(n>=1e6)return(n/1e6).toFixed(2)+'M';
+  if(n>=1e3)return(n/1e3).toFixed(2)+'K';
+  return n.toFixed(2);
+}
+function setBtnTxt(id,txt,dis){const b=document.getElementById(id);if(b){b.textContent=txt;b.disabled=dis}}
+function toast(msg,type){
+  const el=document.getElementById('toast');
+  el.textContent=(type==='ok'?'✓  ':type==='err'?'✗  ':'')+msg;
+  el.style.borderColor=type==='ok'?'rgba(61,168,95,0.3)':type==='err'?'rgba(212,80,12,0.3)':'var(--border)';
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.classList.remove('show'),3500);
+}
+function heroTab(tab,btn){
+  document.querySelectorAll('.tabs-row .vtab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('heroDepPanel').style.display=tab==='deposit'?'block':'none';
+  document.getElementById('heroWdPanel').style.display=tab==='withdraw'?'block':'none';
+}
+function heroSelectVault(idx) {
+  activeVaultIdx = idx;  // keep in sync with main app
+  const meta = VAULT_META[idx];
+
+  // Update all hero toggle buttons
+  ['hvsFLR','hvstXRP','hvFLOWFLR','hvsFLRFLR'].forEach((id,i) => {
+    const el = document.getElementById(id);
+    if(el) el.classList.toggle('active', i === idx);
+  });
+  // Update main app vault pills
+  // Update both dropdowns
+  const vs = document.getElementById('vaultSelector');
+  if(vs) vs.value = idx;
+  const hvs = document.getElementById('heroVaultSelect');
+  if(hvs) hvs.value = idx;
+
+  // Update all dynamic labels in hero card
+  // LP vaults show different APY display
+  const apyLabel = document.getElementById('heroApyLabel');
+  if(apyLabel) {
+    if(meta.isLP) apyLabel.textContent = 'AMM fees + EMBER mining';
+    else apyLabel.textContent = meta.apyPct + '% APY';
+  }
+  // Show IL warning for LP vaults
+  const ilWarn = document.getElementById('heroILWarn');
+  if(ilWarn) ilWarn.style.display = meta.isLP ? '' : 'none';
+  document.getElementById('heroAssetTag').textContent = meta.assetSymbol;
+  document.getElementById('heroShareTag').textContent = meta.shareSymbol;
+  document.getElementById('ppSharesLabel').textContent = meta.shareSymbol + ' shares';
+  document.getElementById('heroShareInputLabel').textContent = meta.shareSymbol + ' shares';
+  document.getElementById('ppWGrossLabel').textContent = 'Gross ' + meta.assetSymbol;
+  document.getElementById('ppWOutLabel').textContent = 'You receive ' + meta.assetSymbol;
+  document.getElementById('heroApproveBtn').textContent = 'Approve ' + meta.assetSymbol;
+  document.getElementById('heroWdBtn').textContent = 'Withdraw ' + meta.assetSymbol;
+
+  // Clear any amounts
+  document.getElementById('heroDepAmt').value = '';
+  document.getElementById('heroWdAmt').value = '';
+  document.getElementById('heroPreview').style.display = 'none';
+  document.getElementById('heroWdPreview').style.display = 'none';
+  document.getElementById('heroDepBtn').style.display = 'none';
+  document.getElementById('heroApproveBtn').style.display = '';
+
+  // Re-init contracts if wallet connected
+  if (provider && chainId) {
+    const cfg = CONTRACTS[chainId];
+    if (cfg && cfg.vaults[idx]) {
+      const v = cfg.vaults[idx];
+      if (v.vault !== '0x0000000000000000000000000000000000000000') {
+        vaultContract = new ethers.Contract(v.vault, VAULT_ABI, signer);
+        assetContract = new ethers.Contract(v.asset, ERC20_ABI, signer);
+        loadHeroData();
+      }
+    }
+    updateZapVisibility();
+  }
+}
+async function heroPreview(){
+  const v=parseFloat(document.getElementById('heroDepAmt').value)||0;
+  const pb=document.getElementById('heroPreview');
+  if(!v){pb.style.display='none';return}
+  pb.style.display='block';
+  document.getElementById('ppDep').textContent=v.toFixed(4)+' stXRP';
+  document.getElementById('ppShares').textContent='≈'+v.toFixed(6)+' cXRP';
+  document.getElementById('ppYield').textContent='≈'+(v*0.084).toFixed(4)+' stXRP';
+  if(vault){try{const s=await vaultContract.assetsToShares(ethers.parseEther(v.toString()));document.getElementById('ppShares').textContent=parseFloat(ethers.formatEther(s)).toFixed(6)+' cXRP'}catch{}}
+}
+async function heroWdPreview(){
+  const v=parseFloat(document.getElementById('heroWdAmt').value)||0;
+  const pb=document.getElementById('heroWdPreview');
+  if(!v){pb.style.display='none';return}
+  pb.style.display='block';
+  let gross=v;
+  if(vault){try{const g=await vaultContract.sharesToAssets(ethers.parseEther(v.toString()));gross=parseFloat(ethers.formatEther(g))}catch{}}
+  const fee=gross*0.001;
+  document.getElementById('ppWGross').textContent=gross.toFixed(6)+' stXRP';
+  document.getElementById('ppWFee').textContent=fee.toFixed(6)+' stXRP';
+  document.getElementById('ppWOut').textContent=(gross-fee).toFixed(6)+' stXRP';
+}
+function heroSetMax(){const m=document.getElementById('heroBalLbl').textContent.match(/([\d.]+) stXRP/);if(m){document.getElementById('heroDepAmt').value=m[1];heroPreview()}}
+function heroSetMaxShares(){const m=document.getElementById('heroSharesLbl').textContent.match(/([\d.]+)/);if(m){document.getElementById('heroWdAmt').value=m[1];heroWdPreview()}}
+async function approveHero(){
+  if(!vault){toast('Connect wallet first','err');return}
+  const v=document.getElementById('heroDepAmt').value;
+  if(!v||parseFloat(v)<=0){toast('Enter an amount','err');return}
+  try{
+    setBtnTxt('heroApproveBtn','Approving…',true);
+    const tx=await assetContract.approve(await vaultContract.getAddress(),ethers.parseEther(v));
+    await tx.wait();
+    heroApproved=true;
+    document.getElementById('heroApproveBtn').style.display='none';
+    document.getElementById('heroDepBtn').style.display='block';
+    toast('Approved!','ok');
+  }catch(e){toast('Approval failed','err')}
+  finally{setBtnTxt('heroApproveBtn','Approve '+VAULT_META[activeVaultIdx].assetSymbol,false)}
+}
+async function depositHero(){
+  const v=document.getElementById('heroDepAmt').value;
+  try{
+    setBtnTxt('heroDepBtn','Depositing…',true);
+    const tx=await vaultContract.deposit(ethers.parseEther(v));
+    await tx.wait();
+    toast('Deposited '+parseFloat(v).toFixed(4)+' stXRP!','ok');
+    document.getElementById('heroDepAmt').value='';
+    document.getElementById('heroPreview').style.display='none';
+    document.getElementById('heroDepBtn').style.display='none';
+    document.getElementById('heroApproveBtn').style.display='block';
+    heroApproved=false;
+    await loadAppData();
+  }catch(e){toast('Deposit failed','err')}
+  finally{setBtnTxt('heroDepBtn','Deposit & Earn →',false)}
+}
+async function withdrawHero(){
+  const v=document.getElementById('heroWdAmt').value;
+  if(!vaultContract||!v||parseFloat(v)<=0){toast('Connect wallet & enter amount','err');return}
+  try{
+    setBtnTxt('heroWdBtn','Withdrawing…',true);
+    const tx=await vaultContract.withdraw(ethers.parseEther(v));
+    await tx.wait();
+    toast('Withdrawn!','ok');
+    document.getElementById('heroWdAmt').value='';
+    document.getElementById('heroWdPreview').style.display='none';
+    await loadAppData();
+  }catch(e){toast('Withdrawal failed','err')}
+  finally{setBtnTxt('heroWdBtn','Withdraw '+VAULT_META[activeVaultIdx].assetSymbol,false)}
+}
+async function zapHero() {
+  if (!zapContract) { toast('Connect wallet first', 'warn'); return; }
+  const amtStr = document.getElementById('heroDepAmt').value;
+  const amt    = parseFloat(amtStr);
+  if (!amt || amt <= 0) { toast('Enter an amount', 'warn'); return; }
+  try {
+    setBtnTxt('heroZapBtn', '<span class="spinner"></span> Zapping…', true);
+    const flrWei = ethers.parseEther(amtStr);
+    // Preview to get minShares with 1% slippage tolerance
+    const preview = await zapContract.previewZapsFLR(flrWei);
+    const minShares = BigInt(preview.estimatedShares) * 99n / 100n;
+    const tx = await zapContract.zapIntosFLRVault(minShares, { value: flrWei });
+    await tx.wait();
+    toast('⚡ Zap complete! cFLR shares in your wallet.', 'ok');
+    document.getElementById('heroDepAmt').value = '';
+    await loadHeroData();
+  } catch(e) {
+    toast('Zap failed: ' + (e.reason || e.message || 'unknown error'), 'err');
+  } finally {
+    setBtnTxt('heroZapBtn', '⚡ Zap FLR → cFLR', false);
+  }
+}
+function setHeroMode(mode) {
+  heroZapMode = mode === 'zap';
+  document.getElementById('heroModeNormal').classList.toggle('active', !heroZapMode);
+  document.getElementById('heroModeZap').classList.toggle('active', heroZapMode);
+  document.getElementById('heroNormalMode').style.display = heroZapMode ? 'none' : '';
+  document.getElementById('heroZapMode').style.display   = heroZapMode ? '' : 'none';
+  // Update input label and tag for zap mode
+  const assetLbl = document.querySelector('#heroDepPanel .input-lbl span:first-child');
+  if (assetLbl) assetLbl.textContent = heroZapMode ? 'FLR to zap' : 'Amount';
+  const assetTag = document.getElementById('heroAssetTag');
+  if (assetTag) assetTag.textContent = heroZapMode ? 'FLR' : VAULT_META[activeVaultIdx].assetSymbol;
+}
+function updateZapVisibility() {
+  const cfg = CONTRACTS[chainId];
+  const meta = VAULT_META[activeVaultIdx];
+  const v = cfg && cfg.vaults[activeVaultIdx];
+
+  // For LP vaults: use lpZapContract; for staking vaults: use zapContract
+  const isLPVault = meta && meta.isLP;
+  const zapAvailable = v && v.zapSupported && (
+    isLPVault
+      ? (lpZapContract != null)
+      : (zapContract && cfg.zap !== '0x0000000000000000000000000000000000000000')
+  );
+
+  const heroToggle = document.getElementById('heroZapToggle');
+  const appToggle  = document.getElementById('appZapToggle');
+  if(heroToggle) heroToggle.style.display = zapAvailable ? '' : 'none';
+  if(appToggle)  appToggle.style.display  = zapAvailable ? '' : 'none';
+
+  // Update zap button labels and onclick handlers for LP vs staking
+  const heroZapBtn = document.getElementById('heroZapBtn');
+  const appZapBtn  = document.getElementById('appZapBtn');
+  if(heroZapBtn) {
+    heroZapBtn.textContent = isLPVault
+      ? `⚡ Zap FLR → ${meta.shareSymbol}`
+      : `⚡ Zap FLR → ${meta.shareSymbol}`;
+    heroZapBtn.onclick = isLPVault ? zapHeroLP : zapHero;
+  }
+  if(appZapBtn) {
+    appZapBtn.textContent = isLPVault
+      ? `⚡ Zap FLR → ${meta.shareSymbol}`
+      : `⚡ Zap FLR → ${meta.shareSymbol}`;
+    appZapBtn.onclick = isLPVault ? zapAppLP : zapApp;
+  }
+
+  // Update zap description for LP vaults
+  const zapDescs = document.querySelectorAll('.zap-desc');
+  zapDescs.forEach(el => {
+    el.textContent = isLPVault
+      ? `⚡ Send FLR directly — Cinder buys ${meta.name.split('/')[0]} and adds liquidity on Sparkdex in one tx.`
+      : `⚡ Send FLR directly — Cinder stakes via Sceptre and deposits in one transaction.`;
+  });
+
+  if(!zapAvailable) { setHeroMode('normal'); setAppMode('normal'); }
+}
+function showConnectedForms(){
+  ['appNotConn','appNotConn2'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.style.display='none';
+  });
+  ['appDepForm','appWdForm'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.style.display='block';
+  });
+}
+function openWalletModal() {
+  // Detect injected wallets and show them
+  detectInjectedWallets();
+  document.getElementById('walletModal').classList.add('open');
+  document.getElementById('wmStatus').textContent =
+    'By connecting you agree to interact with unaudited contracts · $50K TVL cap';
+}
+function closeWalletModal() {
+  document.getElementById('walletModal').classList.remove('open');
+}
+async function connectMetaMask() {
+  if (!window.ethereum) {
+    setWmStatus('MetaMask not detected. <a href="https://metamask.io" target="_blank" style="color:var(--accent2)">Install MetaMask →</a>');
+    return;
+  }
+  setWmStatus('Opening MetaMask…', true);
+  try {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    provider = new ethers.BrowserProvider(window.ethereum);
+    await _onWalletConnected('MetaMask');
+  } catch(e) {
+    if (e.code === 4001) setWmStatus('Connection rejected by user.');
+    else setWmStatus('MetaMask connection failed.');
+    console.error('MetaMask:', e);
+  }
+}
+async function connectBifrost() {
+  // Bifrost injects window.bifrost AND window.ethereum
+  // Prefer window.bifrost if available for explicit identification
+  const bfProvider = window.bifrost || window.ethereum;
+
+  if (!bfProvider) {
+    setWmStatus('Bifrost not detected. <a href="https://bifrostwallet.com" target="_blank" style="color:var(--accent2)">Download Bifrost →</a>');
+    return;
+  }
+  if (!window.bifrost && !window.ethereum?.isBifrost) {
+    // Not Bifrost — suggest download
+    setWmStatus('Bifrost not found. <a href="https://bifrostwallet.com" target="_blank" style="color:var(--accent2)">Get Bifrost wallet →</a>');
+    return;
+  }
+
+  setWmStatus('Connecting to Bifrost…', true);
+  try {
+    await bfProvider.request({ method: 'eth_requestAccounts' });
+    provider = new ethers.BrowserProvider(bfProvider);
+    await _onWalletConnected('Bifrost');
+  } catch(e) {
+    setWmStatus('Bifrost connection cancelled.');
+    console.error('Bifrost:', e);
+  }
+}
+async function connectWalletConnect() {
+  setWmStatus('Opening WalletConnect…', true);
+  try {
+    // Log what globals are available for debugging
+    console.log('WC globals:', {
+      WalletConnectEthereumProvider: !!window.WalletConnectEthereumProvider,
+      EthereumProvider: !!window.EthereumProvider,
+      WalletConnectModal: !!window.WalletConnectModal,
+    });
+
+    const WCProvider =
+      window.WalletConnectEthereumProvider?.default ||
+      window.WalletConnectEthereumProvider ||
+      window.EthereumProvider?.default ||
+      window.EthereumProvider;
+
+    if (!WCProvider || !WCProvider.init) {
+      // Fallback — try esm.sh dynamic import
+      try {
+        console.log('WC: trying esm.sh fallback...');
+        const mod = await import('https://esm.sh/@walletconnect/ethereum-provider@2.13.0');
+        const EP = mod.EthereumProvider || mod.default;
+        if (EP?.init) { await _initWalletConnect(EP); return; }
+      } catch(e) { console.warn('WC esm.sh failed:', e); }
+      setWmStatus('WalletConnect unavailable. Use MetaMask or Bifrost.');
+      return;
+    }
+
+    await _initWalletConnect(WCProvider);
+
+  } catch(e) {
+    if (e.message?.includes('rejected') || e.code === 4001) {
+      setWmStatus('Connection cancelled.');
+    } else {
+      setWmStatus('Failed. Use MetaMask or Bifrost instead.');
+      console.error('WalletConnect error:', e);
+    }
+  }
+}
+async function _initWalletConnect(WCProvider) {
+  closeWalletModal(); // close wallet selection modal so QR renders on top
+  console.log('WC: initialising provider...');
+  wcProvider = await WCProvider.init({
+    projectId: WALLETCONNECT_PROJECT_ID,
+    optionalChains: [14, 114],
+    showQrModal: true,
+    metadata: {
+      name: 'Cinder',
+      description: 'Auto-compound sFLR and stXRP yield on Flare Network',
+      url: 'https://cinder.finance',
+      icons: ['https://cinder.finance/favicon.png'],
+    },
+    rpcMap: {
+      14:  'https://flare-api.flare.network/ext/C/rpc',
+      114: 'https://coston2-api.flare.network/ext/C/rpc',
+    },
+  });
+  console.log('WC: provider initialised, connecting...');
+  await wcProvider.connect();
+  console.log('WC: connected!');
+  provider = new ethers.BrowserProvider(wcProvider);
+  await _onWalletConnected('WalletConnect');
+  wcProvider.on('disconnect',      () => { toast('WalletConnect disconnected','warn'); location.reload(); });
+  wcProvider.on('chainChanged',    () => location.reload());
+  wcProvider.on('accountsChanged', () => location.reload());
+}
+async function _onWalletConnected(walletName) {
+  signer   = await provider.getSigner();
+  userAddr = await signer.getAddress();
+  const net = await provider.getNetwork();
+  chainId = Number(net.chainId);
+
+  // Prompt to switch to Flare Mainnet if on wrong chain
+  if (chainId !== 14 && chainId !== 114) {
+    setWmStatus('Wrong network. Switching to Flare Mainnet…', true);
+    try {
+      await provider.send('wallet_switchEthereumChain', [{ chainId: '0xe' }]); // 0xe = 14
+      const net2 = await provider.getNetwork();
+      chainId = Number(net2.chainId);
+    } catch(switchErr) {
+      // Chain not added — add it
+      if (switchErr.code === 4902) {
+        try {
+          await provider.send('wallet_addEthereumChain', [{
+            chainId:            '0xe',
+            chainName:          'Flare Mainnet',
+            nativeCurrency:     { name: 'FLR', symbol: 'FLR', decimals: 18 },
+            rpcUrls:            ['https://flare-api.flare.network/ext/C/rpc'],
+            blockExplorerUrls:  ['https://flarescan.com'],
+          }]);
+          chainId = 14;
+        } catch(addErr) {
+          setWmStatus('Please switch to Flare Mainnet manually.');
+          return;
+        }
+      } else {
+        setWmStatus('Please switch to Flare Mainnet in your wallet.');
+        return;
+      }
+    }
+  }
+
+  const cfg = CONTRACTS[chainId];
+  if (!cfg) { setWmStatus('Unsupported network: chainId ' + chainId); return; }
+
+  const netName = chainId === 14 ? 'Flare Mainnet' : chainId === 114 ? 'Coston2 Testnet' : `Chain ${chainId}`;
+
+  // Update UI
+  const short = userAddr.slice(0,6) + '…' + userAddr.slice(-4);
+  const connectBtn = document.getElementById('connectBtn');
+  connectBtn.textContent = short;
+  connectBtn.disabled = false;
+  connectBtn.onclick = showAccountMenu;
+  connectBtn.style.background = 'var(--surface)';
+  connectBtn.style.border = '1px solid var(--border)';
+  connectBtn.style.color = 'var(--ink)';
+  document.getElementById('netPill').textContent = netName;
+  document.getElementById('netPill').classList.add('active');
+
+  // Try to update infoNetwork if it exists
+  const infoNet = document.getElementById('infoNetwork');
+  if (infoNet) infoNet.textContent = netName;
+
+  // Init contracts
+  const v = cfg.vaults[activeVaultIdx];
+  if (v && v.vault !== '0x0000000000000000000000000000000000000000') {
+    vaultContract = new ethers.Contract(v.vault, VAULT_ABI, signer);
+    assetContract = new ethers.Contract(v.asset, ERC20_ABI, signer);
+  }
+  heroSelectVault(activeVaultIdx);
+  if (cfg.zap && cfg.zap !== '0x0000000000000000000000000000000000000000') {
+    zapContract = new ethers.Contract(cfg.zap, ZAP_ABI, signer);
+  }
+  const lpVaultCfg = cfg.vaults.find(v => v.isLP && v.lpZap && v.lpZap !== '0x0000000000000000000000000000000000000000');
+  if (lpVaultCfg) {
+    lpZapContract = new ethers.Contract(lpVaultCfg.lpZap, LP_ZAP_ABI, signer);
+  }
+
+  // Handle legacy stxrp contract ref
+  if (cfg.stxrp && cfg.stxrp !== '0x0000000000000000000000000000000000000000') {
+    stxrp = new ethers.Contract(cfg.stxrp, ERC20_ABI, signer);
+  }
+
+  // Try to update infoContract if exists
+  const infoContract = document.getElementById('infoContract');
+  if (infoContract && v) infoContract.textContent = v.vault.slice(0,10)+'…'+v.vault.slice(-6);
+
+  showConnectedForms();
+  await loadAppData();
+
+  // Set up change listeners for injected wallets
+  const ethProvider = provider.provider || window.ethereum;
+  if (ethProvider?.on) {
+    ethProvider.on('chainChanged', () => location.reload());
+    ethProvider.on('accountsChanged', () => location.reload());
+  }
+
+  pollBlock();
+  closeWalletModal();
+  toast(`Connected via ${walletName} · ${short}`, 'ok');
+}
+function detectInjectedWallets() {
+  // Only show Bifrost and MetaMask — no generic "Detected" fallback
+  // Bifrost is already shown as first option; MetaMask is shown second
+  // No need to detect other wallets
+}
+function setWmStatus(msg, loading = false) {
+  const el = document.getElementById('wmStatus');
+  if (el) el.innerHTML = loading
+    ? `<span class="wm-spinner"></span>${msg}`
+    : msg;
+}
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = () => reject(new Error('Failed to load: ' + src));
+    document.head.appendChild(s);
+  });
+}
+function connectWallet() {
+  openWalletModal();
+}
+function scrollToApp(){window.location.href='/app';}
+async function loadHeroData() {
+  if(!vaultContract||!userAddr) return;
+  try{
+    const meta=VAULT_META[activeVaultIdx];
+    const flrPrice=tickerPrices['FLR/USD']?.price||0;
+    const xrpPrice=tickerPrices['XRP/USD']?.price||0;
+    const sFLRPrice=flrPrice*tickerSFLRRate;
+    const assetPrice=meta?.name==='stXRP'?xrpPrice:meta?.name==='sFLR'?sFLRPrice:flrPrice;
+
+    const bal=await assetContract.balanceOf(userAddr);
+    const balF=parseFloat(ethers.formatEther(bal));
+    const balUSD=assetPrice>0?` (~$${(balF*assetPrice).toFixed(2)})`:'';
+    const balEl=document.getElementById('heroBalLbl');
+    if(balEl) balEl.textContent=`Balance: ${balF.toFixed(4)} ${meta?.assetSymbol||''}${balUSD}`;
+
+    const info=await vaultContract.getUserInfo(userAddr);
+    const shares=parseFloat(ethers.formatEther(info[0]));
+    const shareEl=document.getElementById('heroSharesLbl');
+    if(shareEl) shareEl.textContent=`Shares: ${shares.toFixed(6)}`;
+
+    // Reset approve/deposit button state
+    const approveBtn=document.getElementById('heroApproveBtn');
+    const depBtn=document.getElementById('heroDepBtn');
+    if(approveBtn) approveBtn.style.display='';
+    if(depBtn) depBtn.style.display='none';
+  }catch(e){console.error('loadHeroData',e);}
+}
+
 </script>
+<!-- WALLET SELECTION MODAL -->
+<div class="wallet-modal-backdrop" id="walletModal" onclick="if(event.target===this)closeWalletModal()">
+  <div class="wallet-modal">
+    <div class="wm-head">
+      <span class="wm-title">Connect wallet</span>
+      <button class="wm-close" onclick="closeWalletModal()">✕</button>
+    </div>
+    <div class="wm-body">
+      <p class="wm-desc">Choose how you want to connect. All wallets interact with Cinder contracts directly — we never hold your keys.</p>
+
+      <!-- Bifrost first — Flare native -->
+      <div class="wallet-option" id="woBifrost" onclick="connectBifrost()">
+        <div class="wo-icon">🔥</div>
+        <div class="wo-info">
+          <div class="wo-name">Bifrost Wallet</div>
+          <div class="wo-desc">Flare's native wallet · best Flare experience</div>
+        </div>
+        <span class="wo-badge recommended">Recommended</span>
+      </div>
+
+      <!-- MetaMask -->
+      <div class="wallet-option" id="woMetaMask" onclick="connectMetaMask()">
+        <div class="wo-icon">🦊</div>
+        <div class="wo-info">
+          <div class="wo-name">MetaMask</div>
+          <div class="wo-desc">Browser extension · desktop & mobile</div>
+        </div>
+        <span class="wo-badge popular">Popular</span>
+      </div>
+
+      <div class="wm-divider">or scan with any wallet</div>
+
+      <!-- WalletConnect -->
+      <div class="wallet-option" id="woWalletConnect" onclick="connectWalletConnect()">
+        <div class="wo-icon">🔗</div>
+        <div class="wo-info">
+          <div class="wo-name">WalletConnect</div>
+          <div class="wo-desc">300+ wallets · scan QR code · mobile friendly</div>
+        </div>
+        <span class="wo-badge mobile">Mobile</span>
+      </div>
+
+      <!-- Injected fallback (Brave, Coinbase, etc) -->
+      <div class="wallet-option" id="woInjected" onclick="connectInjected()" style="display:none">
+        <div class="wo-icon">💼</div>
+        <div class="wo-info">
+          <div class="wo-name" id="woInjectedName">Browser Wallet</div>
+          <div class="wo-desc">Detected in your browser</div>
+        </div>
+        <span class="wo-badge popular">Detected</span>
+      </div>
+    </div>
+    <div class="wm-foot" id="wmStatus">
+      By connecting you agree to interact with unaudited contracts · $50K TVL cap
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
