@@ -992,14 +992,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 }
 .mobile-nav a:last-child { border-bottom: none; }
 .mobile-nav a:active { color: #EEE9E1; background: rgba(255,255,255,0.03); }
-.mobile-nav .mn-cta, .mobile-nav .mn-launch {
-  margin: 0.75rem 1.5rem 0 !important;
-  display: block !important; text-align: center !important;
-  padding: 14px !important;
-  background: linear-gradient(135deg,#FF6B23,#FFB347) !important;
-  border-radius: 12px !important; color: #fff !important;
-  font-weight: 600 !important; border-bottom: none !important;
-}
+.mobile-nav 
 
 @media (max-width: 768px) {
   /* ── Nav ── */
@@ -1207,7 +1200,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .mobile-nav a{display:block;padding:15px 1.5rem;font-size:16px;color:rgba(238,233,225,.8);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.04)}
 .mobile-nav a:last-child{border-bottom:none}
 .mobile-nav a:active{background:rgba(255,255,255,.04)}
-.mn-cta,.mn-launch{margin:.75rem 1.5rem 0!important;display:block!important;text-align:center!important;padding:14px!important;background:linear-gradient(135deg,#FF6B23,#FFB347)!important;border-radius:12px!important;color:#fff!important;font-weight:600!important;border-bottom:none!important}
+
 @media(max-width:768px){
   nav{padding:0 1rem!important;height:56px!important}
   .nav-links,.nav-links-wrap{display:none!important}
@@ -1342,11 +1335,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
 </nav>
 <div class="mobile-nav" id="mobileNav">
   <a href="#how" onclick="closeMobileNav()">How it works</a>
-  <a href="#calc" onclick="closeMobileNav()">Calculator</a>
   <a href="#app" onclick="closeMobileNav()">Deposit</a>
   <a href="/governance">Governance</a>
   <a href="/about">About</a>
-  <a href="/" class="mn-cta">← Home</a>
+  <a href="/">Home</a>
 </div>
 
 <!-- TICKER -->

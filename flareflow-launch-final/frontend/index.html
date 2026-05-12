@@ -163,12 +163,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 }
 .mobile-nav a:last-child{border-bottom:none}
 .mobile-nav a:hover,.mobile-nav a:active{color:var(--ink)}
-.mobile-nav .mn-launch{
-  margin-top:1rem;display:block;text-align:center;
-  padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent3));
-  border-radius:12px;color:#fff;font-weight:600;font-size:15px;
-  border-bottom:none !important;
-}
+.mobile-nav 
 @media(max-width:640px){
   .ham-btn{display:flex}
   .nav-links{display:none !important}
@@ -402,14 +397,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 }
 .mobile-nav a:last-child { border-bottom: none; }
 .mobile-nav a:active { color: #EEE9E1; background: rgba(255,255,255,0.03); }
-.mobile-nav .mn-cta, .mobile-nav .mn-launch {
-  margin: 0.75rem 1.5rem 0 !important;
-  display: block !important; text-align: center !important;
-  padding: 14px !important;
-  background: linear-gradient(135deg,#FF6B23,#FFB347) !important;
-  border-radius: 12px !important; color: #fff !important;
-  font-weight: 600 !important; border-bottom: none !important;
-}
+.mobile-nav 
 
 @media (max-width: 768px) {
   /* ── Nav ── */
@@ -510,7 +498,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 .mobile-nav a{display:block;padding:15px 1.5rem;font-size:16px;color:rgba(238,233,225,.8);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.04)}
 .mobile-nav a:last-child{border-bottom:none}
 .mobile-nav a:active{background:rgba(255,255,255,.04)}
-.mn-cta,.mn-launch{margin:.75rem 1.5rem 0!important;display:block!important;text-align:center!important;padding:14px!important;background:linear-gradient(135deg,#FF6B23,#FFB347)!important;border-radius:12px!important;color:#fff!important;font-weight:600!important;border-bottom:none!important}
+
 @media(max-width:768px){
   nav{padding:0 1rem!important;height:56px!important}
   .nav-links,.nav-links-wrap{display:none!important}
@@ -607,10 +595,9 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
   <a href="#how" onclick="closeMobileNav()">How it works</a>
   <a href="#features" onclick="closeMobileNav()">Features</a>
   <a href="#faq" onclick="closeMobileNav()">FAQ</a>
-  <a href="/app" onclick="closeMobileNav()">App</a>
   <a href="/governance">Governance</a>
   <a href="/about">About</a>
-  <a href="/app" class="mn-launch">Launch App →</a>
+  <a href="/app">Launch App</a>
 </div>
 
 <section id="hero">
