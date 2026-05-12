@@ -539,6 +539,43 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 }
 @media(hover:none){.btn-xl:hover,.main-btn:hover,.btn-launch:hover,.vc:hover,.vault-pill:hover{transform:none!important}}
 @supports(padding-bottom:env(safe-area-inset-bottom)){.mobile-nav{padding-bottom:env(safe-area-inset-bottom)};footer{padding-bottom:calc(2rem + env(safe-area-inset-bottom))!important}}
+
+/* ── Hero mobile spacing ── */
+@media (max-width: 768px) {
+  #hero { padding-top: 80px !important; min-height: auto !important; }
+  .hero-tag { margin-bottom: 1rem !important; }
+  .hero-h1 { font-size: clamp(28px, 8vw, 44px) !important; letter-spacing: -1px !important; }
+  .hero-ctas { margin-top: 1.5rem !important; }
+  .hero-stats { margin-top: 1.5rem !important; gap: 1.25rem !important; }
+}
+
+/* ── General mobile polish ── */
+@media (max-width: 768px) {
+  .container { padding: 0 1rem !important; }
+  section { padding: 3rem 0 !important; }
+  .hero-card { border-radius: 16px !important; }
+  .hc-header { padding: 14px 16px !important; }
+  .hc-body { padding: 14px 16px !important; }
+  .hc-foot { padding: 10px 16px !important; font-size: 10px !important; }
+  .amount-in input { font-size: 20px !important; }
+  .main-btn { min-height: 52px !important; font-size: 15px !important; border-radius: 12px !important; }
+  .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }
+  .feat-grid { grid-template-columns: 1fr !important; }
+  .flow-grid { grid-template-columns: 1fr !important; }
+  .calc-body { grid-template-columns: 1fr !important; }
+  footer { padding: 2rem 0 !important; }
+  .footer-inner { flex-direction: column !important; gap: 1rem !important; text-align: center !important; }
+  .footer-links { flex-wrap: wrap !important; justify-content: center !important; gap: 0.5rem 1rem !important; }
+  .footer-links a { min-height: 40px !important; display: inline-flex !important; align-items: center !important; }
+}
+@media (hover: none) {
+  .btn-xl:hover, .main-btn:hover, .vault-pill:hover,
+  .btn-primary:hover { transform: none !important; }
+}
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  footer { padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important; }
+  .mobile-nav { padding-bottom: calc(1rem + env(safe-area-inset-bottom)) !important; }
+}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
 <script>
@@ -549,7 +586,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 <canvas id="canvas-bg"></canvas>
 
 <nav>
-  <div class="nav-logo"><div class="logo-mark">C</div>Cinder</div>
+  <a href="/" class="nav-logo" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:10px"><div class="logo-mark">C</div>Cinder</a>
   <div class="nav-links">
     <a href="#how">How it works</a>
     <a href="#features">Features</a>

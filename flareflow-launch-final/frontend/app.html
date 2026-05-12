@@ -1261,6 +1261,58 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .hero-ctas{flex-direction:column!important;gap:10px!important}
 }
 @media(hover:none){.btn-xl:hover{transform:none!important}}
+
+/* ── Vault selector mobile ── */
+@media (max-width: 768px) {
+  .vault-selector-wrap { flex-direction: column !important; gap: 8px !important; }
+  .vault-pill { min-width: unset !important; width: 100% !important; padding: 12px 14px !important; }
+  .vp-apy { font-size: 16px !important; }
+}
+
+/* ── Nav mobile cleanup ── */
+@media (max-width: 768px) {
+  .nav-right > a { display: none !important; }
+  .nav-right > span.pill-badge { display: none !important; }
+  .nav-right { gap: 8px !important; }
+  #connectBtn { font-size: 12px !important; padding: 8px 14px !important; min-height: 36px !important; }
+}
+
+/* ── Hero mobile spacing ── */
+@media (max-width: 768px) {
+  #hero { padding-top: 80px !important; min-height: auto !important; }
+  .hero-tag { margin-bottom: 1rem !important; }
+  .hero-h1 { font-size: clamp(28px, 8vw, 44px) !important; letter-spacing: -1px !important; }
+  .hero-ctas { margin-top: 1.5rem !important; }
+  .hero-stats { margin-top: 1.5rem !important; gap: 1.25rem !important; }
+}
+
+/* ── General mobile polish ── */
+@media (max-width: 768px) {
+  .container { padding: 0 1rem !important; }
+  section { padding: 3rem 0 !important; }
+  .hero-card { border-radius: 16px !important; }
+  .hc-header { padding: 14px 16px !important; }
+  .hc-body { padding: 14px 16px !important; }
+  .hc-foot { padding: 10px 16px !important; font-size: 10px !important; }
+  .amount-in input { font-size: 20px !important; }
+  .main-btn { min-height: 52px !important; font-size: 15px !important; border-radius: 12px !important; }
+  .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }
+  .feat-grid { grid-template-columns: 1fr !important; }
+  .flow-grid { grid-template-columns: 1fr !important; }
+  .calc-body { grid-template-columns: 1fr !important; }
+  footer { padding: 2rem 0 !important; }
+  .footer-inner { flex-direction: column !important; gap: 1rem !important; text-align: center !important; }
+  .footer-links { flex-wrap: wrap !important; justify-content: center !important; gap: 0.5rem 1rem !important; }
+  .footer-links a { min-height: 40px !important; display: inline-flex !important; align-items: center !important; }
+}
+@media (hover: none) {
+  .btn-xl:hover, .main-btn:hover, .vault-pill:hover,
+  .btn-primary:hover { transform: none !important; }
+}
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  footer { padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important; }
+  .mobile-nav { padding-bottom: calc(1rem + env(safe-area-inset-bottom)) !important; }
+}
 </style>
 </head>
 <body>
@@ -1270,10 +1322,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-logo">
+  <a href="/" class="nav-logo" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:10px">
     <div class="logo-icon">C</div>
     Cinder
-  </div>
+  </a>
   <div class="nav-links">
     <a href="#how">How it works</a>
     <a href="#app">Launch App</a>
@@ -1281,7 +1333,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
     <a href="/about">About</a>
   </div>
   <div class="nav-right">
-    <a href="/" style="font-size:13px;color:var(--ink3);padding:6px 12px;border:1px solid var(--border);border-radius:8px;font-family:var(--body);white-space:nowrap">&#8592; Home</a>
     <span class="pill-badge" id="netPill">Not connected</span>
     <button class="btn btn-primary" id="connectBtn" onclick="openWalletModal()">Connect Wallet</button>
   
@@ -1291,10 +1342,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
 </nav>
 <div class="mobile-nav" id="mobileNav">
   <a href="#how" onclick="closeMobileNav()">How it works</a>
+  <a href="#calc" onclick="closeMobileNav()">Calculator</a>
   <a href="#app" onclick="closeMobileNav()">Deposit</a>
   <a href="/governance">Governance</a>
   <a href="/about">About</a>
-  <a href="/" class="mn-home" style="margin-top:1rem;display:block;text-align:center;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;color:var(--ink2);font-family:var(--body)">&#8592; Back to Home</a>
+  <a href="/" class="mn-cta">← Home</a>
 </div>
 
 <!-- TICKER -->
@@ -1633,7 +1685,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
     </div>
 
     <!-- Vault selector -->
-    <div class="reveal" style="display:flex;gap:10px;margin:1.5rem 0 2rem;flex-wrap:wrap;width:100%" id="vaultSelector">
+    <div class="reveal" style="display:flex;gap:10px;margin:1.5rem 0 2rem;flex-wrap:wrap;width:100%" class="vault-selector-wrap" id="vaultSelector">
       <div class="vault-pill active" id="vpsFLR" onclick="selectVault(0)">
         <div class="vp-icon">🔷</div>
         <div>
