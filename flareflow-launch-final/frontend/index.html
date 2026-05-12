@@ -757,9 +757,111 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 }
 /* ═══ END CINDER POLISH ═══ */
 
+
+/* ═══ VISUAL UPGRADE CSS ═══ */
+
+/* Glow pulse on "glowing" text */
+@keyframes glowPulse {
+  0%, 100% { text-shadow: 0 0 20px rgba(255,107,35,0.3), 0 0 40px rgba(255,107,35,0.1); }
+  50% { text-shadow: 0 0 30px rgba(255,107,35,0.6), 0 0 60px rgba(255,107,35,0.2), 0 0 80px rgba(255,107,35,0.05); }
+}
+.glow-pulse { animation: glowPulse 3s ease-in-out infinite; }
+
+/* Vault card colored accents */
+.vc { position: relative; overflow: hidden; }
+.vc::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 3px 0 0 3px; opacity: 0; transition: opacity 0.2s; }
+.vc:hover::before { opacity: 1; }
+.vc-sflr::before { background: linear-gradient(180deg, #3B82F6, #1D4ED8); }
+.vc-stxrp::before { background: linear-gradient(180deg, #F97316, #DC2626); }
+.vc-lp::before, .vc-lp2::before { background: linear-gradient(180deg, #8B5CF6, #6D28D9); }
+
+.vc-left { display: flex; align-items: center; gap: 14px; flex: 1; }
+.apy-green { color: #4ABA6F !important; }
+.apy-amber { color: #F5A623 !important; }
+.apy-purple { color: #A78BFA !important; }
+
+.live-badge {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+  color: #4ABA6F; background: rgba(74,186,111,0.1);
+  border: 1px solid rgba(74,186,111,0.2);
+  padding: 2px 8px; border-radius: 20px;
+}
+.soon-badge {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.04em;
+  color: var(--ink3); background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2px 8px; border-radius: 20px;
+}
+
+/* Glassmorphism panels */
+.glass-panel {
+  background: rgba(22, 18, 14, 0.7) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+/* Deeper blacks */
+:root {
+  --bg-deep: #05060A;
+  --card-deep: #0E0B08;
+}
+
+/* How it works cards — stagger fade */
+.flow-step:nth-child(1) { transition-delay: 0s; }
+.flow-step:nth-child(2) { transition-delay: 0.08s; }
+.flow-step:nth-child(3) { transition-delay: 0.16s; }
+.flow-step:nth-child(4) { transition-delay: 0.24s; }
+
+/* Feature cards stagger */
+.feat-card:nth-child(1) { transition-delay: 0s; }
+.feat-card:nth-child(2) { transition-delay: 0.06s; }
+.feat-card:nth-child(3) { transition-delay: 0.12s; }
+.feat-card:nth-child(4) { transition-delay: 0.18s; }
+.feat-card:nth-child(5) { transition-delay: 0.24s; }
+.feat-card:nth-child(6) { transition-delay: 0.30s; }
+
+/* Floating connect wallet on mobile */
+#floatConnect {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  background: linear-gradient(135deg, #FF6B23, #FFB347);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 28px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(255,107,35,0.4);
+  white-space: nowrap;
+  transition: opacity 0.3s, transform 0.3s;
+}
+#floatConnect.visible { display: block; }
+@media (max-width: 768px) {
+  #floatConnect { display: none; }
+  #floatConnect.visible { display: block; }
+}
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  #floatConnect { bottom: calc(20px + env(safe-area-inset-bottom)); }
+}
+
+/* ═══ END VISUAL UPGRADE CSS ═══ */
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
 <script>
+</script>
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
 </script>
 </head>
 <body>
@@ -837,8 +939,70 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
       </div>
       <div class="vault-cards reveal reveal-d2">
         <a href="/app" style="text-decoration:none;color:inherit">
-          <div class="vc live">
-            <div class="vc-icon">🔷</div>
+          <div class="vc vc-sflr live">
+            <div class="vc-left">
+              <div class="vc-icon">🔷</div>
+              <div class="vc-info">
+                <div class="vc-name">sFLR Vault</div>
+                <div class="vc-meta">Sceptre · auto-compound · cFLR shares</div>
+              </div>
+            </div>
+            <div class="vc-right">
+              <div class="vc-apy apy-green">9.1%</div>
+              <div class="vc-badge live-badge">● Live</div>
+            </div>
+            <span class="vc-arrow">›</span>
+          </div>
+        </a>
+        <a href="/app" style="text-decoration:none;color:inherit">
+          <div class="vc vc-stxrp">
+            <div class="vc-left">
+              <div class="vc-icon">🔶</div>
+              <div class="vc-info">
+                <div class="vc-name">stXRP Vault</div>
+                <div class="vc-meta">Firelight · auto-compound · cXRP shares</div>
+              </div>
+            </div>
+            <div class="vc-right">
+              <div class="vc-apy apy-amber">8.4%</div>
+              <div class="vc-badge soon-badge">◦ Q3 2026</div>
+            </div>
+            <span class="vc-arrow">›</span>
+          </div>
+        </a>
+        <a href="/app" style="text-decoration:none;color:inherit">
+          <div class="vc vc-lp">
+            <div class="vc-left">
+              <div class="vc-icon">🟡</div>
+              <div class="vc-info">
+                <div class="vc-name">EMBER/FLR LP</div>
+                <div class="vc-meta">Sparkdex · AMM fees + EMBER mining</div>
+              </div>
+            </div>
+            <div class="vc-right">
+              <div class="vc-apy apy-purple">LP</div>
+              <div class="vc-badge soon-badge">◦ Post-launch</div>
+            </div>
+            <span class="vc-arrow">›</span>
+          </div>
+        </a>
+        <a href="/app" style="text-decoration:none;color:inherit">
+          <div class="vc vc-lp2">
+            <div class="vc-left">
+              <div class="vc-icon">🟣</div>
+              <div class="vc-info">
+                <div class="vc-name">sFLR/FLR LP</div>
+                <div class="vc-meta">Sparkdex · AMM fees + EMBER mining</div>
+              </div>
+            </div>
+            <div class="vc-right">
+              <div class="vc-apy apy-purple">LP</div>
+              <div class="vc-badge soon-badge">◦ Post-launch</div>
+            </div>
+            <span class="vc-arrow">›</span>
+          </div>
+        </a>
+      </div>
             <div class="vc-info">
               <div class="vc-name">sFLR Vault</div>
               <div class="vc-meta">Sceptre · auto-compound · cFLR shares</div>
@@ -1014,6 +1178,35 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
         <span id="cvExtra" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:20px;color:#4ABA6F">+$461</span>
         <span style="font-size:12px;color:var(--ink3);margin-left:.5rem">just from compounding frequency</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section style="padding:3rem 0;border-top:1px solid var(--border)">
+  <div class="container">
+    <p style="text-align:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:1.75rem">Built on top of</p>
+    <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:2rem 3rem">
+      <a href="https://sceptre.fi" target="_blank" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
+        <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#3B82F6,#1D4ED8);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:monospace">S</div>
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--ink2)">Sceptre</span>
+      </a>
+      <a href="https://firelight.finance" target="_blank" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
+        <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#F97316,#DC2626);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:monospace">F</div>
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--ink2)">Firelight</span>
+      </a>
+      <a href="https://sparkdex.ai" target="_blank" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
+        <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:monospace">S</div>
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--ink2)">Sparkdex</span>
+      </a>
+      <a href="https://gelato.network" target="_blank" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
+        <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#EC4899,#BE185D);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:monospace">G</div>
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--ink2)">Gelato</span>
+      </a>
+      <a href="https://flare.network" target="_blank" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
+        <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#E11D48,#9F1239);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:monospace">F</div>
+        <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--ink2)">Flare</span>
+      </a>
     </div>
   </div>
 </section>

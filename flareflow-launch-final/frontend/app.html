@@ -1520,7 +1520,77 @@ html, body { max-width: 100%; overflow-x: hidden; }
 }
 /* ═══ END CINDER POLISH ═══ */
 
+
+/* ═══ APP VISUAL UPGRADES ═══ */
+
+/* Floating connect wallet */
+#floatConnect {
+  display: none;
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  background: linear-gradient(135deg, #FF6B23, #FFB347);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 28px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(255,107,35,0.45);
+  white-space: nowrap;
+  transition: opacity 0.3s;
+  animation: floatPulse 3s ease-in-out infinite;
+}
+@keyframes floatPulse {
+  0%, 100% { box-shadow: 0 8px 32px rgba(255,107,35,0.45); }
+  50% { box-shadow: 0 12px 48px rgba(255,107,35,0.65); }
+}
+#floatConnect.visible { display: block; }
+
+/* Glassmorphism hero card */
+.hero-card {
+  background: rgba(14, 11, 8, 0.75) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
+}
+
+/* Vault pill accents */
+.vault-pill[data-vault="0"] { border-left: 3px solid #3B82F6; }
+.vault-pill[data-vault="1"] { border-left: 3px solid #F97316; }
+.vault-pill[data-vault="2"], .vault-pill[data-vault="3"] { border-left: 3px solid #8B5CF6; }
+.vault-pill.active[data-vault="0"] { border-color: #3B82F6; background: rgba(59,130,246,0.07); }
+.vault-pill.active[data-vault="1"] { border-color: #F97316; background: rgba(249,115,22,0.07); }
+
+/* Demo mode banner */
+#demoBanner {
+  display: none;
+  background: rgba(255,107,35,0.08);
+  border-bottom: 1px solid rgba(255,107,35,0.15);
+  padding: .625rem 1rem;
+  text-align: center;
+  font-size: 12px;
+  color: var(--accent2);
+  font-weight: 500;
+}
+#demoBanner.active { display: block; }
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  #floatConnect { bottom: calc(24px + env(safe-area-inset-bottom)); }
+}
+/* ═══ END APP VISUAL UPGRADES ═══ */
+
 </style>
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
 </head>
 <body>
 <noscript></noscript>
@@ -1575,6 +1645,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
   <a href="/about">About</a>
   <a href="/">Home</a>
 </div>
+<!-- Floating Connect Wallet — mobile only -->
+<button id="floatConnect" onclick="openWalletModal()" aria-label="Connect Wallet">
+  🔥 Connect Wallet
+</button>
 
 <!-- TICKER -->
 <div class="ticker-wrap" style="position:relative;z-index:1;margin-top:64px">
@@ -1984,6 +2058,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
               <div class="ni">🔌</div>
               <h3>Connect your wallet</h3>
               <p>Connect MetaMask, Bifrost, or any WalletConnect wallet to start earning yield.</p>
+        <button onclick="runDemo()" style="margin-top:.75rem;background:rgba(255,107,35,0.1);border:1px solid rgba(255,107,35,0.2);color:var(--accent2);border-radius:10px;padding:10px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;width:100%">⚡ Try demo — no wallet needed</p>
             </div>
             <div id="appDepForm" style="display:none">
               <div class="input-block">
@@ -2169,6 +2244,19 @@ Vault stats</span></div>
 </section>
 
 <!-- FOOTER -->
+
+<!-- Partner strip -->
+<div style="border-top:1px solid var(--border);padding:1.5rem 0;margin-top:2rem">
+  <div class="container">
+    <p style="text-align:center;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:1.25rem">Powered by</p>
+    <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:1.5rem 2.5rem">
+      <a href="https://sceptre.fi" target="_blank" style="font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none;opacity:.5;transition:opacity .2s;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5"><span style="width:20px;height:20px;border-radius:5px;background:linear-gradient(135deg,#3B82F6,#1D4ED8);display:inline-flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700">S</span>Sceptre</a>
+      <a href="https://firelight.finance" target="_blank" style="font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none;opacity:.5;transition:opacity .2s;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5"><span style="width:20px;height:20px;border-radius:5px;background:linear-gradient(135deg,#F97316,#DC2626);display:inline-flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700">F</span>Firelight</a>
+      <a href="https://sparkdex.ai" target="_blank" style="font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none;opacity:.5;transition:opacity .2s;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5"><span style="width:20px;height:20px;border-radius:5px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:inline-flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700">S</span>Sparkdex</a>
+      <a href="https://gelato.network" target="_blank" style="font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none;opacity:.5;transition:opacity .2s;display:flex;align-items:center;gap:6px" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5"><span style="width:20px;height:20px;border-radius:5px;background:linear-gradient(135deg,#EC4899,#BE185D);display:inline-flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700">G</span>Gelato</a>
+    </div>
+  </div>
+</div>
 <footer>
   <div class="container">
     <div class="footer-inner">
@@ -3840,6 +3928,87 @@ document.addEventListener('click',function(e){
   loadHarvests();
   setInterval(loadHarvests, 60000);
 })();
+
+/* Float connect wallet on scroll */
+(function() {
+  var shown = false;
+  window.addEventListener('scroll', function() {
+    var btn = document.getElementById('floatConnect');
+    if (!btn) return;
+    var scrolled = window.scrollY > 300;
+    var connected = window.userAddr;
+    if (scrolled && !connected && !shown) {
+      btn.classList.add('visible');
+      shown = true;
+    } else if (connected) {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+})();
+
+/* Demo mode */
+function runDemo() {
+  var banner = document.getElementById('demoBanner');
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'demoBanner';
+    banner.innerHTML = '⚡ Demo mode — showing simulated data. <button onclick="exitDemo()" style="background:none;border:none;color:var(--accent2);cursor:pointer;font-weight:600;padding:0;margin-left:.5rem">Exit demo ×</button>';
+    document.querySelector('nav').insertAdjacentElement('afterend', banner);
+  }
+  banner.classList.add('active');
+  /* populate demo values */
+  var els = {
+    'depositDisplay': '1,000.00',
+    'sharesDisplay': '1,000.000000',
+    'estYield': '$91.00',
+  };
+  Object.keys(els).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = els[id];
+  });
+  toast('Demo mode active — simulated data shown', 'info');
+}
+function exitDemo() {
+  var b = document.getElementById('demoBanner');
+  if (b) b.classList.remove('active');
+}
+
+/* Spark effect on calculator milestone */
+var lastMilestone = 0;
+function checkMilestone(val) {
+  var milestones = [100, 500, 1000, 5000, 10000];
+  milestones.forEach(function(m) {
+    if (val >= m && lastMilestone < m) {
+      lastMilestone = m;
+      sparkBurst();
+    }
+  });
+}
+function sparkBurst() {
+  for (var i = 0; i < 8; i++) {
+    (function(i) {
+      setTimeout(function() {
+        var s = document.createElement('div');
+        var angle = (i / 8) * 360;
+        var dist = 40 + Math.random() * 30;
+        s.style.cssText = 'position:fixed;width:6px;height:6px;border-radius:50%;background:#FF6B23;pointer-events:none;z-index:9999;transition:all 0.6s ease-out;opacity:1';
+        var el = document.getElementById('cvExtra') || document.getElementById('calc-result');
+        if (!el) return;
+        var rect = el.getBoundingClientRect();
+        s.style.left = (rect.left + rect.width/2) + 'px';
+        s.style.top = (rect.top + rect.height/2) + 'px';
+        document.body.appendChild(s);
+        requestAnimationFrame(function() {
+          s.style.transform = 'translate(' + (Math.cos(angle*Math.PI/180)*dist) + 'px,' + (Math.sin(angle*Math.PI/180)*dist) + 'px)';
+          s.style.opacity = '0';
+          s.style.background = i % 2 === 0 ? '#FFB347' : '#FF4500';
+        });
+        setTimeout(function() { s.remove(); }, 700);
+      }, i * 40);
+    })(i);
+  }
+}
+
 </script>
 </body>
 </html>
