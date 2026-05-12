@@ -1135,5 +1135,110 @@ document.addEventListener('click',function(e){
   if(nav&&nav.classList.contains('open')&&!nav.contains(e.target)&&btn&&!btn.contains(e.target))closeMobileNav();
 });
 </script>
+<style>
+/* CINDER MOBILE PATCH */
+.ham-btn{display:none;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;cursor:pointer;background:none;border:none;padding:6px;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+.ham-btn span{display:block;height:2px;background:#EEE9E1;border-radius:2px;transition:all .25s}
+.ham-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham-btn.open span:nth-child(2){opacity:0}
+.ham-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-nav{display:none;position:fixed;top:56px;left:0;right:0;z-index:9999;background:rgba(7,8,10,.98);backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.07);flex-direction:column;padding:.25rem 0 1.25rem}
+.mobile-nav.open{display:flex!important}
+.mobile-nav a{display:block;padding:15px 1.5rem;font-size:16px;color:rgba(238,233,225,.8);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.04)}
+.mobile-nav a:last-child{border-bottom:none}
+.mobile-nav a:active{background:rgba(255,255,255,.04)}
+.mn-cta,.mn-launch{margin:.75rem 1.5rem 0!important;display:block!important;text-align:center!important;padding:14px!important;background:linear-gradient(135deg,#FF6B23,#FFB347)!important;border-radius:12px!important;color:#fff!important;font-weight:600!important;border-bottom:none!important}
+@media(max-width:768px){
+  nav{padding:0 1rem!important;height:56px!important}
+  .nav-links,.nav-links-wrap{display:none!important}
+  .nav-cta{display:none!important}
+  .ham-btn{display:flex!important}
+  #netPill,.wallet-pill,.pill-badge{display:none!important}
+  #connectBtn{font-size:12px!important;padding:8px 12px!important;min-height:36px!important}
+  .hero-h1,h1.hero-h1{font-size:clamp(22px,7vw,38px)!important;letter-spacing:-.3px!important;line-height:1.08!important;word-break:break-word!important}
+  .hero-sub{font-size:15px!important}
+  .btn-xl{min-height:52px!important;font-size:16px!important;padding:15px 24px!important;width:100%!important;justify-content:center!important;display:flex!important;align-items:center!important;border-radius:12px!important}
+  .hero-ctas,.cta-btns{flex-direction:column!important;gap:10px!important}
+  .main-btn{min-height:52px!important;font-size:15px!important}
+  .btn-launch{min-height:48px!important;font-size:15px!important}
+  .container{padding:0 1rem!important}
+  .stats-grid{grid-template-columns:1fr 1fr!important}
+  .flow-grid,.feat-grid{grid-template-columns:1fr!important}
+  .calc-body{grid-template-columns:1fr!important}
+  .out-val{font-size:30px!important}
+  .vault-pill{padding:14px 16px!important}
+  .vc{padding:16px!important}
+  .feat-card,.flow-step{padding:1.25rem!important}
+  footer{padding:2rem 0!important}
+  .footer-inner{flex-direction:column!important;text-align:center!important;gap:1.25rem!important}
+  .footer-links{flex-wrap:wrap!important;justify-content:center!important;gap:.5rem 1.25rem!important}
+  .footer-links a{min-height:40px!important;display:inline-flex!important;align-items:center!important}
+}
+@media(hover:none){.btn-xl:hover,.main-btn:hover,.btn-launch:hover,.vc:hover,.vault-pill:hover{transform:none!important}}
+@supports(padding-bottom:env(safe-area-inset-bottom)){.mobile-nav{padding-bottom:env(safe-area-inset-bottom)};footer{padding-bottom:calc(2rem + env(safe-area-inset-bottom))!important}}
+</style>
+<script>
+/* CINDER HAMBURGER PATCH */
+(function(){
+  var nav=document.querySelector('nav');
+  if(!nav)return;
+  
+  // Inject hamburger button into nav if not already there
+  if(!document.getElementById('hamBtn')){
+    var btn=document.createElement('button');
+    btn.id='hamBtn';btn.className='ham-btn';btn.setAttribute('aria-label','Menu');
+    btn.innerHTML='<span></span><span></span><span></span>';
+    btn.onclick=function(){toggleMobileNav()};
+    nav.appendChild(btn);
+  }
+
+  // Inject mobile nav overlay if not already there  
+  if(!document.getElementById('mobileNav')){
+    var mn=document.createElement('div');
+    mn.className='mobile-nav';mn.id='mobileNav';
+    var links=[
+      ['/','← Home'],
+      ['/app','Launch App'],
+      ['/governance','Governance'],
+      ['/about','About']
+    ];
+    // Add page-specific links
+    var path=window.location.pathname;
+    if(path.indexOf('app')>-1){
+      links=[['#how','How it works'],['#calc','Calculator'],['#app','Deposit'],['/governance','Governance'],['/about','About'],['/','← Home']];
+    } else if(path.indexOf('governance')>-1){
+      links=[['#tokenomics','Tokenomics'],['#governance','Governance'],['#mining','Mining'],['/app','Launch App'],['/about','About'],['/','← Home']];
+    } else if(path.indexOf('about')>-1){
+      links=[['/','← Home'],['/app','Launch App'],['/governance','Governance']];
+    }
+    mn.innerHTML=links.map(function(l,i){
+      var cls=i===links.length-1?' class="mn-cta"':'';
+      return '<a href="'+l[0]+'"'+cls+' onclick="closeMobileNav()">'+l[1]+'</a>';
+    }).join('');
+    nav.parentNode.insertBefore(mn,nav.nextSibling);
+  }
+})();
+
+function toggleMobileNav(){
+  var btn=document.getElementById('hamBtn');
+  var nav=document.getElementById('mobileNav');
+  if(!btn||!nav)return;
+  btn.classList.toggle('open');
+  nav.classList.toggle('open');
+  document.body.style.overflow=nav.classList.contains('open')?'hidden':'';
+}
+function closeMobileNav(){
+  var b=document.getElementById('hamBtn');
+  var n=document.getElementById('mobileNav');
+  if(b)b.classList.remove('open');
+  if(n)n.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click',function(e){
+  var n=document.getElementById('mobileNav');
+  var b=document.getElementById('hamBtn');
+  if(n&&n.classList.contains('open')&&!n.contains(e.target)&&b&&!b.contains(e.target))closeMobileNav();
+});
+</script>
 </body>
 </html>
