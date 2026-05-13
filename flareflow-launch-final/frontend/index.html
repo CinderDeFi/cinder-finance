@@ -923,6 +923,47 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 }
 /* ═══ END VC CARD LAYOUT FIX ═══ */
 
+
+/* ── Footer fix ─────────────────────────────── */
+footer, .footer, .site-footer {
+  width: 100%;
+  box-sizing: border-box;
+}
+.footer-inner, .footer-wrap, .ft-inner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 1rem !important;
+  max-width: 1120px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.footer-links, .ft-links {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 0.5rem 1.5rem !important;
+}
+.footer-copy, .ft-copy {
+  font-size: 12px !important;
+  color: rgba(238,233,225,0.35) !important;
+  white-space: nowrap !important;
+}
+@media (max-width: 768px) {
+  .footer-inner, .footer-wrap, .ft-inner {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+    gap: 1rem !important;
+  }
+  .footer-links, .ft-links {
+    justify-content: center !important;
+  }
+}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
 <script>

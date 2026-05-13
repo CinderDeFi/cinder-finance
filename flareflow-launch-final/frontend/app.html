@@ -1592,6 +1592,47 @@ html, body { max-width: 100%; overflow-x: hidden; }
   visibility: visible !important;
 }
 
+
+/* ── Footer fix ─────────────────────────────── */
+footer, .footer, .site-footer {
+  width: 100%;
+  box-sizing: border-box;
+}
+.footer-inner, .footer-wrap, .ft-inner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 1rem !important;
+  max-width: 1120px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.footer-links, .ft-links {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 0.5rem 1.5rem !important;
+}
+.footer-copy, .ft-copy {
+  font-size: 12px !important;
+  color: rgba(238,233,225,0.35) !important;
+  white-space: nowrap !important;
+}
+@media (max-width: 768px) {
+  .footer-inner, .footer-wrap, .ft-inner {
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
+    gap: 1rem !important;
+  }
+  .footer-links, .ft-links {
+    justify-content: center !important;
+  }
+}
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
