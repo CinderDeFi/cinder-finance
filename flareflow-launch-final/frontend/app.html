@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <!-- BUILD-MARKER-CINDERFINANCE-2026-05-13-ZAP-LIVE -->
+<!-- BUILD-V3-VAULT-FIX -->
 
   <!-- SEO & Social -->
   <meta name="description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
@@ -1711,17 +1712,29 @@ Vault stats</span></div>
 })();
 
 // ── Vault pre-selection from cover page or URL param ─────────────────────
+// Always clear any stored vault index on load — only honour it if the
+// vault is actually live on the current chain (defaults to sFLR otherwise).
 (function(){
   try {
     const stored = sessionStorage.getItem('cinderVaultIdx');
     const urlParam = new URLSearchParams(location.search).get('vault');
-    const idx = stored !== null ? parseInt(stored) : (urlParam !== null ? parseInt(urlParam) : null);
-    if(idx !== null && !isNaN(idx)){
-      if(stored) sessionStorage.removeItem('cinderVaultIdx');
-      // Delay to ensure selectVault is defined
-      setTimeout(()=>{ if(typeof selectVault==='function') selectVault(idx); }, 200);
-    }
-  } catch(e){}
+    sessionStorage.removeItem('cinderVaultIdx');  // always clear, don't reuse on next load
+
+    let idx = stored !== null ? parseInt(stored)
+            : urlParam !== null ? parseInt(urlParam)
+            : 0;  // default to sFLR
+    if (isNaN(idx) || idx < 0 || idx > 3) idx = 0;
+
+    // Vaults that aren't live on mainnet → fall back to sFLR (idx 0)
+    // Mainnet only has sFLR vault live as of launch.
+    const liveOnMainnet = [true, false, false, false]; // sFLR, stXRP, EMBER/FLR LP, sFLR/FLR LP
+    if (!liveOnMainnet[idx]) idx = 0;
+
+    setTimeout(() => {
+      if (typeof selectVault === 'function') selectVault(idx);
+      else if (typeof heroSelectVault === 'function') heroSelectVault(idx);
+    }, 200);
+  } catch(e) { /* silent — fall back to default activeVaultIdx=0 */ }
 })();
 
 // ── CONFIG — paste your deployed addresses here ──────────────────────────
