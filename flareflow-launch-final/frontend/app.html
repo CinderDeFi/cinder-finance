@@ -901,6 +901,157 @@ nav button::after { display: none !important; content: none !important; }
 }
 /* ══════════════════════════════════════════════════ */
 
+
+
+
+/* ══════════════════════════════════════════════════
+   YIELD SIMULATOR — Share Projection
+   ══════════════════════════════════════════════════ */
+.calc-share-row {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border, rgba(255,255,255,0.06));
+}
+.calc-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,107,35,0.08);
+  border: 1px solid rgba(255,107,35,0.25);
+  color: var(--accent2, #FF8C4A);
+  font-family: var(--body,'Space Grotesk',sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.calc-share-btn:hover {
+  background: rgba(255,107,35,0.14);
+  border-color: rgba(255,107,35,0.4);
+  transform: translateY(-1px);
+}
+.calc-share-btn:active { transform: translateY(0); }
+.calc-share-btn.copied {
+  background: rgba(74,186,111,0.12);
+  border-color: rgba(74,186,111,0.3);
+  color: #4ABA6F;
+}
+.calc-share-hint {
+  font-size: 11px;
+  color: var(--ink3, #52504C);
+  font-family: var(--mono,monospace);
+}
+@media (max-width: 640px) {
+  .calc-share-row { flex-direction: column; align-items: flex-start; }
+  .calc-share-btn { width: 100%; justify-content: center; }
+}
+
+
+/* ══════════════════════════════════════════════════
+   MISSING BUTTON STYLES (fix for unstyled white pills)
+   ══════════════════════════════════════════════════ */
+
+/* ── Hero CTAs: Start Earning + How it works ── */
+.btn-xl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-family: var(--body, 'Space Grotesk', sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1;
+  white-space: nowrap;
+}
+.btn-xl.primary {
+  background: linear-gradient(135deg, var(--accent, #FF6B23), var(--accent3, #FFB347));
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(255, 107, 35, 0.3);
+}
+.btn-xl.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(255, 107, 35, 0.42);
+  filter: brightness(1.05);
+}
+.btn-xl.primary:active { transform: translateY(0); }
+.btn-xl.outline,
+.btn-xl.secondary {
+  background: transparent;
+  color: var(--ink, #EEE9E1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.btn-xl.outline:hover,
+.btn-xl.secondary:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* ── Ghost button (e.g. refresh icon button) ── */
+.btn-ghost {
+  background: transparent;
+  color: var(--ink2, #8C8880);
+  border: 1px solid var(--border, rgba(255,255,255,0.06));
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink, #EEE9E1);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ── Zap-mode toggle (Use sFLR / ⚡ Zap with FLR) ── */
+.zap-mode-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 7px;
+  background: transparent;
+  border: none;
+  color: var(--ink3, #52504C);
+  font-family: var(--body, 'Space Grotesk', sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+  line-height: 1;
+}
+.zap-mode-btn:hover {
+  color: var(--ink2, #8C8880);
+  background: rgba(255, 255, 255, 0.025);
+}
+.zap-mode-btn.active {
+  background: linear-gradient(135deg, rgba(255, 107, 35, 0.16), rgba(255, 140, 74, 0.08));
+  color: var(--accent2, #FF8C4A);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 107, 35, 0.18);
+}
+
+/* Mobile sizing */
+@media (max-width: 640px) {
+  .btn-xl { padding: 13px 20px; font-size: 14px; }
+  .zap-mode-btn { font-size: 11px; padding: 7px 10px; }
+}
+/* ══════════════════════════════════════════════════ */
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
@@ -1009,6 +1160,8 @@ nav button::after { display: none !important; content: none !important; }
           <a href="#app"><button class="btn-xl primary" onclick="scrollToApp()">Start Earning</button></a>
           <a href="#how"><button class="btn-xl outline">How it works</button></a>
         </div>
+
+
         <div class="hero-stats reveal reveal-d4">
           <div>
             <div class="h-stat-v g" id="heroApy">~12%</div>
@@ -1259,6 +1412,21 @@ nav button::after { display: none !important; content: none !important; }
           </div>
           <div id="calc-chart-wrap">
             <canvas id="calc-chart"></canvas>
+          </div>
+
+          <!-- Share projection -->
+          <div class="calc-share-row">
+            <button type="button" id="calcShareBtn" class="calc-share-btn" onclick="shareCalcProjection()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+              </svg>
+              <span id="calcShareLabel">Share my projection</span>
+            </button>
+            <div class="calc-share-hint">Generates a link with your numbers pre-filled</div>
           </div>
         </div>
       </div>
@@ -3381,6 +3549,86 @@ function sparkBurst() {
   }
   window.addEventListener('scroll', updateActive, { passive: true });
   updateActive();
+})();
+</script>
+
+
+<script>
+// ══════════════════════════════════════════════════
+// YIELD SIMULATOR — Share / Read URL projection
+// ══════════════════════════════════════════════════
+function shareCalcProjection() {
+  var dep = document.getElementById('slDep');
+  var apy = document.getElementById('slApy');
+  var months = document.getElementById('slMonths');
+  if (!dep || !apy || !months) return;
+  var url = new URL(window.location.href);
+  url.searchParams.set('dep', dep.value);
+  url.searchParams.set('apy', apy.value);
+  url.searchParams.set('months', months.value);
+  url.hash = 'calc';
+  var shareUrl = url.toString();
+
+  // Copy to clipboard
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(shareUrl).then(showShareSuccess).catch(fallbackCopy);
+  } else {
+    fallbackCopy();
+  }
+  function fallbackCopy() {
+    var ta = document.createElement('textarea');
+    ta.value = shareUrl;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showShareSuccess(); } catch(e) {}
+    document.body.removeChild(ta);
+  }
+  function showShareSuccess() {
+    var btn = document.getElementById('calcShareBtn');
+    var label = document.getElementById('calcShareLabel');
+    if (!btn || !label) return;
+    var originalText = label.textContent;
+    btn.classList.add('copied');
+    label.textContent = '✓ Link copied to clipboard';
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      label.textContent = originalText;
+    }, 2400);
+  }
+}
+
+// Read URL params on load and pre-fill the calculator
+(function() {
+  function applyURLState() {
+    var params = new URLSearchParams(window.location.search);
+    var dep = params.get('dep');
+    var apy = params.get('apy');
+    var months = params.get('months');
+    var hasAny = dep || apy || months;
+    if (!hasAny) return;
+
+    var depEl = document.getElementById('slDep');
+    var apyEl = document.getElementById('slApy');
+    var monthsEl = document.getElementById('slMonths');
+    if (depEl && dep && !isNaN(+dep))     depEl.value = dep;
+    if (apyEl && apy && !isNaN(+apy))     apyEl.value = apy;
+    if (monthsEl && months && !isNaN(+months)) monthsEl.value = months;
+    if (typeof updateCalc === 'function') updateCalc();
+    // Smooth-scroll into view
+    setTimeout(function() {
+      var calc = document.getElementById('calc');
+      if (calc && window.location.hash === '#calc') {
+        calc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 200);
+  }
+  if (document.readyState !== 'loading') {
+    setTimeout(applyURLState, 100);
+  } else {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(applyURLState, 100); });
+  }
 })();
 </script>
 </body>

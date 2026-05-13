@@ -632,13 +632,7 @@ nav a[href*="#"].nav-active__removed {
 /* ══════════════════════════════════════════════════
    FIX: keep Connect Wallet + Hamburger on one row (mobile)
    ══════════════════════════════════════════════════ */
-
-/* Don't let nav children wrap */
-nav {
-  flex-wrap: nowrap !important;
-}
-
-/* nav-right holds Connect Wallet + Hamburger — never wrap, never shrink */
+nav { flex-wrap: nowrap !important; }
 .nav-right {
   display: flex !important;
   align-items: center !important;
@@ -646,60 +640,18 @@ nav {
   flex-shrink: 0 !important;
   gap: 8px !important;
 }
-
-/* Logo can shrink, but text can ellipsis if needed */
-.nav-logo {
-  min-width: 0 !important;
-}
-
-/* On mobile, ensure Connect Wallet stays compact and hamburger sits directly to its right */
+.nav-logo { min-width: 0 !important; }
 @media (max-width: 768px) {
-  nav {
-    padding: 0 1rem !important;
-    gap: 8px !important;
-    flex-wrap: nowrap !important;
-  }
-  .nav-right {
-    flex-wrap: nowrap !important;
-    flex-shrink: 0 !important;
-    gap: 8px !important;
-  }
-  /* Compact Connect Wallet — visible but small */
-  #connectBtn {
-    font-size: 12px !important;
-    padding: 7px 12px !important;
-    min-height: 34px !important;
-    height: 34px !important;
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
-  }
-  /* Hamburger — visible, fixed-size, right of Connect Wallet */
-  .ham-btn {
-    display: flex !important;
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
-    flex-shrink: 0 !important;
-  }
-  /* Hide nav links — they're in the slide-out menu */
+  nav { padding: 0 1rem !important; gap: 8px !important; flex-wrap: nowrap !important; }
+  .nav-right { flex-wrap: nowrap !important; flex-shrink: 0 !important; gap: 8px !important; }
+  #connectBtn { font-size: 12px !important; padding: 7px 12px !important; min-height: 34px !important; height: 34px !important; white-space: nowrap !important; flex-shrink: 0 !important; }
+  .ham-btn { display: flex !important; width: 36px !important; height: 36px !important; min-width: 36px !important; flex-shrink: 0 !important; }
   .nav-links { display: none !important; }
 }
-
-/* Tiny screens — even more compact */
 @media (max-width: 360px) {
-  #connectBtn {
-    font-size: 11px !important;
-    padding: 6px 10px !important;
-    min-height: 32px !important;
-    height: 32px !important;
-  }
-  .ham-btn {
-    width: 32px !important;
-    height: 32px !important;
-    min-width: 32px !important;
-  }
+  #connectBtn { font-size: 11px !important; padding: 6px 10px !important; min-height: 32px !important; height: 32px !important; }
+  .ham-btn { width: 32px !important; height: 32px !important; min-width: 32px !important; }
 }
-/* ══════════════════════════════════════════════════ */
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>

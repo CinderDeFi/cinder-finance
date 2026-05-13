@@ -437,7 +437,6 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 }
 .mobile-nav a:last-child { border-bottom: none; }
 .mobile-nav a:active { color: #EEE9E1; background: rgba(255,255,255,0.03); }
-.mobile-nav 
 
 @media (max-width: 768px) {
   /* ── Nav ── */
@@ -490,8 +489,8 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
   .vc { padding: 16px !important; gap: 12px !important; }
   .feat-card { padding: 1.25rem !important; }
   .flow-step { padding: 1.25rem !important; }
-
-  
+}
+/* ── End mobile overrides ── */
 
 /* ── Unified footer ──────────────────────────────── */
 footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; margin-top: 0; }
@@ -691,60 +690,6 @@ nav a[href^="#"].nav-active { color: #FF6B23 !important; }
           </div>
         </a>
       </div>
-            <div class="vc-info">
-              <div class="vc-name">sFLR Vault</div>
-              <div class="vc-meta">Sceptre · auto-compound · cFLR shares</div>
-            </div>
-            <div class="vc-right">
-              <div class="vc-apy">~12%</div>
-              <div class="vc-status live">● Live</div>
-            </div>
-            <span class="vc-arrow">›</span>
-          </div>
-        </a>
-        <a href="/app" style="text-decoration:none;color:inherit">
-          <div class="vc">
-            <div class="vc-icon">🔶</div>
-            <div class="vc-info">
-              <div class="vc-name">stXRP Vault</div>
-              <div class="vc-meta">Firelight · auto-compound · cXRP shares</div>
-            </div>
-            <div class="vc-right">
-              <div class="vc-apy" style="color:var(--amber)"><span data-apy="stxrp">~9%</span></div>
-              <div class="vc-status soon">◦ Coming soon</div>
-            </div>
-            <span class="vc-arrow">›</span>
-          </div>
-        </a>
-        <a href="/app" style="text-decoration:none;color:inherit">
-          <div class="vc">
-            <div class="vc-icon">🟡</div>
-            <div class="vc-info">
-              <div class="vc-name">EMBER/FLR LP</div>
-              <div class="vc-meta">Sparkdex · AMM fees + EMBER mining</div>
-            </div>
-            <div class="vc-right">
-              <div class="vc-apy" style="color:var(--amber)">LP</div>
-              <div class="vc-status soon">◦ Post-launch</div>
-            </div>
-            <span class="vc-arrow">›</span>
-          </div>
-        </a>
-        <a href="/app" style="text-decoration:none;color:inherit">
-          <div class="vc">
-            <div class="vc-icon">🟣</div>
-            <div class="vc-info">
-              <div class="vc-name">sFLR/FLR LP</div>
-              <div class="vc-meta">Sparkdex · AMM fees + EMBER mining</div>
-            </div>
-            <div class="vc-right">
-              <div class="vc-apy" style="color:var(--purple, #9B6DFF)">LP</div>
-              <div class="vc-status soon">◦ Post-launch</div>
-            </div>
-            <span class="vc-arrow">›</span>
-          </div>
-        </a>
-      </div>
     </div>
   </div>
 </section>
@@ -846,6 +791,16 @@ nav a[href^="#"].nav-active { color: #FF6B23 !important; }
             <span id="cvYearsVal" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:18px;color:var(--ink);min-width:60px;text-align:right">3 yrs</span>
           </div>
         </div>
+      </div>
+
+      <!-- Divergence chart -->
+      <div id="cvChartWrap" style="position:relative;height:200px;margin-bottom:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1rem 1rem;overflow:hidden">
+        <canvas id="cvChart" style="display:block;width:100%;height:100%"></canvas>
+        <div style="position:absolute;top:.75rem;right:1rem;display:flex;gap:1rem;font-family:var(--mono,monospace);font-size:10px;letter-spacing:0.05em;text-transform:uppercase;pointer-events:none">
+          <span style="display:flex;align-items:center;gap:5px;color:var(--ink3)"><span style="display:inline-block;width:10px;height:2px;background:var(--ink3)"></span>Manual</span>
+          <span style="display:flex;align-items:center;gap:5px;color:var(--accent2)"><span style="display:inline-block;width:10px;height:2px;background:linear-gradient(90deg,#FF6B23,#FFB347)"></span>Cinder</span>
+        </div>
+        <div id="cvChartTooltip" style="position:absolute;display:none;pointer-events:none;background:rgba(7,8,10,0.95);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-family:var(--mono,monospace);font-size:11px;color:var(--ink);backdrop-filter:blur(8px);z-index:5;white-space:nowrap"></div>
       </div>
 
       <!-- Results comparison -->
@@ -1040,19 +995,173 @@ function toggleFaq(btn) {
 function updateCV() {
   var deposit = parseInt(document.getElementById('cvDeposit').value);
   var years = parseInt(document.getElementById('cvYears').value);
-  var apy = 0.12; // live from chain, fallback 12%
+  var apy = (window.cinderLiveAPY || 0.12);
   var n = 8760; // hourly compounds per year
 
-  var manual = deposit * (1 + apy * years);
-  var compound = deposit * Math.pow(1 + apy/n, n * years);
-  var extra = compound - manual;
+  var manualFinal = deposit * (1 + apy * years);
+  var compoundFinal = deposit * Math.pow(1 + apy/n, n * years);
+  var extra = compoundFinal - manualFinal;
 
   document.getElementById('cvDepositVal').textContent = '$' + deposit.toLocaleString();
   document.getElementById('cvYearsVal').textContent = years + (years === 1 ? ' yr' : ' yrs');
-  document.getElementById('cvManual').textContent = '$' + Math.round(manual).toLocaleString();
-  document.getElementById('cvCompound').textContent = '$' + Math.round(compound).toLocaleString();
+  document.getElementById('cvManual').textContent = '$' + Math.round(manualFinal).toLocaleString();
+  document.getElementById('cvCompound').textContent = '$' + Math.round(compoundFinal).toLocaleString();
   document.getElementById('cvExtra').textContent = '+$' + Math.round(extra).toLocaleString();
+
+  drawCVChart(deposit, apy, years);
 }
+
+// ── Divergence chart for compound section ──────────────────────
+var _cvChartPoints = null;
+function drawCVChart(deposit, apy, years) {
+  var canvas = document.getElementById('cvChart');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  var cssW = canvas.offsetWidth;
+  var cssH = canvas.offsetHeight;
+  if (canvas.width !== cssW * dpr) {
+    canvas.width = cssW * dpr;
+    canvas.height = cssH * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  ctx.clearRect(0, 0, cssW, cssH);
+
+  // padding
+  var padL = 8, padR = 8, padT = 20, padB = 24;
+  var W = cssW - padL - padR;
+  var H = cssH - padT - padB;
+
+  // Build 60 data points across the time range
+  var steps = 60;
+  var n = 8760;
+  var manualPts = [];
+  var compPts = [];
+  for (var i = 0; i <= steps; i++) {
+    var t = (i / steps) * years;
+    manualPts.push(deposit * (1 + apy * t));
+    compPts.push(deposit * Math.pow(1 + apy/n, n * t));
+  }
+  _cvChartPoints = { manual: manualPts, comp: compPts, deposit: deposit, years: years, steps: steps };
+
+  var maxY = compPts[steps];
+  var minY = deposit;
+  var rangeY = maxY - minY;
+  function mapX(i) { return padL + (i / steps) * W; }
+  function mapY(v) { return padT + H - ((v - minY) / rangeY) * H; }
+
+  // Subtle horizontal gridlines (3 lines)
+  ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+  ctx.lineWidth = 1;
+  for (var g = 0; g < 4; g++) {
+    var y = padT + (H / 3) * g;
+    ctx.beginPath();
+    ctx.moveTo(padL, y);
+    ctx.lineTo(padL + W, y);
+    ctx.stroke();
+  }
+
+  // Year labels along bottom
+  ctx.fillStyle = 'rgba(238,233,225,0.25)';
+  ctx.font = '9px "JetBrains Mono", monospace';
+  ctx.textAlign = 'center';
+  var yearTicks = Math.min(years, 5);
+  for (var yt = 0; yt <= yearTicks; yt++) {
+    var x = padL + (yt / yearTicks) * W;
+    ctx.fillText(yt + 'y', x, cssH - 6);
+  }
+
+  // ── Manual line (dashed gray) ──
+  ctx.strokeStyle = 'rgba(238,233,225,0.35)';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([4, 3]);
+  ctx.beginPath();
+  ctx.moveTo(mapX(0), mapY(manualPts[0]));
+  for (var i2 = 1; i2 <= steps; i2++) ctx.lineTo(mapX(i2), mapY(manualPts[i2]));
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // ── Compound area fill (orange gradient) ──
+  var grad = ctx.createLinearGradient(0, padT, 0, padT + H);
+  grad.addColorStop(0, 'rgba(255,107,35,0.28)');
+  grad.addColorStop(1, 'rgba(255,107,35,0.0)');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.moveTo(mapX(0), mapY(compPts[0]));
+  for (var i3 = 1; i3 <= steps; i3++) ctx.lineTo(mapX(i3), mapY(compPts[i3]));
+  ctx.lineTo(mapX(steps), padT + H);
+  ctx.lineTo(mapX(0), padT + H);
+  ctx.closePath();
+  ctx.fill();
+
+  // ── Compound line (orange gradient stroke) ──
+  var strokeGrad = ctx.createLinearGradient(padL, 0, padL + W, 0);
+  strokeGrad.addColorStop(0, '#FF6B23');
+  strokeGrad.addColorStop(1, '#FFB347');
+  ctx.strokeStyle = strokeGrad;
+  ctx.lineWidth = 2.5;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  ctx.moveTo(mapX(0), mapY(compPts[0]));
+  for (var i4 = 1; i4 <= steps; i4++) ctx.lineTo(mapX(i4), mapY(compPts[i4]));
+  ctx.stroke();
+
+  // End-point glow on compound line
+  var endX = mapX(steps), endY = mapY(compPts[steps]);
+  ctx.fillStyle = '#FFB347';
+  ctx.beginPath();
+  ctx.arc(endX, endY, 4, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowColor = '#FF6B23';
+  ctx.shadowBlur = 12;
+  ctx.beginPath();
+  ctx.arc(endX, endY, 4, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+}
+
+// Tooltip on hover
+function _initCVHover() {
+  var wrap = document.getElementById('cvChartWrap');
+  var canvas = document.getElementById('cvChart');
+  var tip = document.getElementById('cvChartTooltip');
+  if (!wrap || !canvas || !tip) return;
+  canvas.addEventListener('mousemove', function(e) {
+    if (!_cvChartPoints) return;
+    var rect = canvas.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var ratio = Math.max(0, Math.min(1, (x - 8) / (rect.width - 16)));
+    var idx = Math.round(ratio * _cvChartPoints.steps);
+    if (idx < 0) idx = 0;
+    if (idx > _cvChartPoints.steps) idx = _cvChartPoints.steps;
+    var t = (idx / _cvChartPoints.steps) * _cvChartPoints.years;
+    var m = Math.round(_cvChartPoints.manual[idx]);
+    var co = Math.round(_cvChartPoints.comp[idx]);
+    var diff = co - m;
+    tip.style.display = 'block';
+    tip.style.left = (x + 12) + 'px';
+    tip.style.top  = '8px';
+    tip.innerHTML = '<span style="color:var(--ink3)">Year ' + t.toFixed(1) + '</span><br>' +
+                    '<span style="color:var(--ink2)">Manual: </span>$' + m.toLocaleString() + '<br>' +
+                    '<span style="color:var(--accent2)">Cinder: </span>$' + co.toLocaleString() + '<br>' +
+                    '<span style="color:#4ABA6F">+$' + diff.toLocaleString() + '</span>';
+  });
+  canvas.addEventListener('mouseleave', function() { tip.style.display = 'none'; });
+}
+
+if (document.readyState !== 'loading') {
+  _initCVHover();
+  setTimeout(function(){ if (typeof updateCV === 'function') updateCV(); }, 50);
+} else {
+  document.addEventListener('DOMContentLoaded', function() {
+    _initCVHover();
+    setTimeout(function(){ if (typeof updateCV === 'function') updateCV(); }, 50);
+  });
+}
+window.addEventListener('resize', function() {
+  if (typeof updateCV === 'function') updateCV();
+});
 
 
 /* APY sparkline — simulated historical trend */
