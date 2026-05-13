@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- BUILD-MARKER-CINDERFINANCE-2026-05-13-ZAP-LIVE -->
-<!-- BUILD-V12-UX-IMPROVEMENTS -->
+<!-- BUILD-V13-LAUNCH-READY -->
 
   <!-- SEO & Social -->
   <meta name="description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
@@ -3211,7 +3211,8 @@ async function loadAppData(){
     document.getElementById('appPosShares').textContent=shares.toFixed(6)+' '+shareSym;
     document.getElementById('appPosPct').textContent=pct.toFixed(4)+'%';
     document.getElementById('appYieldChip').textContent='+'+earned.toFixed(4)+' '+assetSym+' earned';
-    if(shares>0)document.getElementById('appPositionCard').style.display='block';
+    // Position card hidden until getUserInfo field mapping is fixed in v13
+    /* if(shares>0)document.getElementById('appPositionCard').style.display='block'; */
 
     // Update global TVL for ticker
     tickerTVL = tvlUSD;
