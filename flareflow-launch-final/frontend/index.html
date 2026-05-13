@@ -530,6 +530,20 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
 }
 /* ── End unified footer ── */
 
+
+/* Section nav hover + active */
+nav a[href^="#"] { transition: color .2s; position: relative; }
+nav a[href^="#"]:hover { color: #FF6B23 !important; }
+nav a[href^="#"].nav-active { color: #FF6B23 !important; }
+nav a[href^="#"].nav-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 2px;
+  background: #FF6B23;
+  border-radius: 2px;
+}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
 <script>
@@ -1101,5 +1115,33 @@ function updateCV() {
 
 </script>
 
+<script>
+/* Section nav active state */
+(function() {
+  var sections = ['how', 'features', 'faq'];
+  var links = {};
+  sections.forEach(function(id) {
+    var el = document.querySelector('nav a[href*="#' + id + '"]');
+    if (el) links[id] = el;
+  });
+  function clearAll() {
+    sections.forEach(function(id){ if(links[id]) links[id].classList.remove('nav-active'); });
+  }
+  function updateActive() {
+    var scrollY = window.scrollY + 120;
+    var current = null;
+    sections.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollY) current = id;
+    });
+    var lastEl = document.getElementById('faq');
+    if (lastEl && scrollY > lastEl.offsetTop + lastEl.offsetHeight) current = null;
+    clearAll();
+    if (current && links[current]) links[current].classList.add('nav-active');
+  }
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+})();
+</script>
 </body>
 </html>
