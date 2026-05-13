@@ -116,18 +116,16 @@ async function main() {
   const WFLR_ADDR = isMainnet
     ? "0x1D80c49BbBCd1C0911346656B529DF9E5c2F783d"
     : deployer.address;
-  const SCEPTRE_POOL = isMainnet
-    ? "0xb53Da25e918F9Df67f8dEDFeC83d7e81F3a0D0d"
-    : deployer.address;
+  // SCEPTRE_POOL already declared above
 
   // Get LP pair addresses from factory
   // On testnet we use placeholder — deploy add-liquidity.js first to create pairs
   let emberFlrPair  = process.env.EMBER_FLR_PAIR  || deployer.address;
   let sFLRFlrPair  = process.env.SFLR_FLR_PAIR  || deployer.address;
 
-  if (isMainnet && emberFlrPair === deployer.address) {
-    console.log("\n⚠ EMBER_FLR_PAIR not set in .env");
-    console.log("  Run add-liquidity.js first to create the EMBER/FLR pool");
+  if (!isMainnet || (isMainnet && emberFlrPair === deployer.address)) {
+    console.log("\n⚠ Skipping LP vaults on testnet (no Sparkdex pairs exist)");
+    console.log("  On mainnet: run add-liquidity.js first, then set EMBER_FLR_PAIR in .env");
     console.log("  Then set EMBER_FLR_PAIR in .env and re-run from step 11");
     console.log("  Skipping LP vault deployment for now...\n");
   } else {
