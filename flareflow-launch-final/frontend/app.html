@@ -1492,10 +1492,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 /* Tiny phones — extra breathing room */
 @media (max-width: 390px) {
-  .container, .wrap, .wrap-wide {
-    padding-left: 0.875rem !important;
-    padding-right: 0.875rem !important;
-  }
+  .container, .wrap, /* wrap-wide padding removed */
   .faq-q { padding-left: 1rem !important; padding-right: 1rem !important; font-size: 14px !important; }
   .faq-a, .faq-answer { padding-left: 1rem !important; padding-right: 1rem !important; }
   .hero-h1, h1.hero-h1, .hero-h {
@@ -1524,7 +1521,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 /* ═══ APP VISUAL UPGRADES ═══ */
 
 /* Floating connect wallet */
-#floatConnect {
+#floatConnect { /* mobile only - hidden on desktop */
   display: none;
   position: fixed;
   bottom: 24px;
@@ -1545,6 +1542,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
   transition: opacity 0.3s;
   animation: floatPulse 3s ease-in-out infinite;
 }
+@media (min-width: 769px) { #floatConnect { display: none !important; } }
+
 @keyframes floatPulse {
   0%, 100% { box-shadow: 0 8px 32px rgba(255,107,35,0.45); }
   50% { box-shadow: 0 12px 48px rgba(255,107,35,0.65); }
@@ -1580,7 +1579,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 #demoBanner.active { display: block; }
 
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-  #floatConnect { bottom: calc(24px + env(safe-area-inset-bottom)); }
+  #floatConnect { /* mobile only - hidden on desktop */ bottom: calc(24px + env(safe-area-inset-bottom)); }
 }
 /* ═══ END APP VISUAL UPGRADES ═══ */
 

@@ -729,10 +729,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 
 /* Tiny phones — extra breathing room */
 @media (max-width: 390px) {
-  .container, .wrap, .wrap-wide {
-    padding-left: 0.875rem !important;
-    padding-right: 0.875rem !important;
-  }
+  .container, .wrap, /* wrap-wide padding removed */
   .faq-q { padding-left: 1rem !important; padding-right: 1rem !important; font-size: 14px !important; }
   .faq-a, .faq-answer { padding-left: 1rem !important; padding-right: 1rem !important; }
   .hero-h1, h1.hero-h1, .hero-h {
@@ -822,7 +819,7 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 .feat-card:nth-child(6) { transition-delay: 0.30s; }
 
 /* Floating connect wallet on mobile */
-#floatConnect {
+#floatConnect { /* mobile only - hidden on desktop */
   display: none;
   position: fixed;
   bottom: 20px;
@@ -842,13 +839,15 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
   white-space: nowrap;
   transition: opacity 0.3s, transform 0.3s;
 }
+@media (min-width: 769px) { #floatConnect { display: none !important; } }
+
 #floatConnect.visible { display: block; }
 @media (max-width: 768px) {
-  #floatConnect { display: none; }
+  #floatConnect { /* mobile only - hidden on desktop */ display: none; }
   #floatConnect.visible { display: block; }
 }
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-  #floatConnect { bottom: calc(20px + env(safe-area-inset-bottom)); }
+  #floatConnect { /* mobile only - hidden on desktop */ bottom: calc(20px + env(safe-area-inset-bottom)); }
 }
 
 /* ═══ END VISUAL UPGRADE CSS ═══ */
