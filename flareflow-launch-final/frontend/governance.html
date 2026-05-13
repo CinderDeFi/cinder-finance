@@ -2112,7 +2112,7 @@ window.addEventListener('load', function() {
 </script>
 <script>
 
-/* Section nav active state */
+/* Section nav active state - scroll based */
 (function() {
   var sections = ['tokenomics','treasury','governance','mining'];
   var links = {};
@@ -2122,28 +2122,34 @@ window.addEventListener('load', function() {
   });
 
   function clearAll() {
-    Object.keys(links).forEach(function(id){ links[id].classList.remove('nav-active'); });
+    sections.forEach(function(id){ if(links[id]) links[id].classList.remove('nav-active'); });
   }
 
-  var active = {};
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      active[entry.target.id] = entry.isIntersecting;
-    });
-    // Find the first visible section and highlight it
-    clearAll();
-    for (var i = 0; i < sections.length; i++) {
-      if (active[sections[i]] && links[sections[i]]) {
-        links[sections[i]].classList.add('nav-active');
-        break;
-      }
-    }
-  }, { rootMargin: '-10% 0px -50% 0px', threshold: 0 });
+  function updateActive() {
+    var scrollY = window.scrollY + 120; // offset for nav height
+    var current = null;
 
-  sections.forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) { active[id] = false; observer.observe(el); }
-  });
+    sections.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollY) {
+        current = id;
+      }
+    });
+
+    // Check if we've scrolled past the LAST section's bottom
+    var lastEl = document.getElementById('mining');
+    if (lastEl && scrollY > lastEl.offsetTop + lastEl.offsetHeight) {
+      current = null;
+    }
+
+    clearAll();
+    if (current && links[current]) {
+      links[current].classList.add('nav-active');
+    }
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive(); // run on load
 })();
 
 </script>
