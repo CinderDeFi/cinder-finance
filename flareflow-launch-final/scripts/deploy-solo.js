@@ -97,7 +97,7 @@ async function main() {
     : deployer.address;                              // testnet placeholder
   console.log("\n10/11 CinderZap (FLR → sFLR → cFLR)...");
   const Zap = await ethers.getContractFactory("CinderZap");
-  const zap = await (await Zap.deploy(SCEPTRE_POOL, sFLRAddr, d.sFLRVault)).waitForDeployment();
+  const zap = await (await Zap.deploy(ethers.getAddress(SCEPTRE_POOL), ethers.getAddress(sFLRAddr), d.sFLRVault)).waitForDeployment();
   d.zap = await zap.getAddress(); console.log(`CinderZap: ${d.zap}`);
   // Whitelist the zap in the vault
   await (await sFLRVault.setApprovedZap(d.zap, true)).wait();
