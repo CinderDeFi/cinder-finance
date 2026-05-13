@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- BUILD-MARKER-CINDERFINANCE-2026-05-13-ZAP-LIVE -->
-<!-- BUILD-V5-PREVIEW-LABELS-FIXED -->
+<!-- BUILD-V6-ZAP-TOGGLE-SHOW -->
 
   <!-- SEO & Social -->
   <meta name="description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
@@ -1733,6 +1733,16 @@ Vault stats</span></div>
     setTimeout(() => {
       if (typeof selectVault === 'function') selectVault(idx);
       else if (typeof heroSelectVault === 'function') heroSelectVault(idx);
+      // Force show zap toggle on page load if config has a real zap address
+      setTimeout(() => {
+        if (typeof updateZapVisibility === 'function') {
+          // Default to chainId 14 (Flare mainnet) for the initial visibility check
+          if (typeof chainId === 'undefined' || chainId === null) {
+            window.chainId = 14;
+          }
+          updateZapVisibility();
+        }
+      }, 300);
     }, 200);
   } catch(e) { /* silent — fall back to default activeVaultIdx=0 */ }
 })();
@@ -1860,8 +1870,8 @@ function updateZapVisibility() {
   const isLPVault = meta && meta.isLP;
   const zapAvailable = v && v.zapSupported && (
     isLPVault
-      ? (lpZapContract != null)
-      : (zapContract && cfg.zap !== '0x0000000000000000000000000000000000000000')
+      ? (cfg.vaults.some(vv => vv.isLP && vv.lpZap && vv.lpZap !== '0x0000000000000000000000000000000000000000'))
+      : (cfg.zap && cfg.zap !== '0x0000000000000000000000000000000000000000')
   );
 
   const heroToggle = document.getElementById('heroZapToggle');
