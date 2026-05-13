@@ -1052,6 +1052,194 @@ nav button::after { display: none !important; content: none !important; }
 }
 /* ══════════════════════════════════════════════════ */
 
+
+/* ══════════════════════════════════════════════════
+   MISSING STYLES — app.html grid, vaults, position, chips
+   ══════════════════════════════════════════════════ */
+
+/* App layout grid: left column = action card, right column = info */
+.app-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .app-grid { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+/* Vault selector pills row */
+.vault-selector-wrap {
+  display: flex;
+  gap: 10px;
+  margin: 1.5rem 0 2rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* Individual vault selector pill */
+.vault-pill {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--surface, #111318);
+  border: 1px solid var(--border, rgba(255,255,255,0.06));
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.vault-pill:hover {
+  border-color: rgba(255, 107, 35, 0.25);
+  transform: translateY(-1px);
+}
+.vault-pill.active {
+  background: rgba(255, 107, 35, 0.05);
+  border-color: rgba(255, 107, 35, 0.35);
+  box-shadow: 0 0 0 1px rgba(255, 107, 35, 0.15), 0 4px 16px rgba(255, 107, 35, 0.1);
+}
+.vault-pill.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #FF6B23, #FFB347);
+}
+
+.vp-icon {
+  font-size: 24px;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  background: rgba(255, 107, 35, 0.06);
+  border-radius: 10px;
+}
+.vp-name {
+  font-family: var(--display, 'Fraunces', serif);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink, #EEE9E1);
+  line-height: 1.2;
+}
+.vp-meta {
+  font-size: 11px;
+  color: var(--ink3, #52504C);
+  margin-top: 2px;
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  letter-spacing: 0.02em;
+}
+.vp-apy {
+  margin-left: auto;
+  font-family: var(--mono, monospace);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent2, #FF8C4A);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* "Not connected" empty state for position box */
+.not-conn {
+  background: var(--surface, #111318);
+  border: 1px dashed var(--border, rgba(255,255,255,0.08));
+  border-radius: 14px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: var(--ink3, #52504C);
+  font-size: 13px;
+}
+.ni {
+  font-size: 32px;
+  margin-bottom: 0.75rem;
+  opacity: 0.5;
+}
+
+/* Position summary box */
+.position-box {
+  background: var(--surface, #111318);
+  border: 1px solid var(--border, rgba(255,255,255,0.06));
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+}
+.pos-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+.pos-row:last-child { border-bottom: none; }
+.pos-l {
+  font-size: 12px;
+  color: var(--ink2, #8C8880);
+}
+.pos-v {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink, #EEE9E1);
+  text-align: right;
+}
+.pos-v.big {
+  font-family: var(--display, 'Fraunces', serif);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--ink, #EEE9E1);
+}
+
+/* Pending yield chip */
+.yield-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--mono, monospace);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(74, 186, 111, 0.08);
+  color: #4ABA6F;
+  border: 1px solid rgba(74, 186, 111, 0.15);
+}
+
+/* Wallet modal spinner */
+.wm-spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-top-color: var(--accent, #FF6B23);
+  border-radius: 50%;
+  animation: wmSpin 0.7s linear infinite;
+  vertical-align: middle;
+}
+@keyframes wmSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Hide-on-mobile utility */
+@media (max-width: 480px) {
+  .hide-xs { display: none !important; }
+}
+
+/* Generic spinner used in button states */
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: wmSpin 0.7s linear infinite;
+  vertical-align: -2px;
+}
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>

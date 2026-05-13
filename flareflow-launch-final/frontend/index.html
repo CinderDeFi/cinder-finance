@@ -536,6 +536,66 @@ nav a[href^="#"]:hover { color: #FF6B23 !important; }
 nav a[href^="#"].nav-active { color: #FF6B23 !important; }
 /* nav-active underline removed */
 
+
+/* ══════════════════════════════════════════════════
+   MISSING STYLES — index.html vault cards & badges
+   ══════════════════════════════════════════════════ */
+
+/* Eyebrow text above section headings */
+.eyebrow {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent2, #FF8C4A);
+  font-weight: 500;
+}
+
+/* Vault card structure */
+.vc-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+/* Vault card variant accent colors */
+.vc.vc-sflr  { border-left: 2px solid #FF6B23; }
+.vc.vc-stxrp { border-left: 2px solid #F5A623; }
+.vc.vc-lp    { border-left: 2px solid #FFB347; }
+.vc.vc-lp2   { border-left: 2px solid #9B6DFF; }
+
+/* APY color modifiers */
+.apy-green  { color: #4ABA6F !important; }
+.apy-amber  { color: #F5A623 !important; }
+.apy-purple { color: #9B6DFF !important; }
+
+/* Status badges (live / soon) */
+.vc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+.live-badge {
+  background: rgba(74, 186, 111, 0.1);
+  color: #4ABA6F;
+  border: 1px solid rgba(74, 186, 111, 0.2);
+}
+.soon-badge {
+  background: rgba(238, 233, 225, 0.04);
+  color: var(--ink3, #52504C);
+  border: 1px solid var(--border, rgba(255,255,255,0.06));
+}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
 <script>

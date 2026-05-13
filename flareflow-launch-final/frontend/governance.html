@@ -652,6 +652,85 @@ nav { flex-wrap: nowrap !important; }
   #connectBtn { font-size: 11px !important; padding: 6px 10px !important; min-height: 32px !important; height: 32px !important; }
   .ham-btn { width: 32px !important; height: 32px !important; min-width: 32px !important; }
 }
+
+/* ══════════════════════════════════════════════════
+   MISSING STYLES — governance button variants
+   ══════════════════════════════════════════════════ */
+
+/* Small variant */
+.btn-sm {
+  padding: 7px 14px !important;
+  font-size: 12px !important;
+  border-radius: 8px !important;
+}
+
+/* Full-width variant */
+.btn-block {
+  display: flex !important;
+  width: 100% !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Surface (subtle filled) variant */
+.btn.btn-surface,
+.btn-surface {
+  background: var(--surface, #111318);
+  color: var(--ink, #EEE9E1);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  transition: all 0.15s;
+}
+.btn.btn-surface:hover,
+.btn-surface:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Ghost (transparent outlined) variant */
+.btn.btn-ghost,
+.btn-ghost {
+  background: transparent;
+  color: var(--ink2, #8C8880);
+  border: 1px solid var(--border, rgba(255,255,255,0.06));
+  transition: all 0.15s;
+}
+.btn.btn-ghost:hover,
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink, #EEE9E1);
+}
+
+/* Green variant for stake-style actions */
+.btn.btn-green,
+.btn-green {
+  background: linear-gradient(135deg, #4ABA6F, #5FC885);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 16px rgba(74, 186, 111, 0.25);
+  transition: all 0.18s;
+}
+.btn.btn-green:hover,
+.btn-green:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(74, 186, 111, 0.38);
+  filter: brightness(1.05);
+}
+
+/* Wallet modal spinner */
+.wm-spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-top-color: var(--accent, #FF6B23);
+  border-radius: 50%;
+  animation: wmSpin 0.7s linear infinite;
+  vertical-align: middle;
+}
+@keyframes wmSpin {
+  to { transform: rotate(360deg); }
+}
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>

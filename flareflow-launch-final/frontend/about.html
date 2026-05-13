@@ -825,6 +825,67 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
 }
 /* ── End unified footer ── */
 
+
+/* ══════════════════════════════════════════════════
+   MISSING STYLES — about.html buttons & nav-logo
+   ══════════════════════════════════════════════════ */
+
+/* Nav logo wrap */
+.nav-logo {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Large hero/CTA buttons */
+.btn-lg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-family: var(--body, 'Space Grotesk', sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Solid (primary) variant */
+.btn-lg.btn-solid,
+.btn-solid {
+  background: linear-gradient(135deg, var(--accent, #FF6B23), var(--accent3, #FFB347));
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(255, 107, 35, 0.3);
+}
+.btn-lg.btn-solid:hover,
+.btn-solid:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(255, 107, 35, 0.42);
+  filter: brightness(1.05);
+}
+
+/* Outline (secondary) variant */
+.btn-lg.btn-outline,
+.btn-outline {
+  background: transparent;
+  color: var(--ink, #EEE9E1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.btn-lg.btn-outline:hover,
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@walletconnect/modal@2.7.0/dist/index.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.13.0/dist/index.umd.js"></script>
@@ -1508,6 +1569,26 @@ async function connectMetaMask() {
     console.error('MetaMask:', e);
   }
 }
+
+async function connectInjected() {
+  if (!window.ethereum) {
+    setWmStatus('No browser wallet detected.');
+    return;
+  }
+  setWmStatus('Connecting…', true);
+  try {
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    provider = new ethers.BrowserProvider(window.ethereum);
+    var nameEl = document.getElementById('woInjectedName');
+    var name = (nameEl && nameEl.textContent) ? nameEl.textContent : 'Browser Wallet';
+    await _onWalletConnected(name);
+  } catch(e) {
+    if (e && e.code === 4001) setWmStatus('Connection rejected by user.');
+    else setWmStatus('Connection failed.');
+    console.error('Injected:', e);
+  }
+}
+
 async function connectWalletConnect() {
   setWmStatus('Opening WalletConnect…', true);
   try {
