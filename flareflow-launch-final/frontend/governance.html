@@ -480,372 +480,44 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
   .feat-card { padding: 1.25rem !important; }
   .flow-step { padding: 1.25rem !important; }
 
-  /* ── Footer ── */
-  footer { padding: 2rem 0 !important; }
-  .footer-inner {
-    flex-direction: column !important; gap: 1.25rem !important;
-    text-align: center !important;
-  }
-  .footer-links {
-    flex-wrap: wrap !important; justify-content: center !important;
-    gap: 0.5rem 1.25rem !important;
-  }
-  .footer-links a {
-    min-height: 40px !important; display: inline-flex !important;
-    align-items: center !important; padding: 4px 8px !important;
-  }
-
-  /* ── General ── */
-  .container { padding: 0 1rem !important; }
-  .stats-grid { grid-template-columns: 1fr 1fr !important; }
-  .flow-grid, .feat-grid { grid-template-columns: 1fr !important; }
-  section { padding: 3rem 0 !important; }
-  .hero-stats { gap: 1.25rem !important; flex-wrap: wrap !important; }
-}
-
-/* ── Touch devices ── */
-@media (hover: none) {
   
-}
 
-/* ── Safe area insets ── */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .mobile-nav { padding-bottom: calc(0.75rem + env(safe-area-inset-bottom)); }
-  footer { padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important; }
+/* ── Unified footer ──────────────────────────────── */
+footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; margin-top: 0; }
+.ft-wrap { max-width: 1120px; margin: 0 auto; padding: 0 2rem; box-sizing: border-box; }
+.ft-top {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem; padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
-
-
-/* ── Wallet selection modal ── */
-.wallet-modal-backdrop{
-  position:fixed;inset:0;background:rgba(0,0,0,0.75);
-  backdrop-filter:blur(8px);z-index:500;
-  display:none;align-items:center;justify-content:center;padding:1rem;
+.ft-logo {
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--ink);
+  font-family: 'Fraunces', Georgia, serif; font-style: italic;
+  font-weight: 700; font-size: 16px;
 }
-.wallet-modal-backdrop.open{display:flex}
-.wallet-modal{
-  background:#1C1814;border:1px solid rgba(255,255,255,0.08);
-  border-radius:20px;width:100%;max-width:400px;
-  overflow:hidden;animation:wModalIn 0.25s cubic-bezier(.34,1.56,.64,1) both;
-  box-shadow:0 24px 64px rgba(0,0,0,0.6);
+.ft-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 0.25rem 1.5rem; }
+.ft-nav a { font-size: 13px; color: var(--ink2); text-decoration: none; transition: color .15s; }
+.ft-nav a:hover { color: var(--ink); }
+.ft-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.75rem; padding-top: 1rem;
 }
-@keyframes wModalIn{from{opacity:0;transform:translateY(20px) scale(0.97)}to{opacity:1;transform:none}}
-.wm-head{
-  padding:1.25rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);
-  display:flex;justify-content:space-between;align-items:center;
+.ft-copy { font-size: 11px; color: var(--ink3); }
+.ft-built { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem 1rem; }
+.ft-built-label { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); }
+.ft-partner {
+  font-size: 12px; font-weight: 500; color: var(--ink3);
+  text-decoration: none; opacity: .45; transition: opacity .15s;
+  display: flex; align-items: center; gap: 5px;
 }
-.wm-title{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-0.3px}
-.wm-close{
-  background:transparent;border:none;color:rgba(255,255,255,0.4);
-  font-size:20px;cursor:pointer;line-height:1;padding:0;
-  transition:color 0.15s;
-}
-.wm-close:hover{color:#fff}
-.wm-body{padding:1rem}
-.wm-desc{font-size:13px;color:var(--ink2);margin-bottom:1.25rem;line-height:1.6;padding:0 0.25rem}
-.wallet-option{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 16px;border-radius:12px;
-  border:1.5px solid rgba(255,255,255,0.06);
-  background:rgba(255,255,255,0.02);
-  cursor:pointer;transition:all 0.15s;margin-bottom:10px;
-}
-.wallet-option:hover{border-color:var(--accent);background:rgba(212,80,12,0.06);transform:translateY(-1px)}
-.wallet-option:last-child{margin-bottom:0}
-.wo-icon{
-  width:44px;height:44px;border-radius:12px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:24px;
-  background:rgba(255,255,255,0.05);
-}
-.wo-info{flex:1}
-.wo-name{font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:-0.3px;margin-bottom:2px}
-.wo-desc{font-size:11px;color:var(--ink3);font-family:var(--mono)}
-.wo-badge{
-  font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:5px;
-  flex-shrink:0;
-}
-.wo-badge.recommended{background:rgba(61,168,95,0.15);color:var(--green)}
-.wo-badge.popular{background:rgba(212,80,12,0.12);color:var(--accent2)}
-.wo-badge.mobile{background:rgba(74,144,217,0.12);color:#4A90D9}
-.wm-divider{
-  font-family:var(--mono);font-size:10px;color:var(--ink3);
-  text-transform:uppercase;letter-spacing:0.12em;
-  text-align:center;margin:14px 0;
-  display:flex;align-items:center;gap:10px;
-}
-.wm-divider::before,.wm-divider::after{
-  content:'';flex:1;height:1px;background:rgba(255,255,255,0.06);
-}
-.wm-foot{
-  padding:0.875rem 1.5rem;border-top:1px solid rgba(255,255,255,0.05);
-  font-size:11px;color:var(--ink3);text-align:center;font-family:var(--mono);
-}
-.wm-spinner{
-  width:20px;height:20px;border:2px solid rgba(255,255,255,0.1);
-  border-top-color:var(--accent);border-radius:50%;
-  animation:spin 0.7s linear infinite;display:inline-block;
-  vertical-align:middle;margin-right:8px;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* ════════════════════════════════════════════════════════════
-   MOBILE OPTIMISATION — comprehensive responsive fixes
-   Breakpoints: 640px (tablet), 480px (large phone), 360px (small phone)
-   ════════════════════════════════════════════════════════════ */
-
-
-
-/* ── Nav right — consistent across all pages ── */
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
+.ft-partner:hover { opacity: 1; }
 @media (max-width: 768px) {
-  .nav-right { gap: 8px; }
-  .nav-right .pill-badge,
-  .nav-right .wallet-pill,
-  .nav-right .nav-cta,
-  .nav-right > a:not(.ham-btn) { display: none !important; }
-  #connectBtn {
-    font-size: 13px !important;
-    padding: 9px 16px !important;
-    min-height: 40px !important;
-    width: auto !important;
-  }
+  .ft-top { flex-direction: column; align-items: flex-start; }
+  .ft-bottom { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .ft-nav { gap: 0.5rem 1rem; }
 }
-
-/* ═══ CINDER COMPREHENSIVE MOBILE FIX ═══ */
-
-/* Hero text — prevent cramping on small phones */
-@media (max-width: 480px) {
-  .hero-h1, h1.hero-h1, .hero-h {
-    font-size: clamp(26px, 8vw, 38px) !important;
-    line-height: 1.05 !important;
-    letter-spacing: -0.5px !important;
-    word-break: break-word !important;
-  }
-  .hero-sub, .hero-p {
-    font-size: 15px !important;
-    line-height: 1.6 !important;
-  }
-}
-
-/* Buttons — comfortable thumb tap targets */
-@media (max-width: 768px) {
-  /* Primary CTA buttons */
-  .btn-xl, .btn-xl.primary, .btn-xl.outline, .btn-xl.secondary {
-    min-height: 54px !important;
-    padding: 16px 24px !important;
-    font-size: 16px !important;
-    border-radius: 14px !important;
-    width: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  .hero-ctas, .cta-btns, .hero-actions {
-    flex-direction: column !important;
-    gap: 10px !important;
-    width: 100% !important;
-  }
-  /* Nav buttons */
-  #connectBtn {
-    min-height: 40px !important;
-    padding: 9px 16px !important;
-    font-size: 13px !important;
-    width: auto !important;
-  }
-  /* Deposit/action buttons */
-  .main-btn, .deposit-btn, .withdraw-btn {
-    min-height: 54px !important;
-    font-size: 16px !important;
-    border-radius: 14px !important;
-  }
-  /* Launch app links */
-  .btn-launch, a.btn-launch {
-    min-height: 48px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: auto !important;
-    padding: 12px 22px !important;
-  }
-  /* Vault pills */
-  .vault-pill {
-    padding: 14px 16px !important;
-  }
-}
-
-/* Nav cleanup on mobile */
-@media (max-width: 768px) {
-  /* Hide desktop nav links */
-  .nav-links, .nav-links-wrap {
-    display: none !important;
-  }
-  /* Hide extra nav-right items except connectBtn + hamBtn */
-  .nav-right > a:not(#connectBtn),
-  .nav-right > span,
-  .pill-badge,
-  .wallet-pill,
-  .nav-cta {
-    display: none !important;
-  }
-  /* Show hamburger */
-  .ham-btn, #hamBtn {
-    display: flex !important;
-  }
-  /* Nav height */
-  nav {
-    height: 58px !important;
-    padding: 0 1rem !important;
-  }
-}
-
-/* Touch — remove hover transforms */
-@media (hover: none) {
-  .btn-xl:hover, .btn-xl.primary:hover,
-  .main-btn:hover, .vault-pill:hover,
-  .btn-primary:hover, .btn-launch:hover {
-    transform: none !important;
-    box-shadow: none !important;
-  }
-}
-
-/* Safe area support */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-  footer {
-    padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important;
-  }
-  .mobile-nav {
-    padding-bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
-  }
-}
-/* ═══ END CINDER COMPREHENSIVE MOBILE FIX ═══ */
-
-
-/* ═══ CINDER POLISH — FAQ + TINY PHONE PADDING ═══ */
-
-/* FAQ — smooth accordion, no clipping, close-others behaviour */
-.faq-a, .faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), padding 0.35s ease;
-}
-.faq-a.open, .faq-answer.open {
-  max-height: 1200px !important;   /* tall enough for any answer */
-}
-.faq-q { cursor: pointer; user-select: none; }
-
-/* Tiny phones — extra breathing room */
-@media (max-width: 390px) {
-  .container, .wrap, /* wrap-wide padding removed */
-  .faq-q { padding-left: 1rem !important; padding-right: 1rem !important; font-size: 14px !important; }
-  .faq-a, .faq-answer { padding-left: 1rem !important; padding-right: 1rem !important; }
-  .hero-h1, h1.hero-h1, .hero-h {
-    font-size: clamp(24px, 7.5vw, 34px) !important;
-    letter-spacing: -0.5px !important;
-  }
-  .hero-tag { font-size: 10px !important; }
-  .vault-pill { padding: 12px 12px !important; gap: 8px !important; }
-  .vc-name { font-size: 13px !important; }
-  .vc-meta { font-size: 11px !important; }
-  .stat-val { font-size: 28px !important; }
-  .stats-grid { gap: 0.75rem !important; }
-  .feat-card, .flow-step { padding: 1rem !important; }
-  section { padding: 2.5rem 0 !important; }
-  .section-h2 { font-size: clamp(24px, 7vw, 32px) !important; }
-  .btn-xl {
-    font-size: 15px !important;
-    padding: 14px 20px !important;
-    min-height: 52px !important;
-  }
-  .footer-links a { font-size: 12px !important; }
-}
-/* ═══ END CINDER POLISH ═══ */
-
-
-
-footer, .footer, .site-footer {
-  width: 100%;
-  box-sizing: border-box;
-}
-.footer-inner, .footer-wrap, .ft-inner {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  flex-wrap: wrap !important;
-  gap: 1rem !important;
-  max-width: 1120px !important;
-  margin: 0 auto !important;
-  padding: 0 2rem !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
-.footer-links, .ft-links {
-  display: flex !important;
-  align-items: center !important;
-  flex-wrap: wrap !important;
-  gap: 0.5rem 1.5rem !important;
-}
-.footer-copy, .ft-copy {
-  font-size: 12px !important;
-  color: rgba(238,233,225,0.35) !important;
-  white-space: nowrap !important;
-}
-@media (max-width: 768px) {
-  .footer-inner, .footer-wrap, .ft-inner {
-    flex-direction: column !important;
-    text-align: center !important;
-    align-items: center !important;
-    gap: 1rem !important;
-  }
-  .footer-links, .ft-links {
-    justify-content: center !important;
-  }
-}
-
-
-/* ── Footer centering fix ── */
-footer .container, footer .wrap, footer .wrap-wide {
-  max-width: 1120px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding-left: 2rem !important;
-  padding-right: 2rem !important;
-  box-sizing: border-box !important;
-  width: 100% !important;
-}
-footer .footer-inner, footer .foot-inner {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  flex-wrap: wrap !important;
-  gap: 0.75rem 2rem !important;
-  width: 100% !important;
-}
-footer .footer-links, footer .ft-links, footer .foot-links {
-  display: flex !important;
-  align-items: center !important;
-  flex-wrap: wrap !important;
-  gap: 0.25rem 1.5rem !important;
-}
-footer .footer-copy, footer .ft-copy, footer .foot-copy {
-  text-align: center !important;
-  width: 100% !important;
-  margin-top: 0.5rem !important;
-}
-@media (max-width: 768px) {
-  footer .footer-inner, footer .foot-inner {
-    flex-direction: column !important;
-    align-items: center !important;
-    text-align: center !important;
-  }
-  footer .footer-links, footer .ft-links, footer .foot-links {
-    justify-content: center !important;
-  }
-}
-/* ── End footer fix ── */
+/* ── End unified footer ── */
 
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
@@ -1328,25 +1000,16 @@ footer .footer-copy, footer .ft-copy, footer .foot-copy {
 </section>
 
 <footer>
-  <div class="wrap">
-    <div class="footer-inner">
-      <a href="/" class="nav-logo" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit"><svg width="24" height="24" viewBox="-74 -90 148 148" style="flex-shrink:0"><rect x="-74" y="-90" width="148" height="148" rx="34" fill="#0D0804"/><path d="M-32 52C-50 28-45 4-33-18C-27-4-30 13-25 27C-36 16-38 35-32 52Z" fill="#FF4500"/><path d="M-27 32C-35 16-31 0-23-7C-20 2-21 13-18 23C-25 14-27 23-27 32Z" fill="#FF6B23"/><circle cx="-27" cy="-20" r="4" fill="#FFB347"/><path d="M0 54C-20 31-18 4 0-50C18 4 20 31 0 54Z" fill="#FF4500"/><path d="M0 27C-8 11-7-2 0-21C7-2 8 11 0 27Z" fill="#FF6B23"/><circle cx="0" cy="-52" r="4" fill="#FFB347"/><path d="M32 52C50 28 45 4 33-18C27-4 30 13 25 27C36 16 38 35 32 52Z" fill="#FF4500"/><path d="M27 32C35 16 31 0 23-7C20 2 21 13 18 23C25 14 27 23 27 32Z" fill="#FF6B23"/><circle cx="27" cy="-20" r="4" fill="#FFB347"/></svg><span style="font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:700">Cinder</span> © 2026</a>
-      <div class="footer-links">
-        <a href="https://flare.network" target="_blank">Flare Network</a>
-        <a href="https://firelight.finance" target="_blank">Firelight</a>
-        <a href="https://flarescan.com" target="_blank">Flarescan</a>
-        <a href="https://dev.flare.network" target="_blank">Developer Docs</a>
-        <a href="https://x.com/CinderDeFi" target="_blank">X / @CinderDeFi</a>
-        <a href="https://https://discord.gg/npHaHKCnkY" target="_blank">Discord</a>
-        <a href="https://https://discord.gg/npHaHKCnkY" target="_blank">Discord</a>
-      </div>
-      <span>⚠ Unaudited · Not financial advice</span>
-      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:.75rem 1.5rem;margin-top:.75rem;padding-top:.75rem;border-top:1px solid var(--border)">
-        <span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)">Built on</span>
-        <a href="https://sceptre.fi" target="_blank" style="font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;opacity:.45;transition:opacity .15s;display:flex;align-items:center;gap:5px" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.45"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#3B82F6,#1D4ED8);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sceptre</a>
-        <a href="https://firelight.finance" target="_blank" style="font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;opacity:.45;transition:opacity .15s;display:flex;align-items:center;gap:5px" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.45"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#F97316,#DC2626);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Firelight</a>
-        <a href="https://gelato.network" target="_blank" style="font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;opacity:.45;transition:opacity .15s;display:flex;align-items:center;gap:5px" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.45"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#EC4899,#BE185D);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">G</span>Gelato</a>
-        <a href="https://sparkdex.ai" target="_blank" style="font-size:12px;font-weight:500;color:var(--ink3);text-decoration:none;opacity:.45;transition:opacity .15s;display:flex;align-items:center;gap:5px" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.45"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sparkdex</a>
+  <div class="ft-wrap">
+    <div class="ft-top">
+      <a href="/" class="ft-logo"><svg width="22" height="22" viewBox="-74 -90 148 148" style="flex-shrink:0"><rect x="-74" y="-90" width="148" height="148" rx="34" fill="#0D0804"/><path d="M-32 52C-50 28-45 4-33-18C-27-4-30 13-25 27C-36 16-38 35-32 52Z" fill="#FF4500"/><path d="M-27 32C-35 16-31 0-23-7C-20 2-21 13-18 23C-25 14-27 23-27 32Z" fill="#FF6B23"/><circle cx="-27" cy="-20" r="4" fill="#FFB347"/><path d="M0 54C-20 31-18 4 0-50C18 4 20 31 0 54Z" fill="#FF4500"/><path d="M0 27C-8 11-7-2 0-21C7-2 8 11 0 27Z" fill="#FF6B23"/><circle cx="0" cy="-52" r="4" fill="#FFB347"/><path d="M32 52C50 28 45 4 33-18C27-4 30 13 25 27C36 16 38 35 32 52Z" fill="#FF4500"/><path d="M27 32C35 16 31 0 23-7C20 2 21 13 18 23C25 14 27 23 27 32Z" fill="#FF6B23"/><circle cx="27" cy="-20" r="4" fill="#FFB347"/></svg><span>Cinder</span></a>
+      <nav class="ft-nav"><a href="/">Home</a><a href="/app">App</a><a href="/about">About</a><a href="https://x.com/CinderDeFi" target="_blank">X / @CinderDeFi</a><a href="https://discord.gg/npHaHKCnkY" target="_blank">Discord</a><a href="mailto:security@cinder.finance">security@cinder.finance</a></nav>
+    </div>
+    <div class="ft-bottom">
+      <span class="ft-copy">© 2026 Cinder Finance · Unaudited · Use at your own risk</span>
+      <div class="ft-built">
+        <span class="ft-built-label">Built on</span>
+        <a href="https://sceptre.fi" target="_blank" class="ft-partner"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#3B82F6,#1D4ED8);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sceptre</a><a href="https://firelight.finance" target="_blank" class="ft-partner"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#F97316,#DC2626);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Firelight</a><a href="https://gelato.network" target="_blank" class="ft-partner"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#EC4899,#BE185D);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">G</span>Gelato</a><a href="https://sparkdex.ai" target="_blank" class="ft-partner"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sparkdex</a><a href="https://flare.network" target="_blank" class="ft-partner"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#FF4500,#FF6B23);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Flare</a>
       </div>
     </div>
   </div>
