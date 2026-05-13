@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- BUILD-MARKER-CINDERFINANCE-2026-05-13-ZAP-LIVE -->
-<!-- BUILD-V7B-VAULT-FIXED -->
+<!-- BUILD-V9-ZAP-DISABLED -->
 
   <!-- SEO & Social -->
   <meta name="description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
@@ -1756,7 +1756,7 @@ const CONTRACTS = {
   14: {
     zap: "0x4Bd058Cd86E1F80301E1382c9f621e36e33Ef7d7", // CinderZap — LIVE on Flare mainnet
     vaults: [
-      { asset:"0x12e605bc104e93B45e1aD99F9e555f659051c2BB", vault:"0x153cD27cd7A8C0a78898bca2101B087029224804", name:"sFLR",       label:"Sceptre sFLR",       apy:"9.1%",  live:true,  zapSupported:true,  isLP:false },
+      { asset:"0x12e605bc104e93B45e1aD99F9e555f659051c2BB", vault:"0x153cD27cd7A8C0a78898bca2101B087029224804", name:"sFLR",       label:"Sceptre sFLR",       apy:"9.1%",  live:true,  zapSupported:false, isLP:false }, /* zap disabled pending Sceptre ROLE_DEPOSIT grant */
       { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"stXRP",      label:"Firelight stXRP",    apy:"8.4%",  live:false, zapSupported:false, isLP:false },
       { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"EMBER/FLR",   label:"Sparkdex EMBER/FLR",  apy:"var.",  live:false, zapSupported:true,  isLP:true, lpZap:"0x0000000000000000000000000000000000000000" },
       { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"sFLR/FLR",   label:"Sparkdex sFLR/FLR",  apy:"var.",  live:false, zapSupported:true,  isLP:true, lpZap:"0x0000000000000000000000000000000000000000" },
@@ -1883,16 +1883,15 @@ function updateZapVisibility() {
   const heroZapBtn = document.getElementById('heroZapBtn');
   const appZapBtn  = document.getElementById('appZapBtn');
   if(heroZapBtn) {
-    heroZapBtn.textContent = isLPVault
-      ? `⚡ Zap FLR → ${meta.shareSymbol}`
-      : `⚡ Zap FLR → ${meta.shareSymbol}`;
-    heroZapBtn.onclick = isLPVault ? zapHeroLP : zapHero;
+    heroZapBtn.textContent = `⚡ Zap FLR → ${meta.shareSymbol}`;
+    // Only overwrite onclick if the target function is defined
+    const heroFn = isLPVault ? (typeof zapHeroLP === 'function' ? zapHeroLP : null) : (typeof zapHero === 'function' ? zapHero : null);
+    if (heroFn) heroZapBtn.onclick = heroFn;
   }
   if(appZapBtn) {
-    appZapBtn.textContent = isLPVault
-      ? `⚡ Zap FLR → ${meta.shareSymbol}`
-      : `⚡ Zap FLR → ${meta.shareSymbol}`;
-    appZapBtn.onclick = isLPVault ? zapAppLP : zapApp;
+    appZapBtn.textContent = `⚡ Zap FLR → ${meta.shareSymbol}`;
+    const appFn = isLPVault ? (typeof zapAppLP === 'function' ? zapAppLP : null) : (typeof zapApp === 'function' ? zapApp : null);
+    if (appFn) appZapBtn.onclick = appFn;
   }
 
   // Update zap description for LP vaults
@@ -3216,7 +3215,7 @@ function fmtN(n){
   if(n>=1e3)return(n/1e3).toFixed(2)+'K';
   return n.toFixed(2);
 }
-function setBtnTxt(id,txt,dis){const b=document.getElementById(id);if(b){b.textContent=txt;b.disabled=dis}}
+function setBtnTxt(id,txt,dis){const b=document.getElementById(id);if(b){b.innerHTML=txt;b.disabled=dis}}
 function scrollToApp(){document.getElementById('app').scrollIntoView({behavior:'smooth'})}
 function toast(msg,type){
   const el=document.getElementById('toast');
