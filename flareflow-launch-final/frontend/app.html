@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- BUILD-MARKER-CINDERFINANCE-2026-05-13-ZAP-LIVE -->
-<!-- BUILD-V11-POSITION-STYLES -->
+<!-- BUILD-V12-UX-IMPROVEMENTS -->
 
   <!-- SEO & Social -->
   <meta name="description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
@@ -1029,6 +1029,182 @@ nav button::after { display: none !important; content: none !important; }
   font-weight: 500;
 }
 
+
+/* ── Improved position card ────────────────────────────────────── */
+.position-card {
+  background: linear-gradient(180deg, rgba(255,107,35,0.04) 0%, rgba(0,0,0,0) 60%);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 16px;
+  overflow: hidden;
+}
+.position-card .pc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border, rgba(255,255,255,0.06));
+}
+.position-card .pc-title {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink3, #888);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.position-card .pc-body { padding: 22px 18px 18px; }
+.position-card .pc-hero {
+  text-align: center;
+  padding: 12px 0 22px;
+  border-bottom: 1px solid var(--border, rgba(255,255,255,0.06));
+  margin-bottom: 18px;
+}
+.position-card .pc-hero-label {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--ink3, #888);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.position-card .pc-hero-val {
+  font-family: var(--display, serif);
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--ink, #fff);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 4px;
+}
+.position-card .pc-hero-sub {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  color: var(--accent2, #FF6B23);
+  font-weight: 500;
+}
+.position-card .pc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.position-card .pc-cell {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border, rgba(255,255,255,0.05));
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.position-card .pc-cell-label {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--ink3, #888);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.position-card .pc-cell-val {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 13px;
+  color: var(--ink, #fff);
+  font-weight: 600;
+}
+.position-card .pc-actions {
+  display: flex;
+  gap: 10px;
+}
+.position-card .pc-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  font-family: var(--body, inherit);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+}
+.position-card .pc-btn-primary {
+  background: linear-gradient(135deg, var(--accent, #FF6B23), #FF8C00);
+  color: #fff;
+}
+.position-card .pc-btn-primary:hover { transform: translateY(-1px); }
+.position-card .pc-btn-secondary {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border, rgba(255,255,255,0.1));
+  color: var(--ink, #fff);
+}
+.position-card .pc-btn-secondary:hover { background: rgba(255,255,255,0.08); }
+.position-card .yield-chip {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  color: var(--green, #3DA85F);
+  background: rgba(61,168,95,0.08);
+  border: 1px solid rgba(61,168,95,0.2);
+  border-radius: 999px;
+  padding: 4px 10px;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+/* ── Percent slider widget ─────────────────────────────────────── */
+.pct-widget {
+  margin: 10px 0 14px;
+  padding: 0;
+}
+.pct-slider {
+  width: 100%;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  outline: none;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.pct-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent, #FF6B23);
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(255,107,35,0.4);
+}
+.pct-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent, #FF6B23);
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(255,107,35,0.4);
+}
+.pct-btns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.pct-btn {
+  padding: 6px 0;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 8px;
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink2, #ccc);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.pct-btn:hover {
+  background: rgba(255,107,35,0.08);
+  border-color: rgba(255,107,35,0.3);
+  color: var(--accent2, #FF6B23);
+}
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
@@ -1494,21 +1670,38 @@ nav button::after { display: none !important; content: none !important; }
     <div class="app-grid reveal">
       <div>
         <!-- Position card -->
-        <div class="app-card" id="appPositionCard" style="margin-bottom:16px;display:none">
-          <div class="ac-head">
-            <span class="ac-title">Your position</span>
-            <span class="yield-chip" id="appYieldChip">+0.0000 earned</span>
+        <div class="app-card position-card" id="appPositionCard" style="margin-bottom:16px;display:none">
+          <div class="pc-head">
+            <span class="pc-title">Your position</span>
+            <span class="yield-chip" id="appYieldChip">+0.0000 sFLR earned</span>
           </div>
-          <div class="ac-body">
-            <div class="position-box">
-              <div class="pos-row"><span class="pos-l">Current value</span><span class="pos-v big" id="appPosVal">0.0000</span></div>
-              <div class="pos-row"><span class="pos-l">Deposited</span><span class="pos-v" id="appPosDeposited">0.0000</span></div>
-              <div class="pos-row"><span class="pos-l">Vault shares</span><span class="pos-v" id="appPosShares">0.000000</span></div>
-              <div class="pos-row"><span class="pos-l">Pool share</span><span class="pos-v" id="appPosPct">0.0000%</span></div>
+          <div class="pc-body">
+            <div class="pc-hero">
+              <div class="pc-hero-label">Current value</div>
+              <div class="pc-hero-val" id="appPosVal">0.0000</div>
+              <div class="pc-hero-sub" id="appPosUsd">~$0.00</div>
             </div>
-            <div style="display:flex;gap:10px">
-              <button class="main-btn" style="flex:1;padding:10px;font-size:13px" onclick="document.getElementById('appDepAmt').focus()">Deposit more</button>
-              <button class="main-btn step2" style="flex:1;padding:10px;font-size:13px" onclick="switchAppTab('withdraw')">Withdraw</button>
+            <div class="pc-grid">
+              <div class="pc-cell">
+                <div class="pc-cell-label">Deposited</div>
+                <div class="pc-cell-val" id="appPosDeposited">0.0000 sFLR</div>
+              </div>
+              <div class="pc-cell">
+                <div class="pc-cell-label">Vault shares</div>
+                <div class="pc-cell-val" id="appPosShares">0.000000 cFLR</div>
+              </div>
+              <div class="pc-cell">
+                <div class="pc-cell-label">Pool share</div>
+                <div class="pc-cell-val" id="appPosPct">0.0000%</div>
+              </div>
+              <div class="pc-cell">
+                <div class="pc-cell-label">Net APY</div>
+                <div class="pc-cell-val" id="appPosApy" style="color:var(--green,#3DA85F)">~12%</div>
+              </div>
+            </div>
+            <div class="pc-actions">
+              <button class="pc-btn pc-btn-primary" onclick="switchAppTab('deposit');document.getElementById('appDepAmt').focus()">+ Deposit more</button>
+              <button class="pc-btn pc-btn-secondary" onclick="switchAppTab('withdraw')">Withdraw</button>
             </div>
           </div>
         </div>
@@ -1538,9 +1731,18 @@ nav button::after { display: none !important; content: none !important; }
                   <span class="bal-link" id="appBalLbl" onclick="appSetMax()">Balance: —</span>
                 </div>
                 <div class="input-row">
-                  <input type="number" class="amount-in" id="appDepAmt" placeholder="0.0" min="0" step="any" inputmode="decimal" oninput="appDepPreview()">
+                  <input type="number" class="amount-in" id="appDepAmt" placeholder="0.0" min="0" step="any" inputmode="decimal" oninput="appDepPctSync('dep');appDepPreview()">
                   <div class="token-tag" id="appAssetTag">sFLR</div>
                 </div>
+            <div class="pct-widget">
+              <input type="range" class="pct-slider" id="appDepPctSlider" min="0" max="100" step="1" value="0" oninput="appDepPctSync('slider')">
+              <div class="pct-btns">
+                <button class="pct-btn" onclick="appDepPctSync('25')">25%</button>
+                <button class="pct-btn" onclick="appDepPctSync('50')">50%</button>
+                <button class="pct-btn" onclick="appDepPctSync('75')">75%</button>
+                <button class="pct-btn" onclick="appDepPctSync('max')">Max</button>
+              </div>
+            </div>
               </div>
               <div class="preview-box" id="appDepPreview">
                 <div class="prow"><span class="pl">Deposit</span><span class="pv" id="appPrevDep">—</span></div>
@@ -1585,9 +1787,18 @@ nav button::after { display: none !important; content: none !important; }
                   <span class="bal-link" id="appSharesLbl" onclick="appSetMaxShares()">Shares: —</span>
                 </div>
                 <div class="input-row">
-                  <input type="number" class="amount-in" id="appWdAmt" placeholder="0.0" min="0" step="any" inputmode="decimal" oninput="appWdPreview()">
+                  <input type="number" class="amount-in" id="appWdAmt" placeholder="0.0" min="0" step="any" inputmode="decimal" oninput="appWdPctSync('wd');appWdPreview()">
                   <div class="token-tag" id="appShareTag">cFLR</div>
                 </div>
+            <div class="pct-widget">
+              <input type="range" class="pct-slider" id="appWdPctSlider" min="0" max="100" step="1" value="0" oninput="appWdPctSync('slider')">
+              <div class="pct-btns">
+                <button class="pct-btn" onclick="appWdPctSync('25')">25%</button>
+                <button class="pct-btn" onclick="appWdPctSync('50')">50%</button>
+                <button class="pct-btn" onclick="appWdPctSync('75')">75%</button>
+                <button class="pct-btn" onclick="appWdPctSync('max')">Max</button>
+              </div>
+            </div>
               </div>
               <div class="preview-box" id="appWdPreview">
                 <div class="prow"><span class="pl" id="appWdGrossLabel">Gross sFLR</span><span class="pv" id="appPrevWGross">—</span></div>
@@ -2803,6 +3014,8 @@ async function _initWalletConnect(WCProvider) {
 
 // ── Shared post-connect logic ──────────────────────────────────────────
 async function _onWalletConnected(walletName) {
+  try { localStorage.setItem("cinderWalletConnected", "metamask"); } catch(e) {}
+
   signer   = await provider.getSigner();
   userAddr = await signer.getAddress();
   const net = await provider.getNetwork();
@@ -3573,6 +3786,79 @@ function sparkBurst() {
   window.addEventListener('scroll', updateActive, { passive: true });
   updateActive();
 })();
+
+// ── Percent slider sync functions ─────────────────────────────────
+function appDepPctSync(src) {
+  const bal = parseFloat((document.getElementById('appBalLbl').textContent.match(/[\d.]+/) || [0])[0]) || 0;
+  const slider = document.getElementById('appDepPctSlider');
+  const input = document.getElementById('appDepAmt');
+  if (!slider || !input || bal <= 0) return;
+  let amt;
+  if (src === 'slider') {
+    amt = bal * (parseFloat(slider.value) / 100);
+    input.value = amt.toFixed(4);
+  } else if (src === 'dep') {
+    const v = parseFloat(input.value) || 0;
+    const pct = bal > 0 ? Math.min(100, (v / bal) * 100) : 0;
+    slider.value = pct;
+    return;
+  } else if (src === '25' || src === '50' || src === '75') {
+    const pct = parseFloat(src);
+    amt = bal * (pct / 100);
+    input.value = amt.toFixed(4);
+    slider.value = pct;
+  } else if (src === 'max') {
+    input.value = bal.toFixed(4);
+    slider.value = 100;
+  }
+  if (typeof appDepPreview === 'function') appDepPreview();
+}
+
+function appWdPctSync(src) {
+  const sharesTxt = (document.getElementById('appWdSharesLbl') || document.getElementById('appSharesLbl') || {textContent:''}).textContent;
+  const bal = parseFloat((sharesTxt.match(/[\d.]+/) || [0])[0]) || 0;
+  const slider = document.getElementById('appWdPctSlider');
+  const input = document.getElementById('appWdAmt');
+  if (!slider || !input || bal <= 0) return;
+  if (src === 'slider') {
+    const amt = bal * (parseFloat(slider.value) / 100);
+    input.value = amt.toFixed(6);
+  } else if (src === 'wd') {
+    const v = parseFloat(input.value) || 0;
+    const pct = bal > 0 ? Math.min(100, (v / bal) * 100) : 0;
+    slider.value = pct;
+    return;
+  } else if (src === '25' || src === '50' || src === '75') {
+    const pct = parseFloat(src);
+    input.value = (bal * pct / 100).toFixed(6);
+    slider.value = pct;
+  } else if (src === 'max') {
+    input.value = bal.toFixed(6);
+    slider.value = 100;
+  }
+  if (typeof appWdPreview === 'function') appWdPreview();
+}
+
+// ── Auto-reconnect on page load if previously connected ───────────
+(function() {
+  try {
+    const prevConnected = localStorage.getItem('cinderWalletConnected');
+    if (prevConnected === 'metamask' && typeof window.ethereum !== 'undefined') {
+      // Wait for page load to complete, then try to auto-reconnect
+      window.addEventListener('load', () => {
+        setTimeout(async () => {
+          try {
+            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            if (accounts && accounts.length > 0 && typeof connectMetaMask === 'function') {
+              connectMetaMask();
+            }
+          } catch(e) { console.warn('Auto-reconnect failed:', e); }
+        }, 500);
+      });
+    }
+  } catch(e) {}
+})();
+
 </script>
 </body>
 </html>
