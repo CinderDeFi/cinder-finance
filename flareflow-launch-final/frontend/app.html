@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- BUILD-MARKER-CINDERFINANCE-2026-05-13-ZAP-LIVE -->
-<!-- BUILD-V6-ZAP-TOGGLE-SHOW -->
+<!-- BUILD-V7B-VAULT-FIXED -->
 
   <!-- SEO & Social -->
   <meta name="description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
@@ -2777,8 +2777,11 @@ async function _onWalletConnected(walletName) {
   connectBtn.style.background = 'var(--surface)';
   connectBtn.style.border = '1px solid var(--border)';
   connectBtn.style.color = 'var(--ink)';
-  document.getElementById('netPill').textContent = netName;
-  document.getElementById('netPill').classList.add('active');
+  const netPill = document.getElementById('netPill');
+  if (netPill) {
+    netPill.textContent = netName;
+    netPill.classList.add('active');
+  }
 
   // Try to update infoNetwork if it exists
   const infoNet = document.getElementById('infoNetwork');
@@ -2975,7 +2978,7 @@ async function heroWdPreview(){
   const meta = VAULT_META[activeVaultIdx];
   const assetSym = meta.assetSymbol;
   let gross = v;
-  if(vault){try{const a=await vaultContract.sharesToAssets(ethers.parseEther(v.toString()));gross=parseFloat(ethers.formatEther(a))}catch{}}
+  if(vaultContract){try{const a=await vaultContract.sharesToAssets(ethers.parseEther(v.toString()));gross=parseFloat(ethers.formatEther(a))}catch{}}
   const fee=gross*0.001;
   document.getElementById('ppWGross').textContent=gross.toFixed(6)+' '+assetSym;
   document.getElementById('ppWFee').textContent=fee.toFixed(6)+' '+assetSym;
@@ -2994,7 +2997,7 @@ async function appDepPreview(){
   document.getElementById('appPrevDep').textContent=v.toFixed(4)+' '+assetSym;
   document.getElementById('appPrevShares').textContent='≈'+v.toFixed(6)+' '+shareSym;
   document.getElementById('appPrevYield').textContent='≈'+(v*apyDec).toFixed(4)+' '+assetSym;
-  if(vault){try{const s=await vaultContract.assetsToShares(ethers.parseEther(v.toString()));document.getElementById('appPrevShares').textContent=parseFloat(ethers.formatEther(s)).toFixed(6)+' '+shareSym}catch{}}
+  if(vaultContract){try{const s=await vaultContract.assetsToShares(ethers.parseEther(v.toString()));document.getElementById('appPrevShares').textContent=parseFloat(ethers.formatEther(s)).toFixed(6)+' '+shareSym}catch{}}
 
 }
 async function appWdPreview(){
@@ -3005,7 +3008,7 @@ async function appWdPreview(){
   const meta = VAULT_META[activeVaultIdx];
   const assetSym = meta.assetSymbol;
   let gross = v;
-  if(vault){try{const a=await vaultContract.sharesToAssets(ethers.parseEther(v.toString()));gross=parseFloat(ethers.formatEther(a))}catch{}}
+  if(vaultContract){try{const a=await vaultContract.sharesToAssets(ethers.parseEther(v.toString()));gross=parseFloat(ethers.formatEther(a))}catch{}}
   const fee=gross*0.001;
   document.getElementById('appPrevWGross').textContent=gross.toFixed(6)+' '+assetSym;
   document.getElementById('appPrevWFee').textContent=fee.toFixed(6)+' '+assetSym;
@@ -3015,7 +3018,7 @@ async function appWdPreview(){
 
 // ── Hero actions ──────────────────────────────────────────────────────────
 async function approveHero(){
-  if(!vault){toast('Connect wallet first','err');return}
+  if(!vaultContract){toast('Connect wallet first','err');return}
   const v=document.getElementById('heroDepAmt').value;
   if(!v||parseFloat(v)<=0){toast('Enter an amount','err');return}
   try{
@@ -3062,7 +3065,7 @@ async function withdrawHero(){
 
 // ── App actions ───────────────────────────────────────────────────────────
 async function appApprove(){
-  if(!vault){toast('Connect wallet first','err');return}
+  if(!vaultContract){toast('Connect wallet first','err');return}
   const v=document.getElementById('appDepAmt').value;
   if(!v||parseFloat(v)<=0){toast('Enter an amount','err');return}
   try{
@@ -3107,7 +3110,7 @@ async function appWithdraw(){
   finally{setBtnTxt('appWdBtn','Withdraw '+VAULT_META[activeVaultIdx].assetSymbol,false)}
 }
 async function appHarvest(){
-  if(!vault){toast('Connect wallet first','err');return}
+  if(!vaultContract){toast('Connect wallet first','err');return}
   try{
     toast('Harvesting yield…','ok');
     const tx=await vaultContract.harvest();
