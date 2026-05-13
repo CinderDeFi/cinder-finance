@@ -604,6 +604,29 @@ w3m-modal, wcm-modal, [id*="walletconnect"], [class*="walletconnect"],
   z-index: 20000 !important;
 }
 
+
+/* ── Section nav active + hover ── */
+nav a[href*="#"] {
+  transition: color .2s;
+  position: relative;
+}
+nav a[href*="#"]:hover {
+  color: #FF6B23 !important;
+}
+nav a[href*="#"].nav-active {
+  color: #FF6B23 !important;
+}
+nav a[href*="#"].nav-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0; right: 0;
+  height: 2px;
+  background: #FF6B23;
+  border-radius: 2px;
+}
+/* ── End section nav ── */
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
@@ -2086,6 +2109,37 @@ window.addEventListener('load', function() {
   tick();
   setInterval(tick, 30000);
 });
+</script>
+<script>
+
+/* Section nav active state */
+(function() {
+  var sections = ['tokenomics','treasury','governance','mining'];
+  var links = {};
+  sections.forEach(function(id) {
+    var el = document.querySelector('nav a[href*="#' + id + '"]');
+    if (el) links[id] = el;
+  });
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      var id = entry.target.id;
+      if (links[id]) {
+        if (entry.isIntersecting) {
+          // Clear all active
+          Object.values(links).forEach(function(l){ l.classList.remove('nav-active'); });
+          links[id].classList.add('nav-active');
+        }
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+})();
+
 </script>
 </body>
 </html>
