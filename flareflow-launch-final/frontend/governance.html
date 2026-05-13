@@ -535,6 +535,22 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
   display: flex !important;
 }
 
+
+/* Wallet modal - hidden by default */
+#walletModal, .wallet-modal-backdrop {
+  display: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0,0,0,0.75) !important;
+  backdrop-filter: blur(4px) !important;
+  z-index: 10000 !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+#walletModal.open, .wallet-modal-backdrop.open {
+  display: flex !important;
+}
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
@@ -1919,7 +1935,7 @@ function connectWallet() {
 </script>
 
 <!-- WALLET SELECTION MODAL -->
-<div class="wallet-modal-backdrop" id="walletModal" onclick="if(event.target===this)closeWalletModal()">
+<div class="wallet-modal-backdrop" id="walletModal" style="display:none" onclick="if(event.target===this)closeWalletModal()">
   <div class="wallet-modal">
     <div class="wm-head">
       <span class="wm-title">Connect wallet</span>
