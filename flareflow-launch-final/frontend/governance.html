@@ -526,9 +526,75 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
 
 
 
-/* Wallet modal */
-.wallet-modal-backdrop { display: none; position: fixed; top:0; right:0; bottom:0; left:0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 10000; align-items: center; justify-content: center; }
+
+
+/* ── Wallet modal styles ── */
+.wallet-modal-backdrop {
+  display: none;
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
 .wallet-modal-backdrop.open { display: flex; }
+.wallet-modal {
+  background: #141212;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  overflow: hidden;
+}
+.wm-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.wm-title { font-weight: 600; font-size: 16px; }
+.wm-close {
+  background: none; border: none; color: rgba(238,233,225,0.5);
+  cursor: pointer; font-size: 16px; padding: 4px 8px;
+  border-radius: 6px; transition: all .15s;
+}
+.wm-close:hover { background: rgba(255,255,255,0.07); color: #EEE9E1; }
+.wm-body { padding: 1.25rem 1.5rem; }
+.wm-desc { font-size: 13px; color: rgba(238,233,225,0.5); margin: 0 0 1rem; line-height: 1.5; }
+.wallet-option {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px; border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.07);
+  cursor: pointer; transition: all .15s; margin-bottom: 8px;
+  background: rgba(255,255,255,0.02);
+}
+.wallet-option:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,107,35,0.3); }
+.wo-icon { font-size: 24px; flex-shrink: 0; width: 40px; text-align: center; }
+.wo-info { flex: 1; }
+.wo-name { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+.wo-desc { font-size: 12px; color: rgba(238,233,225,0.45); }
+.wo-badge {
+  font-size: 10px; font-weight: 600; padding: 3px 8px;
+  border-radius: 20px; flex-shrink: 0;
+}
+.wo-badge.recommended { background: rgba(74,186,111,0.15); color: #4ABA6F; border: 1px solid rgba(74,186,111,0.2); }
+.wo-badge.popular { background: rgba(255,107,35,0.12); color: #FF8C4A; border: 1px solid rgba(255,107,35,0.2); }
+.wo-badge.mobile { background: rgba(99,102,241,0.12); color: #818CF8; border: 1px solid rgba(99,102,241,0.2); }
+.wm-divider { text-align: center; font-size: 12px; color: rgba(238,233,225,0.3); margin: 4px 0 8px; }
+.wm-foot {
+  padding: 1rem 1.5rem; font-size: 11px;
+  color: rgba(238,233,225,0.3); border-top: 1px solid rgba(255,255,255,0.07);
+  line-height: 1.4;
+}
+/* ── End wallet modal ── */
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
