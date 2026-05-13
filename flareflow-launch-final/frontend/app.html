@@ -817,6 +817,90 @@ nav > *:not(.nav-links) a::after,
 nav button::after { display: none !important; content: none !important; }
 /* ══════════════════════════════════════════════════ */
 
+
+/* ══════════════════════════════════════════════════
+   APP PAGE — Card panels (Vault stats / Fee / Contract)
+   ══════════════════════════════════════════════════ */
+
+.app-card {
+  background: var(--surface, #111318);
+  border: 1px solid var(--border, rgba(255,255,255,0.06));
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.app-card:hover { border-color: rgba(255,107,35,0.2); }
+
+.ac-head {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border, rgba(255,255,255,0.06));
+  background: rgba(255,255,255,0.015);
+}
+.ac-title {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink3, #52504C);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.ac-body {
+  padding: 12px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Label + value row */
+.frow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 13px;
+}
+.frow:last-child { border-bottom: none; }
+
+.fl {
+  color: var(--ink2, #8C8880);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
+}
+.fv {
+  color: var(--ink, #EEE9E1);
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-weight: 500;
+  font-size: 12.5px;
+  text-align: right;
+  word-break: break-all;
+}
+.fv.g { color: var(--green, #4ABA6F); }
+.fv.o { color: var(--accent, #FF6B23); }
+
+/* Trigger harvest button — inside a card, not full-bleed */
+.ac-body .main-btn,
+.ac-body button.main-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 11px 16px !important;
+  font-size: 13px !important;
+  border-radius: 10px;
+}
+
+/* Mobile — keep readable */
+@media (max-width: 640px) {
+  .frow { font-size: 12.5px; }
+  .fv { font-size: 12px; }
+  .ac-head { padding: 12px 14px; }
+  .ac-body { padding: 10px 14px 14px; }
+}
+/* ══════════════════════════════════════════════════ */
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
