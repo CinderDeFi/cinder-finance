@@ -1118,29 +1118,40 @@ function updateCV() {
 <script>
 /* Section nav active state */
 (function() {
-  var sections = ['how', 'features', 'faq'];
-  var links = {};
-  sections.forEach(function(id) {
-    var el = document.querySelector('nav a[href*="#' + id + '"]');
-    if (el) links[id] = el;
-  });
-  function clearAll() {
-    sections.forEach(function(id){ if(links[id]) links[id].classList.remove('nav-active'); });
-  }
-  function updateActive() {
-    var scrollY = window.scrollY + 120;
-    var current = null;
+  function init() {
+    var sections = ['how', 'features', 'faq'];
+    var links = {};
     sections.forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el && el.offsetTop <= scrollY) current = id;
+      var el = document.querySelector('nav a[href="#' + id + '"]');
+      if (el) links[id] = el;
     });
-    var lastEl = document.getElementById('faq');
-    if (lastEl && scrollY > lastEl.offsetTop + lastEl.offsetHeight) current = null;
-    clearAll();
-    if (current && links[current]) links[current].classList.add('nav-active');
+
+    function clearAll() {
+      sections.forEach(function(id){ if(links[id]) links[id].classList.remove('nav-active'); });
+    }
+
+    function updateActive() {
+      var scrollY = window.scrollY + 120;
+      var current = null;
+      sections.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollY) current = id;
+      });
+      var lastEl = document.getElementById('faq');
+      if (lastEl && scrollY > lastEl.offsetTop + lastEl.offsetHeight) current = null;
+      clearAll();
+      if (current && links[current]) links[current].classList.add('nav-active');
+    }
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
   }
-  window.addEventListener('scroll', updateActive, { passive: true });
-  updateActive();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 </script>
 </body>
