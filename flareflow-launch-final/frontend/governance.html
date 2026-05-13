@@ -520,37 +520,15 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
 /* ── End unified footer ── */
 
 
+
+
+
+
+
+
 /* Wallet modal */
-.wallet-modal-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(4px);
-  z-index: 10000;
-  align-items: center;
-  justify-content: center;
-}
-.wallet-modal-backdrop.open {
-  display: flex !important;
-}
-
-
-/* Wallet modal - hidden by default */
-#walletModal, .wallet-modal-backdrop {
-  display: none !important;
-  position: fixed !important;
-  inset: 0 !important;
-  background: rgba(0,0,0,0.75) !important;
-  backdrop-filter: blur(4px) !important;
-  z-index: 10000 !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-#walletModal.open, .wallet-modal-backdrop.open {
-  display: flex !important;
-}
-
+.wallet-modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 10000; align-items: center; justify-content: center; }
+.wallet-modal-backdrop.open { display: flex; }
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
@@ -1648,6 +1626,8 @@ function toast(msg,type=''){
 const WALLETCONNECT_PROJECT_ID = '535e786d16f68721634e38398db088a6';
 let wcProvider=null;
 function openWalletModal() {
+  var m = document.getElementById('walletModal');
+  if (m) { m.style.removeProperty('display'); m.style.display = ''; }
   // Detect injected wallets and show them
   detectInjectedWallets();
   document.getElementById('walletModal').classList.add('open');
@@ -1935,7 +1915,7 @@ function connectWallet() {
 </script>
 
 <!-- WALLET SELECTION MODAL -->
-<div class="wallet-modal-backdrop" id="walletModal" style="display:none" onclick="if(event.target===this)closeWalletModal()">
+<div class="wallet-modal-backdrop" id="walletModal" onclick="if(event.target===this)closeWalletModal()">
   <div class="wallet-modal">
     <div class="wm-head">
       <span class="wm-title">Connect wallet</span>
