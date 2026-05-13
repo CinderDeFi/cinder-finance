@@ -2211,5 +2211,74 @@ function connectWallet() {
 </div>
 
 
+<!-- NUCLEAR FIX -->
+<style>
+/* Force EMBER SVG visible */
+svg[viewBox="-74 -74 148 148"] {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  display: block !important;
+}
+/* Force ALL content visible - fix reveal animation */
+.r, .reveal, [class*="reveal"], .section-reveal,
+.tok-grid, .tok-card, .alloc-row, .alloc-item,
+.gov-grid, .gov-card, .mining-section,
+.faq-list, .faq-item, .prop-list, .prop-card,
+section, .wrap > *, .wrap-wide > * {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+</style>
+<script>
+window.addEventListener('load', function() {
+  /* Show all hidden sections */
+  document.querySelectorAll('*').forEach(function(el) {
+    var s = window.getComputedStyle(el);
+    if (s.opacity === '0' || s.visibility === 'hidden') {
+      el.style.opacity = '1';
+      el.style.visibility = 'visible';
+      el.style.transform = 'none';
+    }
+  });
+  /* Force reveal classes */
+  document.querySelectorAll('.r,.reveal,[class*="reveal"]').forEach(function(el) {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    el.style.visibility = 'visible';
+    el.classList.add('visible');
+  });
+  /* SVG fix */
+  document.querySelectorAll('svg').forEach(function(s) {
+    if (s.getAttribute('viewBox') && s.getAttribute('viewBox').indexOf('-74 -74') >= 0) {
+      s.style.width = '44px';
+      s.style.height = '44px';
+      s.style.minWidth = '44px';
+      s.style.display = 'block';
+    }
+  });
+  /* Countdown */
+  function runCountdown() {
+    var diff = new Date('2026-09-01T00:00:00Z').getTime() - Date.now();
+    if (diff <= 0) return;
+    var pad = function(n){ return n < 10 ? '0'+n : String(n); };
+    var el_d = document.getElementById('cdDays');
+    var el_h = document.getElementById('cdHours');
+    var el_m = document.getElementById('cdMins');
+    if (el_d) el_d.textContent = String(Math.floor(diff/86400000));
+    if (el_h) el_h.textContent = pad(Math.floor((diff%86400000)/3600000));
+    if (el_m) el_m.textContent = pad(Math.floor((diff%3600000)/60000));
+  }
+  runCountdown();
+  setInterval(runCountdown, 30000);
+});
+/* Also run immediately */
+setTimeout(function() {
+  document.querySelectorAll('.r,.reveal,[class*="reveal"]').forEach(function(el) {
+    el.style.opacity='1';el.style.transform='none';el.classList.add('visible');
+  });
+}, 100);
+</script><!-- END NUCLEAR FIX -->
 </body>
 </html>
