@@ -2151,8 +2151,13 @@ function connectWallet() {
     if (mins) mins.textContent = pad(m);
   }
   // Run immediately and on interval
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() { tick(); setInterval(tick, 30000); });
+  // Run countdown after page fully loads
+  window.addEventListener('load', function() {
+    tick();
+    setInterval(tick, 10000);
+  });
+  // Also try immediately in case load already fired
+  setTimeout(tick, 500););
   } else {
     tick();
     setInterval(tick, 30000);
