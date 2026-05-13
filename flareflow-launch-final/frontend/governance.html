@@ -41,13 +41,13 @@
     "@type": "Person",
     "name": "Cinder Finance"
   },
-  "sameAs": ["https://x.com/CinderDeFi", "https://github.com/tapout976/cinder-finance"]
+  "sameAs": ["https://x.com/CinderDeFi", "https://github.com/CinderDeFi/cinder-finance"]
 }</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 256 256%22%3E%3Cpath d=%22M 128 22 L 142 22 Q 149 22 154 26 L 198 58 Q 204 62 204 70 L 204 186 Q 204 194 198 198 L 154 230 Q 149 234 142 234 L 114 234 Q 107 234 102 230 L 58 198 Q 52 194 52 186 L 52 70 Q 52 62 58 58 L 102 26 Q 107 22 114 22 Z%22 fill=%22%230D0804%22 stroke=%22%23FF8C4A%22 stroke-width=%226%22 stroke-linejoin=%22round%22/%3E%3Cg fill=%22%23FF8C4A%22%3E%3Crect x=%2298%22 y=%2282%22 width=%2214%22 height=%2292%22 rx=%222.5%22/%3E%3Crect x=%2298%22 y=%2282%22 width=%2256%22 height=%2214%22 rx=%222.5%22/%3E%3Crect x=%2298%22 y=%22120%22 width=%2246%22 height=%2213%22 rx=%222.5%22/%3E%3Crect x=%2298%22 y=%22160%22 width=%2256%22 height=%2214%22 rx=%222.5%22/%3E%3C/g%3E%3Ccircle cx=%22171%22 cy=%2281%22 r=%225%22 fill=%22%23FFE8A0%22/%3E%3C/svg%3E">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#07080A">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+<meta name="theme-color" content="#07080A">
 <title>Cinder — EMBER Governance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -629,172 +629,6 @@ nav a[href*="#"].nav-active__removed {
 }
 /* ── End section nav ── */
 
-
-
-/* ══════════════════════════════════════════════════
-   FIX: keep Connect Wallet + Hamburger on one row (mobile)
-   ══════════════════════════════════════════════════ */
-nav { flex-wrap: nowrap !important; }
-.nav-right {
-  display: flex !important;
-  align-items: center !important;
-  flex-wrap: nowrap !important;
-  flex-shrink: 0 !important;
-  gap: 8px !important;
-}
-.nav-logo { min-width: 0 !important; }
-@media (max-width: 768px) {
-  nav { padding: 0 1rem !important; gap: 8px !important; flex-wrap: nowrap !important; }
-  .nav-right { flex-wrap: nowrap !important; flex-shrink: 0 !important; gap: 8px !important; }
-  #connectBtn { font-size: 12px !important; padding: 7px 12px !important; min-height: 34px !important; height: 34px !important; white-space: nowrap !important; flex-shrink: 0 !important; }
-  .ham-btn { display: flex !important; width: 36px !important; height: 36px !important; min-width: 36px !important; flex-shrink: 0 !important; }
-  .nav-links { display: none !important; }
-}
-@media (max-width: 360px) {
-  #connectBtn { font-size: 11px !important; padding: 6px 10px !important; min-height: 32px !important; height: 32px !important; }
-  .ham-btn { width: 32px !important; height: 32px !important; min-width: 32px !important; }
-}
-
-/* ══════════════════════════════════════════════════
-   MISSING STYLES — governance button variants
-   ══════════════════════════════════════════════════ */
-
-/* Small variant */
-.btn-sm {
-  padding: 7px 14px !important;
-  font-size: 12px !important;
-  border-radius: 8px !important;
-}
-
-/* Full-width variant */
-.btn-block {
-  display: flex !important;
-  width: 100% !important;
-  justify-content: center !important;
-  align-items: center !important;
-}
-
-/* Surface (subtle filled) variant */
-.btn.btn-surface,
-.btn-surface {
-  background: var(--surface, #111318);
-  color: var(--ink, #EEE9E1);
-  border: 1px solid var(--border, rgba(255,255,255,0.08));
-  transition: all 0.15s;
-}
-.btn.btn-surface:hover,
-.btn-surface:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-/* Ghost (transparent outlined) variant */
-.btn.btn-ghost,
-.btn-ghost {
-  background: transparent;
-  color: var(--ink2, #8C8880);
-  border: 1px solid var(--border, rgba(255,255,255,0.06));
-  transition: all 0.15s;
-}
-.btn.btn-ghost:hover,
-.btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--ink, #EEE9E1);
-}
-
-/* Green variant for stake-style actions */
-.btn.btn-green,
-.btn-green {
-  background: linear-gradient(135deg, #4ABA6F, #5FC885);
-  color: #fff;
-  border: none;
-  box-shadow: 0 4px 16px rgba(74, 186, 111, 0.25);
-  transition: all 0.18s;
-}
-.btn.btn-green:hover,
-.btn-green:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(74, 186, 111, 0.38);
-  filter: brightness(1.05);
-}
-
-/* Wallet modal spinner */
-.wm-spinner {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.18);
-  border-top-color: var(--accent, #FF6B23);
-  border-radius: 50%;
-  animation: wmSpin 0.7s linear infinite;
-  vertical-align: middle;
-}
-@keyframes wmSpin {
-  to { transform: rotate(360deg); }
-}
-
-
-/* ══════════════════════════════════════════════════
-   UNIFIED CONNECT WALLET BUTTON SIZING (cross-page)
-   These rules ensure the button looks identical on mobile
-   across index, app, governance, and about pages.
-   ══════════════════════════════════════════════════ */
-
-/* Desktop default — matches across all pages */
-@media (min-width: 769px) {
-  #connectBtn {
-    font-size: 13px !important;
-    padding: 9px 18px !important;
-    min-height: 38px !important;
-    height: 38px !important;
-    border-radius: 10px !important;
-    white-space: nowrap !important;
-  }
-}
-
-/* Mobile — unified sizing across every page */
-@media (max-width: 768px) {
-  #connectBtn {
-    font-size: 12px !important;
-    padding: 8px 14px !important;
-    min-height: 36px !important;
-    height: 36px !important;
-    border-radius: 9px !important;
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
-    width: auto !important;
-    line-height: 1 !important;
-  }
-}
-
-/* Tiny phones */
-@media (max-width: 360px) {
-  #connectBtn {
-    font-size: 11px !important;
-    padding: 7px 11px !important;
-    min-height: 32px !important;
-    height: 32px !important;
-  }
-}
-/* ══════════════════════════════════════════════════ */
-
-
-/* ══════════════════════════════════════════════════
-   Respect prefers-reduced-motion accessibility setting
-   ══════════════════════════════════════════════════ */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-  .reveal, .reveal-d1, .reveal-d2, .reveal-d3, .reveal-d4, .reveal-d5 {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
@@ -879,7 +713,7 @@ nav { flex-wrap: nowrap !important; }
         <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)">Mins</div>
       </div>
     </div>
-    <a href="https://x.com/CinderDeFi" target="_blank" rel="noopener noreferrer" style="font-size:12px;color:var(--accent2);font-weight:500;white-space:nowrap">Follow @CinderDeFi for launch →</a>
+    <a href="https://x.com/CinderDeFi" target="_blank" style="font-size:12px;color:var(--accent2);font-weight:500;white-space:nowrap">Follow @CinderDeFi for launch →</a>
   </div>
 </div>
 
@@ -1140,7 +974,7 @@ nav { flex-wrap: nowrap !important; }
       </div>
       <div class="del-controls">
         <div class="del-row">
-          <input type="text" class="del-input" id="delegateAddr" aria-label="Delegate address" placeholder="0x... delegate address">
+          <input type="text" class="del-input" id="delegateAddr" placeholder="0x... delegate address">
           <button class="btn btn-primary btn-sm" onclick="doDelegate()">Delegate</button>
         </div>
         <button class="btn btn-surface btn-sm btn-block" onclick="doSelfDelegate()">Self-delegate (vote yourself)</button>
@@ -1166,7 +1000,7 @@ nav { flex-wrap: nowrap !important; }
 <section class="section" id="mining">
 <div class="wrap">
   <div class="sep r">Liquidity mining</div>
-  <h2 class="sh2 r d1"><svg width="32" height="32" viewBox="0 0 256 256" style="vertical-align:-7px;flex-shrink:0;display:inline-block;margin-right:10px" aria-hidden="true"><defs><linearGradient id="emH" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF6B23"/><stop offset="100%" stop-color="#FFB347"/></linearGradient></defs><path d="M 128 22 L 142 22 Q 149 22 154 26 L 198 58 Q 204 62 204 70 L 204 186 Q 204 194 198 198 L 154 230 Q 149 234 142 234 L 114 234 Q 107 234 102 230 L 58 198 Q 52 194 52 186 L 52 70 Q 52 62 58 58 L 102 26 Q 107 22 114 22 Z" fill="#0D0804" stroke="url(#emH)" stroke-width="6" stroke-linejoin="round"/><g fill="url(#emH)"><rect x="98" y="82" width="14" height="92" rx="2.5"/><rect x="98" y="82" width="56" height="14" rx="2.5"/><rect x="98" y="120" width="46" height="13" rx="2.5"/><rect x="98" y="160" width="56" height="14" rx="2.5"/></g><circle cx="171" cy="81" r="6" fill="#FFE8A0"/></svg>Earn EMBER for depositing.</h2>
+  <h2 class="sh2 r d1"><svg width="32" height="32" viewBox="0 0 256 256" style="vertical-align:-7px;flex-shrink:0;display:inline-block;margin-right:10px" aria-hidden="true"><defs><linearGradient id="emH2d" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF6B23"/><stop offset="100%" stop-color="#FFB347"/></linearGradient></defs><path d="M 128 22 L 142 22 Q 149 22 154 26 L 198 58 Q 204 62 204 70 L 204 186 Q 204 194 198 198 L 154 230 Q 149 234 142 234 L 114 234 Q 107 234 102 230 L 58 198 Q 52 194 52 186 L 52 70 Q 52 62 58 58 L 102 26 Q 107 22 114 22 Z" fill="#0D0804" stroke="url(#emH2d)" stroke-width="6" stroke-linejoin="round"/><g fill="url(#emH2d)"><rect x="98" y="82" width="14" height="92" rx="2.5"/><rect x="98" y="82" width="56" height="14" rx="2.5"/><rect x="98" y="120" width="46" height="13" rx="2.5"/><rect x="98" y="160" width="56" height="14" rx="2.5"/></g><circle cx="171" cy="81" r="6" fill="#FFE8A0"/></svg>Earn EMBER for depositing.</h2>
   <p class="sm r d2">Stake your cFLR or cXRP vault shares in the CinderMining contract and earn EMBER every second — on top of your staking yield. Two income streams from one deposit, across two vaults.</p>
   <div class="epoch-tl r">
     <div class="ep now"><div class="ep-yr">Year 1 · Current</div><div class="ep-amt" style="color:var(--green)">180M</div><div class="ep-rate">493,151 EMBER/day</div><div class="ep-badge active">● Active</div></div>
@@ -1199,16 +1033,16 @@ nav { flex-wrap: nowrap !important; }
         </div>
         <div class="mb-col-label" id="miningPoolLabel">Stake cFLR to earn EMBER</div>
         <div class="mb-inrow">
-          <input type="number" id="stakeIn" aria-label="Stake amount" placeholder="0.0" min="0" step="any" oninput="updateStakePreview()">
+          <input type="number" id="stakeIn" placeholder="0.0" min="0" step="any" oninput="updateStakePreview()">
           <div class="mb-tok">cXRP</div>
         </div>
         <div style="font-size:11px;color:var(--ink3);font-family:var(--mono);margin-bottom:10px;min-height:16px" id="stakePreview"></div>
-        <button class="btn btn-green btn-block" id="stakeBtn" onclick="doStake()">Stake cXRP → Earn EMBER</button>
+        <button class="btn btn-green btn-block" id="stakeBtn" onclick="doStake()" style="display:inline-flex;align-items:center;justify-content:center;gap:8px">Stake cXRP → Earn <svg width="16" height="16" viewBox="0 0 256 256" style="vertical-align:-3px;flex-shrink:0;display:inline-block" aria-hidden="true"><path d="M 128 22 L 142 22 Q 149 22 154 26 L 198 58 Q 204 62 204 70 L 204 186 Q 204 194 198 198 L 154 230 Q 149 234 142 234 L 114 234 Q 107 234 102 230 L 58 198 Q 52 194 52 186 L 52 70 Q 52 62 58 58 L 102 26 Q 107 22 114 22 Z" fill="#0D0804" stroke="#fff" stroke-width="6" stroke-linejoin="round"/><g fill="#fff"><rect x="98" y="82" width="14" height="92" rx="2.5"/><rect x="98" y="82" width="56" height="14" rx="2.5"/><rect x="98" y="120" width="46" height="13" rx="2.5"/><rect x="98" y="160" width="56" height="14" rx="2.5"/></g></svg> EMBER</button>
       </div>
       <div class="mb-col">
         <div class="mb-col-label">Unstake (auto-claims rewards)</div>
         <div class="mb-inrow">
-          <input type="number" id="unstakeIn" aria-label="Unstake amount" placeholder="0.0" min="0" step="any">
+          <input type="number" id="unstakeIn" placeholder="0.0" min="0" step="any">
           <div class="mb-tok">cXRP</div>
         </div>
         <div style="margin-bottom:10px;display:flex;gap:6px">
@@ -1279,13 +1113,13 @@ nav { flex-wrap: nowrap !important; }
   <div style="max-width:1120px;margin:0 auto;padding:0 2rem;box-sizing:border-box">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,0.06)">
       <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:700;font-size:16px"><svg width="22" height="22" viewBox="-74 -90 148 148" style="flex-shrink:0"><rect x="-74" y="-90" width="148" height="148" rx="34" fill="#0D0804"/><path d="M-32 52C-50 28-45 4-33-18C-27-4-30 13-25 27C-36 16-38 35-32 52Z" fill="#FF4500"/><path d="M-27 32C-35 16-31 0-23-7C-20 2-21 13-18 23C-25 14-27 23-27 32Z" fill="#FF6B23"/><circle cx="-27" cy="-20" r="4" fill="#FFB347"/><path d="M0 54C-20 31-18 4 0-50C18 4 20 31 0 54Z" fill="#FF4500"/><path d="M0 27C-8 11-7-2 0-21C7-2 8 11 0 27Z" fill="#FF6B23"/><circle cx="0" cy="-52" r="4" fill="#FFB347"/><path d="M32 52C50 28 45 4 33-18C27-4 30 13 25 27C36 16 38 35 32 52Z" fill="#FF4500"/><path d="M27 32C35 16 31 0 23-7C20 2 21 13 18 23C25 14 27 23 27 32Z" fill="#FF6B23"/><circle cx="27" cy="-20" r="4" fill="#FFB347"/></svg><span>Cinder</span></a>
-      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.25rem 1.5rem"><a href="/" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Home</a><a href="/app" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">App</a><a href="/about" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">About</a><a href="https://x.com/CinderDeFi" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">X / @CinderDeFi</a><a href="https://discord.gg/npHaHKCnkY" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Discord</a><a href="mailto:security@cinder.finance" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">security@cinder.finance</a></div>
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.25rem 1.5rem"><a href="/" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Home</a><a href="/app" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">App</a><a href="/about" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">About</a><a href="https://x.com/CinderDeFi" target="_blank" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">X / @CinderDeFi</a><a href="https://discord.gg/npHaHKCnkY" target="_blank" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Discord</a><a href="mailto:security@cinder.finance" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">security@cinder.finance</a></div>
     </div>
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;padding-top:1rem">
       <span style="font-size:11px;color:rgba(238,233,225,0.3)">© 2026 Cinder Finance · Unaudited · Use at your own risk</span>
       <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem 1rem">
         <span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(238,233,225,0.3)">Built on</span>
-        <a href="https://sceptre.fi" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#3B82F6,#1D4ED8);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sceptre</a><a href="https://firelight.finance" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#F97316,#DC2626);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Firelight</a><a href="https://gelato.network" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#EC4899,#BE185D);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">G</span>Gelato</a><a href="https://sparkdex.ai" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sparkdex</a><a href="https://flare.network" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#FF4500,#FF6B23);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Flare</a>
+        <a href="https://sceptre.fi" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#3B82F6,#1D4ED8);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sceptre</a><a href="https://firelight.finance" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#F97316,#DC2626);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Firelight</a><a href="https://gelato.network" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#EC4899,#BE185D);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">G</span>Gelato</a><a href="https://sparkdex.ai" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sparkdex</a><a href="https://flare.network" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#FF4500,#FF6B23);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Flare</a>
       </div>
     </div>
   </div>
@@ -1333,7 +1167,7 @@ nav { flex-wrap: nowrap !important; }
       </div>
       <div>
         <div style="font-size:11px;font-family:var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:6px">Reason (optional — shown on-chain)</div>
-        <textarea class="vote-reason" id="voteReason" aria-label="Vote reasoning" rows="2" placeholder="Share your reasoning with the community…"></textarea>
+        <textarea class="vote-reason" id="voteReason" rows="2" placeholder="Share your reasoning with the community…"></textarea>
       </div>
       <div style="font-size:12px;color:var(--ink3);font-family:var(--mono)" id="vmVotePow">Your voting power: — EMBER</div>
     </div>
@@ -1931,12 +1765,12 @@ async function connectBifrost() {
   const bfProvider = window.bifrost || window.ethereum;
 
   if (!bfProvider) {
-    setWmStatus('Bifrost not detected. <a href="https://bifrostwallet.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent2)">Download Bifrost →</a>');
+    setWmStatus('Bifrost not detected. <a href="https://bifrostwallet.com" target="_blank" style="color:var(--accent2)">Download Bifrost →</a>');
     return;
   }
   if (!window.bifrost && !window.ethereum?.isBifrost) {
     // Not Bifrost — suggest download
-    setWmStatus('Bifrost not found. <a href="https://bifrostwallet.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent2)">Get Bifrost wallet →</a>');
+    setWmStatus('Bifrost not found. <a href="https://bifrostwallet.com" target="_blank" style="color:var(--accent2)">Get Bifrost wallet →</a>');
     return;
   }
 
@@ -1952,7 +1786,7 @@ async function connectBifrost() {
 }
 async function connectMetaMask() {
   if (!window.ethereum) {
-    setWmStatus('MetaMask not detected. <a href="https://metamask.io" target="_blank" rel="noopener noreferrer" style="color:var(--accent2)">Install MetaMask →</a>');
+    setWmStatus('MetaMask not detected. <a href="https://metamask.io" target="_blank" style="color:var(--accent2)">Install MetaMask →</a>');
     return;
   }
   setWmStatus('Opening MetaMask…', true);

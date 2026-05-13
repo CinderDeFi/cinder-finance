@@ -41,7 +41,7 @@
     "@type": "Person",
     "name": "Cinder Finance"
   },
-  "sameAs": ["https://x.com/CinderDeFi", "https://github.com/tapout976/cinder-finance"]
+  "sameAs": ["https://x.com/CinderDeFi", "https://github.com/CinderDeFi/cinder-finance"]
 }</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-74%20-90%20148%20148%22%3E%0A%3Crect%20x%3D%22-74%22%20y%3D%22-90%22%20width%3D%22148%22%20height%3D%22148%22%20rx%3D%2234%22%20fill%3D%22%230D0804%22/%3E%0A%3Cpath%20d%3D%22M-32%2052C-50%2028-45%204-33-18C-27-4-30%2013-25%2027C-36%2016-38%2035-32%2052Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M-27%2032C-35%2016-31%200-23-7C-20%202-21%2013-18%2023C-25%2014-27%2023-27%2032Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%22-27%22%20cy%3D%22-20%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3Cpath%20d%3D%22M0%2054C-20%2031-18%204%200-50C18%204%2020%2031%200%2054Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M0%2027C-8%2011-7-2%200-21C7-2%208%2011%200%2027Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%220%22%20cy%3D%22-52%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3Cpath%20d%3D%22M32%2052C50%2028%2045%204%2033-18C27-4%2030%2013%2025%2027C36%2016%2038%2035%2032%2052Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M27%2032C35%2016%2031%200%2023-7C20%202%2021%2013%2018%2023C25%2014%2027%2023%2027%2032Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%2227%22%20cy%3D%22-20%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3C/svg%3E">
 <meta charset="UTF-8">
@@ -204,7 +204,6 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
 }
 .mobile-nav a:last-child{border-bottom:none}
 .mobile-nav a:hover,.mobile-nav a:active{color:var(--ink)}
-.mobile-nav 
 @media(max-width:640px){
   .ham-btn{display:flex}
   .nav-links{display:none !important}
@@ -491,7 +490,6 @@ footer{padding:2rem 0;border-top:1px solid var(--border);position:relative;z-ind
   .feat-card { padding: 1.25rem !important; }
   .flow-step { padding: 1.25rem !important; }
 }
-/* ── End mobile overrides ── */
 
 /* ── Unified footer ──────────────────────────────── */
 footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; margin-top: 0; }
@@ -536,128 +534,6 @@ nav a[href^="#"] { transition: color .2s; position: relative; }
 nav a[href^="#"]:hover { color: #FF6B23 !important; }
 nav a[href^="#"].nav-active { color: #FF6B23 !important; }
 /* nav-active underline removed */
-
-
-/* ══════════════════════════════════════════════════
-   MISSING STYLES — index.html vault cards & badges
-   ══════════════════════════════════════════════════ */
-
-/* Eyebrow text above section headings */
-.eyebrow {
-  font-family: var(--mono, 'JetBrains Mono', monospace);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent2, #FF8C4A);
-  font-weight: 500;
-}
-
-/* Vault card structure */
-.vc-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-  flex: 1;
-}
-
-/* Vault card variant accent colors */
-.vc.vc-sflr  { border-left: 2px solid #FF6B23; }
-.vc.vc-stxrp { border-left: 2px solid #F5A623; }
-.vc.vc-lp    { border-left: 2px solid #FFB347; }
-.vc.vc-lp2   { border-left: 2px solid #9B6DFF; }
-
-/* APY color modifiers */
-.apy-green  { color: #4ABA6F !important; }
-.apy-amber  { color: #F5A623 !important; }
-.apy-purple { color: #9B6DFF !important; }
-
-/* Status badges (live / soon) */
-.vc-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-family: var(--mono, 'JetBrains Mono', monospace);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  font-weight: 500;
-  white-space: nowrap;
-  margin-top: 4px;
-}
-.live-badge {
-  background: rgba(74, 186, 111, 0.1);
-  color: #4ABA6F;
-  border: 1px solid rgba(74, 186, 111, 0.2);
-}
-.soon-badge {
-  background: rgba(238, 233, 225, 0.04);
-  color: var(--ink3, #52504C);
-  border: 1px solid var(--border, rgba(255,255,255,0.06));
-}
-
-
-/* ══════════════════════════════════════════════════
-   UNIFIED CONNECT WALLET BUTTON SIZING (cross-page)
-   These rules ensure the button looks identical on mobile
-   across index, app, governance, and about pages.
-   ══════════════════════════════════════════════════ */
-
-/* Desktop default — matches across all pages */
-@media (min-width: 769px) {
-  #connectBtn {
-    font-size: 13px !important;
-    padding: 9px 18px !important;
-    min-height: 38px !important;
-    height: 38px !important;
-    border-radius: 10px !important;
-    white-space: nowrap !important;
-  }
-}
-
-/* Mobile — unified sizing across every page */
-@media (max-width: 768px) {
-  #connectBtn {
-    font-size: 12px !important;
-    padding: 8px 14px !important;
-    min-height: 36px !important;
-    height: 36px !important;
-    border-radius: 9px !important;
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
-    width: auto !important;
-    line-height: 1 !important;
-  }
-}
-
-/* Tiny phones */
-@media (max-width: 360px) {
-  #connectBtn {
-    font-size: 11px !important;
-    padding: 7px 11px !important;
-    min-height: 32px !important;
-    height: 32px !important;
-  }
-}
-/* ══════════════════════════════════════════════════ */
-
-
-/* ══════════════════════════════════════════════════
-   Respect prefers-reduced-motion accessibility setting
-   ══════════════════════════════════════════════════ */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-  .reveal, .reveal-d1, .reveal-d2, .reveal-d3, .reveal-d4, .reveal-d5 {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
 
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
@@ -740,7 +616,7 @@ nav a[href^="#"].nav-active { color: #FF6B23 !important; }
         <div class="hero-stats reveal reveal-d4">
           <div style="position:relative">
             <div class="h-stat-v g">~12%</div>
-            <div class="h-stat-l">sFLR APY · <a href="https://flare.sceptre.fi" target="_blank" rel="noopener noreferrer" style="color:var(--ink3);font-size:10px;text-decoration:none">sceptre.fi ↗</a></div>
+            <div class="h-stat-l">sFLR APY · <a href="https://flare.sceptre.fi" target="_blank" style="color:var(--ink3);font-size:10px;text-decoration:none">sceptre.fi ↗</a></div>
             <canvas id="apySparkline" style="display:none" width="72" height="28" style="position:absolute;top:-2px;right:-80px;opacity:.65"></canvas>
           </div>
           <div><div class="h-stat-v o" id="heroTvl">$0</div><div class="h-stat-l">TVL</div></div>
@@ -901,7 +777,7 @@ nav a[href^="#"].nav-active { color: #FF6B23 !important; }
         <div>
           <label style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:.5rem">Deposit amount</label>
           <div style="display:flex;align-items:center;gap:8px">
-            <input type="range" id="cvDeposit" aria-label="Deposit amount slider" min="100" max="100000" value="10000" step="100"
+            <input type="range" id="cvDeposit" min="100" max="100000" value="10000" step="100"
               style="flex:1;accent-color:#FF6B23" oninput="updateCV()">
             <span id="cvDepositVal" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:18px;color:var(--ink);min-width:80px;text-align:right">$10,000</span>
           </div>
@@ -909,21 +785,11 @@ nav a[href^="#"].nav-active { color: #FF6B23 !important; }
         <div>
           <label style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:.5rem">Time period</label>
           <div style="display:flex;align-items:center;gap:8px">
-            <input type="range" id="cvYears" aria-label="Time period slider" min="1" max="5" value="3" step="1"
+            <input type="range" id="cvYears" min="1" max="5" value="3" step="1"
               style="flex:1;accent-color:#FF6B23" oninput="updateCV()">
             <span id="cvYearsVal" style="font-family:var(--display);font-style:italic;font-weight:700;font-size:18px;color:var(--ink);min-width:60px;text-align:right">3 yrs</span>
           </div>
         </div>
-      </div>
-
-      <!-- Divergence chart -->
-      <div id="cvChartWrap" style="position:relative;height:200px;margin-bottom:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1rem 1rem;overflow:hidden">
-        <canvas id="cvChart" style="display:block;width:100%;height:100%"></canvas>
-        <div style="position:absolute;top:.75rem;right:1rem;display:flex;gap:1rem;font-family:var(--mono,monospace);font-size:10px;letter-spacing:0.05em;text-transform:uppercase;pointer-events:none">
-          <span style="display:flex;align-items:center;gap:5px;color:var(--ink3)"><span style="display:inline-block;width:10px;height:2px;background:var(--ink3)"></span>Manual</span>
-          <span style="display:flex;align-items:center;gap:5px;color:var(--accent2)"><span style="display:inline-block;width:10px;height:2px;background:linear-gradient(90deg,#FF6B23,#FFB347)"></span>Cinder</span>
-        </div>
-        <div id="cvChartTooltip" style="position:absolute;display:none;pointer-events:none;background:rgba(7,8,10,0.95);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-family:var(--mono,monospace);font-size:11px;color:var(--ink);backdrop-filter:blur(8px);z-index:5;white-space:nowrap"></div>
       </div>
 
       <!-- Results comparison -->
@@ -955,23 +821,23 @@ nav a[href^="#"].nav-active { color: #FF6B23 !important; }
   <div class="container">
     <p style="text-align:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:1.75rem">Built on top of</p>
     <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:2rem 3rem">
-      <a href="https://sceptre.fi" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
+      <a href="https://sceptre.fi" target="_blank" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
         <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#3B82F6,#1D4ED8);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:monospace">S</div>
         <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--ink2)">Sceptre</span>
       </a>
-      <a href="https://firelight.finance" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
+      <a href="https://firelight.finance" target="_blank" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
         <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#F97316,#DC2626);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:monospace">F</div>
         <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--ink2)">Firelight</span>
       </a>
-      <a href="https://sparkdex.ai" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
+      <a href="https://sparkdex.ai" target="_blank" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
         <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:monospace">S</div>
         <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--ink2)">Sparkdex</span>
       </a>
-      <a href="https://gelato.network" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
+      <a href="https://gelato.network" target="_blank" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
         <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#EC4899,#BE185D);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:monospace">G</div>
         <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--ink2)">Gelato</span>
       </a>
-      <a href="https://flare.network" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
+      <a href="https://flare.network" target="_blank" style="display:flex;align-items:center;gap:.625rem;text-decoration:none;opacity:.5;transition:opacity .2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">
         <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#E11D48,#9F1239);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:monospace">F</div>
         <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--ink2)">Flare</span>
       </a>
@@ -998,7 +864,7 @@ nav a[href^="#"].nav-active { color: #FF6B23 !important; }
       </p>
       <div style="display:flex;flex-direction:column;gap:12px;max-width:280px;margin:0 auto">
         <a href="/app"><button class="btn-xl primary" style="width:100%;justify-content:center;font-size:16px;padding:16px">Launch App →</button></a>
-        <a href="https://flare.network" target="_blank" rel="noopener noreferrer"><button class="btn-xl secondary" style="width:100%;justify-content:center">Learn about Flare</button></a>
+        <a href="https://flare.network" target="_blank"><button class="btn-xl secondary" style="width:100%;justify-content:center">Learn about Flare</button></a>
       </div>
     </div>
   </div>
@@ -1008,13 +874,13 @@ nav a[href^="#"].nav-active { color: #FF6B23 !important; }
   <div style="max-width:1120px;margin:0 auto;padding:0 2rem;box-sizing:border-box">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,0.06)">
       <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:700;font-size:16px"><svg width="22" height="22" viewBox="-74 -90 148 148" style="flex-shrink:0"><rect x="-74" y="-90" width="148" height="148" rx="34" fill="#0D0804"/><path d="M-32 52C-50 28-45 4-33-18C-27-4-30 13-25 27C-36 16-38 35-32 52Z" fill="#FF4500"/><path d="M-27 32C-35 16-31 0-23-7C-20 2-21 13-18 23C-25 14-27 23-27 32Z" fill="#FF6B23"/><circle cx="-27" cy="-20" r="4" fill="#FFB347"/><path d="M0 54C-20 31-18 4 0-50C18 4 20 31 0 54Z" fill="#FF4500"/><path d="M0 27C-8 11-7-2 0-21C7-2 8 11 0 27Z" fill="#FF6B23"/><circle cx="0" cy="-52" r="4" fill="#FFB347"/><path d="M32 52C50 28 45 4 33-18C27-4 30 13 25 27C36 16 38 35 32 52Z" fill="#FF4500"/><path d="M27 32C35 16 31 0 23-7C20 2 21 13 18 23C25 14 27 23 27 32Z" fill="#FF6B23"/><circle cx="27" cy="-20" r="4" fill="#FFB347"/></svg><span>Cinder</span></a>
-      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.25rem 1.5rem"><a href="/app" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">App</a><a href="/governance" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Governance</a><a href="/about" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">About</a><a href="https://x.com/CinderDeFi" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">X / @CinderDeFi</a><a href="https://discord.gg/npHaHKCnkY" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Discord</a><a href="mailto:security@cinder.finance" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">security@cinder.finance</a></div>
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.25rem 1.5rem"><a href="/app" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">App</a><a href="/governance" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Governance</a><a href="/about" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">About</a><a href="https://x.com/CinderDeFi" target="_blank" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">X / @CinderDeFi</a><a href="https://discord.gg/npHaHKCnkY" target="_blank" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Discord</a><a href="mailto:security@cinder.finance" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">security@cinder.finance</a></div>
     </div>
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;padding-top:1rem">
       <span style="font-size:11px;color:rgba(238,233,225,0.3)">© 2026 Cinder Finance · Unaudited · Use at your own risk</span>
       <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem 1rem">
         <span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(238,233,225,0.3)">Built on</span>
-        <a href="https://sceptre.fi" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#3B82F6,#1D4ED8);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sceptre</a><a href="https://firelight.finance" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#F97316,#DC2626);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Firelight</a><a href="https://gelato.network" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#EC4899,#BE185D);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">G</span>Gelato</a><a href="https://sparkdex.ai" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sparkdex</a><a href="https://flare.network" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#FF4500,#FF6B23);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Flare</a>
+        <a href="https://sceptre.fi" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#3B82F6,#1D4ED8);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sceptre</a><a href="https://firelight.finance" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#F97316,#DC2626);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Firelight</a><a href="https://gelato.network" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#EC4899,#BE185D);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">G</span>Gelato</a><a href="https://sparkdex.ai" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sparkdex</a><a href="https://flare.network" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#FF4500,#FF6B23);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Flare</a>
       </div>
     </div>
   </div>
@@ -1118,173 +984,19 @@ function toggleFaq(btn) {
 function updateCV() {
   var deposit = parseInt(document.getElementById('cvDeposit').value);
   var years = parseInt(document.getElementById('cvYears').value);
-  var apy = (window.cinderLiveAPY || 0.12);
+  var apy = 0.12; // live from chain, fallback 12%
   var n = 8760; // hourly compounds per year
 
-  var manualFinal = deposit * (1 + apy * years);
-  var compoundFinal = deposit * Math.pow(1 + apy/n, n * years);
-  var extra = compoundFinal - manualFinal;
+  var manual = deposit * (1 + apy * years);
+  var compound = deposit * Math.pow(1 + apy/n, n * years);
+  var extra = compound - manual;
 
   document.getElementById('cvDepositVal').textContent = '$' + deposit.toLocaleString();
   document.getElementById('cvYearsVal').textContent = years + (years === 1 ? ' yr' : ' yrs');
-  document.getElementById('cvManual').textContent = '$' + Math.round(manualFinal).toLocaleString();
-  document.getElementById('cvCompound').textContent = '$' + Math.round(compoundFinal).toLocaleString();
+  document.getElementById('cvManual').textContent = '$' + Math.round(manual).toLocaleString();
+  document.getElementById('cvCompound').textContent = '$' + Math.round(compound).toLocaleString();
   document.getElementById('cvExtra').textContent = '+$' + Math.round(extra).toLocaleString();
-
-  drawCVChart(deposit, apy, years);
 }
-
-// ── Divergence chart for compound section ──────────────────────
-var _cvChartPoints = null;
-function drawCVChart(deposit, apy, years) {
-  var canvas = document.getElementById('cvChart');
-  if (!canvas || !canvas.getContext) return;
-  var ctx = canvas.getContext('2d');
-  var dpr = window.devicePixelRatio || 1;
-  var cssW = canvas.offsetWidth;
-  var cssH = canvas.offsetHeight;
-  if (canvas.width !== cssW * dpr) {
-    canvas.width = cssW * dpr;
-    canvas.height = cssH * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  ctx.clearRect(0, 0, cssW, cssH);
-
-  // padding
-  var padL = 8, padR = 8, padT = 20, padB = 24;
-  var W = cssW - padL - padR;
-  var H = cssH - padT - padB;
-
-  // Build 60 data points across the time range
-  var steps = 60;
-  var n = 8760;
-  var manualPts = [];
-  var compPts = [];
-  for (var i = 0; i <= steps; i++) {
-    var t = (i / steps) * years;
-    manualPts.push(deposit * (1 + apy * t));
-    compPts.push(deposit * Math.pow(1 + apy/n, n * t));
-  }
-  _cvChartPoints = { manual: manualPts, comp: compPts, deposit: deposit, years: years, steps: steps };
-
-  var maxY = compPts[steps];
-  var minY = deposit;
-  var rangeY = maxY - minY;
-  function mapX(i) { return padL + (i / steps) * W; }
-  function mapY(v) { return padT + H - ((v - minY) / rangeY) * H; }
-
-  // Subtle horizontal gridlines (3 lines)
-  ctx.strokeStyle = 'rgba(255,255,255,0.04)';
-  ctx.lineWidth = 1;
-  for (var g = 0; g < 4; g++) {
-    var y = padT + (H / 3) * g;
-    ctx.beginPath();
-    ctx.moveTo(padL, y);
-    ctx.lineTo(padL + W, y);
-    ctx.stroke();
-  }
-
-  // Year labels along bottom
-  ctx.fillStyle = 'rgba(238,233,225,0.25)';
-  ctx.font = '9px "JetBrains Mono", monospace';
-  ctx.textAlign = 'center';
-  var yearTicks = Math.min(years, 5);
-  for (var yt = 0; yt <= yearTicks; yt++) {
-    var x = padL + (yt / yearTicks) * W;
-    ctx.fillText(yt + 'y', x, cssH - 6);
-  }
-
-  // ── Manual line (dashed gray) ──
-  ctx.strokeStyle = 'rgba(238,233,225,0.35)';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([4, 3]);
-  ctx.beginPath();
-  ctx.moveTo(mapX(0), mapY(manualPts[0]));
-  for (var i2 = 1; i2 <= steps; i2++) ctx.lineTo(mapX(i2), mapY(manualPts[i2]));
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // ── Compound area fill (orange gradient) ──
-  var grad = ctx.createLinearGradient(0, padT, 0, padT + H);
-  grad.addColorStop(0, 'rgba(255,107,35,0.28)');
-  grad.addColorStop(1, 'rgba(255,107,35,0.0)');
-  ctx.fillStyle = grad;
-  ctx.beginPath();
-  ctx.moveTo(mapX(0), mapY(compPts[0]));
-  for (var i3 = 1; i3 <= steps; i3++) ctx.lineTo(mapX(i3), mapY(compPts[i3]));
-  ctx.lineTo(mapX(steps), padT + H);
-  ctx.lineTo(mapX(0), padT + H);
-  ctx.closePath();
-  ctx.fill();
-
-  // ── Compound line (orange gradient stroke) ──
-  var strokeGrad = ctx.createLinearGradient(padL, 0, padL + W, 0);
-  strokeGrad.addColorStop(0, '#FF6B23');
-  strokeGrad.addColorStop(1, '#FFB347');
-  ctx.strokeStyle = strokeGrad;
-  ctx.lineWidth = 2.5;
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
-  ctx.beginPath();
-  ctx.moveTo(mapX(0), mapY(compPts[0]));
-  for (var i4 = 1; i4 <= steps; i4++) ctx.lineTo(mapX(i4), mapY(compPts[i4]));
-  ctx.stroke();
-
-  // End-point glow on compound line
-  var endX = mapX(steps), endY = mapY(compPts[steps]);
-  ctx.fillStyle = '#FFB347';
-  ctx.beginPath();
-  ctx.arc(endX, endY, 4, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.shadowColor = '#FF6B23';
-  ctx.shadowBlur = 12;
-  ctx.beginPath();
-  ctx.arc(endX, endY, 4, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.shadowBlur = 0;
-}
-
-// Tooltip on hover
-function _initCVHover() {
-  var wrap = document.getElementById('cvChartWrap');
-  var canvas = document.getElementById('cvChart');
-  var tip = document.getElementById('cvChartTooltip');
-  if (!wrap || !canvas || !tip) return;
-  canvas.addEventListener('mousemove', function(e) {
-    if (!_cvChartPoints) return;
-    var rect = canvas.getBoundingClientRect();
-    var x = e.clientX - rect.left;
-    var ratio = Math.max(0, Math.min(1, (x - 8) / (rect.width - 16)));
-    var idx = Math.round(ratio * _cvChartPoints.steps);
-    if (idx < 0) idx = 0;
-    if (idx > _cvChartPoints.steps) idx = _cvChartPoints.steps;
-    var t = (idx / _cvChartPoints.steps) * _cvChartPoints.years;
-    var m = Math.round(_cvChartPoints.manual[idx]);
-    var co = Math.round(_cvChartPoints.comp[idx]);
-    var diff = co - m;
-    tip.style.display = 'block';
-    tip.style.left = (x + 12) + 'px';
-    tip.style.top  = '8px';
-    tip.innerHTML = '<span style="color:var(--ink3)">Year ' + t.toFixed(1) + '</span><br>' +
-                    '<span style="color:var(--ink2)">Manual: </span>$' + m.toLocaleString() + '<br>' +
-                    '<span style="color:var(--accent2)">Cinder: </span>$' + co.toLocaleString() + '<br>' +
-                    '<span style="color:#4ABA6F">+$' + diff.toLocaleString() + '</span>';
-  });
-  canvas.addEventListener('mouseleave', function() { tip.style.display = 'none'; });
-}
-
-if (document.readyState !== 'loading') {
-  _initCVHover();
-  setTimeout(function(){ if (typeof updateCV === 'function') updateCV(); }, 50);
-} else {
-  document.addEventListener('DOMContentLoaded', function() {
-    _initCVHover();
-    setTimeout(function(){ if (typeof updateCV === 'function') updateCV(); }, 50);
-  });
-}
-window.addEventListener('resize', function() {
-  if (typeof updateCV === 'function') updateCV();
-});
 
 
 /* APY sparkline — simulated historical trend */
