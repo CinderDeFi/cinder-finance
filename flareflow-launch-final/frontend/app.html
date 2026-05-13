@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- BUILD-MARKER-CINDERFINANCE-2026-05-13-ZAP-LIVE -->
-<!-- BUILD-V9-ZAP-DISABLED -->
+<!-- BUILD-V10-SPARKDEX-HELPER -->
 
   <!-- SEO & Social -->
   <meta name="description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
@@ -1154,6 +1154,10 @@ nav button::after { display: none !important; content: none !important; }
             <div id="zapInfo" style="display:none;background:rgba(255,107,35,0.06);border:1px solid rgba(255,107,35,0.15);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--ink2);line-height:1.5">
               ⚡ <strong style="color:var(--accent2)">What is Zap?</strong> Don't have sFLR yet? Zap lets you deposit FLR directly — Cinder converts it to sFLR via Sceptre and deposits it in one transaction. No extra steps needed.
             </div>
+            <!-- Get sFLR helper — visible when user has 0 sFLR balance -->
+            <div id="heroGetSflr" style="display:none;background:rgba(255,107,35,0.04);border:1px solid rgba(255,107,35,0.12);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--ink2);line-height:1.5;font-family:var(--body)">
+              Don't have sFLR yet? <a href="https://sparkdex.ai/swap?outputCurrency=0x12e605bc104e93B45e1aD99F9e555f659051c2BB" target="_blank" rel="noopener" style="color:var(--accent2);text-decoration:none;font-weight:600">Get some on Sparkdex →</a>
+            </div>
             <!-- Normal mode -->
             <div id="heroNormalMode">
               <button class="main-btn" id="heroApproveBtn" onclick="approveHero()">Approve sFLR</button>
@@ -1487,7 +1491,11 @@ nav button::after { display: none !important; content: none !important; }
                   <button class="zap-mode-btn active" id="appModeNormal" onclick="setAppMode('normal')"><span class="hide-xs">Use </span>sFLR</button>
                   <button class="zap-mode-btn" id="appModeZap" onclick="setAppMode('zap')">⚡ <span class="hide-xs">Zap with </span>FLR</button>
                 </div>
-              </div>
+              </div><!-- Get sFLR helper -->
+            <div id="appGetSflr" style="display:none;background:rgba(255,107,35,0.04);border:1px solid rgba(255,107,35,0.12);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--ink2);line-height:1.5;font-family:var(--body)">
+              Don't have sFLR yet? <a href="https://sparkdex.ai/swap?outputCurrency=0x12e605bc104e93B45e1aD99F9e555f659051c2BB" target="_blank" rel="noopener" style="color:var(--accent2);text-decoration:none;font-weight:600">Get some on Sparkdex →</a>
+            </div>
+            
               <div id="appNormalMode">
                 <button class="main-btn" id="appApproveBtn" onclick="appApprove()">Step 1 — Approve asset</button>
                 <button class="main-btn step2" id="appDepBtn" style="display:none;margin-top:8px" onclick="appDeposit()">Step 2 — Deposit & Earn →</button>
@@ -2007,6 +2015,12 @@ function heroSelectVault(idx) {
     }
     updateZapVisibility();
   }
+
+  // Show/hide "Get sFLR on Sparkdex" helper — only on sFLR vault (idx 0) where Sceptre is the source
+  const heroGetSflr = document.getElementById('heroGetSflr');
+  if (heroGetSflr) heroGetSflr.style.display = (idx === 0) ? 'block' : 'none';
+  const appGetSflr = document.getElementById('appGetSflr');
+  if (appGetSflr) appGetSflr.style.display = (idx === 0) ? 'block' : 'none';
 }
 
 function selectVault(idx) {
