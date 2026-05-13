@@ -731,6 +731,51 @@ nav { flex-wrap: nowrap !important; }
   to { transform: rotate(360deg); }
 }
 
+
+/* ══════════════════════════════════════════════════
+   UNIFIED CONNECT WALLET BUTTON SIZING (cross-page)
+   These rules ensure the button looks identical on mobile
+   across index, app, governance, and about pages.
+   ══════════════════════════════════════════════════ */
+
+/* Desktop default — matches across all pages */
+@media (min-width: 769px) {
+  #connectBtn {
+    font-size: 13px !important;
+    padding: 9px 18px !important;
+    min-height: 38px !important;
+    height: 38px !important;
+    border-radius: 10px !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* Mobile — unified sizing across every page */
+@media (max-width: 768px) {
+  #connectBtn {
+    font-size: 12px !important;
+    padding: 8px 14px !important;
+    min-height: 36px !important;
+    height: 36px !important;
+    border-radius: 9px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    width: auto !important;
+    line-height: 1 !important;
+  }
+}
+
+/* Tiny phones */
+@media (max-width: 360px) {
+  #connectBtn {
+    font-size: 11px !important;
+    padding: 7px 11px !important;
+    min-height: 32px !important;
+    height: 32px !important;
+  }
+}
+/* ══════════════════════════════════════════════════ */
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
