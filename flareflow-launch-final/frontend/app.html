@@ -562,7 +562,7 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
   font-family: 'Fraunces', Georgia, serif; font-style: italic;
   font-weight: 700; font-size: 16px;
 }
-.ft-/* nav flex rule removed - conflicts with app nav */
+/* nav flex rule removed - conflicts with app nav */
 .ft-nav a { font-size: 13px; color: var(--ink2); text-decoration: none; transition: color .15s; }
 .ft-nav a:hover { color: var(--ink); }
 .ft-bottom {
@@ -673,46 +673,149 @@ w3m-modal, wcm-modal, [id*="walletconnect"], [class*="walletconnect"],
 .nav-links a[href^="#"].nav-active { color: #FF6B23 !important; }
 /* nav-active underline removed */
 
+/* ══════════════════════════════════════════════════
+   MOBILE NAV — complete, bulletproof
+   ══════════════════════════════════════════════════ */
 
-  .nav-links { display: flex !important; }
-}
-
-
-/* ── Mobile nav ── */
+/* Hamburger button */
 .ham-btn {
   display: none;
-  flex-direction: column;
+  flex-direction: column !important;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: 40px; height: 40px;
-  background: none;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  background: transparent;
   border: none;
   cursor: pointer;
   padding: 8px;
   border-radius: 8px;
   flex-shrink: 0;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 101;
 }
 .ham-btn span {
   display: block;
-  width: 20px; height: 2px;
+  width: 22px;
+  height: 2px;
   background: var(--ink);
   border-radius: 2px;
-  transition: all .2s;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+  transform-origin: center;
 }
-@media (max-width: 768px) {
-  .ham-btn { display: flex; }
-  .nav-links { display: none !important; }
-  .nav-links.open { display: flex !important; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: var(--bg); padding: 1rem 2rem; border-bottom: 1px solid var(--border); z-index: 99; gap: 1rem; }
+.ham-btn:hover { background: rgba(255,255,255,0.05); }
+.ham-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ham-btn.open span:nth-child(2) { opacity: 0; }
+.ham-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Slide-out mobile menu (separate element after <nav>) */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background: rgba(7, 8, 10, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2rem 2rem;
+  flex-direction: column;
+  gap: 1.25rem;
+  z-index: 99;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
+.mobile-nav.open {
+  display: flex;
+  animation: mobileNavSlide 0.25s ease;
+}
+@keyframes mobileNavSlide {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mobile-nav a {
+  font-family: var(--body, 'Space Grotesk', sans-serif);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.15s;
+}
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav a:hover, .mobile-nav a:active { color: var(--accent, #FF6B23); }
+
+/* Floating Connect Wallet button on mobile */
+#floatConnect {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  background: linear-gradient(135deg, #FF6B23, #FFB347);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 28px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(255, 107, 35, 0.4);
+  white-space: nowrap;
+  transition: opacity 0.3s, transform 0.2s;
+}
+#floatConnect:hover { transform: translateX(-50%) translateY(-2px); }
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  #floatConnect { bottom: calc(20px + env(safe-area-inset-bottom)); }
+}
+
+/* DESKTOP (≥769px) */
 @media (min-width: 769px) {
-  .ham-btn { display: none !important; }
-  .nav-links { display: flex !important; }
-  #connectBtn { display: inline-flex !important; }
+  .ham-btn       { display: none !important; }
+  .nav-links     { display: flex !important; }
+  #connectBtn    { display: inline-flex !important; }
+  .mobile-nav    { display: none !important; }
+  #floatConnect  { display: none !important; }
 }
-/* Prevent ::after dot on non-anchor nav elements */
-#connectBtn::after, .ham-btn::after, .nav-logo::after, .btn::after { content: none !important; display: none !important; }
-/* ── End mobile nav ── */
+
+/* MOBILE (≤768px) */
+@media (max-width: 768px) {
+  .ham-btn       { display: flex !important; }
+  .nav-links     { display: none !important; }
+  #connectBtn    { display: none !important; }
+  #floatConnect  { display: inline-flex !important; align-items: center; justify-content: center; }
+  nav            { padding: 0 1rem; }
+}
+
+/* Kill stray ::after / ::before from .nav-active rules leaking onto buttons */
+#connectBtn::after, #connectBtn::before,
+.ham-btn::after, .ham-btn::before,
+.ham-btn span::after, .ham-btn span::before,
+.nav-logo::after, .nav-logo::before,
+.btn::after, .btn::before,
+.nav-right::after, .nav-right::before,
+.mobile-nav::after, .mobile-nav::before,
+#floatConnect::after, #floatConnect::before,
+nav button::after, nav button::before {
+  content: none !important;
+  display: none !important;
+  background: transparent !important;
+  border: none !important;
+}
+/* ══════════════════════════════════════════════════ */
+
+
+/* Scope the nav-active underline strictly to anchor links inside .nav-links */
+nav > *:not(.nav-links) a::after,
+nav button::after { display: none !important; content: none !important; }
+/* ══════════════════════════════════════════════════ */
 
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
