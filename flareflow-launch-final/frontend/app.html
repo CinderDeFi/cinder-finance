@@ -590,7 +590,7 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
 
 
 /* Wallet modal */
-.wallet-modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 10000; align-items: center; justify-content: center; }
+.wallet-modal-backdrop { display: none; position: fixed; top:0; right:0; bottom:0; left:0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 10000; align-items: center; justify-content: center; }
 .wallet-modal-backdrop.open { display: flex; }
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
@@ -2164,7 +2164,16 @@ let wcProvider = null; // WalletConnect provider instance
 // ── Modal open/close ───────────────────────────────────────────────────
 function openWalletModal() {
   var m = document.getElementById('walletModal');
-  if (m) { m.style.removeProperty('display'); m.style.display = ''; }
+  if (m) {
+    m.style.removeProperty('display');
+    m.style.position = 'fixed';
+    m.style.top = '0'; m.style.right = '0'; m.style.bottom = '0'; m.style.left = '0';
+    m.style.background = 'rgba(0,0,0,0.75)';
+    m.style.zIndex = '10000';
+    m.style.display = 'flex';
+    m.style.alignItems = 'center';
+    m.style.justifyContent = 'center';
+  }
   // Detect injected wallets and show them
   detectInjectedWallets();
   document.getElementById('walletModal').classList.add('open');
