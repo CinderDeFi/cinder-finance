@@ -902,6 +902,69 @@ nav button::after { display: none !important; content: none !important; }
 }
 /* ══════════════════════════════════════════════════ */
 
+
+/* ── btn-xl: hero CTAs ─────────────────────────────────────── */
+.btn-xl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: none;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  cursor: pointer;
+  transition: all .18s ease;
+  min-height: 50px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btn-xl.primary {
+  background: linear-gradient(135deg, #FF6B23, #FFB347);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(255, 107, 35, 0.32), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+.btn-xl.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(255, 107, 35, 0.45), inset 0 1px 0 rgba(255,255,255,0.22);
+}
+.btn-xl.primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(255, 107, 35, 0.28);
+}
+.btn-xl.outline {
+  background: transparent;
+  color: var(--ink, #EEE9E1);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+.btn-xl.outline:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.22);
+}
+.btn-xl.secondary {
+  background: rgba(255,255,255,0.04);
+  color: var(--ink, #EEE9E1);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+.btn-xl.secondary:hover {
+  background: rgba(255,255,255,0.08);
+}
+@media (max-width: 768px) {
+  .btn-xl {
+    width: 100%;
+    min-height: 52px;
+    font-size: 15px;
+  }
+  .hero-ctas {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+}
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
