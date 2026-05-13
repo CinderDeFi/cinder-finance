@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <!-- Background (iOS will auto-clip this to a rounded square) -->
+  <rect width="180" height="180" fill="#0D0804"/>
+  
+  <!-- Subtle base glow -->
+  <ellipse cx="90" cy="130" rx="60" ry="12" fill="#FF3D00" opacity="0.2"/>
+  
+  <!-- Triple-flame mark, centered -->
+  <g transform="translate(90, 110)">
+    <!-- left flame -->
+    <path d="M-32 52C-50 28-45 4-33-18C-27-4-30 13-25 27C-36 16-38 35-32 52Z" fill="#B83000"/>
+    <path d="M-29 42C-40 22-36 3-28-9C-23 1-25 14-21 26C-29 16-31 30-29 42Z" fill="#FF4500"/>
+    <path d="M-27 32C-35 16-31 0-23-7C-20 2-21 13-18 23C-25 14-27 23-27 32Z" fill="#FF6B23"/>
+    <path d="M-24 19C-29 8-26-2-20-7C-17 2-18 10-16 18C-20 10-22 15-24 19Z" fill="#FF8C4A"/>
+    <circle cx="-27" cy="-20" r="4" fill="#FFB347"/>
+    <circle cx="-27" cy="-20" r="2" fill="#FFE8A0"/>
+    <!-- center flame -->
+    <path d="M0 54C-20 31-18 4 0-50C18 4 20 31 0 54Z" fill="#B83000"/>
+    <path d="M0 41C-13 21-11 0 0-34C11 0 13 21 0 41Z" fill="#FF4500"/>
+    <path d="M0 27C-8 11-7-2 0-21C7-2 8 11 0 27Z" fill="#FF6B23"/>
+    <path d="M0 13C-4 4-3-2 0-9C3-2 4 4 0 13Z" fill="#FF8C4A"/>
+    <circle cx="0" cy="-52" r="4" fill="#FFB347"/>
+    <circle cx="0" cy="-52" r="2" fill="#FFF0C0"/>
+    <!-- right flame -->
+    <path d="M32 52C50 28 45 4 33-18C27-4 30 13 25 27C36 16 38 35 32 52Z" fill="#B83000"/>
+    <path d="M29 42C40 22 36 3 28-9C23 1 25 14 21 26C29 16 31 30 29 42Z" fill="#FF4500"/>
+    <path d="M27 32C35 16 31 0 23-7C20 2 21 13 18 23C25 14 27 23 27 32Z" fill="#FF6B23"/>
+    <path d="M24 19C29 8 26-2 20-7C17 2 18 10 16 18C20 10 22 15 24 19Z" fill="#FF8C4A"/>
+    <circle cx="27" cy="-20" r="4" fill="#FFB347"/>
+    <circle cx="27" cy="-20" r="2" fill="#FFE8A0"/>
+  </g>
+</svg>
