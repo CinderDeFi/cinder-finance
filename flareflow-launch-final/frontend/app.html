@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- BUILD-MARKER-CINDERFINANCE-2026-05-13-ZAP-LIVE -->
-<!-- BUILD-V4-LABELS-FIX -->
+<!-- BUILD-V5-PREVIEW-LABELS-FIXED -->
 
   <!-- SEO & Social -->
   <meta name="description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
@@ -2948,10 +2948,14 @@ async function heroPreview(){
   const pb=document.getElementById('heroPreview');
   if(!v){pb.style.display='none';return}
   pb.style.display='block';
-  document.getElementById('ppDep').textContent=v.toFixed(4)+' stXRP';
-  document.getElementById('ppShares').textContent='≈'+v.toFixed(6)+' cXRP';
-  document.getElementById('ppYield').textContent='≈'+(v*0.084).toFixed(4)+' stXRP';
-  if(vault){try{const s=await vaultContract.assetsToShares(ethers.parseEther(v.toString()));document.getElementById('ppShares').textContent=parseFloat(ethers.formatEther(s)).toFixed(6)+' cXRP'}catch{}}
+  const meta = VAULT_META[activeVaultIdx];
+  const assetSym = heroZapMode ? 'FLR' : meta.assetSymbol;
+  const shareSym = meta.shareSymbol;
+  const apyDec = (meta.apyPct || 0) / 100;
+  document.getElementById('ppDep').textContent=v.toFixed(4)+' '+assetSym;
+  document.getElementById('ppShares').textContent='≈'+v.toFixed(6)+' '+shareSym;
+  document.getElementById('ppYield').textContent='≈'+(v*apyDec).toFixed(4)+' '+assetSym;
+  if(vaultContract){try{const s=await vaultContract.assetsToShares(ethers.parseEther(v.toString()));document.getElementById('ppShares').textContent=parseFloat(ethers.formatEther(s)).toFixed(6)+' '+shareSym}catch{}}
 }
 async function heroWdPreview(){
   const v=parseFloat(document.getElementById('heroWdAmt').value)||0;
