@@ -658,6 +658,14 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
 }
 /* ── End wallet modal ── */
 
+
+/* WalletConnect modal z-index fix */
+w3m-modal, wcm-modal, [id*="walletconnect"], [class*="walletconnect"],
+#walletconnect-wrapper, #walletconnect-qrcode-modal,
+.walletconnect-modal__base, .wcm-overlay {
+  z-index: 20000 !important;
+}
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
@@ -2248,6 +2256,8 @@ function openWalletModal() {
 }
 
 function closeWalletModal() {
+  var m = document.getElementById('walletModal');
+  if (m) { m.style.display = 'none'; m.classList.remove('open'); }
   document.getElementById('walletModal').classList.remove('open');
 }
 
