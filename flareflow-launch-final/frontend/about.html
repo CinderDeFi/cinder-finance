@@ -11,7 +11,7 @@
   <meta property="og:url" content="https://cinder.finance/about">
   <meta property="og:title" content="Cinder — Built by one person.">
   <meta property="og:description" content="Solo-built DeFi yield aggregator on Flare Network. No team, no investors, no VC allocation. Honest and transparent.">
-  <meta property="og:image" content="https://cinder.finance/og-image.svg">
+  <meta property="og:image" content="https://cinder.finance/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Cinder Finance">
@@ -22,7 +22,7 @@
   <meta name="twitter:creator" content="@CinderDeFi">
   <meta name="twitter:title" content="Cinder — Built by one person.">
   <meta name="twitter:description" content="Solo-built DeFi yield aggregator on Flare Network. No team, no investors, no VC allocation. Honest and transparent.">
-  <meta name="twitter:image" content="https://cinder.finance/og-image.svg">
+  <meta name="twitter:image" content="https://cinder.finance/og-image.png">
   
   <!-- Schema.org -->
   <script type="application/ld+json">{
@@ -46,6 +46,8 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-74%20-90%20148%20148%22%3E%0A%3Crect%20x%3D%22-74%22%20y%3D%22-90%22%20width%3D%22148%22%20height%3D%22148%22%20rx%3D%2234%22%20fill%3D%22%230D0804%22/%3E%0A%3Cpath%20d%3D%22M-32%2052C-50%2028-45%204-33-18C-27-4-30%2013-25%2027C-36%2016-38%2035-32%2052Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M-27%2032C-35%2016-31%200-23-7C-20%202-21%2013-18%2023C-25%2014-27%2023-27%2032Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%22-27%22%20cy%3D%22-20%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3Cpath%20d%3D%22M0%2054C-20%2031-18%204%200-50C18%204%2020%2031%200%2054Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M0%2027C-8%2011-7-2%200-21C7-2%208%2011%200%2027Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%220%22%20cy%3D%22-52%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3Cpath%20d%3D%22M32%2052C50%2028%2045%204%2033-18C27-4%2030%2013%2025%2027C36%2016%2038%2035%2032%2052Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M27%2032C35%2016%2031%200%2023-7C20%202%2021%2013%2018%2023C25%2014%2027%2023%2027%2032Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%2227%22%20cy%3D%22-20%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3C/svg%3E">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FF6B23">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
 <title>Cinder — Built by one person.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
@@ -931,6 +933,23 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
 }
 /* ══════════════════════════════════════════════════ */
 
+
+/* ══════════════════════════════════════════════════
+   Respect prefers-reduced-motion accessibility setting
+   ══════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal, .reveal-d1, .reveal-d2, .reveal-d3, .reveal-d4, .reveal-d5 {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@walletconnect/modal@2.7.0/dist/index.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@walletconnect/ethereum-provider@2.13.0/dist/index.umd.js"></script>
@@ -1366,7 +1385,7 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
       </div>
       <div class="t-row">
         <div class="t-label">Source code</div>
-        <div class="t-value b"><a href="https://github.com/cinderfinance" target="_blank" style="color:var(--blue);border-bottom:1px solid rgba(74,144,217,0.3)">github.com/cinderfinance ↗</a></div>
+        <div class="t-value b"><a href="https://github.com/tapout976/cinder-finance" target="_blank" rel="noopener noreferrer" style="color:var(--blue);border-bottom:1px solid rgba(74,144,217,0.3)">github.com/tapout976/cinder-finance ↗</a></div>
       </div>
     </div>
   </div>
@@ -1435,7 +1454,7 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
     <p class="cta-sub">One person. Open source contracts. On-chain governance. A $50K cap until it's audited. Use it or don't — but now you know exactly what you're using.</p>
     <div class="cta-buttons">
       <a href="/" class="btn-lg btn-solid">Open the app →</a>
-      <a href="https://github.com/cinderfinance" target="_blank" class="btn-lg btn-outline">Read the code</a>
+      <a href="https://github.com/tapout976/cinder-finance" target="_blank" rel="noopener noreferrer" class="btn-lg btn-outline">Read the code</a>
       <a href="/governance" class="btn-lg btn-outline">Governance →</a>
     </div>
   </div>
@@ -1446,13 +1465,13 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
   <div style="max-width:1120px;margin:0 auto;padding:0 2rem;box-sizing:border-box">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,0.06)">
       <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:700;font-size:16px"><svg width="22" height="22" viewBox="-74 -90 148 148" style="flex-shrink:0"><rect x="-74" y="-90" width="148" height="148" rx="34" fill="#0D0804"/><path d="M-32 52C-50 28-45 4-33-18C-27-4-30 13-25 27C-36 16-38 35-32 52Z" fill="#FF4500"/><path d="M-27 32C-35 16-31 0-23-7C-20 2-21 13-18 23C-25 14-27 23-27 32Z" fill="#FF6B23"/><circle cx="-27" cy="-20" r="4" fill="#FFB347"/><path d="M0 54C-20 31-18 4 0-50C18 4 20 31 0 54Z" fill="#FF4500"/><path d="M0 27C-8 11-7-2 0-21C7-2 8 11 0 27Z" fill="#FF6B23"/><circle cx="0" cy="-52" r="4" fill="#FFB347"/><path d="M32 52C50 28 45 4 33-18C27-4 30 13 25 27C36 16 38 35 32 52Z" fill="#FF4500"/><path d="M27 32C35 16 31 0 23-7C20 2 21 13 18 23C25 14 27 23 27 32Z" fill="#FF6B23"/><circle cx="27" cy="-20" r="4" fill="#FFB347"/></svg><span>Cinder</span></a>
-      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.25rem 1.5rem"><a href="/" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Home</a><a href="/app" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">App</a><a href="/governance" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Governance</a><a href="https://x.com/CinderDeFi" target="_blank" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">X / @CinderDeFi</a><a href="https://discord.gg/npHaHKCnkY" target="_blank" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Discord</a><a href="mailto:security@cinder.finance" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">security@cinder.finance</a></div>
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.25rem 1.5rem"><a href="/" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Home</a><a href="/app" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">App</a><a href="/governance" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Governance</a><a href="https://x.com/CinderDeFi" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">X / @CinderDeFi</a><a href="https://discord.gg/npHaHKCnkY" target="_blank" rel="noopener noreferrer" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">Discord</a><a href="mailto:security@cinder.finance" style="font-size:13px;color:rgba(238,233,225,0.55);text-decoration:none;white-space:nowrap;transition:color .15s" onmouseover="this.style.color='#EEE9E1'" onmouseout="this.style.color='rgba(238,233,225,0.55)'">security@cinder.finance</a></div>
     </div>
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;padding-top:1rem">
       <span style="font-size:11px;color:rgba(238,233,225,0.3)">© 2026 Cinder Finance · Unaudited · Use at your own risk</span>
       <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem 1rem">
         <span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(238,233,225,0.3)">Built on</span>
-        <a href="https://sceptre.fi" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#3B82F6,#1D4ED8);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sceptre</a><a href="https://firelight.finance" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#F97316,#DC2626);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Firelight</a><a href="https://gelato.network" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#EC4899,#BE185D);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">G</span>Gelato</a><a href="https://sparkdex.ai" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sparkdex</a><a href="https://flare.network" target="_blank" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#FF4500,#FF6B23);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Flare</a>
+        <a href="https://sceptre.fi" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#3B82F6,#1D4ED8);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sceptre</a><a href="https://firelight.finance" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#F97316,#DC2626);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Firelight</a><a href="https://gelato.network" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#EC4899,#BE185D);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">G</span>Gelato</a><a href="https://sparkdex.ai" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">S</span>Sparkdex</a><a href="https://flare.network" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:500;color:rgba(238,233,225,0.5);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity .15s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'"><span style="width:16px;height:16px;border-radius:4px;background:linear-gradient(135deg,#FF4500,#FF6B23);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;flex-shrink:0">F</span>Flare</a>
       </div>
     </div>
   </div>
@@ -1579,12 +1598,12 @@ async function connectBifrost() {
   const bfProvider = window.bifrost || window.ethereum;
 
   if (!bfProvider) {
-    setWmStatus('Bifrost not detected. <a href="https://bifrostwallet.com" target="_blank" style="color:var(--accent2)">Download Bifrost →</a>');
+    setWmStatus('Bifrost not detected. <a href="https://bifrostwallet.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent2)">Download Bifrost →</a>');
     return;
   }
   if (!window.bifrost && !window.ethereum?.isBifrost) {
     // Not Bifrost — suggest download
-    setWmStatus('Bifrost not found. <a href="https://bifrostwallet.com" target="_blank" style="color:var(--accent2)">Get Bifrost wallet →</a>');
+    setWmStatus('Bifrost not found. <a href="https://bifrostwallet.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent2)">Get Bifrost wallet →</a>');
     return;
   }
 
@@ -1600,7 +1619,7 @@ async function connectBifrost() {
 }
 async function connectMetaMask() {
   if (!window.ethereum) {
-    setWmStatus('MetaMask not detected. <a href="https://metamask.io" target="_blank" style="color:var(--accent2)">Install MetaMask →</a>');
+    setWmStatus('MetaMask not detected. <a href="https://metamask.io" target="_blank" rel="noopener noreferrer" style="color:var(--accent2)">Install MetaMask →</a>');
     return;
   }
   setWmStatus('Opening MetaMask…', true);
