@@ -11,7 +11,7 @@
   <meta property="og:url" content="https://cinder.finance/app">
   <meta property="og:title" content="Cinder App — Deposit & Earn">
   <meta property="og:description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
-  <meta property="og:image" content="https://cinder.finance/og-image.svg">
+  <meta property="og:image" content="https://cinder.finance/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Cinder Finance">
@@ -22,7 +22,7 @@
   <meta name="twitter:creator" content="@CinderDeFi">
   <meta name="twitter:title" content="Cinder App — Deposit & Earn">
   <meta name="twitter:description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
-  <meta name="twitter:image" content="https://cinder.finance/og-image.svg">
+  <meta name="twitter:image" content="https://cinder.finance/og-image.png">
   
   <!-- Schema.org -->
   <script type="application/ld+json">{
@@ -41,11 +41,12 @@
     "@type": "Person",
     "name": "Cinder Finance"
   },
-  "sameAs": ["https://x.com/CinderDeFi", "https://github.com/tapout976/cinder-finance"]
+  "sameAs": ["https://x.com/CinderDeFi", "https://github.com/CinderDeFi/cinder-finance"]
 }</script>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%22-74%20-90%20148%20148%22%3E%0A%3Crect%20x%3D%22-74%22%20y%3D%22-90%22%20width%3D%22148%22%20height%3D%22148%22%20rx%3D%2234%22%20fill%3D%22%230D0804%22/%3E%0A%3Cpath%20d%3D%22M-32%2052C-50%2028-45%204-33-18C-27-4-30%2013-25%2027C-36%2016-38%2035-32%2052Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M-27%2032C-35%2016-31%200-23-7C-20%202-21%2013-18%2023C-25%2014-27%2023-27%2032Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%22-27%22%20cy%3D%22-20%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3Cpath%20d%3D%22M0%2054C-20%2031-18%204%200-50C18%204%2020%2031%200%2054Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M0%2027C-8%2011-7-2%200-21C7-2%208%2011%200%2027Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%220%22%20cy%3D%22-52%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3Cpath%20d%3D%22M32%2052C50%2028%2045%204%2033-18C27-4%2030%2013%2025%2027C36%2016%2038%2035%2032%2052Z%22%20fill%3D%22%23FF4500%22/%3E%0A%3Cpath%20d%3D%22M27%2032C35%2016%2031%200%2023-7C20%202%2021%2013%2018%2023C25%2014%2027%2023%2027%2032Z%22%20fill%3D%22%23FF6B23%22/%3E%0A%3Ccircle%20cx%3D%2227%22%20cy%3D%22-20%22%20r%3D%224%22%20fill%3D%22%23FFB347%22/%3E%0A%3C/svg%3E">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
 <meta name="theme-color" content="#07080A">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -562,7 +563,7 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
   font-family: 'Fraunces', Georgia, serif; font-style: italic;
   font-weight: 700; font-size: 16px;
 }
-.ft-/* nav flex rule removed - conflicts with app nav */
+/* nav flex rule removed - conflicts with app nav */
 .ft-nav a { font-size: 13px; color: var(--ink2); text-decoration: none; transition: color .15s; }
 .ft-nav a:hover { color: var(--ink); }
 .ft-bottom {
@@ -673,46 +674,296 @@ w3m-modal, wcm-modal, [id*="walletconnect"], [class*="walletconnect"],
 .nav-links a[href^="#"].nav-active { color: #FF6B23 !important; }
 /* nav-active underline removed */
 
+/* ══════════════════════════════════════════════════
+   MOBILE NAV — complete, bulletproof
+   ══════════════════════════════════════════════════ */
 
-  .nav-links { display: flex !important; }
-}
-
-
-/* ── Mobile nav ── */
+/* Hamburger button */
 .ham-btn {
   display: none;
-  flex-direction: column;
+  flex-direction: column !important;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: 40px; height: 40px;
-  background: none;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  background: transparent;
   border: none;
   cursor: pointer;
   padding: 8px;
   border-radius: 8px;
   flex-shrink: 0;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 101;
 }
 .ham-btn span {
   display: block;
-  width: 20px; height: 2px;
+  width: 22px;
+  height: 2px;
   background: var(--ink);
   border-radius: 2px;
-  transition: all .2s;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+  transform-origin: center;
+}
+.ham-btn:hover { background: rgba(255,255,255,0.05); }
+.ham-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ham-btn.open span:nth-child(2) { opacity: 0; }
+.ham-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Slide-out mobile menu (separate element after <nav>) */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background: rgba(7, 8, 10, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2rem 2rem;
+  flex-direction: column;
+  gap: 1.25rem;
+  z-index: 99;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+.mobile-nav.open {
+  display: flex;
+  animation: mobileNavSlide 0.25s ease;
+}
+@keyframes mobileNavSlide {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mobile-nav a {
+  font-family: var(--body, 'Space Grotesk', sans-serif);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.15s;
+}
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav a:hover, .mobile-nav a:active { color: var(--accent, #FF6B23); }
+
+/* Floating Connect Wallet button on mobile */
+#floatConnect {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  background: linear-gradient(135deg, #FF6B23, #FFB347);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 28px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(255, 107, 35, 0.4);
+  white-space: nowrap;
+  transition: opacity 0.3s, transform 0.2s;
+}
+#floatConnect:hover { transform: translateX(-50%) translateY(-2px); }
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  #floatConnect { bottom: calc(20px + env(safe-area-inset-bottom)); }
+}
+
+/* DESKTOP (≥769px) */
+@media (min-width: 769px) {
+  .ham-btn       { display: none !important; }
+  .nav-links     { display: flex !important; }
+  #connectBtn    { display: inline-flex !important; }
+  .mobile-nav    { display: none !important; }
+  #floatConnect  { display: none !important; }
+}
+
+/* MOBILE (≤768px) */
+@media (max-width: 768px) {
+  .ham-btn       { display: flex !important; }
+  .nav-links     { display: none !important; }
+  #connectBtn    { display: none !important; }
+  #floatConnect  { display: inline-flex !important; align-items: center; justify-content: center; }
+  nav            { padding: 0 1rem; }
+}
+
+/* Kill stray ::after / ::before from .nav-active rules leaking onto buttons */
+#connectBtn::after, #connectBtn::before,
+.ham-btn::after, .ham-btn::before,
+.ham-btn span::after, .ham-btn span::before,
+.nav-logo::after, .nav-logo::before,
+.btn::after, .btn::before,
+.nav-right::after, .nav-right::before,
+.mobile-nav::after, .mobile-nav::before,
+#floatConnect::after, #floatConnect::before,
+nav button::after, nav button::before {
+  content: none !important;
+  display: none !important;
+  background: transparent !important;
+  border: none !important;
+}
+/* ══════════════════════════════════════════════════ */
+
+
+/* Scope the nav-active underline strictly to anchor links inside .nav-links */
+nav > *:not(.nav-links) a::after,
+nav button::after { display: none !important; content: none !important; }
+/* ══════════════════════════════════════════════════ */
+
+
+/* ══════════════════════════════════════════════════
+   APP PAGE — Card panels (Vault stats / Fee / Contract)
+   ══════════════════════════════════════════════════ */
+
+.app-card {
+  background: var(--surface, #111318);
+  border: 1px solid var(--border, rgba(255,255,255,0.06));
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.app-card:hover { border-color: rgba(255,107,35,0.2); }
+
+.ac-head {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border, rgba(255,255,255,0.06));
+  background: rgba(255,255,255,0.015);
+}
+.ac-title {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink3, #52504C);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.ac-body {
+  padding: 12px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Label + value row */
+.frow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 13px;
+}
+.frow:last-child { border-bottom: none; }
+
+.fl {
+  color: var(--ink2, #8C8880);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
+}
+.fv {
+  color: var(--ink, #EEE9E1);
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-weight: 500;
+  font-size: 12.5px;
+  text-align: right;
+  word-break: break-all;
+}
+.fv.g { color: var(--green, #4ABA6F); }
+.fv.o { color: var(--accent, #FF6B23); }
+
+/* Trigger harvest button — inside a card, not full-bleed */
+.ac-body .main-btn,
+.ac-body button.main-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 11px 16px !important;
+  font-size: 13px !important;
+  border-radius: 10px;
+}
+
+/* Mobile — keep readable */
+@media (max-width: 640px) {
+  .frow { font-size: 12.5px; }
+  .fv { font-size: 12px; }
+  .ac-head { padding: 12px 14px; }
+  .ac-body { padding: 10px 14px 14px; }
+}
+/* ══════════════════════════════════════════════════ */
+
+
+/* ── btn-xl: hero CTAs ─────────────────────────────────────── */
+.btn-xl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: none;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  cursor: pointer;
+  transition: all .18s ease;
+  min-height: 50px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.btn-xl.primary {
+  background: linear-gradient(135deg, #FF6B23, #FFB347);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(255, 107, 35, 0.32), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+.btn-xl.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(255, 107, 35, 0.45), inset 0 1px 0 rgba(255,255,255,0.22);
+}
+.btn-xl.primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(255, 107, 35, 0.28);
+}
+.btn-xl.outline {
+  background: transparent;
+  color: var(--ink, #EEE9E1);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+.btn-xl.outline:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.22);
+}
+.btn-xl.secondary {
+  background: rgba(255,255,255,0.04);
+  color: var(--ink, #EEE9E1);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+.btn-xl.secondary:hover {
+  background: rgba(255,255,255,0.08);
 }
 @media (max-width: 768px) {
-  .ham-btn { display: flex; }
-  .nav-links { display: none !important; }
-  .nav-links.open { display: flex !important; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: var(--bg); padding: 1rem 2rem; border-bottom: 1px solid var(--border); z-index: 99; gap: 1rem; }
+  .btn-xl {
+    width: 100%;
+    min-height: 52px;
+    font-size: 15px;
+  }
+  .hero-ctas {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
 }
-@media (min-width: 769px) {
-  .ham-btn { display: none !important; }
-  .nav-links { display: flex !important; }
-  #connectBtn { display: inline-flex !important; }
-}
-/* Prevent ::after dot on non-anchor nav elements */
-#connectBtn::after, .ham-btn::after, .nav-logo::after, .btn::after { content: none !important; display: none !important; }
-/* ── End mobile nav ── */
 
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
@@ -796,12 +1047,13 @@ w3m-modal, wcm-modal, [id*="walletconnect"], [class*="walletconnect"],
           Live on Flare Network · sFLR &amp; stXRP Vaults
         </div>
 
-<!-- AUDIT BADGE — update when Code4rena audit completes -->
-<div id="auditBadge" style="display:inline-flex;align-items:center;gap:.625rem;background:rgba(255,107,35,0.06);border:1px solid rgba(255,107,35,0.15);border-radius:12px;padding:.625rem 1rem;margin:1rem 0">
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path d="M8 1L10.5 5.5L15.5 6.27L11.75 9.93L12.69 14.9L8 12.27L3.31 14.9L4.25 9.93L0.5 6.27L5.5 5.5L8 1Z" stroke="#FF8C4A" stroke-width="1.2" stroke-linejoin="round"/>
+<!-- HONESTY BADGE — swap to audited badge when audit completes -->
+<div id="auditBadge" style="display:inline-flex;align-items:center;gap:.625rem;background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.2);border-radius:12px;padding:.625rem 1rem;margin:1rem 0">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M8 1.5L1.5 13.5h13L8 1.5z" stroke="#F5A623" stroke-width="1.3" stroke-linejoin="round"/>
+    <path d="M8 6v3.5M8 11.5v.5" stroke="#F5A623" stroke-width="1.3" stroke-linecap="round"/>
   </svg>
-  <span style="font-size:13px;color:var(--ink2);font-weight:500">Security audit — <span style="color:#FF8C4A">Code4rena contest in progress</span></span>
+  <span style="font-size:13px;color:var(--ink2);font-weight:500">Unaudited — <span style="color:#F5A623">use at your own risk</span></span>
   <a href="/about#security" style="font-size:11px;color:var(--accent2);margin-left:.25rem">Details →</a>
 </div>
 <!-- Replace above with this once audit completes:
@@ -1475,34 +1727,21 @@ Vault stats</span></div>
 // ── Contract addresses — update after deploying ──────────────────────
 // sFLR (Sceptre) address on Flare Mainnet: 0x12e605bc104e93B45e1aD99F9e555f659051c2BB
 // CinderToken contract address — add after deploy
-const EMBER_TOKEN_ADDRESS = '0x153cD27cd7A8C0a78898bca2101B087029224804'; // CinderToken
+const EMBER_TOKEN_ADDRESS = '0xec6e6131ecBe0604934858ebBA590989Da161fbA'; // CinderToken
 const CONTRACTS = {
-  ember:       "0xec6e6131ecBe0604934858ebBA590989Da161fbA",
-  vault:       "0x153cD27cd7A8C0a78898bca2101B087029224804",
-  mining:      "0x23eA9D430190788FA48BDb152C7f8d703aF488aC",
-  timelock:    "0xee67eA383B8Fad32AE7ca7CE912fB1d21A175148",
-  governor:    "0x452CBaF3824dc11BeA50AD407e92008F9630F911",
-  sale:        "0x02ca06ebbdcEfb87a939b2C0649b973afa8994De",
-  founderVest: "0x62f5c2f2Dd755AC3C67e525E261662D507cFDCFf",
-  resolver:    "0x8190B5bDAAB0EfAa420D114E5D1a253929Ac16f3",
-  zap:         ""
-};
-
-// Per-chain vault configuration
-const VAULT_CONFIG = {
   14: {
-    zap: "",
+    zap: "0x0000000000000000000000000000000000000000", // CinderZap — update after deploy
     vaults: [
-      { asset:"0x12e605bc104e93B45e1aD99F9e555f659051c2BB", vault:"0x153cD27cd7A8C0a78898bca2101B087029224804", name:"sFLR", label:"sFLR Vault (Sceptre)", apy:"~12%", live:true, zapSupported:true, isLP:false },
-      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"stXRP", label:"Firelight stXRP", apy:"8.4%", live:false, zapSupported:false, isLP:false },
-      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"EMBER/FLR", label:"Sparkdex EMBER/FLR", apy:"var.", live:false, zapSupported:true, isLP:true, lpZap:"0x0000000000000000000000000000000000000000" },
-      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"sFLR/FLR", label:"Sparkdex sFLR/FLR", apy:"var.", live:false, zapSupported:true, isLP:true, lpZap:"0x0000000000000000000000000000000000000000" },
+      { asset:"0x12e605bc104e93B45e1aD99F9e555f659051c2BB", vault:"0x153cD27cd7A8C0a78898bca2101B087029224804", name:"sFLR",       label:"Sceptre sFLR",       apy:"9.1%",  live:true,  zapSupported:true,  isLP:false },
+      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"stXRP",      label:"Firelight stXRP",    apy:"8.4%",  live:false, zapSupported:false, isLP:false },
+      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"EMBER/FLR",   label:"Sparkdex EMBER/FLR",  apy:"var.",  live:false, zapSupported:true,  isLP:true, lpZap:"0x0000000000000000000000000000000000000000" },
+      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"sFLR/FLR",   label:"Sparkdex sFLR/FLR",  apy:"var.",  live:false, zapSupported:true,  isLP:true, lpZap:"0x0000000000000000000000000000000000000000" },
     ]
   },
   114: {
-    zap: "0x153cD27cd7A8C0a78898bca2101B087029224804", // testnet zap
+    zap: "0x0000000000000000000000000000000000000000", // testnet zap
     vaults: [
-      { asset:"0x153cD27cd7A8C0a78898bca2101B087029224804", vault:"0x153cD27cd7A8C0a78898bca2101B087029224804", name:"sFLR",     label:"Mock sFLR (testnet)",      apy:"9.1%", live:true,  zapSupported:true,  isLP:false },
+      { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"sFLR",     label:"Mock sFLR (testnet)",      apy:"9.1%", live:true,  zapSupported:true,  isLP:false },
       { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"stXRP",    label:"Mock stXRP (testnet)",     apy:"8.4%", live:true,  zapSupported:false, isLP:false },
       { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"EMBER/FLR", label:"Mock EMBER/FLR LP (testnet)",apy:"var.", live:true,  zapSupported:true,  isLP:true, lpZap:"0x0000000000000000000000000000000000000000" },
       { asset:"0x0000000000000000000000000000000000000000", vault:"0x0000000000000000000000000000000000000000", name:"sFLR/FLR", label:"Mock sFLR/FLR LP (testnet)",apy:"var.", live:true,  zapSupported:true,  isLP:true, lpZap:"0x0000000000000000000000000000000000000000" },
@@ -1608,7 +1847,7 @@ function updateZapVisibility() {
   const zapAvailable = v && v.zapSupported && (
     isLPVault
       ? (lpZapContract != null)
-      : (zapContract && cfg.zap !== '0x153cD27cd7A8C0a78898bca2101B087029224804')
+      : (zapContract && cfg.zap !== '0x0000000000000000000000000000000000000000')
   );
 
   const heroToggle = document.getElementById('heroZapToggle');
@@ -1737,7 +1976,7 @@ function heroSelectVault(idx) {
     const cfg = CONTRACTS[chainId];
     if (cfg && cfg.vaults[idx]) {
       const v = cfg.vaults[idx];
-      if (v.vault !== '0x153cD27cd7A8C0a78898bca2101B087029224804') {
+      if (v.vault !== '0x0000000000000000000000000000000000000000') {
         vaultContract = new ethers.Contract(v.vault, VAULT_ABI, signer);
         assetContract = new ethers.Contract(v.asset, ERC20_ABI, signer);
         loadHeroData();
@@ -1777,7 +2016,7 @@ function selectVault(idx) {
     const cfg = CONTRACTS[chainId];
     if (cfg && cfg.vaults[idx]) {
       const v = cfg.vaults[idx];
-      if (v.vault !== '0x153cD27cd7A8C0a78898bca2101B087029224804') {
+      if (v.vault !== '0x0000000000000000000000000000000000000000') {
         vaultContract  = new ethers.Contract(v.vault, VAULT_ABI, signer);
         assetContract  = new ethers.Contract(v.asset, ERC20_ABI, signer);
         loadAppData();
@@ -2523,21 +2762,21 @@ async function _onWalletConnected(walletName) {
 
   // Init contracts
   const v = cfg.vaults[activeVaultIdx];
-  if (v && v.vault !== '0x153cD27cd7A8C0a78898bca2101B087029224804') {
+  if (v && v.vault !== '0x0000000000000000000000000000000000000000') {
     vaultContract = new ethers.Contract(v.vault, VAULT_ABI, signer);
     assetContract = new ethers.Contract(v.asset, ERC20_ABI, signer);
   }
   heroSelectVault(activeVaultIdx);
-  if (cfg.zap && cfg.zap !== '0x153cD27cd7A8C0a78898bca2101B087029224804') {
+  if (cfg.zap && cfg.zap !== '0x0000000000000000000000000000000000000000') {
     zapContract = new ethers.Contract(cfg.zap, ZAP_ABI, signer);
   }
-  const lpVaultCfg = cfg.vaults.find(v => v.isLP && v.lpZap && v.lpZap !== '0x153cD27cd7A8C0a78898bca2101B087029224804');
+  const lpVaultCfg = cfg.vaults.find(v => v.isLP && v.lpZap && v.lpZap !== '0x0000000000000000000000000000000000000000');
   if (lpVaultCfg) {
     lpZapContract = new ethers.Contract(lpVaultCfg.lpZap, LP_ZAP_ABI, signer);
   }
 
   // Handle legacy stxrp contract ref
-  if (cfg.stxrp && cfg.stxrp !== '0x153cD27cd7A8C0a78898bca2101B087029224804') {
+  if (cfg.stxrp && cfg.stxrp !== '0x0000000000000000000000000000000000000000') {
     stxrp = new ethers.Contract(cfg.stxrp, ERC20_ABI, signer);
   }
 
