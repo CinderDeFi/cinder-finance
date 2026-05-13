@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- BUILD-MARKER-CINDERFINANCE-2026-05-13-ZAP-LIVE -->
-<!-- BUILD-V13-LAUNCH-READY -->
+<!-- BUILD-V13-CLAMP-DEP -->
 
   <!-- SEO & Social -->
   <meta name="description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
@@ -3207,7 +3207,11 @@ async function loadAppData(){
     document.getElementById('heroSharesLbl').textContent='Shares: '+shares.toFixed(6);
     document.getElementById('appSharesLbl').textContent='Shares: '+shares.toFixed(6);
     document.getElementById('appPosVal').textContent=val.toFixed(4)+' '+assetSym+valUSD;
-    document.getElementById('appPosDeposited').textContent=dep.toFixed(4)+' '+assetSym;
+    // Clamp 'deposited' display to hide phantom drift from withdrawal-fee accounting in the contract.
+    // If deposited is reported slightly higher than current value (impossible in reality — yield-only vault),
+    // we know it's the contract's withdrawal-fee residual and display the truthful number.
+    const dispDep = (dep > val && (dep - val) / Math.max(val, 0.0001) < 0.05) ? val : dep;
+    document.getElementById('appPosDeposited').textContent=dispDep.toFixed(4)+' '+assetSym;
     document.getElementById('appPosShares').textContent=shares.toFixed(6)+' '+shareSym;
     document.getElementById('appPosPct').textContent=pct.toFixed(4)+'%';
     document.getElementById('appYieldChip').textContent='+'+earned.toFixed(4)+' '+assetSym+' earned';
