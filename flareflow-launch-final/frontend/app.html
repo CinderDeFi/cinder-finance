@@ -668,17 +668,10 @@ w3m-modal, wcm-modal, [id*="walletconnect"], [class*="walletconnect"],
 
 
 /* Section nav hover + active */
-.nav-links a[href^="#"] { transition: color .2s; position: relative; }
+.nav-links a[href^="#"] { transition: color .2s; position: relative; display: inline-block; }
 .nav-links a[href^="#"]:hover { color: #FF6B23 !important; }
 .nav-links a[href^="#"].nav-active { color: #FF6B23 !important; }
-.nav-links a[href^="#"].nav-active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px; left: 0; right: 0;
-  height: 2px;
-  background: #FF6B23;
-  border-radius: 2px;
-}
+/* nav-active underline removed */
 
 
   .nav-links { display: flex !important; }

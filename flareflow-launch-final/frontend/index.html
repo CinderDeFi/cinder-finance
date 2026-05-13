@@ -535,14 +535,7 @@ footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 0 1.5rem; m
 nav a[href^="#"] { transition: color .2s; position: relative; }
 nav a[href^="#"]:hover { color: #FF6B23 !important; }
 nav a[href^="#"].nav-active { color: #FF6B23 !important; }
-nav a[href^="#"].nav-active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px; left: 0; right: 0;
-  height: 2px;
-  background: #FF6B23;
-  border-radius: 2px;
-}
+/* nav-active underline removed */
 
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/ethers.umd.min.js"></script>
