@@ -375,7 +375,7 @@ section{position:relative;z-index:1}
 .tick-dot{width:5px;height:5px;border-radius:50%;background:var(--border)}
 
 /* ── Stats section ── */
-#stats{padding:5rem 0}
+#stats{padding:2rem 0}
 .stats-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -1584,6 +1584,14 @@ html, body { max-width: 100%; overflow-x: hidden; }
 }
 /* ═══ END APP VISUAL UPGRADES ═══ */
 
+
+/* Stats section always visible */
+#stats .stats-grid, #stats .stat-cell {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
 </style>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-L9V6Z_xbAgvAUapG9W3U5.js"></script>
@@ -1764,6 +1772,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
                 <button class="zap-mode-btn active" id="heroModeNormal" onclick="setHeroMode('normal')">Use sFLR</button>
                 <button class="zap-mode-btn" id="heroModeZap" onclick="setHeroMode('zap')">⚡ Zap with FLR</button>
               </div>
+            </div>
+
+            <!-- Zap info tooltip -->
+            <div id="zapInfo" style="display:none;background:rgba(255,107,35,0.06);border:1px solid rgba(255,107,35,0.15);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12px;color:var(--ink2);line-height:1.5">
+              ⚡ <strong style="color:var(--accent2)">What is Zap?</strong> Don't have sFLR yet? Zap lets you deposit FLR directly — Cinder converts it to sFLR via Sceptre and deposits it in one transaction. No extra steps needed.
             </div>
             <!-- Normal mode -->
             <div id="heroNormalMode">
@@ -2438,6 +2451,8 @@ let heroZapMode = false;
 let appZapModeActive = false;
 
 function setHeroMode(mode) {
+  var zapInfo = document.getElementById('zapInfo');
+  if (zapInfo) zapInfo.style.display = mode === 'zap' ? 'block' : 'none';
   heroZapMode = mode === 'zap';
   document.getElementById('heroModeNormal').classList.toggle('active', !heroZapMode);
   document.getElementById('heroModeZap').classList.toggle('active', heroZapMode);
