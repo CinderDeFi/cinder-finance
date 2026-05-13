@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- BUILD-MARKER-CINDERFINANCE-2026-05-13-ZAP-LIVE -->
-<!-- BUILD-V3-VAULT-FIX -->
+<!-- BUILD-V4-LABELS-FIX -->
 
   <!-- SEO & Social -->
   <meta name="description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
@@ -2784,6 +2784,7 @@ async function _onWalletConnected(walletName) {
   if (cfg.zap && cfg.zap !== '0x0000000000000000000000000000000000000000') {
     zapContract = new ethers.Contract(cfg.zap, ZAP_ABI, signer);
   }
+  if (typeof updateZapVisibility === "function") updateZapVisibility();
   const lpVaultCfg = cfg.vaults.find(v => v.isLP && v.lpZap && v.lpZap !== '0x0000000000000000000000000000000000000000');
   if (lpVaultCfg) {
     lpZapContract = new ethers.Contract(lpVaultCfg.lpZap, LP_ZAP_ABI, signer);
@@ -2957,34 +2958,45 @@ async function heroWdPreview(){
   const pb=document.getElementById('heroWdPreview');
   if(!v){pb.style.display='none';return}
   pb.style.display='block';
-  let gross=v;
-  if(vault){try{const g=await vaultContract.sharesToAssets(ethers.parseEther(v.toString()));gross=parseFloat(ethers.formatEther(g))}catch{}}
+  const meta = VAULT_META[activeVaultIdx];
+  const assetSym = meta.assetSymbol;
+  let gross = v;
+  if(vault){try{const a=await vaultContract.sharesToAssets(ethers.parseEther(v.toString()));gross=parseFloat(ethers.formatEther(a))}catch{}}
   const fee=gross*0.001;
-  document.getElementById('ppWGross').textContent=gross.toFixed(6)+' stXRP';
-  document.getElementById('ppWFee').textContent=fee.toFixed(6)+' stXRP';
-  document.getElementById('ppWOut').textContent=(gross-fee).toFixed(6)+' stXRP';
+  document.getElementById('ppWGross').textContent=gross.toFixed(6)+' '+assetSym;
+  document.getElementById('ppWFee').textContent=fee.toFixed(6)+' '+assetSym;
+  document.getElementById('ppWOut').textContent=(gross-fee).toFixed(6)+' '+assetSym;
+
 }
 async function appDepPreview(){
   const v=parseFloat(document.getElementById('appDepAmt').value)||0;
   const pb=document.getElementById('appDepPreview');
   if(!v){pb.style.display='none';return}
   pb.style.display='block';
-  document.getElementById('appPrevDep').textContent=v.toFixed(4)+' stXRP';
-  document.getElementById('appPrevShares').textContent='≈'+v.toFixed(6)+' cXRP';
-  document.getElementById('appPrevYield').textContent='≈'+(v*0.084).toFixed(4)+' stXRP';
-  if(vault){try{const s=await vaultContract.assetsToShares(ethers.parseEther(v.toString()));document.getElementById('appPrevShares').textContent=parseFloat(ethers.formatEther(s)).toFixed(6)+' cXRP'}catch{}}
+  const meta = VAULT_META[activeVaultIdx];
+  const assetSym = appZapModeActive ? 'FLR' : meta.assetSymbol;
+  const shareSym = meta.shareSymbol;
+  const apyDec = (meta.apyPct || 0) / 100;
+  document.getElementById('appPrevDep').textContent=v.toFixed(4)+' '+assetSym;
+  document.getElementById('appPrevShares').textContent='≈'+v.toFixed(6)+' '+shareSym;
+  document.getElementById('appPrevYield').textContent='≈'+(v*apyDec).toFixed(4)+' '+assetSym;
+  if(vault){try{const s=await vaultContract.assetsToShares(ethers.parseEther(v.toString()));document.getElementById('appPrevShares').textContent=parseFloat(ethers.formatEther(s)).toFixed(6)+' '+shareSym}catch{}}
+
 }
 async function appWdPreview(){
   const v=parseFloat(document.getElementById('appWdAmt').value)||0;
   const pb=document.getElementById('appWdPreview');
   if(!v){pb.style.display='none';return}
   pb.style.display='block';
-  let gross=v;
-  if(vault){try{const g=await vaultContract.sharesToAssets(ethers.parseEther(v.toString()));gross=parseFloat(ethers.formatEther(g))}catch{}}
+  const meta = VAULT_META[activeVaultIdx];
+  const assetSym = meta.assetSymbol;
+  let gross = v;
+  if(vault){try{const a=await vaultContract.sharesToAssets(ethers.parseEther(v.toString()));gross=parseFloat(ethers.formatEther(a))}catch{}}
   const fee=gross*0.001;
-  document.getElementById('appPrevWGross').textContent=gross.toFixed(6)+' stXRP';
-  document.getElementById('appPrevWFee').textContent=fee.toFixed(6)+' stXRP';
-  document.getElementById('appPrevWOut').textContent=(gross-fee).toFixed(6)+' stXRP';
+  document.getElementById('appPrevWGross').textContent=gross.toFixed(6)+' '+assetSym;
+  document.getElementById('appPrevWFee').textContent=fee.toFixed(6)+' '+assetSym;
+  document.getElementById('appPrevWOut').textContent=(gross-fee).toFixed(6)+' '+assetSym;
+
 }
 
 // ── Hero actions ──────────────────────────────────────────────────────────
@@ -3009,7 +3021,7 @@ async function depositHero(){
     setBtnTxt('heroDepBtn','Depositing…',true);
     const tx=await vaultContract.deposit(ethers.parseEther(v));
     await tx.wait();
-    toast('Deposited '+parseFloat(v).toFixed(4)+' stXRP!','ok');
+    toast('Deposited '+parseFloat(v).toFixed(4)+' '+VAULT_META[activeVaultIdx].assetSymbol+'!','ok');
     document.getElementById('heroDepAmt').value='';
     document.getElementById('heroPreview').style.display='none';
     document.getElementById('heroDepBtn').style.display='none';
@@ -3056,7 +3068,7 @@ async function appDeposit(){
     setBtnTxt('appDepBtn','Depositing…',true);
     const tx=await vaultContract.deposit(ethers.parseEther(v));
     await tx.wait();
-    toast('Deposited '+parseFloat(v).toFixed(4)+' stXRP!','ok');
+    toast('Deposited '+parseFloat(v).toFixed(4)+' '+VAULT_META[activeVaultIdx].assetSymbol+'!','ok');
     document.getElementById('appDepAmt').value='';
     document.getElementById('appDepPreview').style.display='none';
     document.getElementById('appDepBtn').style.display='none';
@@ -3078,7 +3090,7 @@ async function appWithdraw(){
     document.getElementById('appWdPreview').style.display='none';
     await loadAppData();
   }catch(e){toast('Withdrawal failed','err')}
-  finally{setBtnTxt('appWdBtn','Withdraw stXRP',false)}
+  finally{setBtnTxt('appWdBtn','Withdraw '+VAULT_META[activeVaultIdx].assetSymbol,false)}
 }
 async function appHarvest(){
   if(!vault){toast('Connect wallet first','err');return}
@@ -3092,9 +3104,17 @@ async function appHarvest(){
 }
 
 // ── Max helpers ───────────────────────────────────────────────────────────
-function heroSetMax(){const m=document.getElementById('heroBalLbl').textContent.match(/([\d.]+) stXRP/);if(m){document.getElementById('heroDepAmt').value=m[1];heroPreview()}}
+function heroSetMax(){
+  const txt=document.getElementById('heroBalLbl').textContent;
+  const m=txt.match(/([\d.]+)\s*\S+$/);
+  if(m){document.getElementById('heroDepAmt').value=m[1];heroPreview()}
+}
 function heroSetMaxShares(){const m=document.getElementById('heroSharesLbl').textContent.match(/([\d.]+)/);if(m){document.getElementById('heroWdAmt').value=m[1];heroWdPreview()}}
-function appSetMax(){const m=document.getElementById('appBalLbl').textContent.match(/([\d.]+) stXRP/);if(m){document.getElementById('appDepAmt').value=m[1];appDepPreview()}}
+function appSetMax(){
+  const txt=document.getElementById('appBalLbl').textContent;
+  const m=txt.match(/([\d.]+)\s*\S+$/);
+  if(m){document.getElementById('appDepAmt').value=m[1];appDepPreview()}
+}
 function appSetMaxShares(){const m=document.getElementById('appSharesLbl').textContent.match(/([\d.]+)/);if(m){document.getElementById('appWdAmt').value=m[1];appWdPreview()}}
 
 // ── Calculator ────────────────────────────────────────────────────────────
