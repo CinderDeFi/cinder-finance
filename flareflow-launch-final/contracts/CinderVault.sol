@@ -11,12 +11,12 @@ pragma solidity ^0.8.20;
  * ─────────────────────────────
  * 1. Users deposit stXRP (liquid-staked XRP from Firelight protocol)
  * 2. This contract holds all deposits in a single pool (the "vault")
- * 3. stXRP automatically accrues yield (like interest) just by being held —
+ * 3. stXRP automatically accrues yield (like interest) just by being held -
  *    because the underlying XRP is staked and earning rewards
  * 4. Anyone can call harvest() to collect accumulated yield
  * 5. On harvest: 10% of new yield goes to the protocol treasury (that's you),
  *    90% stays in the vault and benefits all depositors proportionally
- * 6. Users receive "cXRP" share tokens when they deposit — these represent
+ * 6. Users receive "cXRP" share tokens when they deposit - these represent
  *    their proportional ownership of the vault. As yield accumulates,
  *    each cXRP share is worth more stXRP over time.
  * 7. To withdraw, users return cXRP shares and receive stXRP back
@@ -116,10 +116,10 @@ contract CinderVault is ERC20 {
     // ── State ──────────────────────────────────────────────────────────────
     IERC20  public immutable stXRP;       // The stXRP token from Firelight/Sceptre
     address public treasury;              // Where protocol fees go
-    address public owner;                 // Admin — can change treasury, pause
+    address public owner;                 // Admin - can change treasury, pause
     bool    public paused;                // Emergency pause
 
-    // TVL cap — limits blast radius before audit completes.
+    // TVL cap - limits blast radius before audit completes.
     // Raised by governance vote (CinderGovernor) after clean audit.
     uint256 public tvlCap = 50_000e18;    // 50,000 tokens (~$50K at launch)
     mapping(address => bool) public approvedZaps; // whitelisted zap contracts
@@ -168,17 +168,17 @@ contract CinderVault is ERC20 {
      * HOW SHARES ARE CALCULATED:
      * If the vault is empty, you get 1:1 shares (deposit 100 → get 100 shares).
      * If the vault already has yield, your shares are worth proportionally
-     * more — you get fewer shares, but each share is worth more stXRP.
+     * more - you get fewer shares, but each share is worth more stXRP.
      * This is the standard ERC-4626 vault math used by all major DeFi protocols.
      */
     function deposit(uint256 amount) external notPaused returns (uint256 shares) {
         require(amount >= MINIMUM_DEPOSIT, "Below minimum deposit");
-        require(totalAssets() + amount <= tvlCap, "Vault: TVL cap reached — check governance for raise");
+        require(totalAssets() + amount <= tvlCap, "Vault: TVL cap reached - check governance for raise");
 
         // Transfer stXRP from user to this vault
         require(
             stXRP.transferFrom(msg.sender, address(this), amount),
-            "stXRP transfer failed — did you approve() first?"
+            "stXRP transfer failed - did you approve() first?"
         );
 
         // Calculate shares to issue
@@ -210,7 +210,7 @@ contract CinderVault is ERC20 {
 
     /**
      * @notice Deposit on behalf of another address.
-     * Only callable by approved zap contracts — not the general public.
+     * Only callable by approved zap contracts - not the general public.
      *
      * WHY THIS EXISTS:
      * The CinderZap contract stakes FLR → gets sFLR → calls this to
@@ -295,19 +295,19 @@ contract CinderVault is ERC20 {
     }
 
     // ════════════════════════════════════════════════════════════════════════
-    //  HARVEST (anyone can call this — it's public good)
+    //  HARVEST (anyone can call this - it's public good)
     // ════════════════════════════════════════════════════════════════════════
 
     /**
      * @notice Harvest accumulated yield. Takes 10% as protocol fee.
      *
      * HOW YIELD IS DETECTED:
-     * stXRP is a "rebasing" token — its balance increases automatically as
+     * stXRP is a "rebasing" token - its balance increases automatically as
      * XRP staking rewards accumulate. So if this vault held 1000 stXRP
      * and now holds 1010 stXRP without any new deposits, the 10 stXRP
      * difference IS the yield. We send 10% of that to treasury.
      *
-     * Anyone can call this — it benefits all depositors by locking in
+     * Anyone can call this - it benefits all depositors by locking in
      * the fee calculation. Typically called by a keeper bot every few hours.
      */
     function harvest() external notPaused returns (uint256 yieldAmount, uint256 feeAmount) {
@@ -415,7 +415,7 @@ contract CinderVault is ERC20 {
         treasury = newTreasury;
     }
 
-    /// @notice Emergency pause — stops deposits and withdrawals
+    /// @notice Emergency pause - stops deposits and withdrawals
     function setPaused(bool _paused) external onlyOwner {
         paused = _paused;
         emit EmergencyPause(_paused);

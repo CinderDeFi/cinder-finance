@@ -147,7 +147,7 @@ contract CinderToken {
         if (nCP > 0 && checkpoints[delegatee][nCP - 1].fromBlock == blockNum) {
             checkpoints[delegatee][nCP - 1].votes = safe224(newVotes);
         } else {
-            checkpoints[delegatee][nCP] = Checkpoint(blockNum, safe224(newVotes));
+            checkpoints[delegatee].push(Checkpoint(blockNum, safe224(newVotes)));
             numCheckpoints[delegatee] = nCP + 1;
         }
         emit DelegateVotesChanged(delegatee, oldVotes, newVotes);

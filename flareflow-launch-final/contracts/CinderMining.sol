@@ -145,6 +145,14 @@ contract CinderMining {
         emit Staked(pid, msg.sender, amount);
     }
 
+    function _withdraw(uint256 pid, uint256 amount) internal {
+        _updateUserReward(pid, msg.sender);
+        pools[pid].totalStaked        -= amount;
+        stakedBalance[pid][msg.sender] -= amount;
+        pools[pid].stakedToken.transfer(msg.sender, amount);
+        _claim(pid, msg.sender);
+    }
+
     function withdraw(uint256 pid, uint256 amount) external validPool(pid) {
         require(amount > 0 && stakedBalance[pid][msg.sender] >= amount, "invalid withdraw");
         _updateUserReward(pid, msg.sender);
@@ -168,7 +176,7 @@ contract CinderMining {
     }
 
     function exit(uint256 pid) external validPool(pid) {
-        withdraw(pid, stakedBalance[pid][msg.sender]);
+        _withdraw(pid, stakedBalance[pid][msg.sender]);
     }
 
     function _claim(uint256 pid, address user) internal {

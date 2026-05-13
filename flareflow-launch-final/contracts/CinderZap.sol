@@ -3,7 +3,7 @@ pragma solidity ^0.8.20;
 
 /**
  * ╔══════════════════════════════════════════════════════════╗
- * ║         CinderZap — One-Click FLR → Vault             ║
+ * ║         CinderZap - One-Click FLR → Vault             ║
  * ╚══════════════════════════════════════════════════════════╝
  *
  * WHAT THIS DOES:
@@ -32,23 +32,23 @@ pragma solidity ^0.8.20;
  *
  * WHAT MAKES THIS SAFE:
  * ──────────────────────
- * - Zap holds NO funds between transactions — everything is atomic
+ * - Zap holds NO funds between transactions - everything is atomic
  * - If any step reverts, the entire tx reverts (user gets FLR back)
- * - Only whitelisted in the vault — vault.approvedZaps[zapAddr] = true
+ * - Only whitelisted in the vault - vault.approvedZaps[zapAddr] = true
  * - Minimum output check: user specifies minimum cFLR they accept
- *   (slippage protection — reverts if vault share price moved too much)
- * - Owner cannot drain funds — no fund-holding functions
- * - Fully stateless — no storage of user balances
+ *   (slippage protection - reverts if vault share price moved too much)
+ * - Owner cannot drain funds - no fund-holding functions
+ * - Fully stateless - no storage of user balances
  *
  * SCEPTRE ADDRESSES (Flare Mainnet):
  * ────────────────────────────────────
  * sFLR token:   0x12e605bc104e93B45e1aD99F9e555f659051c2BB
  * Sceptre pool: 0xb53Da25e918F9Df67f8dEDFeC83d7e81F3a0D0d
- *   Method:     submit() payable — send FLR, receive sFLR
+ *   Method:     submit() payable - send FLR, receive sFLR
  *
  * ALSO SUPPORTS:
  * ───────────────
- * zapAndDepositStXRP() — for when Firelight launches:
+ * zapAndDepositStXRP() - for when Firelight launches:
  *   FLR → (Firelight stake) → stXRP → deposit → cXRP shares
  *   Currently stubbed, activated when Firelight provides their interface.
  */
@@ -63,7 +63,7 @@ interface ISceptrePool {
     /**
      * @notice Stake FLR and receive sFLR.
      * Send FLR as msg.value. Sceptre mints sFLR to msg.sender.
-     * The exchange rate is not 1:1 — sFLR appreciates over time.
+     * The exchange rate is not 1:1 - sFLR appreciates over time.
      * At any point: 1 sFLR > 1 FLR in value.
      */
     function submit() external payable returns (uint256 sFLRAmount);
@@ -88,7 +88,7 @@ interface ICinderVault {
     function totalAssets() external view returns (uint256);
 
     /**
-     * @notice TVL cap — reverts if deposit would exceed this.
+     * @notice TVL cap - reverts if deposit would exceed this.
      */
     function tvlCap() external view returns (uint256);
 }
@@ -100,7 +100,7 @@ contract CinderZap {
     IERC20           public immutable sFLR;
     ICinderVault  public immutable sFLRVault;   // sFLR vault (cFLR shares)
 
-    // Firelight stXRP — set when Firelight Phase 2 launches
+    // Firelight stXRP - set when Firelight Phase 2 launches
     address public stXRPStakingContract; // Firelight staking pool
     IERC20  public stXRP;
     ICinderVault public stXRPVault;   // stXRP vault (cXRP shares)
@@ -175,7 +175,7 @@ contract CinderZap {
         ICinderVault vault = sFLRVault;
         require(
             vault.totalAssets() + msg.value <= vault.tvlCap(),
-            "Zap: vault TVL cap reached — governance vote required to raise"
+            "Zap: vault TVL cap reached - governance vote required to raise"
         );
 
         // Step 2: Stake FLR with Sceptre → receive sFLR
@@ -189,7 +189,7 @@ contract CinderZap {
         shares = vault.depositFor(msg.sender, sFLRReceived);
 
         // Step 4: Slippage check
-        require(shares >= minShares, "Zap: slippage too high — increase tolerance or try again");
+        require(shares >= minShares, "Zap: slippage too high - increase tolerance or try again");
 
         emit ZappedFLRtosFLR(msg.sender, msg.value, sFLRReceived, shares);
     }
@@ -214,7 +214,7 @@ contract CinderZap {
         );
 
         // Stake FLR with Firelight to get stXRP
-        // Interface TBD — Firelight Phase 2 not yet live
+        // Interface TBD - Firelight Phase 2 not yet live
         // When it launches, update this call to match their staking interface
         uint256 stXRPBefore = stXRP.balanceOf(address(this));
         (bool ok,) = stXRPStakingContract.call{value: msg.value}(
@@ -231,12 +231,12 @@ contract CinderZap {
     }
 
     // ════════════════════════════════════════════════════════════════════
-    //  VIEW — preview before transacting
+    //  VIEW - preview before transacting
     // ════════════════════════════════════════════════════════════════════
 
     /**
      * @notice Preview how many cFLR shares you'd receive for a given FLR amount.
-     * Not exact — the actual sFLR received from Sceptre depends on the live
+     * Not exact - the actual sFLR received from Sceptre depends on the live
      * exchange rate at execution time. Use this as an estimate with ~0.5% buffer.
      *
      * @param flrAmount  FLR to zap (in wei)
@@ -253,7 +253,7 @@ contract CinderZap {
         // but in token terms you receive slightly less sFLR than FLR sent
         // We approximate the rate from the sFLR/FLR exchange
         // In production, read directly from Sceptre's getPooledFlrByShares() or equivalent
-        uint256 sFLREstimate = flrAmount; // conservative 1:1 estimate — real rate is close at launch
+        uint256 sFLREstimate = flrAmount; // conservative 1:1 estimate - real rate is close at launch
         estimatedShares     = sFLRVault.assetsToShares(sFLREstimate);
         currentsFLRRate     = 1e18; // 1:1 approximation
         uint256 currentTvl  = sFLRVault.totalAssets();
