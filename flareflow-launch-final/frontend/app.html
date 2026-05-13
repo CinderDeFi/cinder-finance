@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- BUILD-MARKER-CINDERFINANCE-2026-05-13-ZAP-LIVE -->
-<!-- BUILD-V10-SPARKDEX-HELPER -->
+<!-- BUILD-V11-POSITION-STYLES -->
 
   <!-- SEO & Social -->
   <meta name="description" content="Deposit sFLR or stXRP into Cinder vaults and earn auto-compounding yield on Flare Network. Connect wallet and start earning.">
@@ -965,6 +965,68 @@ nav button::after { display: none !important; content: none !important; }
     gap: 10px;
     width: 100%;
   }
+}
+
+
+/* ── Position card styles ───────────────────────────────────────────── */
+.position-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid var(--border, rgba(255,255,255,0.06));
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+.pos-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.pos-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.pos-row:first-child {
+  padding-top: 0;
+}
+.pos-l {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ink3, #8a8a8a);
+  text-transform: uppercase;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.pos-v {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 14px;
+  color: var(--ink, #fff);
+  font-weight: 600;
+  text-align: right;
+  word-break: break-all;
+}
+.pos-v.big {
+  font-size: 22px;
+  color: var(--accent2, #FF6B23);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.yield-chip {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  color: var(--green, #3DA85F);
+  background: rgba(61,168,95,0.08);
+  border: 1px solid rgba(61,168,95,0.2);
+  border-radius: 999px;
+  padding: 3px 10px;
+  letter-spacing: 0.02em;
+  font-weight: 500;
 }
 
 </style>
