@@ -21,10 +21,10 @@ pragma solidity ^0.8.20;
  * HOW IT WORKS INTERNALLY:
  * ──────────────────────────
  * 1. User sends FLR with the transaction
- * 2. Zap calls Sceptre's submit() with that FLR
- *    → Sceptre stakes the FLR and sends back sFLR
+ * 2. Zap calls sFLR.deposit() with that FLR (sFLR token IS the staking pool on Flare)
+ *    → sFLR stakes the FLR and mints sFLR back to the zap
  *    → No swap, no slippage, no DEX fee
- *    → Rate is 1:1 minus Sceptre's existing exchange rate
+ *    → Rate is 1:1 minus Sceptre's existing exchange rate (sFLR appreciates over time)
  * 3. Zap approves the sFLR vault to spend the received sFLR
  * 4. Zap calls vault.depositFor(msg.sender, sFLRAmount)
  *    → Vault pulls sFLR from zap, mints cFLR shares to USER
@@ -38,13 +38,19 @@ pragma solidity ^0.8.20;
  * - Minimum output check: user specifies minimum cFLR they accept
  *   (slippage protection - reverts if vault share price moved too much)
  * - Owner cannot drain funds - no fund-holding functions
+ * - recoverToken() explicitly blocks sFLR (and stXRP if configured) so
+ *   the owner cannot drain the vault asset even in edge cases
+ * - Ownership transferred to CinderTimelock post-deploy (no EOA admin)
  * - Fully stateless - no storage of user balances
  *
  * SCEPTRE ADDRESSES (Flare Mainnet):
  * ────────────────────────────────────
- * sFLR token:   0x12e605bc104e93B45e1aD99F9e555f659051c2BB
- * Sceptre pool: 0xb53Da25e918F9Df67f8dEDFeC83d7e81F3a0D0d
- *   Method:     submit() payable - send FLR, receive sFLR
+ * sFLR token + staking pool: 0x12e605bc104e93B45e1aD99F9e555f659051c2BB
+ *   Method:                  deposit() payable - send FLR, receive sFLR
+ *
+ *   On Flare, the sFLR token contract IS the staking pool — single contract,
+ *   not separate token + pool like Lido. Always pass this same address as
+ *   both _sceptrePool and _sFLR in the constructor.
  *
  * ALSO SUPPORTS:
  * ───────────────
@@ -65,8 +71,13 @@ interface ISceptrePool {
      * Send FLR as msg.value. Sceptre mints sFLR to msg.sender.
      * The exchange rate is not 1:1 - sFLR appreciates over time.
      * At any point: 1 sFLR > 1 FLR in value.
+     *
+     * NOTE: On Flare, the sFLR token contract itself IS the staking pool.
+     * The function is named `deposit()` (no args, payable) — confirmed via
+     * on-chain transaction inspection. The contract follows an ERC-4626-like
+     * pattern where staking and minting happen in one call.
      */
-    function submit() external payable returns (uint256 sFLRAmount);
+    function deposit() external payable;
 }
 
 interface ICinderVault {
@@ -125,7 +136,9 @@ contract CinderZap {
     modifier onlyOwner() { require(msg.sender == owner, "Zap: not owner"); _; }
 
     /**
-     * @param _sceptrePool  Sceptre staking pool (submit() payable)
+     * @param _sceptrePool  Sceptre staking pool (deposit() payable)
+     *                       Pass the sFLR token address; it serves as both
+     *                       the pool and the token on Flare.
      * @param _sFLR         sFLR token address
      * @param _sFLRVault    Cinder sFLR vault address
      */
@@ -161,7 +174,7 @@ contract CinderZap {
      *   await zap.zapIntosFLRVault(minShares, { value: ethers.parseEther("100") })
      *
      * WHAT HAPPENS:
-     *   100 FLR → Sceptre submit() → ~95.2 sFLR (rate varies)
+     *   100 FLR → Sceptre deposit() → ~95.2 sFLR (rate varies)
      *   ~95.2 sFLR → vault.depositFor(user) → ~95.2 cFLR shares (first deposit)
      *   User receives cFLR in their wallet. Done.
      */
@@ -179,8 +192,9 @@ contract CinderZap {
         );
 
         // Step 2: Stake FLR with Sceptre → receive sFLR
+        // sFLR contract's deposit() is payable; it stakes the FLR and mints sFLR to msg.sender (this contract)
         uint256 sFLRBefore = sFLR.balanceOf(address(this));
-        sceptrePool.submit{value: msg.value}();
+        sceptrePool.deposit{value: msg.value}();
         uint256 sFLRReceived = sFLR.balanceOf(address(this)) - sFLRBefore;
         require(sFLRReceived > 0, "Zap: Sceptre returned 0 sFLR");
 
@@ -215,7 +229,9 @@ contract CinderZap {
 
         // Stake FLR with Firelight to get stXRP
         // Interface TBD - Firelight Phase 2 not yet live
-        // When it launches, update this call to match their staking interface
+        // When it launches, update the function selector below to match
+        // their actual staking entry point. The placeholder "submit()" is
+        // a guess; confirm via Firelight docs before configureFirelight() is called.
         uint256 stXRPBefore = stXRP.balanceOf(address(this));
         (bool ok,) = stXRPStakingContract.call{value: msg.value}(
             abi.encodeWithSignature("submit()")
@@ -288,9 +304,19 @@ contract CinderZap {
      * The zap should hold zero balances between transactions.
      * If any tokens are stuck (e.g. Sceptre call partially succeeded),
      * the owner can recover them and return to the user.
+     *
+     * SAFETY: This function CANNOT recover sFLR (the vault asset). That asset
+     * flows through the zap on every deposit; allowing owner-recovery would
+     * create a rug vector. Stuck sFLR (which should be impossible since the
+     * zap pre-approves max to the vault and depositFor is atomic) would need
+     * to be rescued via a contract upgrade through governance.
      */
     function recoverToken(address token, uint256 amount, address to) external onlyOwner {
         require(to != address(0), "Zap: zero address");
+        require(token != address(sFLR), "Zap: cannot recover vault asset");
+        if (address(stXRP) != address(0)) {
+            require(token != address(stXRP), "Zap: cannot recover stXRP asset");
+        }
         IERC20(token).transfer(to, amount);
     }
 
