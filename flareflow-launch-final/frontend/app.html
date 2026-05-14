@@ -488,6 +488,44 @@ section{position:relative;z-index:1}
   .vp-apy{font-size:16px}
 }
 
+/* ── Connect-wallet / placeholder panel ── */
+.not-conn{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:2.5rem 1.5rem;
+  min-height:200px;
+}
+.not-conn .ni{
+  font-size:36px;
+  margin-bottom:12px;
+  line-height:1;
+  opacity:0.85;
+}
+.not-conn h3{
+  font-family:var(--display);
+  font-size:18px;
+  font-weight:700;
+  color:var(--ink);
+  margin:0 0 8px;
+  letter-spacing:-0.3px;
+}
+.not-conn p{
+  font-size:13px;
+  color:var(--ink3);
+  margin:0;
+  line-height:1.5;
+  max-width:280px;
+}
+@media(max-width:768px){
+  .not-conn{padding:2rem 1rem;min-height:160px}
+  .not-conn .ni{font-size:32px;margin-bottom:10px}
+  .not-conn h3{font-size:16px}
+  .not-conn p{font-size:12px}
+}
+
 
 /* ── How it works ── */
 #how{padding:5rem 0}
@@ -2453,10 +2491,19 @@ function selectVault(idx) {
       if (v.vault !== '0x0000000000000000000000000000000000000000') {
         vaultContract  = new ethers.Contract(v.vault, VAULT_ABI, signer);
         assetContract  = new ethers.Contract(v.asset, ERC20_ABI, signer);
+        // Vault is live — show deposit form, hide placeholder
+        showConnectedForms();
         loadAppData();
       } else {
         showNotDeployed(idx);
       }
+    }
+  } else {
+    // No wallet connected — show "connect wallet" prompt for THIS vault context only if it's live
+    const cfg2 = CONTRACTS[14]; // mainnet default for display purposes
+    const v2 = cfg2 && cfg2.vaults[idx];
+    if (v2 && v2.vault === '0x0000000000000000000000000000000000000000') {
+      showNotDeployed(idx);
     }
   }
 
