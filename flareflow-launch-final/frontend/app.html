@@ -1551,6 +1551,10 @@ nav button::after { display: none !important; content: none !important; }
     <span class="acc-icon">↗</span>
     <span>View on FlareScan</span>
   </button>
+  <button class="acc-menu-item" onclick="switchWalletAccount()" role="menuitem">
+    <span class="acc-icon">⇄</span>
+    <span>Switch account</span>
+  </button>
   <div class="acc-menu-divider"></div>
   <button class="acc-menu-item danger" onclick="disconnectWallet()" role="menuitem">
     <span class="acc-icon">⏻</span>
@@ -3411,7 +3415,14 @@ async function _onWalletConnected(walletName) {
   const ethProvider = provider.provider || window.ethereum;
   if (ethProvider?.on) {
     ethProvider.on('chainChanged', () => location.reload());
-    ethProvider.on('accountsChanged', () => location.reload());
+    ethProvider.on('accountsChanged', (accounts) => {
+      // Empty array means the user disconnected the site from their wallet.
+      // Clear our auto-reconnect preference so we don't immediately reconnect.
+      if (!accounts || accounts.length === 0) {
+        try { localStorage.removeItem('cinderWalletConnected'); } catch(e) {}
+      }
+      location.reload();
+    });
   }
 
   pollBlock();
@@ -3488,6 +3499,19 @@ async function disconnectWallet() {
   closeAccountMenu();
   // Clear saved preference so auto-reconnect won't fire
   try { localStorage.removeItem('cinderWalletConnected'); } catch(e) {}
+  // Revoke MetaMask / injected wallet permission (EIP-2255) when supported
+  // so the next "Connect Wallet" forces the account picker to appear again
+  try {
+    const eth = window.ethereum;
+    if (eth && typeof eth.request === 'function') {
+      try {
+        await eth.request({
+          method: 'wallet_revokePermissions',
+          params: [{ eth_accounts: {} }]
+        });
+      } catch(_) { /* not all wallets support revoke yet; harmless */ }
+    }
+  } catch(e) { /* silent */ }
   // For WalletConnect sessions, properly close them
   try {
     if (typeof wcProvider !== 'undefined' && wcProvider && wcProvider.disconnect) {
@@ -3496,6 +3520,33 @@ async function disconnectWallet() {
   } catch(e) { /* silent */ }
   toast('Disconnected — reloading...', 'ok');
   setTimeout(() => location.reload(), 600);
+}
+
+// Open the wallet's account picker so the user can choose a different account
+async function switchWalletAccount() {
+  closeAccountMenu();
+  const eth = window.ethereum;
+  if (!eth || typeof eth.request !== 'function') {
+    toast('Open your wallet and switch accounts there', 'warn');
+    return;
+  }
+  try {
+    // wallet_requestPermissions with eth_accounts forces the account picker UI
+    // even if permission already granted (MetaMask + most injected wallets)
+    await eth.request({
+      method: 'wallet_requestPermissions',
+      params: [{ eth_accounts: {} }]
+    });
+    // After picking, the new active account will fire accountsChanged → page reloads
+    toast('Switching account...', 'ok');
+  } catch(e) {
+    // User rejected, or wallet doesn't support this method
+    if (e && e.code === 4001) {
+      // Rejection — silent, user chose to cancel
+      return;
+    }
+    toast('Switch in your wallet, then refresh', 'warn');
+  }
 }
 
 // Legacy: connectWallet() now opens the modal instead of directly connecting
