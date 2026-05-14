@@ -941,6 +941,109 @@ w3m-modal, wcm-modal, [id*="walletconnect"], [class*="walletconnect"],
   background: var(--surface-hover, #1a1612);
 }
 
+/* ── Account dropdown menu ─────────────────────────────────────────── */
+.acc-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: 700;
+  display: none;
+}
+.acc-menu-backdrop.open { display: block; }
+.acc-menu {
+  position: fixed;
+  top: 56px;
+  right: 16px;
+  min-width: 240px;
+  background: var(--card, #1a1612);
+  border: 1px solid var(--border, rgba(255,255,255,0.1));
+  border-radius: 14px;
+  padding: 8px;
+  z-index: 800;
+  display: none;
+  font-family: 'Space Grotesk', sans-serif;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  animation: accFadeIn 0.12s ease-out;
+}
+.acc-menu.open { display: block; }
+@keyframes accFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.acc-menu-header {
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid var(--border, rgba(255,255,255,0.06));
+  margin-bottom: 6px;
+}
+.acc-menu-addr {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink, #EEE9E1);
+  font-family: var(--mono, monospace);
+  letter-spacing: 0.02em;
+  word-break: break-all;
+  line-height: 1.4;
+}
+.acc-menu-net {
+  font-size: 11px;
+  color: var(--ink3, #888);
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.acc-menu-net::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ABA6F;
+  box-shadow: 0 0 5px rgba(74, 186, 111, 0.6);
+}
+.acc-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--ink, #EEE9E1);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.1s;
+  font-family: inherit;
+}
+.acc-menu-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+.acc-menu-item.danger {
+  color: #FF6B6B;
+}
+.acc-menu-item.danger:hover {
+  background: rgba(255, 107, 107, 0.08);
+}
+.acc-menu-item .acc-icon {
+  font-size: 15px;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+.acc-menu-divider {
+  height: 1px;
+  background: var(--border, rgba(255,255,255,0.06));
+  margin: 6px 0;
+}
+@media (min-width: 769px) {
+  /* Desktop: anchor near top-right nav */
+  .acc-menu { top: 64px; right: 20px; }
+}
+
+
 /* DESKTOP (≥769px) */
 @media (min-width: 769px) {
   .ham-btn       { display: none !important; }
@@ -1432,6 +1535,28 @@ nav button::after { display: none !important; content: none !important; }
 <button id="floatConnect" onclick="openWalletModal()" aria-label="Connect Wallet">
   🔥 Connect Wallet
 </button>
+
+<!-- Account dropdown menu (shown when wallet connected and pill is tapped) -->
+<div class="acc-menu-backdrop" id="accMenuBackdrop" onclick="closeAccountMenu()"></div>
+<div class="acc-menu" id="accMenu" role="menu" aria-label="Account menu">
+  <div class="acc-menu-header">
+    <div class="acc-menu-addr" id="accMenuAddr">—</div>
+    <div class="acc-menu-net" id="accMenuNet">Flare Mainnet</div>
+  </div>
+  <button class="acc-menu-item" onclick="copyAddress()" role="menuitem">
+    <span class="acc-icon">📋</span>
+    <span>Copy address</span>
+  </button>
+  <button class="acc-menu-item" onclick="viewOnExplorer()" role="menuitem">
+    <span class="acc-icon">↗</span>
+    <span>View on FlareScan</span>
+  </button>
+  <div class="acc-menu-divider"></div>
+  <button class="acc-menu-item danger" onclick="disconnectWallet()" role="menuitem">
+    <span class="acc-icon">⏻</span>
+    <span>Disconnect</span>
+  </button>
+</div>
 
 <!-- TICKER -->
 <div class="ticker-wrap" style="position:relative;z-index:1;margin-top:64px">
@@ -3308,10 +3433,69 @@ function loadScript(src) {
 
 
 // ── Account menu (shown when wallet already connected) ────────────────
-function showAccountMenu() {
-  // Simple disconnect option via toast with action
-  const short = userAddr ? userAddr.slice(0,6)+'…'+userAddr.slice(-4) : '';
-  toast(`Connected: ${short} — refresh page to disconnect`, 'ok');
+function showAccountMenu(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  if (!userAddr) { openWalletModal(); return; }
+  const addr = document.getElementById('accMenuAddr');
+  if (addr) addr.textContent = userAddr;
+  const net = document.getElementById('accMenuNet');
+  if (net) {
+    net.textContent = chainId === 14 ? 'Flare Mainnet'
+                    : chainId === 114 ? 'Coston2 Testnet'
+                    : 'Chain ' + chainId;
+  }
+  document.getElementById('accMenu')?.classList.add('open');
+  document.getElementById('accMenuBackdrop')?.classList.add('open');
+}
+
+function closeAccountMenu() {
+  document.getElementById('accMenu')?.classList.remove('open');
+  document.getElementById('accMenuBackdrop')?.classList.remove('open');
+}
+
+function copyAddress() {
+  if (!userAddr) return;
+  try {
+    navigator.clipboard.writeText(userAddr);
+    toast('Address copied', 'ok');
+  } catch(e) {
+    // Fallback for older browsers / mobile WebViews without clipboard API
+    const ta = document.createElement('textarea');
+    ta.value = userAddr;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); toast('Address copied', 'ok'); }
+    catch(_) { toast('Could not copy — long-press to copy manually', 'warn'); }
+    document.body.removeChild(ta);
+  }
+  closeAccountMenu();
+}
+
+function viewOnExplorer() {
+  if (!userAddr) return;
+  const url = chainId === 14
+    ? `https://flarescan.com/address/${userAddr}`
+    : chainId === 114
+    ? `https://coston2-explorer.flare.network/address/${userAddr}`
+    : `https://flare-explorer.flare.network/address/${userAddr}`;
+  window.open(url, '_blank', 'noopener,noreferrer');
+  closeAccountMenu();
+}
+
+async function disconnectWallet() {
+  closeAccountMenu();
+  // Clear saved preference so auto-reconnect won't fire
+  try { localStorage.removeItem('cinderWalletConnected'); } catch(e) {}
+  // For WalletConnect sessions, properly close them
+  try {
+    if (typeof wcProvider !== 'undefined' && wcProvider && wcProvider.disconnect) {
+      await wcProvider.disconnect();
+    }
+  } catch(e) { /* silent */ }
+  toast('Disconnected — reloading...', 'ok');
+  setTimeout(() => location.reload(), 600);
 }
 
 // Legacy: connectWallet() now opens the modal instead of directly connecting
