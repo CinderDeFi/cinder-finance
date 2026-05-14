@@ -778,6 +778,41 @@ w3m-modal, wcm-modal, [id*="walletconnect"], [class*="walletconnect"],
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   #floatConnect { bottom: calc(20px + env(safe-area-inset-bottom)); }
 }
+/* Connected state — small pill at top, not bottom — shows wallet address */
+#floatConnect.connected {
+  position: fixed;
+  top: 14px;
+  bottom: auto;
+  right: 60px;
+  left: auto;
+  transform: none;
+  background: var(--surface, #14110d);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  color: var(--ink, #EEE9E1);
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 999px;
+  box-shadow: none;
+  z-index: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.01em;
+}
+#floatConnect.connected::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #4ABA6F;
+  border-radius: 50%;
+  margin-right: 7px;
+  vertical-align: middle;
+  box-shadow: 0 0 6px rgba(74, 186, 111, 0.6);
+}
+#floatConnect.connected:hover {
+  transform: none;
+  background: var(--surface-hover, #1a1612);
+}
 
 /* DESKTOP (≥769px) */
 @media (min-width: 769px) {
@@ -3065,6 +3100,14 @@ async function _onWalletConnected(walletName) {
   connectBtn.style.background = 'var(--surface)';
   connectBtn.style.border = '1px solid var(--border)';
   connectBtn.style.color = 'var(--ink)';
+  // Mobile: morph floating Connect button into wallet-address pill
+  const floatBtn = document.getElementById('floatConnect');
+  if (floatBtn) {
+    floatBtn.textContent = short;
+    floatBtn.classList.add('connected');
+    floatBtn.onclick = showAccountMenu;
+    floatBtn.setAttribute('aria-label', 'Wallet ' + short + ' — tap for menu');
+  }
   const netPill = document.getElementById('netPill');
   if (netPill) {
     netPill.textContent = netName;
